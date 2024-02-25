@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/amb/ptn/home', function () {
+    return view('amb_ptn_home');
+});
