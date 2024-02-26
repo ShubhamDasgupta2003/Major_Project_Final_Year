@@ -33,49 +33,18 @@
 </head>
 <body>
     <!-- header section start -->
-    <header class="header">
-        <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>medcare</a>
-        <div class="search-bar" id="srchbar-above">
-            <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>
+    @include('header1')
 
-            <input type="text" id="searchInput" name="search"  placeholder="Search for services...">
-            <button class="btn" onclick="search()"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
-        
-        <nav class="navbar">
-            <a class="navlink" href="#home">Home</a>
-            <a class="navlink" href="#services">Services</a>
-            <a class="navlink" href="#review">Review</a>
-            <a class="navlink" href="#footer">contact Us</a>
-        </nav>
-        
-        
-        <div class="user-avatar-container">
-            <a href="profile.php" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
-    
-                
-                    {{-- echo"<h3>$_SESSION[user_fname]</h3>";
-                    echo "<input type='hidden' id='session_val' value=1>";
-              
-                
-                    echo"<h3>Guest</h3>";
-                    echo "<input type='hidden' id='session_val' value=0>"; --}}
-                
-          
+    <nav class="navbar">
+        <a class="navlink" href="#home">Home</a>
+        <a class="navlink" href="#services">Services</a>
+        <a class="navlink" href="#review">Review</a>
+        <a class="navlink" href="#footer">contact Us</a>
+    </nav>
 
+    @include('header2')
 
-        </div>
-        <div id="menu-btn" class="fa fa-bars"> </div>
-    </header>
-
-    <!-- header section end -->
-    <div class="search-navbar" id="srchbar-below">
-        <div class="search-bar">
-            <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>
-            <input type="text" id="searchInput1" name="search"  placeholder="Search ...">
-            <button class="btn" onclick="search1()"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
-    </div>
+   <!-- header section start -->
 
     <!-- sourav-section-start -->
     <main >
@@ -252,54 +221,54 @@
         
             <div class="box">
                 <img src="images/HomePage/ambulance.png" alt="">
-                <h3>24×7 Ambulance</h3>
+                <h3>24x7 Ambulance</h3>
                 <p> soluta a, pariatur dolore odit vadipisci fugiat.</p>
-                <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/Medical Supplies/Technical Supplies.php" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
+                <a href="{{route('ambulence_home')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
 
            <div class="box">
                 <img src="images/HomePage/blood-bag.png" alt="">
                 <h3>Book Blood </h3>
                 <p> soluta a, pariatur dolore odit vadipisci fugiat.</p>
-                <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/Blood_Booking/BloodB.php" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
+                <a href="{{route('bloodB_home')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
 
             <div class="box">
                 <img src="images/HomePage/hospital.png" alt="">
                 <h3>Book Hospital Bed </h3>
                 <p>Efficiently book hospital beds online for immediate medical care access.</p>
-                <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/bed_booking_service/bed_booking.php" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
+                <a href="" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
 
             <div class="box">
                 <img src="images/HomePage/babysitter.png" alt="">
                 <h3>Aya</h3>
                 <p> soluta a, pariatur vadipisci i hi jkl  ljl;a fugiat vadipisci.</p>
-                <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/nursetechniciansupport/aya.php" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
+                <a href="{{route('aya_home')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
             <div class="box">
                 <img src="images/HomePage/nurse.png" alt="">
                 <h3>Nurse</h3>
                 <p> soluta a, pariatur dolore fsf fsaf afsaf fsaf fsaf fsaf fasf .</p>
-                <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/nursetechniciansupport/nurse.php" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
+                <a href="{{route('nurse_home')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
             <div class="box">
                 <img src="images/HomePage/radiologist.png" alt="">
                 <h3>Medical Technician</h3>
                 <p> soluta a, pariatur dolore odit vadipisci fugiat.</p>
-                <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/nursetechniciansupport/technician.php" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
+                <a href="{{route('technician_home')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
             <div class="box">
                 <img src="images/HomePage/medicine.png" alt="">
                 <h3>Buy Medicine 24x7</h3>
                 <p> soluta a, pariatur dolore odit vadipisci fugiat.</p>
-                <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/Medical Supplies/Medical Supplies.php" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
+                <a href="" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
             <div class="box">
                 <img src="images/HomePage/oxygen.png" alt="">
                 <h3>Oxygen</h3>
                 <p> soluta a, pariatur dolore odit vadipisci fugiat.</p>
-                <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/Medical Supplies/Technical Supplies.php" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
+                <a href="" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
 
           
@@ -366,60 +335,19 @@
     </section>
 
     
-    <!-- about section start  -->
-    <section class="" id="footer"style="
-    padding-left: 0px;
-    padding-right: 0px;
-">
-        <div class="footer-top">
-            <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>medcare</a>
-            <div class="footer-txt">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta facilis maxime eius ad id qui quos quod corporis non minus! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro, voluptates 
-            </div>
-        </div>
-        <div class="footer-bottom" id="footer">
-            <div class="company-col footer-link-col">
-                <h2>Company</h2>
-                <ul>
-                    <li>About Company</li>
-                    <li>Customer's Speak</li>
-                    <li>In the News</li>
-                    <li>Terms and Conditions</li>
-                    <li>Privacy Policy</li>
-                    <li>Contact</li>
-                </ul>
-            </div>
-            <div class="shopping-col footer-link-col">
-                <h2>Shopping</h2>
-                <ul>
-                    <li>Browse by Manufacturers</li>
-                    <li>Health Articles</li>
-                    <li>Offers / Coupons</li>
-                    <li>FAQs</li>
-                </ul>
-            </div>
-            <div class="link-col footer-link-col">
-                <h2>Useful Links</h2>
-                <ul>
-                    <li>Home</li>
-                    <li>About us</li>
-                    <li>Services</li>
-                    <li>Contact us</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-    <!-- about section end-->
-    <script src="js/HomePage/Home.js"></script>//
+    <!-- footer section start  -->
+    @include('footer')
+   
+    <script src="js/HomePage/Home.js"></script>
     <script src="js/HomePage/sorav.js"></script>
-    <script src="js/HomePage/location.js"></script>
+    
     <script src="js/HomePage/slider.js"></script>
     <script src="js/HomePage/search.js"></script>
     <script src="//cdn.jsdelivr.net/gh/freeps2/a7rarpress@main/swiper-bundle.min.js"></script>
 
-<!-- JavaScript -->
-<!--Uncomment this line-->
-<script src="//cdn.jsdelivr.net/gh/freeps2/a7rarpress@main/script.js"></script>
-<script src="js/HomePage/slider.js"></script>
+    <!-- JavaScript -->
+    <!--Uncomment this line-->
+    <script src="//cdn.jsdelivr.net/gh/freeps2/a7rarpress@main/script.js"></script>
+    <script src="js/HomePage/slider.js"></script>
 </body>
 </html>
