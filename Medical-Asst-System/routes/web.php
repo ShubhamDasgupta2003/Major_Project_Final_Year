@@ -19,3 +19,12 @@ Route::get('/', function () {
 Route::get('/amb/ptn/home', function () {
     return view('amb_ptn_home');
 });
+Route::get('/aya', function () {
+    return view('aya');
+});
+Route::get('/nurse', function () {
+    return view('nurse');
+});
+Route::get('/technician', function () {
+    return view('technician');
+});
