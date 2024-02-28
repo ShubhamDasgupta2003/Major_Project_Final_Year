@@ -88,55 +88,14 @@
 
 
     <!-- css -->
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/navLink.css">
-    <link rel="stylesheet" href="css/media.css">
-    <link rel="stylesheet" href="css/body_cont.css">
-    <link rel="stylesheet" href="css/footer_style.css">
-    <link rel="stylesheet" href="css/location_win.css">
+    @include('common_css')
     <link rel="stylesheet" href="css/cont-card.css">
     <link rel="stylesheet" href="css/mininav.css">
-
-
-
 </head>
 <body>
     <!-- header section start -->
-    <header class="header">
-        <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>medcare</a>
-        <div class="search-bar" id="srchbar-above">
-            <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>
-            <input type="text" id="searchInput" name="search" placeholder="Search...">
-            <button class="btn" onclick="search()"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
-        <nav class="navbar">
-            <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/index.php">Home</a>
-            <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/index.php#services">Services</a>
-            <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/index.php#review">Review</a>
-            <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/index.php#footer">contact Us</a>
-        </nav>
-
-        <div class="user-avatar-container"style="text-align:center;">
-        <a href="http://localhost/Minor%20Project%205th_Sem/Emergency_Medical_Support_System/HomePage/profile.php" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
-            <?php
-                
-                // echo"<h3>$_SESSION[user_fname]</h3>";
-            ?>
-            <h3>Ramesh</h3>
-
-        </div>
-        <div id="menu-btn" class="fa fa-bars"> </div>
-    </header>
-
+    @include('header')
     <!-- header section end -->
-    <div class="search-navbar" id="srchbar-below">
-        <div class="search-bar">
-            <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>
-            <input type="text" id="searchInput1" name="search" placeholder="Search...">
-            <button class="srch-btn btn" onclick="search1()"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
-    </div>
-
     <section class="body-container">
         <div>
             <nav class="segmented-navigation">
@@ -208,50 +167,9 @@
                 </div>
             </div>
             <!-- Location window popup ends here -->
-
-            <!-- Footer bar -->
-            <footer>
-                <div class="footer-top">
-                    <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>medcare</a>
-                    <div class="footer-txt">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta facilis maxime eius ad id qui quos quod corporis non minus! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro, voluptates 
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="company-col footer-link-col">
-                        <h2>Company</h2>
-                        <ul>
-                            <li>About Company</li>
-                            <li>Customer's Speak</li>
-                            <li>In the News</li>
-                            <li>Terms and Conditions</li>
-                            <li>Privacy Policy</li>
-                            <li>Contact</li>
-                        </ul>
-                    </div>
-                    <div class="shopping-col footer-link-col">
-                        <h2>Shopping</h2>
-                        <ul>
-                            <li>Browse by Manufacturers</li>
-                            <li>Health Articles</li>
-                            <li>Offers / Coupons</li>
-                            <li>FAQs</li>
-                        </ul>
-                    </div>
-                    <div class="link-col footer-link-col">
-                        <h2>Useful Links</h2>
-                        <ul>
-                            <li>Home</li>
-                            <li>About us</li>
-                            <li>Services</li>
-                            <li>Contact us</li>
-                        </ul>
-                    </div>
-                </div>
-            </footer>
-        <!-- contents class ends here -->
         </div>
     </section>
+    @include('footer')
     <script src="js/location.js"></script>
     <script src="js/hambargericon.js"></script>
     <script src="search_medtech.js"></script>
