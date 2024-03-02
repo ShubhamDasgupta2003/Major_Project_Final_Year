@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\MedicalSuppliesController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\PdfController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,3 +34,29 @@ Route::get('/technician', function () {
 
 // routes for BloodBank
 Route::view ('/bloodBank','bloodB_home')->name('bloodB_home');
+
+
+/*-------------------Medical Supplies----------------------------------*/
+Route::get('/medical supplies',[MedicalSuppliesController::class,'index'])->name('medical_supplies.index');
+Route::get('/technical supplies',[MedicalSuppliesController::class,'indexb'])->name('medical_supplies.indexb');
+Route::get('/medical supplies/{medical_supplies_medical}/detail',[MedicalSuppliesController::class,'edit'])->name('medical_supplies.detail');
+Route::get('/technical supplies/{medical_supplies_technical}/detail',[MedicalSuppliesController::class,'editb'])->name('technical_supplies.detail');
+Route::post('/medical supplies/detail',[MedicalSuppliesController::class,'store'])->name('medical_supplies.store');
+Route::post('/technical supplies/detail',[MedicalSuppliesController::class,'storeb'])->name('technical_supplies.storeb');
+Route::get('/cart',[MedicalSuppliesController::class,'cart'])->name('medical_supplies.cart');
+Route::delete('/cart/{cart}/delete',[MedicalSuppliesController::class,'delete'])->name('cart.delete');
+Route::put('/cart/{cart}/update',[MedicalSuppliesController::class,'update'])->name('cart.update');
+Route::get('/order confirmation',[MedicalSuppliesController::class,'order'])->name('medical_supplies.order_confirmation');
+/*-------------------Medical Supplies----------------------------------*/
+
+/*-------------------Admin Panel----------------------------------*/
+Route::get('/admin panel',[AdminController::class,'index'])->name('admin_panel.index');
+Route::get('/admin medical supplies',[AdminController::class,'admin_supplies'])->name('admin_panel.admin_medical_supplies');
+/*-------------------Admin Panel----------------------------------*/
+
+/*-------------------others----------------------------------*/
+Route::get('/send-mail',[MailController::class,'index']);
+Route::get('/send-attach-mail',[MailController::class,'send_attach_email']);
+Route::get('/generate-pdf',[PdfController::class,'generatePdf']);
+Route::get('/generate-pdfb',[MedicalSuppliesController::class,'generatePdfb']);//not ready yet
+/*-------------------others----------------------------------*/
