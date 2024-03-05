@@ -1,5 +1,9 @@
 const root = document.documentElement;
+const latView = document.getElementById('amb_lat_view');
+const lonView = document.getElementById('amb_lon_view');
+var addressView = document.getElementById('amb_address_view');
 
+console.log(addressView);
 // ================== Geocoding using Lat & Lon =========================
 
 api_key = "ee2dfca941774c139225977bbddebb90";
@@ -8,6 +12,8 @@ function onSuccess(position)
 {
     let {latitude,longitude} = position.coords;
     console.log(latitude,longitude);
+    latView.value = latitude;
+    lonView.value = longitude;
     let loc_txt = "";
     document.cookie = "cur_lat= "+latitude;
     document.cookie = "cur_lon= "+longitude;
@@ -19,6 +25,7 @@ function onSuccess(position)
         loc_txt = details['formatted'];
         document.cookie = "cur_addrss= "+loc_txt;
         console.log(loc_txt);
+        addressView.value = loc_txt;
     })
 }
 

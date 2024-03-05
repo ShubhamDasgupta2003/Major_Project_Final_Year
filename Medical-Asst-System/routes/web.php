@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\newAmbulanceRegistrationController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AmbInfoPageController;
 use App\Http\Controllers\MedicalSuppliesController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MailController;
@@ -19,9 +21,6 @@ use App\Http\Controllers\PdfController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
-Route::get('/amb/ptn/home', function () {
-    return view('amb_ptn_home');
-})->name('ambulence_home');
 Route::get('/aya', function () {
     return view('aya');
 })->name('aya_home');
@@ -60,3 +59,13 @@ Route::get('/send-attach-mail',[MailController::class,'send_attach_email']);
 Route::get('/generate-pdf',[PdfController::class,'generatePdf']);
 Route::get('/generate-pdfb',[MedicalSuppliesController::class,'generatePdfb']);//not ready yet
 /*-------------------others----------------------------------*/
+
+// ---------------------Ambulance Service Routes---------------------------
+
+Route::get('/amb/ptn/home',[AmbInfoPageController::class,'showAmbulanceServices'])->name('ambulance_home');
+
+Route::get('/amb-reg',function(){
+    return view('new_amb_reg');
+});
+
+Route::post('/amb-reg',[newAmbulanceRegistrationController::class,'addNewService'])->name('addNewAmb');

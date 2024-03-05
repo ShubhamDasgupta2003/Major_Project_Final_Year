@@ -50,6 +50,6 @@ class DemoMail extends Mailable
      */
     public function attachments(): array
     {
-        return ['C:/xampp/htdocs/test/public/saves/my_stored_file.pdf'];
+        return [];
     }
 }

@@ -243,7 +243,7 @@
                 <img src="images/HomePage/ambulance.png" alt="">
                 <h3>24x7 Ambulance</h3>
                 <p> soluta a, pariatur dolore odit vadipisci fugiat.</p>
-                <a href="{{route('ambulence_home')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
+                <a href="{{route('ambulance_home')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
 
            <div class="box">
