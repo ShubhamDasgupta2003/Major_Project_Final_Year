@@ -18,19 +18,19 @@ return new class extends Migration
             $table->enum('user_gender',["Male","Female","Others"]);
             $table->date('user_dob');
             $table->string('user_email',60);
-            $table->longText('user_password',30);
+            $table->longText('user_password');
             $table->bigInteger('user_contactno');
             $table->string('user_state',30);
             $table->string('user_district',30);
             $table->string('user_city',50);
             $table->integer('pincode');
-            // $table->string('user_last_login');
-            // $table->float('user_curr_lat');
-            // $table->float('user_curr_long');
-            // $table->float('user_lat_in_use');
-            // $table->float('user_long_in_use');
-            // $table->string('user_formatted_address');
-            // $table->integer('user_email_verified');
+            $table->string('user_last_login');
+            $table->float('user_curr_lat');
+            $table->float('user_curr_long');
+            $table->float('user_lat_in_use');
+            $table->float('user_long_in_use');
+            $table->string('user_formatted_address');
+            $table->integer('user_email_verified');
             $table->timestamps();
         });
     }

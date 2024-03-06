@@ -69,3 +69,10 @@ Route::get('/amb-reg',function(){
 });
 
 Route::post('/amb-reg',[newAmbulanceRegistrationController::class,'addNewService'])->name('addNewAmb');
+
+Route::get('/amb-book',function()
+{
+    return view('amb_booking');
+});
+
+Route::get('/get-dist',[AmbInfoPageController::class,'fetchDistance']);
