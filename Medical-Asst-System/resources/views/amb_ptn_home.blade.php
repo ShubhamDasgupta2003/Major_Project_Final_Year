@@ -74,19 +74,19 @@
 
                         </div>
                         <div class='card-row'>
-                            <p class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i>7 Km
+                            <p class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'>7 Km</i>
                             </p>
                             <p class='card-fare'>{{$ambulance->amb_rate}} Km/Hr</p>
                         </div>
                         <div class='card-row'>
-                            <a
+                            <a0o
                                 href='/Minor Project 5th_Sem/Emergency_Medical_Support_System/Ambulance Service/amb_booking_form.php?ambno=$rows[amb_no]&dist=$rows[distance]&booklat=$lat_in_use&booklon=$lon_in_use&amb_fare=$amb_fare&book_adrs=$full_address'><button
                                     class='btn btn-secondary-orange' id='book_btn'>Book ride</button></a>
                             <p id='card-status'>{{$ambulance->amb_status}}</p>
                         </div>
                     </div>
                 </div>
-                @endforeach
+            @endforeach
             </div>
 
             <!-- Location window popup starts here -->

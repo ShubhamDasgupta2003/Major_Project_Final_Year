@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\AmbulanceDriverPageController;
 use App\Http\Controllers\newAmbulanceRegistrationController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AmbInfoPageController;
 use App\Http\Controllers\MedicalSuppliesController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MailController;
@@ -62,7 +62,7 @@ Route::get('/generate-pdfb',[MedicalSuppliesController::class,'generatePdfb']);/
 
 // ---------------------Ambulance Service Routes---------------------------
 
-Route::get('/amb/ptn/home',[AmbInfoPageController::class,'showAmbulanceServices'])->name('ambulance_home');
+Route::get('/amb-data-json',[AmbulanceDriverPageController::class,'getAmbulanceData']);
 
 Route::get('/amb-reg',function(){
     return view('new_amb_reg');
@@ -75,4 +75,8 @@ Route::get('/amb-book',function()
     return view('amb_booking');
 });
 
-Route::get('/get-dist',[AmbInfoPageController::class,'fetchDistance']);
+Route::get('/get-dist',[AmbulanceDriverPageController::class,'fetchDistance']);
+
+Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRidesAvailable']);
+
+Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAccepted']);

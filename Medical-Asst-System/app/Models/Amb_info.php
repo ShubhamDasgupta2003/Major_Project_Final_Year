@@ -9,5 +9,6 @@ class Amb_info extends Model
 {
     use HasFactory;
     protected $table = "amb_info";
+    public $incrementing = false;
     protected $primaryKey = "amb_no";
 }

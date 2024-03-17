@@ -154,6 +154,6 @@
             <button class="btn btn-success" type="submit">Register</button>
         </form>
     </div>
-    <!-- <script src="{{ asset('js/amb_admin_loc.js') }}"></script> -->
+    <script src="{{ asset('js/amb_admin_loc.js') }}"></script>
 </body>
 </html>
