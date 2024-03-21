@@ -298,7 +298,7 @@
     </section>
     <!-- service section end -->
      <!-- review section start  -->
-     <section class="review" id="review">
+    <section class="review" id="review">
         <h1 class="heading">client's <span>review</span></h1>
         <div class="box-container">
 
@@ -352,11 +352,17 @@
                 </div>
             </div>    
         </div>
+
     </section>
 
     
-    <!-- footer section start  -->
-    @include('footer')
+      <!-- footer section start  -->
+
+     @include('footer')
+
+
+
+    
     <script src="js/HomePage/location.js"></script>
     <script src="js/HomePage/Home.js"></script>
     <script src="js/HomePage/sorav.js"></script>
