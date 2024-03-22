@@ -33,7 +33,8 @@ Route::get('/technician', function () {
 })->name('technician_home');
 
 // routes for BloodBank
-Route::view ('/bloodBank','bloodB_home')->name('bloodB_home');
+Route::view ('BookBlood','/Blood_Booking/bloodB_home')->name('bloodB_home');
+Route::view ('booking_form','/Blood_Booking/form')->name('blood_booking_form');
 
 
 /*-------------------Medical Supplies----------------------------------*/

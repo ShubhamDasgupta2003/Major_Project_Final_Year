@@ -1,14 +1,13 @@
-<section class="" id="footer"style="
-padding-left: 0px;
-padding-right: 0px;
-">
+<footer id="footer">
     <div class="footer-top">
         <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>Medical Assistant</a>
         <div class="footer-txt">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta facilis maxime eius ad id qui quos quod corporis non minus! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro, voluptates 
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta facilis maxime eius ad id qui
+            quos quod corporis non minus! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro,
+            voluptates
         </div>
     </div>
-    <div class="footer-bottom" id="footer">
+    <div class="footer-bottom">
         <div class="company-col footer-link-col">
             <h2>Company</h2>
             <ul>
@@ -39,4 +38,4 @@ padding-right: 0px;
             </ul>
         </div>
     </div>
-</section>
+</footer>
