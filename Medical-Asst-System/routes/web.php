@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AmbulanceDriverPageController;
 use App\Http\Controllers\newAmbulanceRegistrationController;
+use App\Http\Controllers\AmbulanceRideRequestController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MedicalSuppliesController;
 use App\Http\Controllers\AdminController;
@@ -67,6 +68,18 @@ Route::get('/amb-data-json',[AmbulanceDriverPageController::class,'getAmbulanceD
 Route::get('/amb-reg',function(){
     return view('new_amb_reg');
 });
+
+Route::get('/amb-chk-avl',function(){
+    return view('amb_check_aval');
+});
+
+Route::post('/amb-chk-avl',[AmbulanceRideRequestController::class,'checkAmbulanceAvailability']);
+
+Route::get('/amb-ptn-home',function(){
+    return view('amb_ptn_booking_intf');
+});
+
+Route::post('/amb-ptn-home',[AmbulanceRideRequestController::class,'postNewRideRequest']);
 
 Route::post('/amb-reg',[newAmbulanceRegistrationController::class,'addNewService'])->name('addNewAmb');
 

@@ -10,8 +10,8 @@ class newAmbulanceRegistrationController extends Controller
     public function addNewService(Request $request)
     {
         $request->validate([
-            "amb_no_reg"=>"required|max:11",
-            "amb_name_reg"=>"required|max:50|",
+            'amb_no'=>'required|max:11|unique:amb_info',
+            "amb_name_reg"=>"required|max:50",
             "amb_type_reg"=>"required",
             "amb_rate_reg"=>"required",
             "amb_drv_name_reg"=>"required",
@@ -31,7 +31,7 @@ class newAmbulanceRegistrationController extends Controller
         $amb = new Amb_info;
 
         $amb->amb_name = $request['amb_name_reg'];
-        $amb->amb_no = $request['amb_no_reg'];
+        $amb->amb_no = $request['amb_no'];
         $amb->amb_type = $request['amb_type_reg'];
         $amb->amb_status = "Active";
         $amb->amb_loc_lat = $request['amb_lat_reg'];

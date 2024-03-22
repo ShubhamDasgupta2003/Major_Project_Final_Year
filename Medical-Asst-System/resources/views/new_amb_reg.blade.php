@@ -21,10 +21,10 @@
                 </span>
             </div>
             <div class="mb-3">
-                <label for="amb_no_reg" class="form-label">Ambulance van no.<sub>  (Govt. registered number)</sub></label>
-                <input type="text" name="amb_no_reg" id="" class="form-control">
+                <label for="amb_no" class="form-label">Ambulance van no.<sub>  (Govt. registered number)</sub></label>
+                <input type="text" name="amb_no" id="" class="form-control">
                 <span class="text-danger">
-                    @error('amb_no_reg')
+                    @error('amb_no')
                     {{$message}}
                     @enderror
                 </span>

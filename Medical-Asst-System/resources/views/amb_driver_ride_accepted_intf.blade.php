@@ -18,7 +18,7 @@
         .leaflet-marker-icon.ptn-marker {
             border:5px solid red;
         }
-        .details_card
+        #details_card
         {
           z-index: 200;
           background-color:rgba(255, 255, 255, 0.38);
@@ -57,15 +57,15 @@
 </div>
     <div class="container-fluid justify-content-center">
         <div id="map" style="width:100%; height:100vh" class="col "></div>
-        <!-- <div id="box" style="width:100%; height:100%" class="col  bg-warning"></div> -->
-        <div class="details_card card text-center position-absolute bottom-0 start-50 translate-middle-x shadow-lg p-3 rounded border-top-3" style="height:auto">
+    
+        <div class="card text-center position-absolute bottom-0 start-50 translate-middle-x shadow-lg p-3 rounded border-top-3" id="details_card" style="height:auto">
   <div class="card-header">
     Ride Details
   </div>
   <div class="card-body">
     <h5 class="card-title">Special title treatment</h5>
     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go to pickup location</a>
+    <a href="#" id="pickup_StartRide" class="btn btn-primary">Go to pickup location</a>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Start Ride
@@ -82,7 +82,19 @@
 
 
     <script>
+        const pickUpLocationStartBtn = document.getElementById('pickup_StartRide');
+        const detailsTab = document.getElementById('details_card');
+        const mapLayer = document.getElementById('map');
+
         var data;
+        var routesFound = false;
+
+        detailsTab.addEventListener('click',()=>{
+          detailsTab.classList.add("bg-light");
+        });
+        mapLayer.addEventListener('click',()=>{
+          detailsTab.classList.remove("bg-light");
+        })
         navigator.geolocation.getCurrentPosition(success, error);
 
         function success(pos) {
@@ -115,26 +127,31 @@
 
 
 
-            Accept_Ride_Btn.addEventListener('click', () => {
+            pickUpLocationStartBtn.addEventListener('click',() => {
                 L.Routing.control({
                     waypoints: [
                         L.latLng(lat, lon),
-                        L.latLng(lat_box.value, lng_box.value)
+                        L.latLng(ptn_lat, ptn_lng)
                     ]
                 }).on('routesfound', function (e) {
                     var routes = e.routes;
+                    routesFound = true;
                     console.log(routes[0]['summary']);
+                    if(routesFound)
+                    {
+                      pickUpLocationStartBtn.classList.add("disabled");
+                      console.log("Disabled")
+                    }
                     //Edited code statrs her
 
                 }).addTo(map);
             });
 
+    
             navigator.geolocation.watchPosition(w_success, w_error);
             function w_success(pos) {
                 marker.setLatLng([pos.coords.latitude, pos.coords.longitude]);
                 // map.setView([pos.coords.latitude, pos.coords.longitude]);
-                my_lat_box.innerHTML = pos.coords.latitude;
-                my_lng_box.innerHTML = pos.coords['longitude'];
             }
             function w_error(err) {
                 //Error to display
