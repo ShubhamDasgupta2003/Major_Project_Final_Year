@@ -66,15 +66,15 @@ Route::get('/generate-pdfb',[MedicalSuppliesController::class,'generatePdfb']);/
 
 Route::get('/amb-data-json',[AmbulanceDriverPageController::class,'getAmbulanceData']);
 
-Route::get('/amb-reg',function(){
-    return view('new_amb_reg');
-});
+Route::get('/amb-reg',[newAmbulanceRegistrationController::class,'showRegForm']);
 
-Route::get('/amb-chk-avl',function(){
-    return view('amb_check_aval');
-});
+Route::post('/amb-reg',[newAmbulanceRegistrationController::class,'addNewService'])->name('addNewAmb');
 
-Route::post('/amb-chk-avl',[AmbulanceRideRequestController::class,'checkAmbulanceAvailability']);
+// Route::get('/amb-chk-avl',function(){
+//     return view('amb_check_aval');
+// });
+
+Route::get('/amb-chk-avl',[AmbulanceRideRequestController::class,'checkAmbulanceAvailability'])->name('check-availability');
 
 Route::get('/amb-ptn-home',function(){
     return view('amb_ptn_booking_intf');
@@ -82,7 +82,6 @@ Route::get('/amb-ptn-home',function(){
 
 Route::post('/amb-ptn-home',[AmbulanceRideRequestController::class,'postNewRideRequest']);
 
-Route::post('/amb-reg',[newAmbulanceRegistrationController::class,'addNewService'])->name('addNewAmb');
 
 Route::get('/amb-book',function()
 {
