@@ -8,6 +8,8 @@ use App\Http\Controllers\MedicalSuppliesController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\HospitalController;
+use App\Http\Controllers\PatientController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -93,3 +95,21 @@ Route::get('/get-dist',[AmbulanceDriverPageController::class,'fetchDistance']);
 Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRidesAvailable']);
 
 Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAccepted']);
+
+
+// ---------------------Bed booking Service Routes start here---------------------------
+// Route::get('/hos_bed',function(){
+//     return view('hos_main');
+// })->name('hos_bed');
+
+// Route::get('/hos_main',[HospitalController::class,'GetHospitalData']);
+Route::get('/hos_bed',[HospitalController::class,'GetHospitalData'])->name('hos_bed');
+Route::get('/hos_form',function(){
+    return view('hos_form');
+});
+Route::get('/hos_form/{id}',[HospitalController::class,'DisplayHosData'])->name('display.hos.data');
+Route::get('/hos_form/{id}',[PatientController::class,'HosInfo'])->name('display.hos.info');
+Route::post('/hos_form/{id}',[PatientController::class,'StoreData'])->name('store.data');
+Route::get('/hos_confirm',[PatientController::class,'RedirectConfirm']);
+// Route::get('/hos_form',[PatientController::class,'HospitalDataToForm'])->name('hos_info_form');
+// ---------------------Bed booking Service Routes end here-----------------------------
