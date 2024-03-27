@@ -117,7 +117,11 @@
             </div>
             <div class="mb-3">
                 <label for="amb_town_reg" class="form-label">Ambulance Town/Village</label>
-                <input type="text" name="amb_town_reg" id="" class="form-control">
+                <select name="amb_town_reg" id="" class="form-select">
+                    @foreach($cities as $city)
+                        <option value="{{$city->city_ascii}}">{{$city->city_ascii}}</option>
+                    @endforeach
+                </select>
                 <span class="text-danger">
                     @error('amb_town_reg')
                     {{$message}}

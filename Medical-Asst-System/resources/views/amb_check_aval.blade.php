@@ -25,13 +25,31 @@
 
 <body>
 
+    <!-- Alert box -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Alert</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <h5 class="text-danger alert alert-warning" id="msg-box"></h5>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
     <div class="container-fluid row">
         <div class="left-panel col-5 border vh-100 overflow-auto">
             <div class="patient-card-body">
                     <!-- Card header begins -->
 
-                    <form class="row g-3 mt-5" method="post" action="{{url('/')}}/amb-chk-avl">
-                        @csrf
+                    <form class="row g-3 mt-5">
+    
                     <div class="col-md-3">
                         <img src="https://cdn-icons-png.flaticon.com/256/1834/1834837.png" alt="" width="100" >
                     </div>
@@ -41,7 +59,7 @@
                    
                     <div class="col-12">
                     <label for="" class="form-label">Ambulance Type</label>
-                    <select class="form-select" aria-label="Default select example" name="ptn_amb_type">
+                    <select class="form-select" aria-label="Default select example" name="ptn_amb_type" id="amb_type">
                         <option selected>Choose your ambulance</option>
                         <option value="normal">Normal</option>
                         <option value="Life-support">Life-support</option>
@@ -50,13 +68,17 @@
 
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">City</label>
-                        <input type="text" class="form-control" id="inputCity" name="ptn_city">
+                        <select name="" id="ptn_city" class="form-select">
+                            @foreach($cities as $city)
+                                <option value="{{$city->city_ascii}}">{{$city->city_ascii}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-md-6">
                         <label for="inputState" class="form-label">District</label>
-                        <select id="inputState" class="form-select" name="ptn_district">
+                        <select id="amb_district" class="form-select" name="ptn_district">
                         <option selected>Choose...</option>
-                        <option value="24-Pgs(N)">North-24 Pgs</option>
+                        <option value="north 24 paragnas">North-24 Pgs</option>
                         <option value="24-Pgs(S)">South-24 Pgs</option>
                         <option value="Nadia">Nadia</option>
                         </select>
@@ -70,10 +92,15 @@
                         <input type="text" class="form-control" id="inputZip" name="ptn_state">
                     </div>
                     <div class="col-12">
-                        <button type="submit" class="btn btn-success">Check availability</button>
+                        <button type="button" id="check" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Check availability</button>
                     </div>
 
-                    </form>
+                    <div class="col-12 mt-5">
+                        
+                    </div>
+                </form>
+     
+                   
                     <!-- Card header ends -->
             </div>
         </div>
@@ -82,9 +109,10 @@
 
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
     <script>
+    
         var data;
         navigator.geolocation.getCurrentPosition(success, error);
 
@@ -100,7 +128,7 @@
             }).addTo(map);
 
             var patient_icon = L.icon({
-                iconUrl: 'https://cdn-icons-png.freepik.com/512/9356/9356230.png',
+                iconUrl: 'https://cdn3.iconfinder.com/data/icons/map-and-navigation-25/50/49-512.png',
                 iconSize: [40, 40]
             });
 
@@ -113,7 +141,7 @@
                     var obj = JSON.parse(req.responseText);
                     data = obj.amb_data;
                     for (let i = 0; i < data.length; i++) {
-                        var patient_marker = L.marker([data[i]['amb_loc_lat'], data[i]['amb_loc_lng']], {icon:patient_icon, id:data[i]['amb_no'], val:i}).addTo(map).on('click', mark_click); //Patient marker on map
+                        var patient_marker = L.marker([data[i]['amb_loc_lat'], data[i]['amb_loc_lng']], {icon:patient_icon, id:data[i]['amb_no'], val:i}).addTo(map); //Patient marker on map
                     }
                 }
             };
@@ -138,6 +166,38 @@
             function w_error(err) {
                 //Error to display
             }
+
+            $(document).ready(function(){
+            $('#check').on('click',function(){
+                var type = $('#amb_type').val();
+                var dist = $('#amb_district').val();
+                var city = $('#ptn_city').val();
+                console.log(type,dist,city);
+                $.ajax({
+                    url:"{{ route('check-availability') }}",
+                    type:"GET",
+                    data:{'type':type,'dist':dist,'city':city},
+                    success:function(data){
+                        // console.log(data);
+                        var rows = data.data;
+                        var html = '';
+                        if(rows.length>0)
+                        {
+                            html+='There are '+rows.length+' services currently available';
+                            $('#msg-box').html(html);
+                            console.log(rows[0]['amb_loc_lat']);
+
+                            map.flyTo([rows[0]['amb_loc_lat'],rows[0]['amb_loc_lng']]);
+                        }
+                        else
+                        {
+                            html+='Sorry! No services available in this area';
+                            $('#msg-box').html(html);
+                        }
+                    }
+                })
+            })
+        })
         }
 
         function error(err) {

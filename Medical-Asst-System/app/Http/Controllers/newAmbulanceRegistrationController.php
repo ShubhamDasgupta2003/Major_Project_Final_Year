@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Amb_info;
+use App\Models\City_Table;
 class newAmbulanceRegistrationController extends Controller
 {
     //
+    public function showRegForm()
+    {
+        $cities = City_Table::orderBy('city_ascii')->get();
+        return view('new_amb_reg',compact('cities'));
+    }
     public function addNewService(Request $request)
     {
         $request->validate([

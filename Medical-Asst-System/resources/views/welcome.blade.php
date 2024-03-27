@@ -168,7 +168,7 @@ Home Page
                 <img src="images/HomePage/hospital.png" alt="">
                 <h3>Book Hospital Bed </h3>
                 <p>Efficiently book hospital beds online for immediate medical care access.</p>
-                <a href="" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
+                <a href="{{route('hos_bed')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
 
             <div class="box">

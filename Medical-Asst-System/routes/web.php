@@ -8,6 +8,8 @@ use App\Http\Controllers\MedicalSuppliesController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\HospitalController;
+use App\Http\Controllers\PatientController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -66,15 +68,15 @@ Route::get('/generate-pdfb',[MedicalSuppliesController::class,'generatePdfb']);/
 
 Route::get('/amb-data-json',[AmbulanceDriverPageController::class,'getAmbulanceData']);
 
-Route::get('/amb-reg',function(){
-    return view('new_amb_reg');
-});
+Route::get('/amb-reg',[newAmbulanceRegistrationController::class,'showRegForm']);
 
-Route::get('/amb-chk-avl',function(){
-    return view('amb_check_aval');
-});
+Route::post('/amb-reg',[newAmbulanceRegistrationController::class,'addNewService'])->name('addNewAmb');
 
-Route::post('/amb-chk-avl',[AmbulanceRideRequestController::class,'checkAmbulanceAvailability']);
+// Route::get('/amb-chk-avl',function(){
+//     return view('amb_check_aval');
+// });
+
+Route::get('/amb-chk-avl',[AmbulanceRideRequestController::class,'checkAmbulanceAvailability'])->name('check-availability');
 
 Route::get('/amb-ptn-home',function(){
     return view('amb_ptn_booking_intf');
@@ -82,7 +84,6 @@ Route::get('/amb-ptn-home',function(){
 
 Route::post('/amb-ptn-home',[AmbulanceRideRequestController::class,'postNewRideRequest']);
 
-Route::post('/amb-reg',[newAmbulanceRegistrationController::class,'addNewService'])->name('addNewAmb');
 
 Route::get('/amb-book',function()
 {
@@ -94,6 +95,27 @@ Route::get('/get-dist',[AmbulanceDriverPageController::class,'fetchDistance']);
 Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRidesAvailable']);
 
 Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAccepted']);
+<<<<<<< HEAD
 Route::get('/index', function () {
     return view('index');
 })->name('index');
+=======
+
+
+// ---------------------Bed booking Service Routes start here---------------------------
+// Route::get('/hos_bed',function(){
+//     return view('hos_main');
+// })->name('hos_bed');
+
+// Route::get('/hos_main',[HospitalController::class,'GetHospitalData']);
+Route::get('/hos_bed',[HospitalController::class,'GetHospitalData'])->name('hos_bed');
+Route::get('/hos_form',function(){
+    return view('hos_form');
+});
+Route::get('/hos_form/{id}',[HospitalController::class,'DisplayHosData'])->name('display.hos.data');
+Route::get('/hos_form/{id}',[PatientController::class,'HosInfo'])->name('display.hos.info');
+Route::post('/hos_form/{id}',[PatientController::class,'StoreData'])->name('store.data');
+Route::get('/hos_confirm',[PatientController::class,'RedirectConfirm']);
+// Route::get('/hos_form',[PatientController::class,'HospitalDataToForm'])->name('hos_info_form');
+// ---------------------Bed booking Service Routes end here-----------------------------
+>>>>>>> f4727475e03c27ceaaf0b1014687d65f41e72cdd
