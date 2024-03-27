@@ -94,3 +94,6 @@ Route::get('/get-dist',[AmbulanceDriverPageController::class,'fetchDistance']);
 Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRidesAvailable']);
 
 Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAccepted']);
+Route::get('/index', function () {
+    return view('index');
+})->name('index');
