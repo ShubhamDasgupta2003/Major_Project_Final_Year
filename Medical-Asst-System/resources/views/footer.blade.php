@@ -1,3 +1,4 @@
+<footer>
 <section class="" id="footer"style="
 padding-left: 0px;
 padding-right: 0px;
@@ -40,3 +41,4 @@ padding-right: 0px;
         </div>
     </div>
 </section>
+</footer>
