@@ -26,8 +26,15 @@ class AmbulanceDriverPageController extends Controller
         
     }
 
-    public function driverShowRidesAvailable()
+    public function driverShowRidesAvailable(Request $request)
     {
+        if($request->ajax())
+        {
+            $amb = Amb_info::where('amb_no',$request->amb_id)->update(['amb_loc_lat'=>$request->lat,'amb_loc_lng'=>$request->lng]);
+            return response()->json(['data'=>'data updated successfully!']);
+        
+        }
+
         $amb_data = Amb_info::all();
         $len = $amb_data->count();
         $distance = array();

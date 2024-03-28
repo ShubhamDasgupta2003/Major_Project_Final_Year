@@ -24,7 +24,6 @@
 </head>
 
 <body>
-
     <div class="container-fluid row">
         <div class="left-panel col-3 border vh-100 overflow-auto">
             <div class="patient-card-body">
@@ -118,20 +117,30 @@
             function w_success(pos) {
                 marker.setLatLng([pos.coords.latitude, pos.coords.longitude]);
                 map.setView([pos.coords.latitude, pos.coords.longitude]);
+                coord_val = pos.coords.latitude;
+
+                    $.ajax({
+                    url:"{{ route('showAvblRides') }}",
+                    type:"GET",
+                    data:{'lat':pos.coords.latitude,'lng':pos.coords.longitude,'amb_id':'WB23AC1223'}, //amb_id to be fetched from session variable later
+                    success:function(data){
+                        console.log(data);
+                    }
+                })
+
+                }
             }
             function w_error(err) {
                 //Error to display
             }
-        }
 
         function error(err) {
             if (err.code === 1) {
                 alert("Please allow location access");
             }
         }
-
     </script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </body>
 
 </html>

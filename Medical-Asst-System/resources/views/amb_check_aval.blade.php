@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
     <style>
         .marker-btn {
             background-color: green;
@@ -49,7 +52,7 @@
                     <!-- Card header begins -->
 
                     <form class="row g-3 mt-5">
-    
+
                     <div class="col-md-3">
                         <img src="https://cdn-icons-png.flaticon.com/256/1834/1834837.png" alt="" width="100" >
                     </div>
@@ -69,6 +72,7 @@
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">City</label>
                         <select name="" id="ptn_city" class="form-select">
+                            <option value="">Choose city</option>
                             @foreach($cities as $city)
                                 <option value="{{$city->city_ascii}}">{{$city->city_ascii}}</option>
                             @endforeach
@@ -77,27 +81,35 @@
                     <div class="col-md-6">
                         <label for="inputState" class="form-label">District</label>
                         <select id="amb_district" class="form-select" name="ptn_district">
-                        <option selected>Choose...</option>
-                        <option value="north 24 paragnas">North-24 Pgs</option>
-                        <option value="24-Pgs(S)">South-24 Pgs</option>
-                        <option value="Nadia">Nadia</option>
+                        <option value="">Choose district</option>
+                            @foreach($district as $dist)
+                                <option value="{{$dist->District}}">{{$dist->District}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputZip" class="form-label">Zip</label>
-                        <input type="text" class="form-control" id="inputZip" name="ptn_zipcode">
+                        <label for="inputstate" class="form-label">State</label>
+                        <select id="ptn_state" class="form-select" name="ptn_state">
+                        <option value="">Choose state</option>
+                            @foreach($states as $state)
+                                <option value="{{$state->States}}">{{$state->States}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputstate" class="form-label">State</label>
-                        <input type="text" class="form-control" id="inputZip" name="ptn_state">
+                        <label for="" class="form-label" id="ptn_zip">Zip code</label>
+                       <input type="text" class="form-control">
                     </div>
-                    <div class="col-12">
+                    <div class="col-6 d-grid gap-2">
                         <button type="button" id="check" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Check availability</button>
                     </div>
-
-                    <div class="col-12 mt-5">
-                        
+                    <div class="col-6 d-grid gap-2">
+                        <button type="button" id="proceed_addrs" class="btn btn-primary">Proceed with this address</button>
                     </div>
+                    <div class="d-grid gap-2">
+                        <button type="button" id="current_addrs" class="btn btn-warning"><i class="fa-solid fa-street-view"></i> Use current address</button>
+                    </div>
+                    
                 </form>
      
                    
@@ -127,9 +139,9 @@
                 subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
             }).addTo(map);
 
-            var patient_icon = L.icon({
-                iconUrl: 'https://cdn3.iconfinder.com/data/icons/map-and-navigation-25/50/49-512.png',
-                iconSize: [40, 40]
+            var taxi_icon = L.icon({
+                iconUrl: 'https://multidestinosexpress.co/wp-content/uploads/2022/08/22.png',
+                iconSize: [50, 50]
             });
 
             var req = new XMLHttpRequest();
@@ -141,16 +153,16 @@
                     var obj = JSON.parse(req.responseText);
                     data = obj.amb_data;
                     for (let i = 0; i < data.length; i++) {
-                        var patient_marker = L.marker([data[i]['amb_loc_lat'], data[i]['amb_loc_lng']], {icon:patient_icon, id:data[i]['amb_no'], val:i}).addTo(map); //Patient marker on map
+                        var patient_marker = L.marker([data[i]['amb_loc_lat'], data[i]['amb_loc_lng']], {icon:taxi_icon, id:data[i]['amb_no'], val:i}).addTo(map); //Patient marker on map
                     }
                 }
             };
-            var taxiIcon = L.icon({
-                iconUrl: 'https://cdn-icons-png.freepik.com/512/9356/9356230.png',
+            var patientIcon = L.icon({
+                iconUrl: 'https://cdn3.iconfinder.com/data/icons/maps-and-navigation-7/65/68-512.png',
                 iconSize: [50, 50]
             });
 
-            var marker = L.marker([lat, lon], { icon: taxiIcon }).addTo(map);    //Ambulance marker on the map
+            var marker = L.marker([lat, lon], { icon: patientIcon }).addTo(map);    //Ambulance marker on the map
 
 
             function getHref(obj)
@@ -172,11 +184,13 @@
                 var type = $('#amb_type').val();
                 var dist = $('#amb_district').val();
                 var city = $('#ptn_city').val();
-                console.log(type,dist,city);
+                var state = $('#ptn_state').val();
+
+                console.log(type,dist,city,state);
                 $.ajax({
                     url:"{{ route('check-availability') }}",
                     type:"GET",
-                    data:{'type':type,'dist':dist,'city':city},
+                    data:{'type':type,'dist':dist,'city':city,'state':state},
                     success:function(data){
                         // console.log(data);
                         var rows = data.data;
@@ -196,6 +210,46 @@
                         }
                     }
                 })
+            })
+            $('#proceed_addrs').on('click',function(){
+                var type = $('#amb_type').val();
+                var dist = $('#amb_district').val();
+                var city = $('#ptn_city').val();
+                var state = $('#ptn_state').val();
+                var zip = $('#ptn_zip').val();
+
+                const apiUrl = 'https://api.distancematrix.ai/maps/api/geocode/json?address='+city+dist+state+zip+'&key=8MZhsYhR2pY97MTZyQRnaa6zccPrZo0zhGqFXJ5FzDNd4BlkcZeexuqUrthlXuCi';
+
+                fetch(apiUrl)
+                .then(response=>{
+                    return response.json();
+                })
+                .then(data=>{
+                    var response = data.result[0];
+                    var formt_adrs = response['formatted_address'];
+                    var geometry = response['geometry']['location'];
+                    console.log(response);
+                    // window.location.href = "/amb-ptn-home?fmt_ads="+formt_adrs+"&lat="+geometry.lat+"&lng="+geometry.lng;
+                    // var geometry = data['geometry'];
+                })
+                .catch(error=>{
+                    console.log(error);
+                })
+            })
+            $('#current_addrs').on('click',function(){
+                
+                api_key = "ee2dfca941774c139225977bbddebb90";
+                    let loc_txt = "";
+
+                    fetch('https://api.opencagedata.com/geocode/v1/json?q='+lat+','+lon+'&key='+api_key)
+                    .then(response=>(response.json())).then(result=>{
+                        let details = result.results[0];
+                        loc_txt = details['formatted'];
+                        console.log(loc_txt);
+                        var address = loc_txt;
+
+                        window.location.href = "/amb-ptn-home?fmt_ads="+address+"&lat="+lat+"&lng="+lon;
+                    })
             })
         })
         }

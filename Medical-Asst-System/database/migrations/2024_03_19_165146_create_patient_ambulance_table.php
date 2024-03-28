@@ -27,15 +27,15 @@ return new class extends Migration
             $table->string('patient_booking_district');
             $table->string('patient_booking_zipcode');
             $table->float('patient_booking_address');
-            $table->float('amb_current_lat',8,4);
-            $table->float('amb_current_lng',8,4);
+            $table->float('amb_current_lat',8,4)->nullable(true);
+            $table->float('amb_current_lng',8,4)->nullable(true);
             $table->date('booking_date');
             $table->time('booking_time');
             $table->integer('ride_status');
-            $table->integer('otp');
-            $table->float('total_ride_distance',8,2);
-            $table->time('ride_started_at');
-            $table->time('ride_finished_at');
+            $table->integer('otp')->nullable(true);
+            $table->float('total_ride_distance',8,2)->nullable(true);
+            $table->time('ride_started_at')->nullable(true);
+            $table->time('ride_finished_at')->nullable(true);
             $table->timestamps();
         });
     }
