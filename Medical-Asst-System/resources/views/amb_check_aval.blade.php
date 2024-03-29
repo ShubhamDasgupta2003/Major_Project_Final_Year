@@ -247,7 +247,6 @@
                         loc_txt = details['formatted'];
                         console.log(loc_txt);
                         var address = loc_txt;
-
                         window.location.href = "/amb-ptn-home?fmt_ads="+address+"&lat="+lat+"&lng="+lon;
                     })
             })

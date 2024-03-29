@@ -95,7 +95,25 @@
 
                     <div class="col-12">
                         <label for="inputAddress2" class="form-label">Full Address</label>
-                        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" name="ptn_address">
+                        <input type="text" class="form-control" id="full_address" placeholder="Apartment, studio, or floor" name="ptn_address">
+                        <span class="text-danger">
+                            @error('ptn_address')
+                            {{$message}}
+                            @enderror
+                        </span>
+                    </div>
+                    <div class="col-6">
+                        <label for="" class="form-label">Latitude</label>
+                        <input type="text" class="form-control" id="latitude" name="ptn_latitude" readonly>
+                        <span class="text-danger">
+                            @error('ptn_address')
+                            {{$message}}
+                            @enderror
+                        </span>
+                    </div>
+                    <div class="col-6">
+                        <label for="" class="form-label">Longitude</label>
+                        <input type="text" class="form-control" id="longitude" name="ptn_longitude" readonly>
                         <span class="text-danger">
                             @error('ptn_address')
                             {{$message}}
@@ -156,11 +174,24 @@
 
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script>
         var data;
+        const address_box = document.getElementById('full_address');
+        const lat_box = document.getElementById('latitude');
+        const lng_box = document.getElementById('longitude');
         navigator.geolocation.getCurrentPosition(success, error);
+
+        let urlParams = new URLSearchParams(document.location.search);
+        let booking_address = urlParams.get('fmt_ads');
+        let booking_latitude = urlParams.get('lat');
+        let booking_longitude = urlParams.get('lng');
+
+        console.log(address_box);
+        address_box.value = booking_address;
+        lat_box.value = booking_latitude;
+        lng_box.value = booking_longitude;
 
         function success(pos) {
             var lat = pos.coords.latitude;
@@ -211,10 +242,7 @@
                 ptn_box.innerHTML = all_details['amb_driver_name'] + " " + all_details['amb_address'] + " " + all_details['amb_contact'];
             }
 
-            function getHref(obj)
-            {
-                console.log(obj.target.id);
-            }
+    
  
 
             navigator.geolocation.watchPosition(w_success, w_error);

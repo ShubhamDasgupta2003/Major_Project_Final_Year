@@ -8,7 +8,8 @@
 </head>
 <body class="bg-success">
     <div class="container">
-
+        {{date('d-m-Y')}}
+        {{date('H:i:s')}}
     </div>
 </body>
 </html>

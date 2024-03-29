@@ -78,9 +78,7 @@ Route::post('/amb-reg',[newAmbulanceRegistrationController::class,'addNewService
 
 Route::get('/amb-chk-avl',[AmbulanceRideRequestController::class,'checkAmbulanceAvailability'])->name('check-availability');
 
-Route::get('/amb-ptn-home',function(){
-    return view('amb_ptn_booking_intf');
-});
+Route::get('/amb-ptn-home',[AmbulanceRideRequestController::class,'showRideBookingForm'])->name('showBookingForm');
 
 Route::post('/amb-ptn-home',[AmbulanceRideRequestController::class,'postNewRideRequest']);
 

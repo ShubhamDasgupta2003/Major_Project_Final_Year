@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Http;
 
 class AmbulanceRideRequestController extends Controller
 {
+    public function showRideBookingForm(Request $request)
+    {
+        return view('amb_ptn_booking_intf');
+     
+    }
     public function postNewRideRequest(Request $request)
     {
         $request->validate([
@@ -29,9 +34,16 @@ class AmbulanceRideRequestController extends Controller
 
         $counter = Patient_ambulance::count();
         $ptn_request = new Patient_ambulance;
+        $cur_date = date('y-m-d');
+        $cur_time = date('H:i:s');
 
         $inv_id = "AMB".$counter+1;
         $ptn_request->invoice_no = $inv_id;
+        $ptn_request->user_id = "abc123";
+        $ptn_request->booking_date = $cur_date;
+        $ptn_request->booking_time = $cur_time;
+        $ptn_request->patient_booking_lat = $request['ptn_latitude'];
+        $ptn_request->patient_booking_lng = $request['ptn_longitude'];
         $ptn_request->patient_name = $request['ptn_name'];
         $ptn_request->patient_age = $request['ptn_age'];
         $ptn_request->patient_gender = $request['ptn_gender'];
