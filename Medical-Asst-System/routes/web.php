@@ -109,4 +109,7 @@ Route::get('/hos_form/{id}',[PatientController::class,'HosInfo'])->name('display
 Route::post('/hos_form/{id}',[PatientController::class,'StoreData'])->name('store.data');
 Route::get('/hos_confirm',[PatientController::class,'RedirectConfirm']);
 // Route::get('/hos_form',[PatientController::class,'HospitalDataToForm'])->name('hos_info_form');
+Route::get('/hos_confirm',[PatientController::class,'update']);
+Route::get('/hos_register',[HospitalController::class,'DisplayForm']);
+Route::post('/hos_register_data',[HospitalController::class,'HosDataEntry'])->name('store.data');
 // ---------------------Bed booking Service Routes end here-----------------------------
