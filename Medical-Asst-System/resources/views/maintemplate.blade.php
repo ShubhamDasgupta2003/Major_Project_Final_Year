@@ -37,9 +37,9 @@
     @hasSection('navbar')
     @yield("navbar")
     @else
-    <a class="navlink" href="#home">Home</a>
-    <a class="navlink" href="#services">Services</a>
-    <a class="navlink" href="#review">Review</a>
+    <a class="navlink" href="{{ route('home') }}">Home</a>
+    <a class="navlink" href="{{ route('home') }}#services">Services</a>
+    <a class="navlink" href="{{ route('home') }}#review">Review</a>
     <a class="navlink" href="#footer">contact Us</a>
     @endif
     </nav>

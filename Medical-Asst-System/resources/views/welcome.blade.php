@@ -8,6 +8,10 @@ Home Page
     <link rel="stylesheet" href="css/HomePage/sourav.css">
 @endsection
 @section("navbar")
+    <a class="navlink" href="#home">Home</a>
+    <a class="navlink" href="#services">Services</a>
+    <a class="navlink" href="#review">Review</a>
+    <a class="navlink" href="#footer">contact Us</a>
 @endsection
 @section("main")
 <section class="sourav" id="home">

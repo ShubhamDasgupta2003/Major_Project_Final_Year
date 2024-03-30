@@ -95,6 +95,7 @@ Route::get('/get-dist',[AmbulanceDriverPageController::class,'fetchDistance']);
 Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRidesAvailable']);
 
 Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAccepted']);
+
 // ---------------------Bed booking Service Routes start here---------------------------
 // Route::get('/hos_bed',function(){
 //     return view('hos_main');
@@ -111,3 +112,4 @@ Route::post('/hos_form/{id}',[PatientController::class,'StoreData'])->name('stor
 Route::get('/hos_confirm',[PatientController::class,'RedirectConfirm']);
 // Route::get('/hos_form',[PatientController::class,'HospitalDataToForm'])->name('hos_info_form');
 // ---------------------Bed booking Service Routes end here-----------------------------
+

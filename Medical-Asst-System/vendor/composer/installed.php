@@ -3,11 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-<<<<<<< HEAD
-        'reference' => '4f01add6f199e506e18a1023d0cb6073c4ef2b73',
-=======
-        'reference' => '128a4c6dc05d008bbd6914e459bdd83d17a0b441',
->>>>>>> f4727475e03c27ceaaf0b1014687d65f41e72cdd
+        'reference' => 'ccb1158a3afc1a2569330faf8b3095a58b472ade',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -404,29 +400,25 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-<<<<<<< HEAD
-            'reference' => '4f01add6f199e506e18a1023d0cb6073c4ef2b73',
-=======
-            'reference' => '128a4c6dc05d008bbd6914e459bdd83d17a0b441',
->>>>>>> f4727475e03c27ceaaf0b1014687d65f41e72cdd
+            'reference' => 'ccb1158a3afc1a2569330faf8b3095a58b472ade',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'laravel/pint' => array(
-            'pretty_version' => 'v1.14.0',
-            'version' => '1.14.0.0',
-            'reference' => '6b127276e3f263f7bb17d5077e9e0269e61b2a0e',
+            'pretty_version' => 'v1.15.0',
+            'version' => '1.15.0.0',
+            'reference' => 'c52de679b3ac01207016c179d7ce173e4be128c4',
             'type' => 'project',
             'install_path' => __DIR__ . '/../laravel/pint',
             'aliases' => array(),
             'dev_requirement' => true,
         ),
         'laravel/prompts' => array(
-            'pretty_version' => 'v0.1.16',
-            'version' => '0.1.16.0',
-            'reference' => 'ca6872ab6aec3ab61db3a61f83a6caf764ec7781',
+            'pretty_version' => 'v0.1.17',
+            'version' => '0.1.17.0',
+            'reference' => '8ee9f87f7f9eadcbe21e9e72cd4176b2f06cd5b5',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laravel/prompts',
             'aliases' => array(),
@@ -487,9 +479,9 @@
             'dev_requirement' => false,
         ),
         'league/flysystem' => array(
-            'pretty_version' => '3.25.1',
-            'version' => '3.25.1.0',
-            'reference' => 'abbd664eb4381102c559d358420989f835208f18',
+            'pretty_version' => '3.26.0',
+            'version' => '3.26.0.0',
+            'reference' => '072735c56cc0da00e10716dd90d5a7f7b40b36be',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/flysystem',
             'aliases' => array(),
@@ -810,8 +802,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0|3.0',
-                1 => '3.0.0',
+                0 => '3.0.0',
+                1 => '1.0|2.0|3.0',
             ),
         ),
         'psr/simple-cache' => array(
@@ -935,9 +927,9 @@
             'dev_requirement' => true,
         ),
         'sebastian/environment' => array(
-            'pretty_version' => '6.0.1',
-            'version' => '6.0.1.0',
-            'reference' => '43c751b41d74f96cbbd4e07b7aec9675651e2951',
+            'pretty_version' => '6.1.0',
+            'version' => '6.1.0.0',
+            'reference' => '8074dbcd93529b357029f5cc5058fd3e43666984',
             'type' => 'library',
             'install_path' => __DIR__ . '/../sebastian/environment',
             'aliases' => array(),
