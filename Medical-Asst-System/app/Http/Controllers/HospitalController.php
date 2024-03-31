@@ -71,4 +71,23 @@ class HospitalController extends Controller
         $hos->save();
         return redirect('/hos_bed');
     }
+
+    // for redirecting to hospital interface page 
+
+    public function HosInterfaceDisplay(){
+        return view('hos_interface');
+    }
+
+    // for displaying hospital data in hospital interface page 
+    public function GetHosData(){
+        $hos_id = session('hos_id');
+        // $pnt_id = session('pnt_id');
+        $hos_info_all= Hospital_info::where('hos_id','=',$hos_id)->first();
+        $hos_name=$hos_info_all->hos_name;
+        $pnt_info_all= Patient_booking_info::where('hos_name','=',$hos_name)->get();
+        return view('hos_interface')->with([
+            'hos_info_all' => $hos_info_all,
+            'pnt_info_all' => $pnt_info_all
+        ]);
+    }
 }
