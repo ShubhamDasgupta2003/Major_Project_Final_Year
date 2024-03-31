@@ -10,6 +10,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -115,4 +116,11 @@ Route::get('/hos_confirm',[PatientController::class,'RedirectConfirm']);
 Route::get('/hos_confirm',[PatientController::class,'update']);
 Route::get('/hos_register',[HospitalController::class,'DisplayForm']);
 Route::post('/hos_register_data',[HospitalController::class,'HosDataEntry'])->name('store.data');
+Route::get('/hos_admin_interface',[HospitalController::class,'HosInterfaceDisplay'])->name('display.hos.inter');
+Route::get('/hos_admin_interface',[HospitalController::class,'GetHosData'])->name('hos.data.interface');
 // ---------------------Bed booking Service Routes end here-----------------------------
+
+// ---------------------Login Routes start here---------------------------
+Route::get('/login',[LoginController::class,'DisplayLogin'])->name('display.login');
+Route::post('/check',[LoginController::class,'FetchServiceData'])->name('login.validate');
+// ---------------------Login Routes end here-----------------------------
