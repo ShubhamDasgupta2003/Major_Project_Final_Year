@@ -25,28 +25,7 @@
 
 <body>
     <div class="container-fluid row">
-        <div class="left-panel col-3 border vh-100 overflow-auto">
-            <div class="patient-card-body">
-                    <!-- Card header begins -->
-                    @for($i=0;$i<$amb_data->count();$i++)
- 
-                    <div class="card text-center mb-3">
-                        <div class="card-header">
-                            Featured
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{$amb_data[$i]->amb_name}}</h5>
-                            <p class="card-text">{{$amb_data[$i]->amb_type}}</p>
-                            <a href="{{url('/')}}/driver-ride-accepted?r={{$amb_data[$i]->amb_no}}&ptn_lat={{$amb_data[$i]->amb_loc_lat}}&ptn_lng={{$amb_data[$i]->amb_loc_lng}}" class="btn btn-success" id="accept_ride_btn">Accept Ride</a>
-                        </div>
-                        <div class="card-footer text-muted">
-                        {{$distance[$i]}}
-                        </div>
-                    </div>
-                @endfor
-                    <!-- Card header ends -->
-            </div>
-        </div>
+
         <div id="map" style="width:80%; height: 100vh" class="col"></div>
     </div>
 
@@ -75,15 +54,15 @@
             });
 
             var req = new XMLHttpRequest();
-            req.open('GET', '/amb-data-json', true);
+            req.open('GET', '/ptn-data-json', true);
             req.send();
 
             req.onreadystatechange = function () {
                 if (req.readyState == 4 && req.status == 200) {
                     var obj = JSON.parse(req.responseText);
-                    data = obj.amb_data;
+                    data = obj.ptn_data;
                     for (let i = 0; i < data.length; i++) {
-                        var patient_marker = L.marker([data[i]['amb_loc_lat'], data[i]['amb_loc_lng']], {icon:patient_icon, id:data[i]['amb_no'], val:i}).addTo(map).on('click', mark_click); //Patient marker on map
+                        var patient_marker = L.marker([data[i]['patient_booking_lat'], data[i]['patient_booking_lng']], {icon:patient_icon, id:data[i]['amb_no'], val:i}).addTo(map).on('click', mark_click); //Patient marker on map
                     }
                 }
             };
@@ -122,7 +101,7 @@
                     $.ajax({
                     url:"{{ route('showAvblRides') }}",
                     type:"GET",
-                    data:{'lat':pos.coords.latitude,'lng':pos.coords.longitude,'amb_id':'WB23AC1223'}, //amb_id to be fetched from session variable later
+                    data:{'lat':pos.coords.latitude,'lng':pos.coords.longitude,'amb_id':''}, //amb_id to be fetched from session variable later
                     success:function(data){
                         console.log(data);
                     }

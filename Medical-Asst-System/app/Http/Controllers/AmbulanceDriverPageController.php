@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use App\Models\Amb_info;
+use App\Models\Patient_ambulance;
 use Illuminate\Support\Facades\Http;
 class AmbulanceDriverPageController extends Controller
 {
+    public function getPatientData()
+    {
+        $ptn_data = Patient_ambulance::all();
+        return response()->json(['ptn_data'=>$ptn_data]);
+    }
     public function getAmbulanceData()
     {
         $amb_data = Amb_info::all();
         return response()->json(['amb_data'=>$amb_data]);
     }
-
     public function fetchDistance($org_lat,$org_lng,$dest_lat,$dest_lng)
     {
             $response = Http::get('https://api.distancematrix.ai/maps/api/distancematrix/json?origins='.$org_lat.','.$org_lng.'&destinations='.$dest_lat.','.$dest_lng.'&key=NZIAp1JWj66LHIiRZx70XoC2fOvLIfPd9EteugzPfS6dRcosnCG2SKOTfh9DESuG');

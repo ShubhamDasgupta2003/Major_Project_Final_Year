@@ -65,6 +65,9 @@ Route::get('/generate-pdfb',[MedicalSuppliesController::class,'generatePdfb']);/
 /*-------------------others----------------------------------*/
 
 // ---------------------Ambulance Service Routes---------------------------
+Route::get('/amb-ptn-ride-assign',[AmbulanceRideRequestController::class,'showAssignedRide']);
+
+Route::get('/ptn-data-json',[AmbulanceDriverPageController::class,'getPatientData']);
 
 Route::get('/amb-data-json',[AmbulanceDriverPageController::class,'getAmbulanceData']);
 

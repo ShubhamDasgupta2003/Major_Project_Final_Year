@@ -8,10 +8,40 @@ use App\Models\states;
 use App\Models\district;
 use Illuminate\Http\Request;
 use App\Models\Patient_ambulance;
+use App\Http\Controllers\AmbulanceDriverPageController;
 use Illuminate\Support\Facades\Http;
+use DB;
+use Cache;
 
 class AmbulanceRideRequestController extends Controller
 {
+    public function showAssignedRide()
+    {
+        $areial_data = DB::select("SELECT amb_no,ROUND((
+            6371 *
+            acos(cos(radians(22.917007138803726)) * 
+            cos(radians(amb_loc_lat)) * 
+            cos(radians(88.43774841554536) - 
+            radians(amb_loc_lng)) + 
+            sin(radians(22.917007138803726)) * 
+            sin(radians(amb_loc_lat)))
+         ),1) AS distance FROM amb_info ORDER BY distance LIMIT 5");
+
+        return $areial_data;
+    }
+    public function getOptimumRoute()
+    {
+        $dist_obj = new AmbulanceDriverPageController;
+        $rows = $this->showAssignedRide();
+        $route_dist = array();
+        foreach($rows as $record)
+        {
+
+            array_push($route_dist,array('distance'=>$record->distance,'amb_no'=>$record->amb_no));
+        }
+        Cache::put('cache_dist',$route_dist);
+        return Cache::get('cache_dist');
+    }
     public function showRideBookingForm(Request $request)
     {
         return view('amb_ptn_booking_intf');
@@ -19,6 +49,7 @@ class AmbulanceRideRequestController extends Controller
     }
     public function postNewRideRequest(Request $request)
     {
+        $data = $this->getOptimumRoute();
         $request->validate([
             'ptn_name'=>'required',
             'ptn_age'=>'required|min:1',
@@ -54,7 +85,11 @@ class AmbulanceRideRequestController extends Controller
         $ptn_request->patient_booking_city = $request['ptn_city'];
         $ptn_request->patient_booking_district = $request['ptn_district'];
         $ptn_request->patient_booking_zipcode = $request['ptn_zipcode'];
-        $ptn_request->save();
+        if($ptn_request->save())
+        {
+            return view('amb_ptn_waiting_queue',compact('data'));
+        }
+
     }
 
     public function checkAmbulanceAvailability(Request $request)
