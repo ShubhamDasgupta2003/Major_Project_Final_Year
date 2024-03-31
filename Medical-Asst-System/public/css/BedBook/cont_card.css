@@ -92,10 +92,20 @@
     font-weight: 800;
     margin: 10px 0px 0px 114px;
 }
-.card button
+/* .card button
+{
+    background-color: var(--green);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 3px;
+    border-radius: 7px;
+} */
+.card a
 {
     /* float:right; */
     /* margin-left: 60px; */
+    border: 1px solid var(--green);
     background-color: var(--green);
     color: white;
     cursor: pointer;
@@ -103,25 +113,14 @@
     /* margin-top: 11px; */
     padding: 3px;
     border-radius: 7px;
-    /* position: relative;
-    top: 5px;
-    left: 52px; */
-}
-.card a
-{
-    /* float:right; */
-    /* margin-left: 60px; */
-    background-color: var(--green);
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-    /* margin-top: 11px; */
-    /* padding: 3px; */
-    border-radius: 7px;
     position: relative;
     top: 10px;
     right: 96px;
     /* left: 52px; */
+}
+.card a:hover{
+    background-color:white ;
+    color: var(--green);
 }
 .card #c1:hover,#c2:hover,#c3:hover,#c4:hover{
     background-color:white ;
