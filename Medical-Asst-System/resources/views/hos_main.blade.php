@@ -91,7 +91,8 @@
                             <p class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i>69 Km</p>
                                  <p class='card-fare'>&#8377 {{$hos->hos_bed_charge}}/-</p>
                             <a href="{{route('display.hos.info', ['id' => $hos->hos_id])}}">
-                                <button id='c1' class='btn btn-secondary-orange'>Book Bed</button>
+                                Book Bed
+                                {{-- <button id='c1' class='btn btn-secondary-orange'>Book Bed</button> --}}
                             </a>
                         </div>
                         </div>

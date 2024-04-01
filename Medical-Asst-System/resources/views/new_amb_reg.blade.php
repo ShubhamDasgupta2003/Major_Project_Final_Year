@@ -99,7 +99,11 @@
             </div>
             <div class="mb-3">
                 <label for="amb_state_reg" class="form-label">Ambulance State</label>
-                <input type="text" name="amb_state_reg" id="" class="form-control">
+                <select id="amb_state_reg" class="form-select" name="amb_state_reg">
+                    @foreach($states as $state)
+                        <option value="{{$state->States}}">{{$state->States}}</option>
+                    @endforeach
+                </select>
                 <span class="text-danger">
                     @error('amb_state_reg')
                     {{$message}}
@@ -108,7 +112,11 @@
             </div>
             <div class="mb-3">
                 <label for="amb_district_reg" class="form-label">Ambulance District</label>
-                <input type="text" name="amb_district_reg" id="" class="form-control">
+                <select id="amb_district_reg" class="form-select" name="amb_district_reg">
+                    @foreach($district as $dist)
+                        <option value="{{$dist->District}}">{{$dist->District}}</option>
+                    @endforeach
+                </select>
                 <span class="text-danger">
                     @error('amb_district_reg')
                     {{$message}}

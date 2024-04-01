@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Amb_info;
 use App\Models\City_Table;
+use App\Models\states;
+use App\Models\district;
 class newAmbulanceRegistrationController extends Controller
 {
     //
     public function showRegForm()
     {
         $cities = City_Table::orderBy('city_ascii')->get();
-        return view('new_amb_reg',compact('cities'));
+        $states = states::query()->orderBy('States')->get();
+        $district = district::query()->orderBy('District')->get();
+        return view('new_amb_reg',compact('cities','states','district'));
     }
     public function addNewService(Request $request)
     {

@@ -41,14 +41,29 @@
                     <div class="col-md-6">
                         <label for="" class="form-label">Patient name</label>
                         <input type="text" class="form-control" id="" name="ptn_name">
+                        <span class="text-danger">
+                            @error('ptn_name')
+                            {{$message}}
+                            @enderror
+                        </span>
                     </div>
                     <div class="col-md-6">
                         <label for="" class="form-label">Patient age</label>
                         <input type="number" class="form-control" id="" name="ptn_age">
+                        <span class="text-danger">
+                            @error('ptn_age')
+                            {{$message}}
+                            @enderror
+                        </span>
                     </div>
                     <div class="col-6">
                         <label for="" class="form-label">Patient Contact</label>
                         <input type="tel" class="form-control" id="inputAddress" placeholder="" name="ptn_mob">
+                        <span class="text-danger">
+                            @error('ptn_mob')
+                            {{$message}}
+                            @enderror
+                        </span>
                     </div>
                     <div class="col-6">
                     <label for="" class="form-label">Patient gender</label>
@@ -58,7 +73,11 @@
                         <option value="F">Female</option>
                         <option value="O">Others</option>
                     </select>
-
+                    <span class="text-danger">
+                            @error('ptn_gender')
+                            {{$message}}
+                            @enderror
+                    </span>
                     </div>
                     <div class="col-12">
                     <label for="" class="form-label">Ambulance Type</label>
@@ -67,15 +86,48 @@
                         <option value="normal">Normal</option>
                         <option value="Life-support">Life-support</option>
                     </select>
+                    <span class="text-danger">
+                            @error('ptn_amb_type')
+                            {{$message}}
+                            @enderror
+                        </span>
                     </div>
 
                     <div class="col-12">
                         <label for="inputAddress2" class="form-label">Full Address</label>
-                        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" name="ptn_address">
+                        <input type="text" class="form-control" id="full_address" placeholder="Apartment, studio, or floor" name="ptn_address">
+                        <span class="text-danger">
+                            @error('ptn_address')
+                            {{$message}}
+                            @enderror
+                        </span>
+                    </div>
+                    <div class="col-6">
+                        <label for="" class="form-label">Latitude</label>
+                        <input type="text" class="form-control" id="latitude" name="ptn_latitude" readonly>
+                        <span class="text-danger">
+                            @error('ptn_address')
+                            {{$message}}
+                            @enderror
+                        </span>
+                    </div>
+                    <div class="col-6">
+                        <label for="" class="form-label">Longitude</label>
+                        <input type="text" class="form-control" id="longitude" name="ptn_longitude" readonly>
+                        <span class="text-danger">
+                            @error('ptn_address')
+                            {{$message}}
+                            @enderror
+                        </span>
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">City</label>
                         <input type="text" class="form-control" id="inputCity" name="ptn_city">
+                        <span class="text-danger">
+                            @error('ptn_city')
+                            {{$message}}
+                            @enderror
+                        </span>
                     </div>
                     <div class="col-md-6">
                         <label for="inputState" class="form-label">District</label>
@@ -85,14 +137,29 @@
                         <option value="24-Pgs(S)">South-24 Pgs</option>
                         <option value="Nadia">Nadia</option>
                         </select>
+                        <span class="text-danger">
+                            @error('ptn_district')
+                            {{$message}}
+                            @enderror
+                        </span>
                     </div>
                     <div class="col-md-6">
                         <label for="inputZip" class="form-label">Zip</label>
                         <input type="text" class="form-control" id="inputZip" name="ptn_zipcode">
+                        <span class="text-danger">
+                            @error('ptn_zipcode')
+                            {{$message}}
+                            @enderror
+                        </span>
                     </div>
                     <div class="col-md-6">
                         <label for="inputstate" class="form-label">State</label>
                         <input type="text" class="form-control" id="inputZip" name="ptn_state">
+                        <span class="text-danger">
+                            @error('ptn_state')
+                            {{$message}}
+                            @enderror
+                        </span>
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-success">Request ride</button>
@@ -107,11 +174,24 @@
 
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script>
         var data;
+        const address_box = document.getElementById('full_address');
+        const lat_box = document.getElementById('latitude');
+        const lng_box = document.getElementById('longitude');
         navigator.geolocation.getCurrentPosition(success, error);
+
+        let urlParams = new URLSearchParams(document.location.search);
+        let booking_address = urlParams.get('fmt_ads');
+        let booking_latitude = urlParams.get('lat');
+        let booking_longitude = urlParams.get('lng');
+
+        console.log(address_box);
+        address_box.value = booking_address;
+        lat_box.value = booking_latitude;
+        lng_box.value = booking_longitude;
 
         function success(pos) {
             var lat = pos.coords.latitude;
@@ -124,9 +204,9 @@
                 subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
             }).addTo(map);
 
-            var patient_icon = L.icon({
-                iconUrl: 'https://cdn-icons-png.freepik.com/512/9356/9356230.png',
-                iconSize: [40, 40]
+            var taxi_icon = L.icon({
+                iconUrl: 'https://multidestinosexpress.co/wp-content/uploads/2022/08/22.png',
+                iconSize: [50, 50]
             });
 
             var req = new XMLHttpRequest();
@@ -138,16 +218,16 @@
                     var obj = JSON.parse(req.responseText);
                     data = obj.amb_data;
                     for (let i = 0; i < data.length; i++) {
-                        var patient_marker = L.marker([data[i]['amb_loc_lat'], data[i]['amb_loc_lng']], {icon:patient_icon, id:data[i]['amb_no'], val:i}).addTo(map).on('click', mark_click); //Patient marker on map
+                        var patient_marker = L.marker([data[i]['amb_loc_lat'], data[i]['amb_loc_lng']], {icon:taxi_icon, id:data[i]['amb_no'], val:i}).addTo(map).on('click', mark_click); //Patient marker on map
                     }
                 }
             };
-            var taxiIcon = L.icon({
-                iconUrl: 'https://cdn-icons-png.freepik.com/512/9356/9356230.png',
+            var patientIcon = L.icon({
+                iconUrl: 'https://cdn3.iconfinder.com/data/icons/maps-and-navigation-7/65/68-512.png',
                 iconSize: [50, 50]
             });
 
-            var marker = L.marker([lat, lon], { icon: taxiIcon }).addTo(map);    //Ambulance marker on the map
+            var marker = L.marker([lat, lon], { icon: patientIcon }).addTo(map);    //Ambulance marker on the map
 
             function mark_click(e) {
                 // console.log(`${e.target.options.id} has been click`);
@@ -162,10 +242,7 @@
                 ptn_box.innerHTML = all_details['amb_driver_name'] + " " + all_details['amb_address'] + " " + all_details['amb_contact'];
             }
 
-            function getHref(obj)
-            {
-                console.log(obj.target.id);
-            }
+    
  
 
             navigator.geolocation.watchPosition(w_success, w_error);
