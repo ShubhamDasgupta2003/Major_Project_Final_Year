@@ -20,6 +20,10 @@
                         <a href={{url('hos_admin_interface')}}  class="active"><span class="las la-igloo"></span>
                     <span>Dashboard</span></a>
                 </li>
+                <li>
+                    <a href="{{url('custom_bed')}}"><span class="las la-hospital"></span>
+                    <span>Customize Hospital Beds</span></a>
+                </li>
                {{-- <li>
                     <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/bed booking admin/display_update_bed.php"><span class="las la-clipboard-list"></span>
                     <span>Update Beds</span></a>

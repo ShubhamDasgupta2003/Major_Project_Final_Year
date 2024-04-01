@@ -90,4 +90,13 @@ class HospitalController extends Controller
             'pnt_info_all' => $pnt_info_all
         ]);
     }
+
+    // for displaying customize hospital beds page (hospital admin) 
+    public function CustomBedDesign(){
+        return view('/hospital bed/custom_bed_design');
+    }
+
+    public function CustomBedPntDetails(){
+        return view('/hospital bed/pnt_status');
+    }
 }

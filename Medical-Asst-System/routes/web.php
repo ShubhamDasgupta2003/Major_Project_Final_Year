@@ -123,12 +123,11 @@ Route::get('/hos_register',[HospitalController::class,'DisplayForm']);
 Route::post('/hos_register_data',[HospitalController::class,'HosDataEntry'])->name('store.data');
 Route::get('/hos_admin_interface',[HospitalController::class,'HosInterfaceDisplay'])->name('display.hos.inter');
 Route::get('/hos_admin_interface',[HospitalController::class,'GetHosData'])->name('hos.data.interface');
+Route::get('/custom_bed',[HospitalController::class,'CustomBedDesign'])->name('display.custum.bed');
+Route::get('/custom_bed_pntdata',[HospitalController::class,'CustomBedPntDetails'])->name('display.pnt.data');
 // ---------------------Bed booking Service Routes end here-----------------------------
 
-<<<<<<< HEAD
-=======
 // ---------------------Login Routes start here---------------------------
 Route::get('/login',[LoginController::class,'DisplayLogin'])->name('display.login');
 Route::post('/check',[LoginController::class,'FetchServiceData'])->name('login.validate');
 // ---------------------Login Routes end here-----------------------------
->>>>>>> f9c99b61f185b003473b5fb1a8eaf041fdb3e472
