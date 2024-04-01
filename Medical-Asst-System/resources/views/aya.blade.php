@@ -24,6 +24,12 @@ Aya
                 <div class='card-part2'>
                 <strong>Ramesh</strong>
                 <p><strong>Organization:</strong> xyz</p>
+                <div>4.4<span class="fa fa-star checked"></span>
+                {{-- <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span> --}}
+                </div>
                 <strong><span style='color: red;'>INR 1200  per day</span></strong><br>
                 <strong>Book Amount:<span style='color: blue;'> INR 500</span></strong>
                 <p class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i> 50 Km</p>

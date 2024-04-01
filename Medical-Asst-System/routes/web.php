@@ -24,6 +24,7 @@ use App\Http\Controllers\PatientController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+/*-------------------Healthcare Support----------------------------------*/
 Route::get('/aya', function () {
     return view('aya');
 })->name('aya_home');
@@ -33,6 +34,10 @@ Route::get('/nurse', function () {
 Route::get('/technician', function () {
     return view('technician');
 })->name('technician_home');
+Route::get('/rating', function () {
+    return view('healthcare_support_emp_rating');
+})->name('rating');
+/*-------------------Healthcare Support----------------------------------*/
 
 // routes for BloodBank
 Route::view ('BookBlood','/Blood_Booking/bloodB_home')->name('bloodB_home');
