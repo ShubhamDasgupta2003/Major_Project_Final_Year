@@ -1,3 +1,6 @@
+.checked {
+  color: orange;
+}
 .segmented-navigation {
   position: relative;
   top: 0 px;

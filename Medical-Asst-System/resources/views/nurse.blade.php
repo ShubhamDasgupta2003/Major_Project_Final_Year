@@ -1,13 +1,7 @@
-@extends("maintemplate")
-@section("title")
-Home Page
-@endsection
-@section("css")
-<link rel="stylesheet" href="css/BloodBank/cont-card.css">
-<link rel="stylesheet" href="css/mininav.css">
-@endsection
-@section("navbar")
+@extends("healthcare_support_template")
 
+@section("title")
+Nurse
 @endsection
 @section("main")
 <!-- header section end -->
@@ -15,8 +9,8 @@ Home Page
         <div>
             <nav class="segmented-navigation">
                 <a href="/aya" class="segmented-item">Aya</a>
-                <a href="/nurse" class="segmented-item">Nurse</a>
-                <a href="/technician" class="segmented-item active">Technician</a>
+                <a href="/nurse" class="segmented-item active">Nurse</a>
+                <a href="/technician" class="segmented-item">Technician</a>
               </nav>
         </div>
         <div class="contents">
@@ -413,39 +407,8 @@ Home Page
                 </div> 
             </div>
         </div>
-            
-     <!-- Location window popup starts here -->
-     <div class="location-window" id="loc-win">
-                <div class="card popup">
-                    <button class="dismiss-btn" id="dismiss">&times</button>
-                    <div class="loc-head">
-                        <span>Enter an Indian pincode here</span>
-                        <div class="loc-option-tab">
-                            <input type="number" name="pincode" placeholder="Pincode here" id="zipcode">
-                            <button class="btn" id="pin-apply">Apply</button>
-                        </div>
-                    </div>
-                    <div class="loc-head">
-                        <span>Allow to access your location</span>
-                        <div class="loc-option-tab">
-                            <button class="get-location btn" id="det-location"><i class="fa-solid fa-location-crosshairs"></i>Detect my location</button>
-                        </div>
-                    </div>
-                    <div class="loc-head">
-                        <div class="loc-option-tab">
-                            <label for="" id="location-txt">
-                                <?php
-                                    // echo "$full_address";
-                                ?>
-                                <h3>Ramesh</h3>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Location window popup ends here -->
-        </div>
-    
 @endsection
+
 @section("js")
+//Enter your page unique js files.
 @endsection

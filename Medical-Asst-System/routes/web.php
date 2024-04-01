@@ -25,6 +25,7 @@ use App\Http\Controllers\LoginController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+/*-------------------Healthcare Support----------------------------------*/
 Route::get('/aya', function () {
     return view('aya');
 })->name('aya_home');
@@ -34,6 +35,10 @@ Route::get('/nurse', function () {
 Route::get('/technician', function () {
     return view('technician');
 })->name('technician_home');
+Route::get('/rating', function () {
+    return view('healthcare_support_emp_rating');
+})->name('rating');
+/*-------------------Healthcare Support----------------------------------*/
 
 // routes for BloodBank
 Route::view ('BookBlood','/Blood_Booking/bloodB_home')->name('bloodB_home');
@@ -120,7 +125,10 @@ Route::get('/hos_admin_interface',[HospitalController::class,'HosInterfaceDispla
 Route::get('/hos_admin_interface',[HospitalController::class,'GetHosData'])->name('hos.data.interface');
 // ---------------------Bed booking Service Routes end here-----------------------------
 
+<<<<<<< HEAD
+=======
 // ---------------------Login Routes start here---------------------------
 Route::get('/login',[LoginController::class,'DisplayLogin'])->name('display.login');
 Route::post('/check',[LoginController::class,'FetchServiceData'])->name('login.validate');
 // ---------------------Login Routes end here-----------------------------
+>>>>>>> f9c99b61f185b003473b5fb1a8eaf041fdb3e472
