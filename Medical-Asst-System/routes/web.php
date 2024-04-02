@@ -103,6 +103,11 @@ Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRides
 
 Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAccepted']);
 
+Route::get('/amb-admin-set-pswd',[newAmbulanceRegistrationController::class,'showCreatePassword'])->name("ambAdminPassForm");
+
+Route::post('/amb-admin-set-pswd',[newAmbulanceRegistrationController::class,'createPassword']);
+// ---------------------Ambulance Service Routes ends here------------------------
+
 // ---------------------Bed booking Service Routes start here---------------------------
 // Route::get('/hos_bed',function(){
 //     return view('hos_main');
@@ -125,10 +130,7 @@ Route::get('/hos_admin_interface',[HospitalController::class,'HosInterfaceDispla
 Route::get('/hos_admin_interface',[HospitalController::class,'GetHosData'])->name('hos.data.interface');
 // ---------------------Bed booking Service Routes end here-----------------------------
 
-<<<<<<< HEAD
-=======
 // ---------------------Login Routes start here---------------------------
 Route::get('/login',[LoginController::class,'DisplayLogin'])->name('display.login');
 Route::post('/check',[LoginController::class,'FetchServiceData'])->name('login.validate');
 // ---------------------Login Routes end here-----------------------------
->>>>>>> f9c99b61f185b003473b5fb1a8eaf041fdb3e472
