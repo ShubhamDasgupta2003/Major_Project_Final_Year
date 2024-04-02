@@ -47,7 +47,7 @@
     </nav>
     <!--user avtar-->
     <div class="user-avatar-container">
-    <a href="profile.php" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
+    <a href="{{route('Userlogin')}}" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
             {{-- echo"<h3>$_SESSION[user_fname]</h3>";
             echo "<input type='hidden' id='session_val' value=1>";
             echo"<h3>Guest</h3>";

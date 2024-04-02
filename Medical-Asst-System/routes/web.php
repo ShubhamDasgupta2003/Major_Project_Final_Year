@@ -3,6 +3,7 @@
 use App\Http\Controllers\AmbulanceDriverPageController;
 use App\Http\Controllers\newAmbulanceRegistrationController;
 use App\Http\Controllers\AmbulanceRideRequestController;
+use App\Http\Controllers\UserLogin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MedicalSuppliesController;
 use App\Http\Controllers\AdminController;
@@ -40,9 +41,12 @@ Route::get('/rating', function () {
 })->name('rating');
 /*-------------------Healthcare Support----------------------------------*/
 
+
 // routes for BloodBank
 Route::view ('BookBlood','/Blood_Booking/bloodB_home')->name('bloodB_home');
 Route::view ('booking_form','/Blood_Booking/form')->name('blood_booking_form');
+Route::view ('Userlogin','/Blood_Booking/login')->name('Userlogin');
+Route::post('/Userlogin', [UserLogin::class, 'userLogin'])->name('UserLogin-controller');
 
 
 /*-------------------Medical Supplies----------------------------------*/
