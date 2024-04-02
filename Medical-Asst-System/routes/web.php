@@ -3,6 +3,7 @@
 use App\Http\Controllers\AmbulanceDriverPageController;
 use App\Http\Controllers\newAmbulanceRegistrationController;
 use App\Http\Controllers\AmbulanceRideRequestController;
+use App\Http\Controllers\UserLogin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MedicalSuppliesController;
 use App\Http\Controllers\AdminController;
@@ -40,9 +41,12 @@ Route::get('/rating', function () {
 })->name('rating');
 /*-------------------Healthcare Support----------------------------------*/
 
+
 // routes for BloodBank
 Route::view ('BookBlood','/Blood_Booking/bloodB_home')->name('bloodB_home');
 Route::view ('booking_form','/Blood_Booking/form')->name('blood_booking_form');
+Route::view ('Userlogin','/Blood_Booking/login')->name('Userlogin');
+Route::post('/Userlogin', [UserLogin::class, 'userLogin'])->name('UserLogin-controller');
 
 
 /*-------------------Medical Supplies----------------------------------*/
@@ -128,6 +132,8 @@ Route::get('/hos_register',[HospitalController::class,'DisplayForm']);
 Route::post('/hos_register_data',[HospitalController::class,'HosDataEntry'])->name('store.data');
 Route::get('/hos_admin_interface',[HospitalController::class,'HosInterfaceDisplay'])->name('display.hos.inter');
 Route::get('/hos_admin_interface',[HospitalController::class,'GetHosData'])->name('hos.data.interface');
+Route::get('/custom_bed',[HospitalController::class,'CustomBedDesign'])->name('display.custum.bed');
+Route::get('/custom_bed_pntdata',[HospitalController::class,'CustomBedPntDetails'])->name('display.pnt.data');
 // ---------------------Bed booking Service Routes end here-----------------------------
 
 // ---------------------Login Routes start here---------------------------
