@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Hospital_info;
 use App\Models\Amb_info;
+use App\Models\Ambulance_Admin;
 
 class LoginController extends Controller
 {
@@ -34,8 +35,9 @@ class LoginController extends Controller
         $password = $request['password'];
         $service = $request['service'];
         
-       if($service=="Hospital Bed Booking Service"){
-                   $hos_data = Hospital_info::where('hos_email','=',$email_number)->orWhere('hos_contactno','=',$email_number)->first();
+       if($service=="Hospital Bed Booking Service")
+       {
+                $hos_data = Hospital_info::where('hos_email','=',$email_number)->orWhere('hos_contactno','=',$email_number)->first();
                 //    echo "$hos_data";
                 if($hos_data){
                 $storedpassword= $hos_data->hos_password;
@@ -54,8 +56,33 @@ class LoginController extends Controller
                         echo "<script>alert('Password incorrect! Enter a valid password')</script>";
                     }
                 }
-
        }
+       //Ambulance service login starts here
+
+       if($service=="Ambulance Service")
+       {
+                $amb_admin = Ambulance_Admin::where('amb_drv_email','=',$email_number)->orWhere('amb_contact','=',$email_number)->first();
+                //    echo "$hos_data";
+                if($amb_admin){
+                $storedpassword= $amb_admin->amb_admin_paswd;
+                    if($storedpassword===$password){
+                        // echo "$hos_data->hos_id";
+                        session(['amb_id' => $amb_admin->amb_no]);
+                        session(['is_adm_login' => 1]);
+                        return redirect()->route('showAvblRides')->with([
+                            'amb_id',$amb_admin->amb_no
+                        ]);
+                        
+                    //     echo"$hos_data->hos_id";
+                    }else{
+                        // echo "false";
+                        session(['is_adm_login' => 0]);
+                        echo "<script>alert('Password incorrect! Enter a valid password')</script>";
+                    }
+                }
+       }
+        //Ambulance service login ends here
+
     //         // return view('hos_interface')->with([
     //         //     'email_number' => $email_number,
     //         //     'password' => $password,
