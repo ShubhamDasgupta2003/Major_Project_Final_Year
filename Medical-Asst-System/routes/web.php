@@ -127,13 +127,14 @@ Route::get('/hos_form/{id}',[PatientController::class,'HosInfo'])->name('display
 Route::post('/hos_form/{id}',[PatientController::class,'StoreData'])->name('store.data');
 Route::get('/hos_confirm',[PatientController::class,'RedirectConfirm']);
 // Route::get('/hos_form',[PatientController::class,'HospitalDataToForm'])->name('hos_info_form');
-Route::get('/hos_confirm',[PatientController::class,'update']);
+// Route::get('/hos_confirm',[PatientController::class,'update']);
 Route::get('/hos_register',[HospitalController::class,'DisplayForm']);
-Route::post('/hos_register_data',[HospitalController::class,'HosDataEntry'])->name('store.data');
+Route::post('/hos_register_data',[HospitalController::class,'HosDataEntry'])->name('store.hos.data');
 Route::get('/hos_admin_interface',[HospitalController::class,'HosInterfaceDisplay'])->name('display.hos.inter');
 Route::get('/hos_admin_interface',[HospitalController::class,'GetHosData'])->name('hos.data.interface');
 Route::get('/custom_bed',[HospitalController::class,'CustomBedDesign'])->name('display.custum.bed');
 Route::get('/custom_bed_pntdata',[HospitalController::class,'CustomBedPntDetails'])->name('display.pnt.data');
+// Route::get('/hos_form/{id}',[HospitalController::class,'UpdateBedCount'])->name('update.bedCount');
 // ---------------------Bed booking Service Routes end here-----------------------------
 
 // ---------------------Login Routes start here---------------------------

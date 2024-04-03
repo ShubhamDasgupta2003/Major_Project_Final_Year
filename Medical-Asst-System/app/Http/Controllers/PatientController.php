@@ -17,30 +17,30 @@ class PatientController extends Controller
 
     public function StoreData(Request $request,$hos_info)
     {
-        // $request->validate([
-            // "pnt_id"=>"required|max:30|",
-            // "hos_id"=>"required|max:30|",
-            // "hos_name"=>"required|max:60|",
-            // // "user_id"=>"required|max:30|",
-            // "pnt_first_name"=>"required|max:30|",
-            // "pnt_last_name"=>"required|max:30|",
-            // "pnt_contactno"=>"required|max:10",
-            // "pnt_age"=>"required|max:3",
-            // "pnt_gender"=>"required",
-            // // "pnt_gender"=>"required|Rule::in(['male','female'])",
-            // "pnt_dob"=>"required",
-            // "pnt_email"=>"required|email",
-            // "pnt_adhr"=>"required",
-            // "pnt_address"=>"required",
-            // "pnt_district"=>"required",
-            // "pnt_city"=>"required",
-            // "pnt_pincode"=>"required",
-            // "pnt_booking_date"=>"required",
-            // "pnt_booking_timestamp"=>"required",
-            // "pnt_booking_deadline_timestamp"=>"required",
-            // "pnt_bed_charge"=>"required",
-            // // "pnt_booking_status"=>"required",
-        // ]);
+        $request->validate([
+            "pnt_id"=>"required|max:30|",
+            "hos_id"=>"required|max:30|",
+            "hos_name"=>"required|max:60|",
+            // "user_id"=>"required|max:30|",
+            "pnt_first_name"=>"required|max:30|",
+            "pnt_last_name"=>"required|max:30|",
+            "pnt_contactno"=>"required|max:10",
+            "pnt_age"=>"required|max:3",
+            "pnt_gender"=>"required",
+            // "pnt_gender"=>"required|Rule::in(['male','female'])",
+            "pnt_dob"=>"required",
+            "pnt_email"=>"required|email",
+            "pnt_adhr"=>"required|max:12",
+            "pnt_address"=>"required",
+            "pnt_district"=>"required",
+            "pnt_city"=>"required",
+            "pnt_pincode"=>"required|max:6",
+            "pnt_booking_date"=>"required",
+            "pnt_booking_timestamp"=>"required",
+            "pnt_booking_deadline_timestamp"=>"required",
+            "pnt_bed_charge"=>"required",
+            // "pnt_booking_status"=>"required",
+        ]);
         $pnt = new Patient_booking_info;
 
 
@@ -61,6 +61,8 @@ class PatientController extends Controller
             $hospital_id = $hos_info_all->hos_id;
             $hospital_name = $hos_info_all->hos_name;
             $hospital_bed_charge = $hos_info_all->hos_bed_charge;
+            $hos_male_bed = $hos_info_all->hos_male_bed_available;
+            $hos_female_bed = $hos_info_all->hos_female_bed_available;
 
 
             // session variable created 
@@ -99,6 +101,18 @@ class PatientController extends Controller
         $pnt->pnt_bed_charge = $hospital_bed_charge;
         $pnt->pnt_booking_status = "Applied";
         $pnt->save();
+
+        // updating bed count of hospital 
+        if($request['pnt_gender']=="male"){
+            Hospital_info::where('hos_id',$hospital_id)->update([
+                'hos_male_bed_available' => $hos_male_bed -1 
+            ]);
+        }else if($request['pnt_gender']=="female"){
+            Hospital_info::where('hos_id',$hospital_id)->update([
+                'hos_female_bed_available' => $hos_female_bed -1 
+            ]);
+        }
+
         return redirect('/hos_confirm');
     }
 

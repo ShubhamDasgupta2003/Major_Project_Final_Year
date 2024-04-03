@@ -38,23 +38,28 @@ class LoginController extends Controller
        if($service=="Hospital Bed Booking Service")
        {
                 $hos_data = Hospital_info::where('hos_email','=',$email_number)->orWhere('hos_contactno','=',$email_number)->first();
-                //    echo "$hos_data";
                 if($hos_data){
-                $storedpassword= $hos_data->hos_password;
-                    if($storedpassword===$password){
-                        // echo "$hos_data->hos_id";
-                        session(['hos_id' => $hos_data->hos_id]);
-                        session(['is_adm_login' => 1]);
-                        return redirect()->route('hos.data.interface')->with([
-                            'hos_id',$hos_data->hos_id
-                        ]);
-                        
-                    //     echo"$hos_data->hos_id";
-                    }else{
-                        // echo "false";
-                        session(['is_adm_login' => 0]);
-                        echo "<script>alert('Password incorrect! Enter a valid password')</script>";
+                    //    echo "$hos_data";
+                    if($hos_data){
+                    $storedpassword= $hos_data->hos_password;
+                        if($storedpassword===$password){
+                            // echo "$hos_data->hos_id";
+                            session(['hos_id' => $hos_data->hos_id]);
+                            session(['is_adm_login' => 1]);
+                            return redirect()->route('hos.data.interface')->with([
+                                'hos_id',$hos_data->hos_id
+                            ]);
+                            
+                        //     echo"$hos_data->hos_id";
+                        }else{
+                            // echo "false";
+                            session(['is_adm_login' => 0]);
+                            echo "<script>alert('Password incorrect! Enter a valid password')</script>";
+                        }
                     }
+                }else {
+                    echo "<script>alert('Invalid E-mail! Enter a valid E-mail')</script>";
+                    // return redirect()->route('display.login');
                 }
        }
        //Ambulance service login starts here
@@ -62,23 +67,28 @@ class LoginController extends Controller
        if($service=="Ambulance Service")
        {
                 $amb_admin = Ambulance_Admin::where('amb_drv_email','=',$email_number)->orWhere('amb_contact','=',$email_number)->first();
-                //    echo "$hos_data";
                 if($amb_admin){
-                $storedpassword= $amb_admin->amb_admin_paswd;
-                    if($storedpassword===$password){
-                        // echo "$hos_data->hos_id";
-                        session(['amb_id' => $amb_admin->amb_no]);
-                        session(['is_adm_login' => 1]);
-                        return redirect()->route('showAvblRides')->with([
-                            'amb_id',$amb_admin->amb_no
-                        ]);
-                        
-                    //     echo"$hos_data->hos_id";
-                    }else{
-                        // echo "false";
-                        session(['is_adm_login' => 0]);
-                        echo "<script>alert('Password incorrect! Enter a valid password')</script>";
+
+                    //    echo "$hos_data";
+                    if($amb_admin){
+                    $storedpassword= $amb_admin->amb_admin_paswd;
+                        if($storedpassword===$password){
+                            // echo "$hos_data->hos_id";
+                            session(['amb_id' => $amb_admin->amb_no]);
+                            session(['is_adm_login' => 1]);
+                            return redirect()->route('showAvblRides')->with([
+                                'amb_id',$amb_admin->amb_no
+                            ]);
+                            
+                        //     echo"$hos_data->hos_id";
+                        }else{
+                            // echo "false";
+                            session(['is_adm_login' => 0]);
+                            echo "<script>alert('Password incorrect! Enter a valid password')</script>";
+                        }
                     }
+                }else {
+                    echo "<script>alert('Invalid E-mail! Enter a valid E-mail')</script>";
                 }
        }
         //Ambulance service login ends here
