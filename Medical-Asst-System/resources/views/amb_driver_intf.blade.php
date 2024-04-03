@@ -24,9 +24,24 @@
 </head>
 
 <body>
-    <div class="container-fluid row">
 
-        <div id="map" style="width:80%; height: 100vh" class="col"></div>
+    <div class="container-fluid row">
+            <nav class="navbar navbar-light bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand text-light">Navbar</a>
+            <div class="d-flex">
+                <h2 class="me-2 text-light">Hi, {{$amb_record->amb_driver_name}}</h2>
+            </div>
+        </div>
+        </nav>
+        <div class="left-panel col-5 border vh-93 overflow-auto">
+            <div class="patient-card-body">
+                    <!-- Card header begins -->
+                   
+                    <!-- Card header ends -->
+            </div>
+        </div>
+        <div id="map" style="width:80%; height: 93vh" class="col border"></div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
@@ -101,7 +116,7 @@
                     $.ajax({
                     url:"{{ route('showAvblRides') }}",
                     type:"GET",
-                    data:{'lat':pos.coords.latitude,'lng':pos.coords.longitude,'amb_id':''}, //amb_id to be fetched from session variable later
+                    data:{'lat':pos.coords.latitude,'lng':pos.coords.longitude,'amb_id':'{{session('amb_id')}}'}, //amb_id to be fetched from session variable later
                     success:function(data){
                         console.log(data);
                     }

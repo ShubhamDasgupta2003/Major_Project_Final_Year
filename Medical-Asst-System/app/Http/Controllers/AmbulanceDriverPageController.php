@@ -40,19 +40,10 @@ class AmbulanceDriverPageController extends Controller
         
         }
 
-        $amb_data = Amb_info::all();
-        $len = $amb_data->count();
-        $distance = array();
-        for($i=0;$i<$len;$i++)
-        {   
-            $p = 100+$i;
-            // $result = $this->fetchDistance(22.916974985080206, 88.43773781147688,$amb_data[$i]['amb_loc_lat'],$amb_data[$i]['amb_loc_lng']);
-            // echo $distance;
-            // $amb_data->put('distance',$p);
-            array_push($distance,$p);
-        }
-        // print_r($myarr);
-        return view('amb_driver_intf',compact('amb_data','distance'));
+        $amb_no_key = session('amb_id');
+        $amb_record = Amb_info::where('amb_no','=',$amb_no_key)->first();
+
+        return view('amb_driver_intf',compact('amb_record'));
     }
 
     public function rideAccepted(Request $request)

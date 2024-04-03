@@ -61,7 +61,7 @@ class LoginController extends Controller
 
        if($service=="Ambulance Service")
        {
-                $amb_admin = Ambulance_Admin::where('amb_drv_email','=',$email_number)->orWhere('amb_contact','=',$email_number)->first();
+                $amb_admin = Ambulance_Admin::where('amb_admin_email','=',$email_number)->orWhere('amb_admin_mob','=',$email_number)->first();
                 //    echo "$hos_data";
                 if($amb_admin){
                 $storedpassword= $amb_admin->amb_admin_paswd;
