@@ -63,7 +63,6 @@ class LoginController extends Controller
                 }
        }
        //Ambulance service login starts here
-
        if($service=="Ambulance Service")
        {
                 $amb_admin = Ambulance_Admin::where('amb_drv_email','=',$email_number)->orWhere('amb_contact','=',$email_number)->first();

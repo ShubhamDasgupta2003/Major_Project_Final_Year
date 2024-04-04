@@ -45,7 +45,9 @@ Route::get('/rating', function () {
 // routes for BloodBank
 Route::view ('BookBlood','/Blood_Booking/bloodB_home')->name('bloodB_home');
 Route::view ('booking_form','/Blood_Booking/form')->name('blood_booking_form');
+Route::view ('Blood/Bank_Register','/Blood_Booking/BloodBankRegister')->name('B_Bank_Register');
 Route::view ('Userlogin','/Blood_Booking/login')->name('Userlogin');
+
 Route::post('/Userlogin', [UserLogin::class, 'userLogin'])->name('UserLogin-controller');
 
 
