@@ -54,7 +54,7 @@
                             </label>
                         </div>
                         <div class="gender">
-                            <input type="radio" id="check-female" name="pnt_gender" value="Female" />
+                            <input type="radio" id="check-female" name="pnt_gender" value="female" />
                             <label for="check-female">
                                 <pre>    Female</pre>
                             </label>
