@@ -50,6 +50,7 @@ Route::view ('Userlogin','/Blood_Booking/login')->name('Userlogin');
 
 Route::post('/Userlogin', [UserLogin::class, 'userLogin'])->name('UserLogin-controller');
 
+Route::view ('/test','/Blood_Booking/test');
 
 /*-------------------Medical Supplies----------------------------------*/
 Route::get('/medical supplies',[MedicalSuppliesController::class,'index'])->name('medical_supplies.index');

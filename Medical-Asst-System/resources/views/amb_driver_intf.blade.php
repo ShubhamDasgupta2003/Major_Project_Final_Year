@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    
     <style>
         .marker-btn {
             background-color: green;
@@ -18,15 +21,34 @@
         .leaflet-marker-icon.ptn-marker {
             border:5px solid red;
         }
-
     </style>
 
 </head>
 
 <body>
-    <div class="container-fluid row">
 
-        <div id="map" style="width:80%; height: 100vh" class="col"></div>
+    <div class="container-fluid row">
+            <nav class="navbar navbar-light bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand text-light">Navbar</a>
+            <div class="d-flex">
+                <h2 class="me-2 text-light">Hi, {{$amb_record->amb_driver_name}}</h2>
+            </div>
+        </div>
+        </nav>
+        <div class="left-panel col-5 border vh-93 overflow-auto">
+            <div class="patient-card-body">
+                    <!-- Card header begins -->
+                    <div class="card-body border mt-5 bg-primary">
+                        <h5 class="card-title text-light" id="ptn_name"><div class="spinner-grow text-light" role="status"></div> Getting rides...</h5>
+                        <h6 class="card-subtitle mb-2 text-light" id="ptn_booking_addrs"></h6>
+                        <h5 id="ptn_mobile" class="text-light"></h5>
+                        <h5 id="acpt_ride_btn"></h5>
+                    </div>
+                    <!-- Card header ends -->
+            </div>
+        </div>
+        <div id="map" style="width:80%; height: 93vh" class="col border"></div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
@@ -101,13 +123,29 @@
                     $.ajax({
                     url:"{{ route('showAvblRides') }}",
                     type:"GET",
-                    data:{'lat':pos.coords.latitude,'lng':pos.coords.longitude,'amb_id':''}, //amb_id to be fetched from session variable later
+                    data:{'lat':pos.coords.latitude,'lng':pos.coords.longitude,'amb_id':'{{session('amb_id')}}'}, //amb_id to be fetched from session variable later
                     success:function(data){
-                        console.log(data);
+                        response = data.data[0];
+                        var name = '<i class="fa-solid fa-user-large"></i>  ',addrs = '<i class="fa-solid fa-house-chimney"></i>  ',
+                        mobile = '<i class="fa-solid fa-phone"></i>  ',
+                        dcl_btn = '';
+                        
+                        console.log(response);
+                        name += response.patient_name;
+                        addrs += response.patient_booking_address;
+                        mobile += response.patient_mobile;
+
+                        link = "{{url('/')}}/driver-ride-accepted?ptn_lat="+response.patient_booking_lat+"&ptn_lng="+response.patient_booking_lng;
+
+                        $('#ptn_name').html(name);
+                        $('#ptn_booking_addrs').html(addrs);
+                        $('#ptn_mobile').html(mobile);
+                        $("#acpt_ride_btn").html("<a href="+link+"><button class='btn btn-success'>Accept Ride</button></a>");
                     }
                 })
 
                 }
+
             }
             function w_error(err) {
                 //Error to display

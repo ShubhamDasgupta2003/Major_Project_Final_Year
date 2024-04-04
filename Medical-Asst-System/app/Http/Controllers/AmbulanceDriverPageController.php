@@ -35,29 +35,22 @@ class AmbulanceDriverPageController extends Controller
     {
         if($request->ajax())
         {
-            $amb = Amb_info::where('amb_no',$request->amb_id)->update(['amb_loc_lat'=>$request->lat,'amb_loc_lng'=>$request->lng]);
-            return response()->json(['data'=>'data updated successfully!']);
-        
+            $amb = Amb_info::where('amb_no',$request->amb_id)->update(['amb_loc_lat'=>$request->lat,'amb_loc_lng'=>$request->lng]); //Updating the coordinates of ambulance whenever it changes using ajax
+            
+            $newPatientRequest = Patient_ambulance::where('amb_no',$request->amb_id)->where('ride_status','000')->get(); //Fetching details of new ride request posted on database using ajax
+
+            return response()->json(['data'=>$newPatientRequest]);
         }
 
-        $amb_data = Amb_info::all();
-        $len = $amb_data->count();
-        $distance = array();
-        for($i=0;$i<$len;$i++)
-        {   
-            $p = 100+$i;
-            // $result = $this->fetchDistance(22.916974985080206, 88.43773781147688,$amb_data[$i]['amb_loc_lat'],$amb_data[$i]['amb_loc_lng']);
-            // echo $distance;
-            // $amb_data->put('distance',$p);
-            array_push($distance,$p);
-        }
-        // print_r($myarr);
-        return view('amb_driver_intf',compact('amb_data','distance'));
+        $amb_no_key = session('amb_id');
+        $amb_record = Amb_info::where('amb_no','=',$amb_no_key)->first();
+
+        return view('amb_driver_intf',compact('amb_record'));
     }
 
     public function rideAccepted(Request $request)
     {
-        $data = $request;
+        $data = "hello";
         return view('amb_driver_ride_accepted_intf',compact('data'));
     }
 }
