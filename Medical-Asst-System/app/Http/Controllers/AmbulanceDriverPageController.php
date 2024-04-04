@@ -50,7 +50,14 @@ class AmbulanceDriverPageController extends Controller
 
     public function rideAccepted(Request $request)
     {
-        $data = "hello";
+        $data = "";
+        $amb_no_key = session('amb_id');
+        $ride_status_update = Patient_ambulance::where('amb_no',$amb_no_key)->where('ride_status','000')->update(['ride_status'=>'001']);
+
+        if($ride_status_update)
+        {
+            $data = "Ride Accepted";
+        }
         return view('amb_driver_ride_accepted_intf',compact('data'));
     }
 }
