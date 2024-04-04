@@ -50,7 +50,7 @@ class AmbulanceDriverPageController extends Controller
 
     public function rideAccepted(Request $request)
     {
-        $data = $request;
+        $data = "hello";
         return view('amb_driver_ride_accepted_intf',compact('data'));
     }
 }

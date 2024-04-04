@@ -64,6 +64,7 @@
   </div>
   <div class="card-body">
     <h5 class="card-title">Special title treatment</h5>
+    <h3>{{$data}}</h3>
     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
     <a href="#" id="pickup_StartRide" class="btn btn-primary">Go to pickup location</a>
     <!-- Button trigger modal -->
