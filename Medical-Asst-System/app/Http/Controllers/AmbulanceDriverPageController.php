@@ -35,9 +35,11 @@ class AmbulanceDriverPageController extends Controller
     {
         if($request->ajax())
         {
-            $amb = Amb_info::where('amb_no',$request->amb_id)->update(['amb_loc_lat'=>$request->lat,'amb_loc_lng'=>$request->lng]);
-            return response()->json(['data'=>'data updated successfully!']);
-        
+            $amb = Amb_info::where('amb_no',$request->amb_id)->update(['amb_loc_lat'=>$request->lat,'amb_loc_lng'=>$request->lng]); //Updating the coordinates of ambulance whenever it changes using ajax
+            
+            $newPatientRequest = Patient_ambulance::where('amb_no',$request->amb_id)->where('ride_status','000')->get(); //Fetching details of new ride request posted on database using ajax
+
+            return response()->json(['data'=>$newPatientRequest]);
         }
 
         $amb_no_key = session('amb_id');

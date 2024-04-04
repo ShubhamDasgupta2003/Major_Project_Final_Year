@@ -17,13 +17,13 @@ class AmbulanceRideRequestController extends Controller
 {
     public function getOptimumRides(Request $request)
     {
-        $areial_data = DB::select("SELECT amb_no,amb_loc_lat,amb_loc_lng,ROUND((
+        $areial_data = DB::select("SELECT amb_name,amb_rate,amb_driver_name,amb_contact,amb_no,amb_loc_lat,amb_loc_lng,ROUND((
             6371 *
-            acos(cos(radians(22.917007138803726)) * 
+            acos(cos(radians($request->ptn_latitude)) * 
             cos(radians(amb_loc_lat)) * 
-            cos(radians(88.43774841554536) - 
+            cos(radians($request->ptn_longitude) - 
             radians(amb_loc_lng)) + 
-            sin(radians(22.917007138803726)) * 
+            sin(radians($request->ptn_latitude)) * 
             sin(radians(amb_loc_lat)))
          ),1) AS distance FROM amb_info WHERE amb_status = 'active' AND amb_type = '$request->ptn_amb_type' ORDER BY distance LIMIT 5");
 
@@ -36,9 +36,9 @@ class AmbulanceRideRequestController extends Controller
             // $fetch_route_dist = $dist_obj->fetchDistance(22.917007138803726,88.43774841554536,$record->amb_loc_lat,$record->amb_loc_lng); 
             //Calculating the route distance of each ambulance using API
 
-            array_push($route_dist,array('distance'=>$record->distance,'route_dist'=>$fetch_route_dist,'amb_no'=>$record->amb_no));
+            array_push($route_dist,array('ambulance_name'=>$record->amb_name,'ambulance_rate'=>$record->amb_rate,'driver'=>$record->amb_driver_name,'mobile'=>$record->amb_contact,'distance'=>$record->distance,'route_dist'=>$fetch_route_dist,'amb_no'=>$record->amb_no));
         }
-        return $route_dist['0'];
+        return $route_dist;
     }
     public function showRideBookingForm(Request $request)
     {
@@ -94,7 +94,7 @@ class AmbulanceRideRequestController extends Controller
         {
             $data = $this->getOptimumRides($request);
 
-            $ptn_request->where('invoice_no',$inv_id)->update(['amb_no'=>$data['amb_no']]); //Updating the ambulance no. for corrs invoice no
+            $ptn_request->where('invoice_no',$inv_id)->update(['amb_no'=>$data[0]['amb_no']]); //Updating the ambulance no. for corrs invoice no
 
             return view('amb_ptn_waiting_queue',compact('data'));
         }
