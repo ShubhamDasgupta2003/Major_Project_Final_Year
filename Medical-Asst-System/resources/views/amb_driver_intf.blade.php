@@ -39,10 +39,10 @@
         <div class="left-panel col-5 border vh-93 overflow-auto">
             <div class="patient-card-body">
                     <!-- Card header begins -->
-                    <div class="card-body border mt-5">
-                        <h5 class="card-title" id="ptn_name"></h5>
-                        <h6 class="card-subtitle mb-2 text-muted" id="ptn_booking_addrs"></h6>
-                        <h5 id="ptn_mobile"></h5>
+                    <div class="card-body border mt-5 bg-primary">
+                        <h5 class="card-title text-light" id="ptn_name"><div class="spinner-grow text-light" role="status"></div> Getting rides...</h5>
+                        <h6 class="card-subtitle mb-2 text-light" id="ptn_booking_addrs"></h6>
+                        <h5 id="ptn_mobile" class="text-light"></h5>
                         <h5 id="acpt_ride_btn"></h5>
                     </div>
                     <!-- Card header ends -->
