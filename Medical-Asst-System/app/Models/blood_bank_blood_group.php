@@ -5,10 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BloodBank extends Model
+class blood_bank_blood_group extends Model
 {
+    protected $table=" blood_bank_blood_group ";
     use HasFactory;
-    protected $table="blood_banks";
-    
-    public $timestamps = false;
 }

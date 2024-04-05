@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AmbulanceDriverPageController;
+use App\Http\Controllers\BloodBankController;
 use App\Http\Controllers\newAmbulanceRegistrationController;
 use App\Http\Controllers\AmbulanceRideRequestController;
 use App\Http\Controllers\UserLogin;
@@ -43,12 +44,16 @@ Route::get('/rating', function () {
 
 
 // routes for BloodBank
-Route::view ('BookBlood','/Blood_Booking/bloodB_home')->name('bloodB_home');
+// Route::view ('BookBlood','/Blood_Booking/bloodB_home')->name('bloodB_home');
 Route::view ('booking_form','/Blood_Booking/form')->name('blood_booking_form');
-Route::view ('Blood/Bank_Register','/Blood_Booking/BloodBankRegister')->name('B_Bank_Register');
+Route::view ('RegisterNbank','/Blood_Booking/BbankRegister')->name('B_Bank_Register');
 Route::view ('Userlogin','/Blood_Booking/login')->name('Userlogin');
 
+
+Route::get('BookBlood', [BloodBankController::class, 'showBloodBanks'])->name('bloodB_home');
 Route::post('/Userlogin', [UserLogin::class, 'userLogin'])->name('UserLogin-controller');
+Route::post('/BanksRegister', [BloodBankController::class, 'newregistration'])->name('registerBanks');
+Route::get('/bloodGroup', [BloodBankController::class, 'bloodGroup']);
 
 Route::view ('/test','/Blood_Booking/test');
 

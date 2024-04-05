@@ -48,25 +48,27 @@
         <div class="contents">
 
 
-            <!-- Your content goes here | check body_cont.css file for css property-->
             <div class="cards">
-                <div class='card'>
-                <img src='images/BloodB/Blood_Bank.png'>
-                <div class='card-details'>
-                    <h1 class='card-name'>ABC BloodBank</h1>
-                    <h2 class='card-address'> <i class='fa-solid fa-location-dot'></i>Badkulla,Nadia,westBengal</h2>
-                   
-                    <div class='distance-gr'>
-                        <p class='card-type'>Blood Group: <span class='blood-gr'>O+</span></p>
-                        <h2 class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i> 27 Km</h2>
-
+                @foreach($bloodBanks as $bloodBank)
+                    <div class='card'>
+                        <img src='images/BloodB/Blood_Bank.png'>
+                        <div class='card-details'>
+                            <h1 class='card-name'>{{ $bloodBank->name }}</h1>
+                            <h2 class='card-address'><i class='fa-solid fa-location-dot'></i>{{ $bloodBank->city }}, {{ $bloodBank->state }}</h2>
+                            
+                            <div class='distance-gr'>
+                                <p class='card-type'>Blood Group: <span class='blood-gr'>{{$bloodBank->group_name}}</span></p>
+                                <h2 class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i> 27 Km</h2>
+                            </div>
+                            <div class='buy-price'>
+                                <a href=' {{route('blood_booking_form')}}'><button class='btn buy'>Buy</button></a>
+                                <p class='card-fare'>&#8377 {{$bloodBank->price}}/-</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class='buy-price'>
-                    <a href=' {{route('blood_booking_form')}}'><button class='btn buy'>Buy</button></a>
-                        <p class='card-fare'>&#8377 1350/-</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
+            
            
         </div>
 
