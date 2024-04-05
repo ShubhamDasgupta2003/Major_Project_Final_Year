@@ -101,6 +101,18 @@ class AmbulanceRideRequestController extends Controller
 
     }
 
+    public function showAssignedRide(Request $request)
+    {
+        if($request->ajax())
+        {
+            $ptn_data = Patient_ambulance::where('user_id','abc123')->where('ride_status','001')->get();
+            $amb_data = Amb_info::where('amb_no',$ptn_data[0]->amb_no)->get();
+
+            $full_data = compact('ptn_data','amb_data');
+        }
+        return response()->json(['data'=>$full_data]);
+    }
+
     public function checkAmbulanceAvailability(Request $request)
     {
         $amb_query = Amb_info::query();
