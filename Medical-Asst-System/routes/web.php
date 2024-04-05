@@ -50,10 +50,11 @@ Route::view ('RegisterNbank','/Blood_Booking/BbankRegister')->name('B_Bank_Regis
 Route::view ('Userlogin','/Blood_Booking/login')->name('Userlogin');
 
 
-Route::get('BookBlood', [BloodBankController::class, 'showBloodBanks'])->name('bloodB_home');
+Route::view('/BookBlood', '/Blood_Booking/bloodBInitial');
 Route::post('/Userlogin', [UserLogin::class, 'userLogin'])->name('UserLogin-controller');
 Route::post('/BanksRegister', [BloodBankController::class, 'newregistration'])->name('registerBanks');
 Route::get('/bloodGroup', [BloodBankController::class, 'bloodGroup']);
+Route::post('/search', [BloodBankController::class, 'search'])->name('search');
 
 Route::view ('/test','/Blood_Booking/test');
 

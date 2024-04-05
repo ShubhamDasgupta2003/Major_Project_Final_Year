@@ -54,58 +54,33 @@ class BloodBankController extends Controller
 
         }
 
-        public function bb_bg(){
-           
-
-            $query = "SELECT
-             blood_bank.blood_bank_id,
-             blood_bank.name,
-             blood_bank.latitude,
-             blood_bank.longitude,
-             blood_bank.state,
-             blood_bank.city,
-             blood_bank.dist,
-             blood_bank.pincode,
-             blood_group.*
-              FROM blood_bank_blood_group
-              JOIN blood_group ON blood_bank_blood_group.blood_group_id = blood_group.blood_group_id
-              JOIN blood_bank ON blood_bank_blood_group.blood_bank_id = blood_bank.blood_bank_id
-              WHERE blood_bank_blood_group.blood_group_id = (
-              SELECT blood_group_id 
-              FROM blood_group 
-              WHERE group_name = 'o+'
-          )";
-
-            $bloodBanks = DB::select($query);
-
-
-
-        }
-        public function showBloodBanks()
+        public function search(Request $request)
         {
-         
-           $query = "SELECT
-             blood_banks.id,
-             blood_banks.name,
-             blood_banks.latitude,
-             blood_banks.longitude,
-             blood_banks.state,
-             blood_banks.city,
-             blood_banks.dist,
-             blood_banks.pin,
-             blood_group.*
-              FROM blood_bank_blood_group
-              JOIN blood_group ON blood_bank_blood_group.blood_group_id = blood_group.blood_group_id
-              JOIN blood_banks ON blood_bank_blood_group.blood_bank_id = blood_banks.id
-              WHERE blood_bank_blood_group.blood_group_id = (
-              SELECT blood_group_id 
-              FROM blood_group 
-              WHERE group_name = 'o+'
-          )";
+            $searchTerm = $request->search;
+            return $this->showBloodBanks($searchTerm);
+            
+            
+        }
 
-            $bloodBanks = DB::select($query);
-         //$bloodBanks = BloodBank::all();  Fetch all blood banks from the database
-         return view('Blood_Booking/bloodB_home', ['bloodBanks' => $bloodBanks]);
+
+        public function showBloodBanks($bg)
+        {
+           
+            $query = "SELECT
+                  blood_banks.*,
+                  blood_group.*
+                  FROM blood_bank_blood_group
+                  JOIN blood_group ON blood_bank_blood_group.blood_group_id = blood_group.blood_group_id
+                  JOIN blood_banks ON blood_bank_blood_group.blood_bank_id = blood_banks.id
+                  WHERE blood_bank_blood_group.blood_group_id = (
+                  SELECT blood_group_id 
+                  FROM blood_group 
+                  WHERE group_name = ?
+              )";
+
+            $bloodBanks = DB::select($query, [$bg]);
+    
+            return view('Blood_Booking.bloodB_home', ['bloodBanks' => $bloodBanks]);
 
         }
         
