@@ -81,6 +81,7 @@
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script>
         const pickUpLocationStartBtn = document.getElementById('pickup_StartRide');
@@ -152,7 +153,15 @@
             navigator.geolocation.watchPosition(w_success, w_error);
             function w_success(pos) {
                 marker.setLatLng([pos.coords.latitude, pos.coords.longitude]);
-                // map.setView([pos.coords.latitude, pos.coords.longitude]);
+                map.setView([pos.coords.latitude, pos.coords.longitude]);
+                var xhr = $.ajax({
+                    url:"{{ route('driverRideAccepted') }}",
+                    type:"GET",
+                    data:{'lat':pos.coords.latitude,'lng':pos.coords.longitude,'amb_id':'{{session('amb_id')}}'}, //amb_id to be fetched from session variable later
+                    success:function(data){
+                         console.log(data);
+                    }
+                })
             }
             function w_error(err) {
                 //Error to display

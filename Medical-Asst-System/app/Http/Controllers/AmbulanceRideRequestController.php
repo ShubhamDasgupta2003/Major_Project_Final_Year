@@ -36,7 +36,7 @@ class AmbulanceRideRequestController extends Controller
             // $fetch_route_dist = $dist_obj->fetchDistance(22.917007138803726,88.43774841554536,$record->amb_loc_lat,$record->amb_loc_lng); 
             //Calculating the route distance of each ambulance using API
 
-            array_push($route_dist,array('ambulance_name'=>$record->amb_name,'ambulance_rate'=>$record->amb_rate,'driver'=>$record->amb_driver_name,'mobile'=>$record->amb_contact,'distance'=>$record->distance,'route_dist'=>$fetch_route_dist,'amb_no'=>$record->amb_no));
+            array_push($route_dist,array('ambulance_name'=>$record->amb_name,'ambulance_rate'=>$record->amb_rate,'driver'=>$record->amb_driver_name,'mobile'=>$record->amb_contact,'distance'=>$record->distance,'route_dist'=>$fetch_route_dist,'amb_no'=>$record->amb_no,'amb_lat'=>$record->amb_loc_lat,'amb_lng'=>$record->amb_loc_lng));
         }
         return $route_dist;
     }
@@ -94,7 +94,7 @@ class AmbulanceRideRequestController extends Controller
         {
             $data = $this->getOptimumRides($request);
 
-            $ptn_request->where('invoice_no',$inv_id)->update(['amb_no'=>$data[0]['amb_no']]); //Updating the ambulance no. for corrs invoice no
+            $ptn_request->where('invoice_no',$inv_id)->update(['amb_no'=>$data[0]['amb_no'],'amb_current_lat'=>$data[0]['amb_lat'],'amb_current_lng'=>$data[0]['amb_lng']]); //Updating the ambulance no. and coordinates for corrs invoice no
 
             return view('amb_ptn_waiting_queue',compact('data'));
         }
@@ -107,7 +107,6 @@ class AmbulanceRideRequestController extends Controller
         {
             $ptn_data = Patient_ambulance::where('user_id','abc123')->where('ride_status','001')->get();
             $amb_data = Amb_info::where('amb_no',$ptn_data[0]->amb_no)->get();
-
             $full_data = compact('ptn_data','amb_data');
         }
         return response()->json(['data'=>$full_data]);

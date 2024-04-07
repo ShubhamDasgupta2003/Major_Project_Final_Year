@@ -53,7 +53,13 @@ class AmbulanceDriverPageController extends Controller
         $data = "";
         $amb_no_key = session('amb_id');
         $ride_status_update = Patient_ambulance::where('amb_no',$amb_no_key)->where('ride_status','000')->update(['ride_status'=>'001']);
-
+        
+        if($request->ajax())
+        {
+            $amb = Amb_info::where('amb_no',$request->amb_id)->update(['amb_loc_lat'=>$request->lat,'amb_loc_lng'=>$request->lng]); //Updating the coordinates of ambulance whenever it changes using ajax
+            return response()->json(['data'=>$amb]);
+        }
+        
         if($ride_status_update)
         {
             $data = "Ride Accepted";

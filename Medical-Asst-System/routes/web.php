@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AmbulanceDriverPageController;
+use App\Http\Controllers\AmbulanceRideConfirmedController; 
 use App\Http\Controllers\newAmbulanceRegistrationController;
 use App\Http\Controllers\AmbulanceRideRequestController;
 use App\Http\Controllers\UserLogin;
@@ -78,6 +79,7 @@ Route::get('/generate-pdfb',[MedicalSuppliesController::class,'generatePdfb']);/
 // ---------------------Ambulance Service Routes---------------------------
 Route::get('/amb-ptn-ride-assigne',[AmbulanceRideRequestController::class,'showAssignedRide'])->name('assignedRidePatient');
 
+Route::get('/amb-ptn-ride-confirmed',[AmbulanceRideConfirmedController::class,'trackAmbulanceLive'])->name('patientRideConfirmed');
 Route::get('/ptn-data-json',[AmbulanceDriverPageController::class,'getPatientData']);
 
 Route::get('/amb-data-json',[AmbulanceDriverPageController::class,'getAmbulanceData']);
@@ -106,7 +108,7 @@ Route::get('/get-dist',[AmbulanceDriverPageController::class,'fetchDistance']);
 
 Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRidesAvailable'])->name('showAvblRides');
 
-Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAccepted']);
+Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAccepted'])->name('driverRideAccepted');
 
 Route::get('/amb-admin-set-pswd',[newAmbulanceRegistrationController::class,'showCreatePassword'])->name("ambAdminPassForm");
 

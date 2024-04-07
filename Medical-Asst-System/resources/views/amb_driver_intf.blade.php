@@ -120,7 +120,7 @@
                 map.setView([pos.coords.latitude, pos.coords.longitude]);
                 coord_val = pos.coords.latitude;
 
-                    $.ajax({
+                    var xhr = $.ajax({
                     url:"{{ route('showAvblRides') }}",
                     type:"GET",
                     data:{'lat':pos.coords.latitude,'lng':pos.coords.longitude,'amb_id':'{{session('amb_id')}}'}, //amb_id to be fetched from session variable later
