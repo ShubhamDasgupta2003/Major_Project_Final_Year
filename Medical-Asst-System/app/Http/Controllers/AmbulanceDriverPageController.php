@@ -50,9 +50,13 @@ class AmbulanceDriverPageController extends Controller
 
     public function rideAccepted(Request $request)
     {
+        //Function executes when driver clicks on Accept ride button on Driver-intf
+        //Updating the ride status code and generating a 4-digit otp
+        
         $data = "";
+        $otp = rand(1000,9999);
         $amb_no_key = session('amb_id');
-        $ride_status_update = Patient_ambulance::where('amb_no',$amb_no_key)->where('ride_status','000')->update(['ride_status'=>'001']);
+        $ride_status_update = Patient_ambulance::where('amb_no',$amb_no_key)->where('ride_status','000')->update(['ride_status'=>'001','otp'=>$otp]);
         
         if($request->ajax())
         {

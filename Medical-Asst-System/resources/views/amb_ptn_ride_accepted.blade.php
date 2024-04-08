@@ -21,6 +21,11 @@
         .leaflet-marker-icon.ptn-marker {
             border:5px solid red;
         }
+        .left-panel
+        {
+            background: rgb(255,224,174);
+            background: linear-gradient(324deg, rgba(255,224,174,1) 38%, rgba(148,255,200,1) 59%, rgba(152,202,255,1) 100%);
+        }
     </style>
 
 </head>
@@ -39,11 +44,22 @@
         <div class="left-panel col-5 border vh-93 overflow-auto">
             <div class="patient-card-body">
                     <!-- Card header begins -->
-                    <div class="card-body border mt-5 bg-primary">
-                        <h5 class="card-title text-light" id="ptn_name"><div class="spinner-grow text-light" role="status"></div> Tracking Ambulance</h5>
+                    <div class="card-body border mt-5 bg-light d-flex">
+                        <h3 class="card-title" id="ptn_name"><div class="spinner-grow text-danger" role="status"></div class="flex-column justify-content-center align-items-center">  Tracking Ambulance</h3>
                         <h6 class="card-subtitle mb-2 text-light" id="ptn_booking_addrs"></h6>
                         <h5 id="ptn_mobile" class="text-light"></h5>
                         <h5 id="acpt_ride_btn"></h5>
+                    </div>
+
+                    <div class="card mt-3" style="width: 34.2rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Ambulance details</h5>
+                        <h6 class="card-subtitle mb-2" id="amb_no">WB24X1424</h6>
+                        <p class="card-text" id="amb_name">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h2 id="otp_no">{{$ptn_rqst_data[0]['otp']}}</h2>
+                        <!-- <a href="#" class="card-link">Card link</a> -->
+                        <!-- <a href="#" class="card-link">Another link</a> -->
+                    </div>
                     </div>
                     <!-- Card header ends -->
             </div>
@@ -64,6 +80,7 @@
         var amb_lat = searchParams.get('amb_lat');
         var amb_lng = searchParams.get('amb_lng');
         var amb_no = searchParams.get('amb_no');
+        var inv_no = searchParams.get('inv_no');
 
         var map = L.map('map').setView([ptn_lat, ptn_lng], 20);
 
@@ -87,32 +104,20 @@
         }).addTo(map);
 
     
-
-        // var req = new XMLHttpRequest();
-        // req.open('GET', '/ptn-data-json', true);
-        // req.send();
-
-        // req.onreadystatechange = function () {
-        //     if (req.readyState == 4 && req.status == 200) {
-        //         var obj = JSON.parse(req.responseText);
-        //         data = obj.ptn_data;
-        //         for (let i = 0; i < data.length; i++) {
-        //             var patient_marker = L.marker([data[i]['patient_booking_lat'], data[i]['patient_booking_lng']], {icon:patient_icon}).addTo(map); //Patient marker on map
-        //         }
-        //     }
-        // };
+        //ajax for fetching the realtime location of ambulance for every 2 seconds
 
         $(document).ready(function(){
             var fetchAmbLoc = function(){
                 $.ajax({
                 url:'{{route('patientRideConfirmed')}}',
                 type:'GET',
-                data:{'amb_no':amb_no},
-                success:function(data){
+                data:{'amb_no':amb_no,'inv_no':inv_no},
+                success:function(data)
+                {
                     console.log(data.data[0]);
                     var pos = data.data[0];
                     ambulance_Marker.setLatLng([pos.amb_loc_lat,pos.amb_loc_lng]);
-                    map.setView([pos.amb_loc_lat,pos.amb_loc_lng])
+                    map.setView([pos.amb_loc_lat,pos.amb_loc_lng]);
                 }
             });
             }

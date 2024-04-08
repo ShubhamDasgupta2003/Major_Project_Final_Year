@@ -61,7 +61,7 @@
                             service_name+= amb_info.amb_name;
                             service_mob+= amb_info.amb_contact;
                             service_driver+= amb_info.amb_driver_name;
-                            var link = '{{url('/')}}/amb-ptn-ride-confirmed?ptn_lat='+patient_info.patient_booking_lat+"&ptn_lng="+patient_info.patient_booking_lng+"&amb_lat="+patient_info.amb_current_lat+"&amb_lng="+patient_info.amb_current_lng+"&amb_no="+patient_info.amb_no;
+                            var link = '{{url('/')}}/amb-ptn-ride-confirmed?ptn_lat='+patient_info.patient_booking_lat+"&ptn_lng="+patient_info.patient_booking_lng+"&amb_lat="+patient_info.amb_current_lat+"&amb_lng="+patient_info.amb_current_lng+"&amb_no="+patient_info.amb_no+"&inv_no="+patient_info.invoice_no;
 
                             $('#srvc_amb_no').html(service_van_no);
                             $('#srvc_name').html(service_name);
