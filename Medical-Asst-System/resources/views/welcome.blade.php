@@ -165,7 +165,7 @@ Home Page
                 <img src="images/HomePage/blood-bag.png" alt="">
                 <h3>Book Blood </h3>
                 <p> soluta a, pariatur dolore odit vadipisci fugiat.</p>
-                <a href="/BookBlood" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
+                <a href=" {{route('showBhome')}} " class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
 
             <div class="box">
