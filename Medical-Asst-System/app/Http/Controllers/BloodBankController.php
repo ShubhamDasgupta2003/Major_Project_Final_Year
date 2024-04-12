@@ -6,6 +6,7 @@ use App\Models\blood_group;
 use App\Models\BloodBank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Hash;
 class BloodBankController extends Controller
 {
@@ -80,16 +81,18 @@ class BloodBankController extends Controller
             if($req->ajax()){
                // return $req->search;
                // $banks=$query->where('name','LIKE','%'.$req->search.'%')->get();
-              $banks = DB::table('blood_bank_blood_group')
-               ->join('blood_group', 'blood_bank_blood_group.blood_group_id', '=', 'blood_group.blood_group_id')
-               ->join('blood_banks', 'blood_bank_blood_group.blood_bank_id', '=', 'blood_banks.id')
-               ->where('blood_bank_blood_group.blood_group_id', function ($subquery) use ($req) {
-                   $subquery->select('blood_group_id')
-                       ->from('blood_group')
-                       ->where('group_name', $req->search);
-               })->get();  
+            //   $banks = DB::table('blood_bank_blood_group')
+            //    ->join('blood_group', 'blood_bank_blood_group.blood_group_id', '=', 'blood_group.blood_group_id')
+            //    ->join('blood_banks', 'blood_bank_blood_group.blood_bank_id', '=', 'blood_banks.id')
+            //    ->where('blood_bank_blood_group.blood_group_id', function ($subquery) use ($req) {
+            //        $subquery->select('blood_group_id')
+            //            ->from('blood_group')
+            //            ->where('group_name', $req->search);
+            //    })->get();  
 
-            return response()->json(['bloodbanks'=>$banks]);
+               $banks = $query->where('id', $req->search)->get();
+               Session::put('bloodB_search_result', $banks);
+               return response()->json(['success' => true]);
             }else{
 
                  $bloodbanks=$query->where('id','')->get();

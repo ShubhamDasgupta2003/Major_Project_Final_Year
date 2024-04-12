@@ -59,7 +59,7 @@ Route::get('/bloodGroup', [BloodBankController::class, 'bloodGroup']);
 Route::get('/showBhome', [BloodBankController::class, 'showBloodBanks'])->name('showBhome');
 
 Route::view ('/test','/Blood_Booking/test');
-// Route::view ('/a','/Blood_Booking/a');
+Route::view ('/b','/Blood_Booking/b')->name('b');
 Route::get('/asearch',[searchContoller::class,'search'])->name('searchtest');
 
 
