@@ -5,21 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- cdn link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+     <!-- cdn link -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <!-- css for this page -->
-    <link rel="stylesheet" href="css/BloodBank/Bb.css">
-    <link rel="stylesheet" href="css/useravatar.css">
-    <!-- css -->
-    <link rel="stylesheet" href="css/BloodBank/navbar.css">
-    <link rel="stylesheet" href="css/BloodBank/navLink.css">
-    <link rel="stylesheet" href="css/BloodBank/media.css">
-    <link rel="stylesheet" href="css/BloodBank/body_cont.css">
-    <link rel="stylesheet" href="css/BloodBank/footer_style.css">
-    <link rel="stylesheet" href="css/BloodBank/location_win.css">
-    <link rel="stylesheet" href="css/BloodBank/cont-card.css">
+     <!-- css for this page -->
+     <link rel="stylesheet" href="css/BloodBank/Bb.css">
+     <link rel="stylesheet" href="css/useravatar.css">
+     <!-- css -->
+     <link rel="stylesheet" href="css/BloodBank/navbar.css">
+     <link rel="stylesheet" href="css/BloodBank/navLink.css">
+     <link rel="stylesheet" href="css/BloodBank/media.css">
+     <link rel="stylesheet" href="css/BloodBank/body_cont.css">
+     <link rel="stylesheet" href="css/BloodBank/footer_style.css">
+     <link rel="stylesheet" href="css/BloodBank/location_win.css">
+     <link rel="stylesheet" href="css/BloodBank/cont-card.css">
 </head>
 
 <body>
@@ -52,49 +52,43 @@
             <button class="btn" onclick="search1()"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
     </div>
-    
+  
+    {{-- <div class="cards" id="bloodCard"></div> --}}
+    @if(Session::has('bloodB_search_result'))
+    @php
+        $banks = Session::get('bloodB_search_result');
+    @endphp
+
+    @if(count($banks) > 0)
     <section class="body-container">
-      
-        @if(Session::has('bloodB_search_result'))
-        @php
-            $banks = Session::get('bloodB_search_result');
-        @endphp
-    
-        {{-- for loading --}}
-        <div class="loadingOperations">
-            <div id="loading" class="loader">
-                <i class="fas fa-spinner fa-spin"></i>
-            </div>
-            <div id="loading-message"></div>
-        </div>
-        {{-- for loading --}}
-    
-        @if(count($banks) > 0)
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>City</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="contents">
+                <div class="cards">
                     @foreach($banks as $bank)
-                        <tr>
-                            <td>{{ $bank->id }}</td>
-                            <td>{{ $bank->name }}</td>
-                            <td>{{ $bank->city }}</td>
-                            <td>{{ $bank->email }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            <p>No banks found.</p>
-        @endif
-    
-    @endif
+                    <div class='card'>
+                    <img src='images/BloodB/Blood_Bank.png'>
+                    <div class='card-details'>
+                    <h1 class='card-name'>{{$bank->name}}</h1>
+                    <h2 class='card-address'><i class='fa-solid fa-location-dot'></i>{{$bank->city}}, {{$bank->state}}</h2>
+                    
+                    <div class='distance-gr'>
+                        <p class='card-type'>Blood Group: <span class='blood-gr'>{{$bank->group_name}}</span></p>
+                        <h2 class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i> 27 Km</h2>
+                    </div>
+                    <div class='buy-price'>
+                        <a href=" {{ route('blood_booking_form')}} "><button class='btn buy'>Buy</button></a>
+                        <p class='card-fare'>&#8377 {{$bank->price}}/-</p>
+                    </div>
+                    </div>
+                    </div>
+                 @endforeach       
+                 @php
+                     
+                     Session::put('bloodB_search_result', null);
+                 @endphp
+                </div>         
+            </div>
+        @endif     
+    @endif      
 
         <!-- Location window popup starts here -->
         <div class="location-window" id="loc-win">
@@ -128,76 +122,60 @@
         @include('/Blood_Booking/servicefooter')
     </section>
 
-    <style>
-        .loadingOperations {
-            display: flex;
-            width: 300px;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .loader {
-            border: 8px solid #f3f3f3; /* Light grey */
-            border-top: 8px solid #3498db; /* Blue */
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 2s linear infinite;
-            /* margin:0; */
-            /* margin: auto;  Center the spinner */
-            display: none; /* Initially hidden */
-        }
-
-        #loading-message {
-            display: none; /* Initially hidden */
-            text-align: center;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
-
-    <script>
-        $(document).ready(function () {
-            $("#submit").on('click', function () {
-                const value = $('#search').val();
-
-                // Show loading spinner
-                $("#loading").show();
-                $("#loading-message").text("Please wait.").show();
-
-                // Simulate loading time of 5 seconds
-                setTimeout(function () {
-                    // AJAX request
-                    $.ajax({
-                        url: "{{ route('searchtest') }}",
-                        type: "GET",
-                        data: {'search': value},
-
-                        success: function (data) {
-                            // Hide loading spinner
-                            $("#loading").hide();
-                            $("#loading-message").hide();
-
-                            // Redirect to searchtest route
-                            window.location.href = "{{ route('showBhome') }}";
-                        },
-                    });
-                }, 3000); // 5-second delay
-            });
-        });
-    </script>
-
-    <script src="js/BloodB/index.js"></script>
-    {{-- <script src="js/HomePage/location.js"></script> --}}
+   
 </body>
 
 </html>
+
+ {{-- <script src="js/BloodB/search.js"></script> --}}
+ <script>
+    $(document).ready(function(){
+        $("#submit").on('click', function(){
+            const value = $('#search').val();
+
+            // Make AJAX request
+            $.ajax({
+                url: "/showBhome",
+                type: "GET",
+                data: {'search': value},
+                success: function(data){
+                    // console.log(data);
+                    // let banks = data.banks;
+                    // let html = '';
+
+                    window.location.href = "{{ route('showBhome') }}";
+                    // if (banks.length > 0) {
+                    //     for (let i = 0; i < banks.length; i++) {
+                    //         html += `
+                    //             <div class='card'>
+                    //                 <img src='images/BloodB/Blood_Bank.png'>
+                    //                 <div class='card-details'>
+                    //                     <h1 class='card-name'>${banks[i].name}</h1>
+                    //                     <h2 class='card-address'><i class='fa-solid fa-location-dot'></i>${banks[i].city}, ${banks[i].state}</h2>
+                                        
+                    //                     <div class='distance-gr'>
+                    //                         <p class='card-type'>Blood Group: <span class='blood-gr'>${banks[i].group_name}</span></p>
+                    //                         <h2 class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i> 27 Km</h2>
+                    //                     </div>
+                    //                     <div class='buy-price'>
+                    //                         <a href='${banks[i].booking_form_route}'><button class='btn buy'>Buy</button></a>
+                    //                         <p class='card-fare'>&#8377 ${banks[i].price}/-</p>
+                    //                     </div>
+                    //                 </div>
+                    //             </div>`;
+                    //     }
+                    // } else {
+                    //     html += '<div class="card-details"><p class="card-fare" style="text-align: center;">Data not found</p></div>';
+                    // }
+
+                    // // Append generated HTML to the container
+                    // $("#bloodCard").html(html);
+                },
+               
+            });
+        });
+    });
+</script>
+
+<script src="js/BloodB/index.js"></script>
+{{-- <script src="js/HomePage/location.js"></script> --}}
