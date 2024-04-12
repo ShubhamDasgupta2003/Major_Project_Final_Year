@@ -3,8 +3,10 @@
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\AmbulanceDriverPageController;
 use App\Http\Controllers\AmbulanceRideConfirmedController; 
+use App\Http\Controllers\BloodBankController;
 use App\Http\Controllers\newAmbulanceRegistrationController;
 use App\Http\Controllers\AmbulanceRideRequestController;
+use App\Http\Controllers\searchContoller;
 use App\Http\Controllers\UserLogin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MedicalSuppliesController;
@@ -43,12 +45,27 @@ Route::get('/rating', function () {
 
 
 // routes for BloodBank
-Route::view ('BookBlood','/Blood_Booking/bloodB_home')->name('bloodB_home');
+// Route::view ('BookBlood','/Blood_Booking/bloodB_home')->name('bloodB_home');
 Route::view ('booking_form','/Blood_Booking/form')->name('blood_booking_form');
+Route::view ('RegisterNbank','/Blood_Booking/BbankRegister')->name('B_Bank_Register');
 Route::view ('Userlogin','/Blood_Booking/login')->name('Userlogin');
+
+
+Route::view('/BookBlood', '/Blood_Booking/bloodBInitial');
 Route::post('/Userlogin', [UserLogin::class, 'userLogin'])->name('UserLogin-controller');
+Route::post('/BanksRegister', [BloodBankController::class, 'newregistration'])->name('registerBanks');
+Route::get('/bloodGroup', [BloodBankController::class, 'bloodGroup']);
+// Route::post('/search', [BloodBankController::class, 'search'])->name('search');
+Route::get('/showBhome', [BloodBankController::class, 'showBloodBanks'])->name('showBhome');
 
 Route::view ('/test','/Blood_Booking/test');
+Route::view ('/b','/Blood_Booking/b')->name('b');
+Route::get('/asearch',[searchContoller::class,'search'])->name('searchtest');
+
+
+
+
+
 
 /*-------------------Medical Supplies----------------------------------*/
 Route::get('/medical supplies',[MedicalSuppliesController::class,'index'])->name('medical_supplies.index');

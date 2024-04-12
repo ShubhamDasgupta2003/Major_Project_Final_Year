@@ -63,7 +63,6 @@ class LoginController extends Controller
                 }
        }
        //Ambulance service login starts here
-
        if($service=="Ambulance Service")
        {
 

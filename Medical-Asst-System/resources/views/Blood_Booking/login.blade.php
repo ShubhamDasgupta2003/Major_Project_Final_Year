@@ -15,7 +15,6 @@
       </div>
       <form method="post" class="form">
         @csrf
-        @csrf
            @if (Session::has('success'))
                 <div class="alert alert-success">{{Session::get('success')}}</div>
             @endif
@@ -45,3 +44,8 @@
     </section>
   </body>
 </html>
+
+<style>
+
+  
+</style>
