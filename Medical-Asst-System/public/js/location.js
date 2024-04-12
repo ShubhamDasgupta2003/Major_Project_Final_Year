@@ -45,13 +45,8 @@ rev_btn.addEventListener("click", ()=>{
         let loc_geometry = details['geometry'];
         let latitude = loc_geometry['lat'];
         let longitude = loc_geometry['lng'];
-        // console.log(latitude,longitude);
-
-        document.cookie = "lat_in_use= "+latitude;
-        document.cookie = "lon_in_use= "+longitude;
-        document.cookie = "address_in_use= "+loc_txt;
-        document.cookie = "loc_modify= "+true;
-        window.location.reload();
+        
+        
     })
 }) 
 

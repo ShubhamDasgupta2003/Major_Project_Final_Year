@@ -145,24 +145,7 @@
                     @enderror
                 </span>
             </div>
-            <div class="mb-3">
-                <label for="amb_password_reg" class="form-label">Password</label>
-                <input type="password" name="amb_password_reg" id="" class="form-control">
-                <span class="text-danger">
-                    @error('amb_password_reg')
-                    {{$message}}
-                    @enderror
-                </span>
-            </div>
-            <div class="mb-3">
-                <label for="amb_password_reg" class="form-label">Confirm Password</label>
-                <input type="password" name="amb_password_reg" id="" class="form-control">
-                <span class="text-danger">
-                    @error('amb_password_reg')
-                    {{$message}}
-                    @enderror
-                </span>
-            </div>
+   
             <button class="btn btn-success" type="submit">Register</button>
         </form>
     </div>

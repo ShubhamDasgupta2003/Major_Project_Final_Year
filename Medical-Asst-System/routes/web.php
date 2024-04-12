@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\AmbulanceDriverPageController;
 use App\Http\Controllers\AmbulanceRideConfirmedController; 
 use App\Http\Controllers\newAmbulanceRegistrationController;
@@ -24,9 +25,7 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/',[HomePageController::class,'locationPopUpWin'])->name('home');
 /*-------------------Healthcare Support----------------------------------*/
 Route::get('/aya', function () {
     return view('aya');

@@ -6,6 +6,14 @@ Home Page
     <link rel="stylesheet" href="css/HomePage/BloodBooking/style.css">
     <link rel="stylesheet" href="css/HomePage/home.css">
     <link rel="stylesheet" href="css/HomePage/sourav.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/navLink.css">
+    <link rel="stylesheet" href="css/media.css">
+    <link rel="stylesheet" href="css/body_cont.css">
+    <!-- <link rel="stylesheet" href="css/location_win.css"> -->
+    <link rel="stylesheet" href="css/cont-card.css">
+    <link rel="stylesheet" href="css/useravatar.css">
+
 @endsection
 @section("navbar")
     <a class="navlink" href="#home">Home</a>

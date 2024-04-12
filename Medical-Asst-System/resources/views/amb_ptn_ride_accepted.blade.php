@@ -54,11 +54,9 @@
                     <div class="card mt-3" style="width: 34.2rem;">
                     <div class="card-body">
                         <h5 class="card-title">Ambulance details</h5>
-                        <h6 class="card-subtitle mb-2" id="amb_no">WB24X1424</h6>
-                        <p class="card-text" id="amb_name">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <h2 id="otp_no">{{$ptn_rqst_data[0]['otp']}}</h2>
-                        <!-- <a href="#" class="card-link">Card link</a> -->
-                        <!-- <a href="#" class="card-link">Another link</a> -->
+                        <h6 class="card-subtitle mb-2" id="amb_no">{{$ptn_rqst_data[0]['amb_no']}}</h6>
+                        <p class="card-text" id="amb_name">{{$amb_data[0]['amb_name']}}</p>
+                        <h2 id="otp_no">OTP - {{$ptn_rqst_data[0]['otp']}}</h2>
                     </div>
                     </div>
                     <!-- Card header ends -->
