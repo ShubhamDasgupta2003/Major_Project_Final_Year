@@ -91,7 +91,17 @@ $p=1;
                 <h3 class='bottom_btn'>Grand Total :&#8377 <?php echo $p ?> <h3>
                      
               <a href="{{route('medical_supplies.order_confirmation')}}" class='bottom_btn'> <i class='fa-solid fa-hand-point-right fa-2xl'></i>Proceed To Checkout</a>
-               </div></td>  <td></td><td></td><td></td></tbody>
+               </div>
+               <div>
+                
+                     <form>
+                        <label for="file">File</label>
+                       <input id="file" type="file" />
+                        <button>Upload</button>
+                     </form>
+                 
+               </div>
+              </td>  <td></td><td></td><td></td></tbody>
                </table>
             
                    

@@ -82,7 +82,11 @@ Route::get('/order confirmation',[MedicalSuppliesController::class,'order'])->na
 
 /*-------------------Admin Panel----------------------------------*/
 Route::get('/admin panel',[AdminController::class,'index'])->name('admin_panel.index');
+Route::get('/input admin panel',[AdminController::class,'input_admin'])->name('admin_panel.input');
+Route::post('/input admin panel',[AdminController::class,'store'])->name('admin_panel.input');
 Route::get('/admin medical supplies',[AdminController::class,'admin_supplies'])->name('admin_panel.admin_medical_supplies');
+Route::get('/update admin panel',[AdminController::class,'update_admin'])->name('admin_panel.update');
+Route::get('/delete admin panel',[AdminController::class,'delete_admin'])->name('admin_panel.delete');
 /*-------------------Admin Panel----------------------------------*/
 
 /*-------------------others----------------------------------*/
