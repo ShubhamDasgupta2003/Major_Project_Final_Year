@@ -40,7 +40,7 @@
                         </div>
                         <button class="btn" name="book_blood">Confirm Order</button>
                     </form>
-                    <a href="{{route('bloodB_home')}}"><button class="btn-danger" name="cancel_ride">Cancel Order</button></a>
+                    <a href="{{route('showBhome')}}"><button class="btn-danger" name="cancel_ride">Cancel Order</button></a>
                 </div>
             </div>     
         </div>

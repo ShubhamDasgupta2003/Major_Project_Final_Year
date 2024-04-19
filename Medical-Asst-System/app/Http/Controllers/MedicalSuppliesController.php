@@ -49,7 +49,7 @@ class MedicalSuppliesController extends Controller
    public function store(Request $request)
    {
     $data=$request->validate([
-        'product_name'=>'required',
+        'product_name'=>'required|unique:carts,product_name',
         'product_quantity'=>'required|numeric',
         'product_rate'=>'required|decimal:0,2',
         'product_image'=>'required',
@@ -57,13 +57,14 @@ class MedicalSuppliesController extends Controller
       ]); 
  
                $newProduct=cart::create($data);
+           
   
     return redirect(route("medical_supplies.index"));   
  }
  public function storeb(Request $request)
  {
   $data=$request->validate([
-      'product_name'=>'required',
+      'product_name'=>'required|unique:carts,product_name',
       'product_quantity'=>'required|numeric',
       'product_rate'=>'required|decimal:0,2',
       'product_image'=>'required',
