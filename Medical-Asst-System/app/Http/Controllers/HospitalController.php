@@ -99,4 +99,8 @@ class HospitalController extends Controller
     public function CustomBedPntDetails(){
         return view('/hospital bed/pnt_status');
     }
+    // for patient verification  
+    public function DisplayPntVerify(){
+        return view ('/hospital bed/pnt_verify');
+    }
 }
