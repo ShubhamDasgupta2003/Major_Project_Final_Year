@@ -8,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <style>
         .marker-btn {
@@ -27,12 +29,49 @@
 
 <body>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Are you sure to want to decline the ride request?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post">
+        <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter reason here" aria-label="OTP" aria-describedby="button-addon2">
+        <button class="btn btn-outline-success" type="button" id="dcln_rqst">Submit</button>
+        </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
     <div class="container-fluid row">
             <nav class="navbar navbar-light bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand text-light">Navbar</a>
             <div class="d-flex">
-                <h2 class="me-2 text-light">Hi, {{$amb_record->amb_driver_name}}</h2>
+                <h2 class="me-2 text-light"> 
+                <!-- Example single danger button -->
+                <div class="btn-group">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{$amb_record->amb_driver_name}}
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user"></i> My Profile</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-money-check-dollar"></i> My Earnings</a></li>
+                    <li><a class="dropdown-item"><button class="btn btn-danger"><i class="fa-solid fa-moon"></i> Take break</button></a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-power-off"></i> Logout</a></li>
+                </ul>
+                </div>
+            </h2>
             </div>
         </div>
         </nav>
@@ -44,6 +83,7 @@
                         <h6 class="card-subtitle mb-2 text-light" id="ptn_booking_addrs"></h6>
                         <h5 id="ptn_mobile" class="text-light"></h5>
                         <h5 id="acpt_ride_btn"></h5>
+                        <h5 id="dcln_ride_btn"></h5>
                     </div>
                     <!-- Card header ends -->
             </div>
@@ -135,15 +175,28 @@
                         addrs += response.patient_booking_address;
                         mobile += response.patient_mobile;
 
-                        link = "{{url('/')}}/driver-ride-accepted?ptn_lat="+response.patient_booking_lat+"&ptn_lng="+response.patient_booking_lng;
+                        accpt_link = "{{url('/')}}/driver-ride-accepted?ptn_lat="+response.patient_booking_lat+"&ptn_lng="+response.patient_booking_lng;
+
+                    
 
                         $('#ptn_name').html(name);
                         $('#ptn_booking_addrs').html(addrs);
                         $('#ptn_mobile').html(mobile);
-                        $("#acpt_ride_btn").html("<a href="+link+"><button class='btn btn-success'>Accept Ride</button></a>");
+                        $("#acpt_ride_btn").html("<a href="+accpt_link+"><button class='btn btn-success'>Accept Ride</button></a>");
+                        $("#dcln_ride_btn").html("<button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#exampleModal'>Decline Ride </button>");
                     }
                 })
 
+                $('#dcln_rqst').on('click',function(){
+                    $.ajax({
+                        url:'{{route('showAvblRides')}}',
+                        type:'GET',
+                        data:{'amb_no':1423},
+                        success:function(data){
+                            console.log(data);
+                        }
+                    })
+                })
                 }
 
             }

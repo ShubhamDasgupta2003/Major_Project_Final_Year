@@ -122,7 +122,7 @@ Route::get('/amb-book',function()
 
 Route::get('/get-dist',[AmbulanceDriverPageController::class,'fetchDistance']);
 
-Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRidesAvailable'])->name('showAvblRides');
+Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRidesAvailable'])->name('howAvblRidess');
 
 Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAccepted'])->name('driverRideAccepted');
 

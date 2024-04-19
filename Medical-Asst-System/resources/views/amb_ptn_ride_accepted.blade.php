@@ -26,6 +26,10 @@
             background: rgb(255,224,174);
             background: linear-gradient(324deg, rgba(255,224,174,1) 38%, rgba(148,255,200,1) 59%, rgba(152,202,255,1) 100%);
         }
+        #navbar
+        {
+            background-color: rgb(128,197,172);
+        }
     </style>
 
 </head>
@@ -33,11 +37,11 @@
 <body>
 
     <div class="container-fluid row">
-            <nav class="navbar navbar-light bg-primary">
+            <nav class="navbar navbar-light" id="navbar">
         <div class="container-fluid">
-            <a class="navbar-brand text-light">Navbar</a>
+            <a class="navbar-brand text-dark">Navbar</a>
             <div class="d-flex">
-                <h2 class="me-2 text-light">Hi, Patient</h2>
+                <h2 class="me-2 text-dark">Hi, Patient</h2>
             </div>
         </div>
         </nav>

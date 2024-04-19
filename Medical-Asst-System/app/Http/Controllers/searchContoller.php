@@ -16,7 +16,7 @@ class searchContoller extends Controller
         if($req->ajax()){
             $banks = $query->where('id', $req->search)->get();
             Session::put('search_result', $banks);
-            return response()->json(['success' => true]);
+            return response()->json(['data' => $banks]);
         } else {
             $banks = $query->where('id','')->get();
             return view('Blood_Booking.a', compact('banks'));

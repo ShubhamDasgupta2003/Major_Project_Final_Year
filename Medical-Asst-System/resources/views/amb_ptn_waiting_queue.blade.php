@@ -22,12 +22,12 @@
 
    
     <h1 id="status">Booking ride</h1>
-        <div class="card mt-3" style="width: 25rem;height:15rem">
+        <div class="card mt-3" style="width:25rem;height:20rem">
             <div class="card-body rounded">
-                <h5 class="card-title d-flex flex-column justify-content-center align-items-center" id="srvc_name">
+                <h4 class="card-title d-flex flex-column justify-content-center align-items-center" id="srvc_name">
                 <div class="spinner-grow text-success" role="status"></div>     <div class="comment mt-3">Please wait...</div>
                 <div class="comment mt-3">While we confirm your ride</div>
-                </h5>
+                </h4>
                 <h6 class="card-subtitle mb-2 text-muted" id="srvc_amb_no"></h6>
                 <p class="card-text" id="srvc_driver"></p>
                 <h4 id="srvc_mob"></h4>
@@ -52,9 +52,9 @@
 
                             console.log(data.data);
 
-                            var service_name = '<i class="fa-solid fa-truck-medical"></i>',
+                            var service_name = '<i class="fa-solid fa-truck-medical"></i> ',
                             service_van_no = '',
-                            service_mob = '<i class="fa-solid fa-square-phone"></i>',
+                            service_mob = '<i class="fa-solid fa-square-phone"></i> ',
                             service_driver = '<i class="fa-solid fa-user-nurse"></i> ';
 
                             service_van_no+= patient_info.amb_no;

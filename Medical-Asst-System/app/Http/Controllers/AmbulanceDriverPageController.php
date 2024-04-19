@@ -70,4 +70,13 @@ class AmbulanceDriverPageController extends Controller
         }
         return view('amb_driver_ride_accepted_intf',compact('data'));
     }
+
+    public function declineRide(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->amb_no;
+            return response()->json(['data'=>$data]);
+        }
+    }
 }

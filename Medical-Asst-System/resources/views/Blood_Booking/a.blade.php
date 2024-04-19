@@ -116,6 +116,7 @@
 
                         success: function(data){
                             // Redirect to searchtest route
+                            console.log(data);
                             $("#loading").hide();
                             $("#loading-message").hide();
 

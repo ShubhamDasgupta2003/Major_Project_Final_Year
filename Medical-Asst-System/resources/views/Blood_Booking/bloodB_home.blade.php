@@ -186,9 +186,9 @@
                             // Hide loading spinner
                             $("#loading").hide();
                             $("#loading-message").hide();
-
+                            console.log(data);
                             // Redirect to searchtest route
-                            window.location.href = "{{ route('showBhome') }}";
+        
                         },
                     });
                 }, 3000); // 5-second delay
