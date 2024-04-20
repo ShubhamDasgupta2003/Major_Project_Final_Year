@@ -22,10 +22,13 @@ use Illuminate\Support\Facades\Input;
 class MedicalSuppliesController extends Controller
 {
     //
-   public function index()
+   public function index(Request $request)
    {
     $medical_supplies_medicals=medical_supplies_medical::all();
     $totalcount=cart::count();
+    if(!empty($request->get('search'))){
+      $products=$medical_supplies_medicals->where('product_kewords','like','%'.$request->get('search').'%');
+    }
     return view('medical_supplies.index',['medical_supplies_medicals'=>$medical_supplies_medicals],compact('totalcount'));
    // return view('medical_supplies.index');
    }
@@ -80,6 +83,20 @@ public function cart()
  
  return view('medical_supplies.cart',['carts'=>$carts]);
 // return view('medical_supplies.index');
+}
+public function storeImage(Request $request)
+{
+
+
+  $request->validate(['image'=>'required|image|mimes:png,jpg,gif,svg,jpeg|max:2048']);
+ /* $file=$request->file('image');
+  $extension=$file->getClientOriginalExtension();
+  $filename=time().'.'.$extension;
+  $file->move('uploads/pres/'.$filename);*/
+
+  $imageName=time().'.'.$request->image->extension();
+  $request->image->storeAs('images',$imageName);
+  
 }
 public function delete(cart $cart)
     {
