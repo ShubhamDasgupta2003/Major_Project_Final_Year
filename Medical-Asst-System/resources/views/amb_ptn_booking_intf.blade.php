@@ -30,7 +30,7 @@
             <div class="patient-card-body">
                     <!-- Card header begins -->
 
-                    <form class="row g-3 mt-5" method="post" action="{{url('/')}}/amb-ptn-home">
+                    <form class="row g-3 mt-5 mb-5" method="post" action="{{url('/')}}/amb-ptn-home">
                         @csrf
                     <div class="col-md-3">
                         <img src="https://cdn-icons-png.flaticon.com/256/1834/1834837.png" alt="" width="100" >
@@ -81,8 +81,8 @@
                     </div>
                     <div class="col-12">
                     <label for="" class="form-label">Ambulance Type</label>
-                    <select class="form-select" aria-label="Default select example" name="ptn_amb_type">
-                        <option selected>Choose your ambulance</option>
+                    <select class="form-select" aria-label="Default select example" name="ptn_amb_type" id="ptn_amb_type">
+                        <option selected="true" disabled="disabled" value="">-- Choose Ambulance --</option>
                         <option value="normal">Normal</option>
                         <option value="Life-support">Life-support</option>
                     </select>
@@ -93,7 +93,9 @@
                         </span>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-md-12 border pb-3 pt-3">
+                        <h4 class="mb-3 text-center">Pickup address details</h4>
+                        <div class="col-12">
                         <label for="inputAddress2" class="form-label">Full Address</label>
                         <input type="text" class="form-control" id="full_address" placeholder="Apartment, studio, or floor" name="ptn_address">
                         <span class="text-danger">
@@ -102,6 +104,7 @@
                             @enderror
                         </span>
                     </div>
+                    <div class="row">
                     <div class="col-6">
                         <label for="" class="form-label">Latitude</label>
                         <input type="text" class="form-control" id="latitude" name="ptn_latitude" readonly>
@@ -120,9 +123,16 @@
                             @enderror
                         </span>
                     </div>
+                    </div>
+                    <div class="row">
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">City</label>
-                        <input type="text" class="form-control" id="inputCity" name="ptn_city">
+                        <datalist id="city" >
+                            @foreach($cities as $city)
+                                <option value="{{$city->city_ascii}}">{{$city->city_ascii}}</option>
+                            @endforeach
+                        </datalist>
+                        <input  autoComplete="on" list="city" class="form-control" placeholder="Choose city" name="ptn_city" id="ptn_city"/>
                         <span class="text-danger">
                             @error('ptn_city')
                             {{$message}}
@@ -131,21 +141,24 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputState" class="form-label">District</label>
-                        <select id="inputState" class="form-select" name="ptn_district">
-                        <option selected>Choose...</option>
-                        <option value="24-Pgs(N)">North-24 Pgs</option>
-                        <option value="24-Pgs(S)">South-24 Pgs</option>
-                        <option value="Nadia">Nadia</option>
-                        </select>
+                        <datalist id="district" >
+                            @foreach($district as $dist)
+                                <option value="{{$dist->District}}">{{$dist->District}}</option>
+                            @endforeach
+                        </datalist>
+                        <input  autoComplete="on" list="district" class="form-control" placeholder="Choose district" name="ptn_district" id="ptn_district"/>
                         <span class="text-danger">
                             @error('ptn_district')
                             {{$message}}
                             @enderror
                         </span>
                     </div>
+                    </div>
+                    
+                    <div class="row">
                     <div class="col-md-6">
                         <label for="inputZip" class="form-label">Zip</label>
-                        <input type="text" class="form-control" id="inputZip" name="ptn_zipcode">
+                        <input type="text" class="form-control" id="ptn_zip" name="ptn_zipcode">
                         <span class="text-danger">
                             @error('ptn_zipcode')
                             {{$message}}
@@ -154,12 +167,31 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputstate" class="form-label">State</label>
-                        <input type="text" class="form-control" id="inputZip" name="ptn_state">
+                        <datalist id="state" >
+                            @foreach($states as $state)
+                                <option value="{{$state->States}}">{{$state->States}}</option>
+                            @endforeach
+                        </datalist>
+                        <input  autoComplete="on" list="state" class="form-control" placeholder="Choose state" name="ptn_state" id="ptn_state"/>
                         <span class="text-danger">
                             @error('ptn_state')
                             {{$message}}
                             @enderror
                         </span>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="col-md-12 border pb-3 pt-3">
+                        <h4 class="text-center">Destination address details</h4>
+                        <div class="col-md-6">
+                        <label for="inputCity" class="form-label">Hospital address</label><span class="text-danger">*</span>
+                            <datalist id="city" >
+                                @foreach($cities as $city)
+                                    <option value="{{$city->city_ascii}}">{{$city->city_ascii}}</option>
+                                @endforeach
+                            </datalist>
+                            <input  autoComplete="on" list="city" class="form-control" placeholder="Choose hospital" name="ptn_city" id="ptn_city"/> 
+                        </div>
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-success">Request ride</button>
@@ -187,17 +219,29 @@
         let booking_address = urlParams.get('fmt_ads');
         let booking_latitude = urlParams.get('lat');
         let booking_longitude = urlParams.get('lng');
+        let amb_type_val = urlParams.get('amb_type');
+        let amb_city_val = urlParams.get('city');
+        let amb_state_val = urlParams.get('state');
+        let amb_dist_val = urlParams.get('dist');
+        let amb_zip_val = urlParams.get('zip');
 
         console.log(address_box);
         address_box.value = booking_address;
         lat_box.value = booking_latitude;
         lng_box.value = booking_longitude;
 
+        //Selecting the value set by user in prevoius page, automatiically
+        document.getElementById('ptn_amb_type').value=amb_type_val;
+        document.getElementById('ptn_city').value = amb_city_val;
+        document.getElementById('ptn_state').value = amb_state_val;
+        document.getElementById('ptn_district').value = amb_dist_val;
+        document.getElementById('ptn_zip').value = amb_zip_val;
+
         function success(pos) {
             var lat = pos.coords.latitude;
             var lon = pos.coords.longitude;
 
-            var map = L.map('map').setView([lat, lon], 18);
+            var map = L.map('map').setView([booking_latitude, booking_longitude], 18);
 
             googleStreets = L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}', {
                 maxZoom: 20,
@@ -227,7 +271,7 @@
                 iconSize: [50, 50]
             });
 
-            var marker = L.marker([lat, lon], { icon: patientIcon }).addTo(map);    //Ambulance marker on the map
+            var marker = L.marker([booking_latitude,booking_longitude], { icon: patientIcon }).addTo(map);    //Ambulance marker on the map
 
             function mark_click(e) {
                 // console.log(`${e.target.options.id} has been click`);
@@ -240,20 +284,6 @@
                 mark_id_box.value = id;
                 var all_details = data[ind_val];
                 ptn_box.innerHTML = all_details['amb_driver_name'] + " " + all_details['amb_address'] + " " + all_details['amb_contact'];
-            }
-
-    
- 
-
-            navigator.geolocation.watchPosition(w_success, w_error);
-            function w_success(pos) {
-                marker.setLatLng([pos.coords.latitude, pos.coords.longitude]);
-                // map.setView([pos.coords.latitude, pos.coords.longitude]);
-                my_lat_box.innerHTML = pos.coords.latitude;
-                my_lng_box.innerHTML = pos.coords['longitude'];
-            }
-            function w_error(err) {
-                //Error to display
             }
         }
 

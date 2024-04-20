@@ -42,7 +42,10 @@ class AmbulanceRideRequestController extends Controller
     }
     public function showRideBookingForm(Request $request)
     {
-        return view('amb_ptn_booking_intf');
+        $cities = City_Table::query()->orderBy('city_ascii')->get();
+        $states = states::query()->orderBy('States')->get();
+        $district = district::query()->orderBy('District')->get();
+        return view('amb_ptn_booking_intf',compact('cities','states','district'));
      
     }
     public function postNewRideRequest(Request $request)

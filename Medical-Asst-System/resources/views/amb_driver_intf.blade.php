@@ -93,9 +93,21 @@
 
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
+             $(document).ready(function(){
+            $('#dcln_rqst').on('click',function(){
+                    $.ajax({
+                        url:'{{route('showAvblRides')}}',
+                        type:'GET',
+                        data:{'amb_no':1423},
+                        success:function(data){
+                            console.log(data);
+                        }
+                    })
+                })
+        })
+        
         var data;
         navigator.geolocation.getCurrentPosition(success, error);
 
@@ -185,17 +197,6 @@
                         $("#acpt_ride_btn").html("<a href="+accpt_link+"><button class='btn btn-success'>Accept Ride</button></a>");
                         $("#dcln_ride_btn").html("<button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#exampleModal'>Decline Ride </button>");
                     }
-                })
-
-                $('#dcln_rqst').on('click',function(){
-                    $.ajax({
-                        url:'{{route('showAvblRides')}}',
-                        type:'GET',
-                        data:{'amb_no':1423},
-                        success:function(data){
-                            console.log(data);
-                        }
-                    })
                 })
                 }
 
