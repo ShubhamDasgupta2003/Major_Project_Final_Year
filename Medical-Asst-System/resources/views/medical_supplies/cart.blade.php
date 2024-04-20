@@ -92,12 +92,12 @@ $p=1;
                      
               <a href="{{route('medical_supplies.order_confirmation')}}" class='bottom_btn'> <i class='fa-solid fa-hand-point-right fa-2xl'></i>Proceed To Checkout</a>
                </div>
-               <div>
+               <div class="fileinput">
                 
-                     <form>
-                        <label for="file">File</label>
+                     <form method="post" enctype="multipart/form-data" action="{{route('medical supplies.imagestore')}}">
+                       @csrf
                        <input id="file" type="file" />
-                        <button>Upload</button>
+                        <button type="submit">Upload</button>
                      </form>
                  
                </div>
