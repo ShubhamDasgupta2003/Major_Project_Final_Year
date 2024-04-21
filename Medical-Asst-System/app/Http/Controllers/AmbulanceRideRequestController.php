@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Amb_info;
+use App\Models\Hospital_info;
 use App\Models\City_Table;
 use App\Models\states;
 use App\Models\district;
@@ -45,7 +46,8 @@ class AmbulanceRideRequestController extends Controller
         $cities = City_Table::query()->orderBy('city_ascii')->get();
         $states = states::query()->orderBy('States')->get();
         $district = district::query()->orderBy('District')->get();
-        return view('amb_ptn_booking_intf',compact('cities','states','district'));
+        $hospitals = Hospital_info::query()->get(['hos_id','hos_name','hos_address']);
+        return view('amb_ptn_booking_intf',compact('cities','states','district','hospitals'));
      
     }
     public function postNewRideRequest(Request $request)
@@ -67,10 +69,12 @@ class AmbulanceRideRequestController extends Controller
             'ptn_city'=>'required',
             'ptn_district'=>'required',
             'ptn_state'=>'required',
-            'ptn_zipcode'=>'required|max:7'
+            'ptn_zipcode'=>'required|max:7',
+            'hos_details'=>'required'
         ]);
 
         $counter = Patient_ambulance::count();
+        $dest_coords = Hospital_info::query()->where('hos_id',$request['hos_id'])->get(['hos_lat','hos_long']);
         $ptn_request = new Patient_ambulance;
         $cur_date = date('y-m-d');
         $cur_time = date('H:i:s');
@@ -82,6 +86,10 @@ class AmbulanceRideRequestController extends Controller
         $ptn_request->booking_time = $cur_time;
         $ptn_request->patient_booking_lat = $request['ptn_latitude'];
         $ptn_request->patient_booking_lng = $request['ptn_longitude'];
+        $ptn_request->dest_latitude = $dest_coords[0]['hos_lat'];
+        $ptn_request->dest_longitude = $dest_coords[0]['hos_long'];
+        $ptn_request->dest_hos_id = $request['hos_id'];
+        $ptn_request->dest_address = $request['hos_details'];
         $ptn_request->patient_name = $request['ptn_name'];
         $ptn_request->patient_age = $request['ptn_age'];
         $ptn_request->patient_gender = $request['ptn_gender'];

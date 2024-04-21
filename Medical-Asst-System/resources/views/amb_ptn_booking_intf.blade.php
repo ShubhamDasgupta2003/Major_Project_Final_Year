@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Geolocation</title>
+    <title>Request Ambulance | 24x7 | Emergency</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 
@@ -182,16 +182,27 @@
                     </div>
                     </div>
                     <div class="col-md-12 border pb-3 pt-3">
-                        <h4 class="text-center">Destination address details</h4>
-                        <div class="col-md-6">
-                        <label for="inputCity" class="form-label">Hospital address</label><span class="text-danger">*</span>
-                            <datalist id="city" >
-                                @foreach($cities as $city)
-                                    <option value="{{$city->city_ascii}}">{{$city->city_ascii}}</option>
+                    <h4 class="text-center">Destination address details</h4>
+                        <div class="row">
+                        <div class="col-md-12">
+                        <label for="hospitalInput" class="form-label">Hospital address</label><span class="text-danger">*</span>
+                            <datalist id="hospital">
+                                @foreach($hospitals as $hos)
+                                    <option value="{{$hos->hos_name}}-{{$hos->hos_id}}">{{$hos->hos_address}}</option>
                                 @endforeach
                             </datalist>
-                            <input  autoComplete="on" list="city" class="form-control" placeholder="Choose hospital" name="ptn_city" id="ptn_city"/> 
+                            <input  autoComplete="on" list="hospital" class="form-control" placeholder="Choose hospital" name="hos_details" id="hos_details"/> 
+                            <span class="text-danger">
+                                @error('hos_details')
+                                {{$message}}
+                            @enderror
+                            </span>
                         </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" readonly id="hos_id_value" name="hos_id" hidden>
+                        </div>
+                        </div>
+                        
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-success">Request ride</button>
@@ -213,6 +224,10 @@
         const address_box = document.getElementById('full_address');
         const lat_box = document.getElementById('latitude');
         const lng_box = document.getElementById('longitude');
+        const hosp_dd = document.getElementById('hos_details');
+        const hosp_array = document.getElementById('hospital');
+        const hosp_id = document.getElementById('hos_id_value');
+
         navigator.geolocation.getCurrentPosition(success, error);
 
         let urlParams = new URLSearchParams(document.location.search);
@@ -236,6 +251,17 @@
         document.getElementById('ptn_state').value = amb_state_val;
         document.getElementById('ptn_district').value = amb_dist_val;
         document.getElementById('ptn_zip').value = amb_zip_val;
+        //-----------------------------------------------------------------
+
+        //On selecting any hospital, hos_id is being extracted from the string and displayed on input box in readonly mode
+
+        hosp_dd.addEventListener("change",()=>{
+            st_ind = hosp_dd.value.search("HSP");
+            hosp_id.value = hosp_dd.value.slice(st_ind);
+        })
+        //------------------------------------------------------------------
+
+        //This function is called by navigator js object, when location is successfully fetched
 
         function success(pos) {
             var lat = pos.coords.latitude;
@@ -292,7 +318,7 @@
                 alert("Please allow location access");
             }
         }
-
+        //------------------------------------------------------------------
     </script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
