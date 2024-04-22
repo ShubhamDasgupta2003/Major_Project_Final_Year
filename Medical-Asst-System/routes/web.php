@@ -128,9 +128,13 @@ Route::get('/amb-book',function()
 
 Route::get('/get-dist',[AmbulanceDriverPageController::class,'fetchDistance']);
 
-Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRidesAvailable'])->name('howAvblRidess');
+Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRidesAvailable'])->name('showAvblRides');
 
 Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAccepted'])->name('driverRideAccepted');
+
+Route::post('/driver-ride-accepted',[AmbulanceDriverPageController::class,'verifyOTP'])->name('driverRideAccepted');
+
+Route::get('/driver-ride-started',[AmbulanceDriverPageController::class,''])->name('driverRideStarted');
 
 Route::get('/amb-admin-set-pswd',[newAmbulanceRegistrationController::class,'showCreatePassword'])->name("ambAdminPassForm");
 

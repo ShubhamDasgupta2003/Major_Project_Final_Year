@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
     <style>
         .marker-btn {
             background-color: green;
@@ -181,6 +183,7 @@
                     </div>
                     </div>
                     </div>
+                    <h2 class="text-center"><i class="fa-solid fa-arrow-down"></i></h2>
                     <div class="col-md-12 border pb-3 pt-3">
                     <h4 class="text-center">Destination address details</h4>
                         <div class="row">
@@ -199,11 +202,22 @@
                             </span>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" readonly id="hos_id_value" name="hos_id" hidden>
+                            <label for="">Hospital Id</label>
+                            <input type="text" class="form-control" readonly id="hos_id_value" name="hos_id">
                         </div>
                         </div>
-                        
+                        <div class="row">
+                        <div class="col-md-6">
+                            <label for="">Destination Latitude</label>
+                            <input type="text" class="form-control" readonly id="hos_lat" name="hos_lat">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Destination Longitude</label>
+                            <input type="text" class="form-control" readonly id="hos_lng" name="hos_lng">
+                        </div>
                     </div>
+                    </div>
+                    
                     <div class="col-12">
                         <button type="submit" class="btn btn-success">Request ride</button>
                     </div>
@@ -253,11 +267,24 @@
         document.getElementById('ptn_zip').value = amb_zip_val;
         //-----------------------------------------------------------------
 
-        //On selecting any hospital, hos_id is being extracted from the string and displayed on input box in readonly mode
+        //On selecting any hospital, hos_id is being extracted from the string and displayed on input box in readonly mode using AJAX
 
-        hosp_dd.addEventListener("change",()=>{
-            st_ind = hosp_dd.value.search("HSP");
-            hosp_id.value = hosp_dd.value.slice(st_ind);
+        $(document).ready(function(){
+            $('#hos_details').on('change',function(){
+                var st_ind = $('#hos_details').val().search("HSP");
+                var id = $('#hos_details').val().slice(st_ind);
+                $('#hos_id_value').val(id);
+                $.ajax({
+                    url:'{{route('showBookingForm')}}',
+                    type:'GET',
+                    data:{'hos_id':id},
+                    success:function(data){
+                        console.log(data.data[0]);
+                        $('#hos_lat').val(data.data[0].hos_lat);
+                        $('#hos_lng').val(data.data[0].hos_long);
+                    }
+                })
+            })
         })
         //------------------------------------------------------------------
 

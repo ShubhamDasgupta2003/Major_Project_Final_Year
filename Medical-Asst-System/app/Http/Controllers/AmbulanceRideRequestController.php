@@ -43,6 +43,11 @@ class AmbulanceRideRequestController extends Controller
     }
     public function showRideBookingForm(Request $request)
     {
+        if($request->ajax())
+        {
+            $dest_coords = Hospital_info::query()->where('hos_id',$request->hos_id)->get(['hos_lat','hos_long']);
+            return response()->json(['data'=>$dest_coords]);
+        }
         $cities = City_Table::query()->orderBy('city_ascii')->get();
         $states = states::query()->orderBy('States')->get();
         $district = district::query()->orderBy('District')->get();
@@ -74,7 +79,6 @@ class AmbulanceRideRequestController extends Controller
         ]);
 
         $counter = Patient_ambulance::count();
-        $dest_coords = Hospital_info::query()->where('hos_id',$request['hos_id'])->get(['hos_lat','hos_long']);
         $ptn_request = new Patient_ambulance;
         $cur_date = date('y-m-d');
         $cur_time = date('H:i:s');
@@ -86,8 +90,8 @@ class AmbulanceRideRequestController extends Controller
         $ptn_request->booking_time = $cur_time;
         $ptn_request->patient_booking_lat = $request['ptn_latitude'];
         $ptn_request->patient_booking_lng = $request['ptn_longitude'];
-        $ptn_request->dest_latitude = $dest_coords[0]['hos_lat'];
-        $ptn_request->dest_longitude = $dest_coords[0]['hos_long'];
+        $ptn_request->dest_latitude = $request['hos_lat'];
+        $ptn_request->dest_longitude = $request['hos_lng'];
         $ptn_request->dest_hos_id = $request['hos_id'];
         $ptn_request->dest_address = $request['hos_details'];
         $ptn_request->patient_name = $request['ptn_name'];

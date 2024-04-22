@@ -64,17 +64,16 @@
     Ride Details
   </div>
   <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <h3>{{$data}}</h3>
+    <h5 class="card-title">Going to {{$dest_details[0]->dest_address}}</h5>
+    <h3 id="expt_time"></h3>
     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" id="pickup_StartRide" class="btn btn-primary">Go to pickup location</a>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Start Ride
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Finish Ride
     </button>
   </div>
   <div class="card-footer text-muted">
-    <h3 id="dist_travelling"></h3>
+   
   </div>
 </div>
     </div>
@@ -87,8 +86,8 @@
     <script>
 
         const pickUpLocationStartBtn = document.getElementById('pickup_StartRide');
-        const dist_tab = document.getElementById('dist_travelling');
         const detailsTab = document.getElementById('details_card');
+        const time_rqd = document.getElementById('expt_time');
         const mapLayer = document.getElementById('map');
 
         var data;
@@ -100,6 +99,7 @@
         mapLayer.addEventListener('click',()=>{
           detailsTab.classList.remove("bg-light");
         });
+
 
         navigator.geolocation.getCurrentPosition(success, error);
 
@@ -117,9 +117,9 @@
                 subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
             }).addTo(map);
 
-            var patient_icon = L.icon({
-                iconUrl: 'https://cdn-icons-png.flaticon.com/512/1673/1673221.png',
-                iconSize: [40, 40]
+            var hospital_icon = L.icon({
+                iconUrl: 'https://png.pngtree.com/png-vector/20221130/ourmid/pngtree-hospital-location-pin-icon-in-red-color-png-image_6485371.png',
+                iconSize: [45, 45]
             });
 
             var taxiIcon = L.icon({
@@ -129,30 +129,35 @@
 
             var marker = L.marker([lat, lon], { icon: taxiIcon }).addTo(map);    //Ambulance marker on the map
 
-            var ptn_marker = L.marker([ptn_lat, ptn_lng], { icon: patient_icon }).addTo(map); //Patient marker on the map
+            var hospital_marker = L.marker(['{{$dest_details[0]->dest_latitude}}','{{$dest_details[0]->dest_longitude}}'], { icon: hospital_icon }).addTo(map); //Patient marker on the map
 
 
 
-            pickUpLocationStartBtn.addEventListener('click',() => {
+            $(document).ready(() => {
                 L.Routing.control({
                     waypoints: [
                         L.latLng(lat, lon),
-                        L.latLng(ptn_lat, ptn_lng)
+                        L.latLng('{{$dest_details[0]->dest_latitude}}','{{$dest_details[0]->dest_longitude}}')
                     ]
                 }).on('routesfound', function (e) {
                     var routes = e.routes;
                     routesFound = true;
                     console.log(routes[0]['summary']);
-                    let dist = (routes[0]['summary']['totalDistance'])/1000;
-                    let dist_roundup = dist.toFixed(2);
-                    dist_tab.innerText = dist_roundup+" km";
-                    if(routesFound)
+                    var estm_time = routes[0]['summary']['totalTime'];
+                    var time_roundup;
+                    if(estm_time>=3600)
                     {
-                      pickUpLocationStartBtn.classList.add("disabled");
-                      console.log("Disabled")
+                      time_roundup = estm_time/3600;
+                      time_roundup = time_roundup.toFixed(1);
+                      time_roundup = time_roundup + " hrs";
                     }
-                    //Edited code statrs her
-
+                    else
+                    {
+                      time_roundup = estm_time/60;
+                      time_roundup = time_roundup.toFixed(1);
+                      time_roundup = time_roundup + " mins";
+                    }
+                    time_rqd.innerText = "Expected time: "+time_roundup;
                 }).addTo(map);
             });
 
