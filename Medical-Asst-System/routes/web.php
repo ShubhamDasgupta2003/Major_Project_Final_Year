@@ -6,6 +6,7 @@ use App\Http\Controllers\AmbulanceRideConfirmedController;
 use App\Http\Controllers\BloodBankController;
 use App\Http\Controllers\newAmbulanceRegistrationController;
 use App\Http\Controllers\AmbulanceRideRequestController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\searchContoller;
 use App\Http\Controllers\UserLogin;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,7 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\LoginController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -170,3 +172,9 @@ Route::get('/custom_bed_pntdata',[HospitalController::class,'CustomBedPntDetails
 Route::get('/login',[LoginController::class,'DisplayLogin'])->name('display.login');
 Route::post('/check',[LoginController::class,'FetchServiceData'])->name('login.validate');
 // ---------------------Login Routes end here-----------------------------
+
+//----------------------- Payment Routes starts here -----------------------
+
+Route::get('/payment',[PaymentController::class,'pay_amount']);
+
+//----------------------- Payment Routes ends here -----------------------
