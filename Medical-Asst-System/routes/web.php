@@ -17,6 +17,7 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserregController;
 
 /*
 |--------------------------------------------------------------------------
@@ -173,6 +174,8 @@ Route::get('/pnt_verify',[HospitalController::class,'DeadlineCount'])->name('dea
 // ---------------------Login Routes start here---------------------------
 Route::get('/login',[LoginController::class,'DisplayLogin'])->name('display.login');
 Route::post('/check',[LoginController::class,'FetchServiceData'])->name('login.validate');
+Route::get('/userReg',[UserregController::class,'DisplayForm'])->name('display.user.form');
+Route::post('/user_reg_validate',[UserregController::class,'StoreUserData'])->name('register.user');
 // ---------------------Login Routes end here-----------------------------
 
 //----------------------- Payment Routes starts here -----------------------
