@@ -167,6 +167,7 @@ Route::get('/custom_bed',[HospitalController::class,'CustomBedDesign'])->name('d
 Route::get('/custom_bed_pntdata',[HospitalController::class,'CustomBedPntDetails'])->name('display.pnt.data');
 Route::get('/pnt_verify',[HospitalController::class,'DisplayPntVerify'])->name('display.pnt.verify');
 // Route::get('/hos_form/{id}',[HospitalController::class,'UpdateBedCount'])->name('update.bedCount');
+Route::get('/pnt_verify',[HospitalController::class,'DeadlineCount'])->name('deadlineCount');
 // ---------------------Bed booking Service Routes end here-----------------------------
 
 // ---------------------Login Routes start here---------------------------

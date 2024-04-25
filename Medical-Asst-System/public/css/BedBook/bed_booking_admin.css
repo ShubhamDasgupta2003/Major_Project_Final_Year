@@ -117,7 +117,12 @@
     transition: margin-left 300ms;
     margin-left:345px;
 }
-
+.table1{
+    display: none;
+}
+.table2{
+    display: none;
+}
 header{
     background: #fff;
     display:flex;
