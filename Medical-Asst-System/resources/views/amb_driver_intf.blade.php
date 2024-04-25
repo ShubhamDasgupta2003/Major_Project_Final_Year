@@ -12,6 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+        
         .marker-btn {
             background-color: green;
             color: white;
@@ -22,6 +25,32 @@
         }
         .leaflet-marker-icon.ptn-marker {
             border:5px solid red;
+        }
+        .navbar
+        {
+            /* background-color:rgb(0,120,232); */
+            padding-right:1rem;
+        }
+        .profile
+        {
+          color:blue;
+        }
+        .links a
+        {
+            text-decoration:none;
+            margin-right:2rem;
+            font-size:17px;
+            font-family: "Ubuntu", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            color: #217bff;
+            padding:1.3rem;
+        }
+        .links a:hover
+        {
+            font-size: 19px;
+            /* background-color: #217bff; */
+            /* color: white; */
         }
     </style>
 
@@ -51,19 +80,30 @@
     </div>
   </div>
 </div>
-
-    <div class="container-fluid row">
-            <nav class="navbar navbar-light bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand text-light">Navbar</a>
+        <nav class="navbar navbar-light container-fluid bg-light shadow-sm p-1  bg-body rounded">
+            
+            <a class="navbar-brand text-primary ms-5">Navbar</a>
+            <div class="row">
+                <div class="col-md-12 mr-5 ml-5 links">
+                <a href="#">Home</a>
+                <a href="#">Services</a>
+                <a href="#">Review</a>
+                <a href="#">Contact us</a>
+                </div>
+                
+            </div>
             <div class="d-flex">
                 <h2 class="me-2 text-light"> 
                 <!-- Example single danger button -->
-                <div class="btn-group">
-                <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{$amb_record->amb_driver_name}}
+                <div class="btn-group dropstart profile">
+                <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="row">
+                        <div class="col-1">
+                        <i class="fa-regular fa-user fa-xl" style="color: #0470ce;"></i>
+                    </div>
                 </button>
                 <ul class="dropdown-menu">
+                    <li><h4 class="dropdown-item">{{$amb_record->amb_driver_name}}</h4></li>
                     <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user"></i> My Profile</a></li>
                     <li><a class="dropdown-item" href="#"><i class="fa-solid fa-money-check-dollar"></i> My Earnings</a></li>
                     <li><a class="dropdown-item"><button class="btn btn-danger"><i class="fa-solid fa-moon"></i> Take break</button></a></li>
@@ -75,27 +115,51 @@
             </div>
         </div>
         </nav>
-        <div class="left-panel col-5 border vh-93 overflow-auto">
-            <div class="patient-card-body">
-                    <!-- Card header begins -->
-                    <div class="card-body border mt-5 bg-primary">
-                        <h5 class="card-title text-light" id="ptn_name"><div class="spinner-grow text-light" role="status"></div> Getting rides...</h5>
-                        <h6 class="card-subtitle mb-2 text-light" id="ptn_booking_addrs"></h6>
-                        <h5 id="ptn_mobile" class="text-light"></h5>
-                        <h5 id="acpt_ride_btn"></h5>
-                        <h5 id="dcln_ride_btn"></h5>
-                    </div>
-                    <!-- Card header ends -->
+        <div class="container-fluid row">
+            <div class="left-panel col-md-5 border overflow-auto">
+                <div class="patient-card-body">
+                        <!-- Card header begins -->
+                        <div class="card-body mt-5 bg-light pt-5 pb-5 shadow-lg p-3 mb-5 bg-body rounded">
+                            <h3 class="card-title text-dark text-center mb-2" id="ptn_name">
+                            <i class="fa-solid fa-map-location-dot fa-fade fa-lg" style="color: #0087db;"></i>
+                            Please wait getting rides...</h3>
+                            <h6 class="card-subtitle mb-2 text-dark" id="ptn_booking_addrs"></h6>
+                            <h5 id="arrow" class="text-center"></h5>
+                            <h6 class="card-subtitle mb-2 text-dark" id="ptn_dstn_addrs"></h6>
+                            <h5 id="ptn_mobile" class="text-dark"></h5>
+                            <div class="row">
+                                <div class="col">
+                                    <h5 id="acpt_ride_btn"></h5>
+                                </div>
+                                <div class="col">
+                                <h5 id="dcln_ride_btn"></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card header ends -->
+                </div>
             </div>
-        </div>
-        <div id="map" style="width:80%; height: 93vh" class="col border"></div>
+            <div class="col-md-7">
+                <div id="map" style="width: 57vw; height: 93vh" class="border"></div>
+            </div>
     </div>
-
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
+             $(document).ready(function(){
+            $('#dcln_rqst').on('click',function(){
+                    $.ajax({
+                        url:'{{route('showAvblRides')}}',
+                        type:'GET',
+                        data:{'amb_no':1423},
+                        success:function(data){
+                            console.log(data);
+                        }
+                    })
+                })
+        })
+        
         var data;
         navigator.geolocation.getCurrentPosition(success, error);
 
@@ -130,7 +194,7 @@
             };
             var taxiIcon = L.icon({
                 iconUrl: 'https://cdn3.iconfinder.com/data/icons/map-and-navigation-25/50/49-512.png',
-                iconSize: [50, 50]
+                iconSize: [60, 60]
             });
 
             var marker = L.marker([lat, lon], { icon: taxiIcon }).addTo(map);    //Ambulance marker on the map
@@ -166,13 +230,16 @@
                     data:{'lat':pos.coords.latitude,'lng':pos.coords.longitude,'amb_id':'{{session('amb_id')}}'}, //amb_id to be fetched from session variable later
                     success:function(data){
                         response = data.data[0];
-                        var name = '<i class="fa-solid fa-user-large"></i>  ',addrs = '<i class="fa-solid fa-house-chimney"></i>  ',
+                        var name = '<i class="fa-solid fa-user-large"></i>  ',addrs = ' <i class="fa-solid fa-house-chimney"></i>  ',
+                        destination = '<i class="fa-solid fa-location-dot"></i>  ',
+                        arrow_mark = '<i class="fa-solid fa-arrow-down fa-xl"></i>',
                         mobile = '<i class="fa-solid fa-phone"></i>  ',
                         dcl_btn = '';
                         
                         console.log(response);
                         name += response.patient_name;
                         addrs += response.patient_booking_address;
+                        destination += response.dest_address;
                         mobile += response.patient_mobile;
 
                         accpt_link = "{{url('/')}}/driver-ride-accepted?ptn_lat="+response.patient_booking_lat+"&ptn_lng="+response.patient_booking_lng;
@@ -181,21 +248,12 @@
 
                         $('#ptn_name').html(name);
                         $('#ptn_booking_addrs').html(addrs);
+                        $('#ptn_dstn_addrs').html(destination);
                         $('#ptn_mobile').html(mobile);
+                        $('#arrow').html(arrow_mark);
                         $("#acpt_ride_btn").html("<a href="+accpt_link+"><button class='btn btn-success'>Accept Ride</button></a>");
                         $("#dcln_ride_btn").html("<button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#exampleModal'>Decline Ride </button>");
                     }
-                })
-
-                $('#dcln_rqst').on('click',function(){
-                    $.ajax({
-                        url:'{{route('showAvblRides')}}',
-                        type:'GET',
-                        data:{'amb_no':1423},
-                        success:function(data){
-                            console.log(data);
-                        }
-                    })
                 })
                 }
 

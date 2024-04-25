@@ -61,44 +61,51 @@
                     </div>
                    
                     <div class="col-12">
-                    <label for="" class="form-label">Ambulance Type</label>
+                    <label for="" class="form-label">Ambulance Type</label><span class="text-danger">*</span>
                     <select class="form-select" aria-label="Default select example" name="ptn_amb_type" id="amb_type">
-                        <option selected>Choose your ambulance</option>
+                        <option selected="true" disabled="disabled" value="">-- Choose Ambulance --</option>
                         <option value="normal">Normal</option>
                         <option value="Life-support">Life-support</option>
                     </select>
                     </div>
-
+               
+                    <!-- City datalist -->
                     <div class="col-md-6">
-                        <label for="inputCity" class="form-label">City</label>
-                        <select name="" id="ptn_city" class="form-select">
-                            <option value="">Choose city</option>
+                    <label for="inputCity" class="form-label">City</label><span class="text-danger">*</span>
+                        <datalist id="city" >
                             @foreach($cities as $city)
                                 <option value="{{$city->city_ascii}}">{{$city->city_ascii}}</option>
                             @endforeach
-                        </select>
+                        </datalist>
+                        <input  autoComplete="on" list="city" class="form-control" placeholder="Choose city" name="ptn_city" id="ptn_city"/> 
                     </div>
+
+                <!-- District datalist -->
                     <div class="col-md-6">
                         <label for="inputState" class="form-label">District</label>
-                        <select id="amb_district" class="form-select" name="ptn_district">
-                        <option value="">Choose district</option>
+                        <datalist id="district" >
                             @foreach($district as $dist)
                                 <option value="{{$dist->District}}">{{$dist->District}}</option>
                             @endforeach
-                        </select>
+                        </datalist>
+                        <input  autoComplete="on" list="district" class="form-control" placeholder="Choose district" name="ptn_district" id="amb_district"/>
                     </div>
+
+                    <!-- State datalist -->
+
                     <div class="col-md-6">
                         <label for="inputstate" class="form-label">State</label>
-                        <select id="ptn_state" class="form-select" name="ptn_state">
-                        <option value="">Choose state</option>
+                        <datalist id="state" >
                             @foreach($states as $state)
                                 <option value="{{$state->States}}">{{$state->States}}</option>
                             @endforeach
-                        </select>
+                        </datalist>
+                        <input  autoComplete="on" list="state" class="form-control" placeholder="Choose state" name="ptn_state" id="ptn_state"/>
                     </div>
+
                     <div class="col-md-6">
-                        <label for="" class="form-label" id="ptn_zip">Zip code</label>
-                       <input type="text" class="form-control">
+                        <label for="" class="form-label">Zip code</label><span class="text-danger">*</span>
+                       <input type="text" class="form-control" id="ptn_zip">
                     </div>
                     <div class="col-6 d-grid gap-2">
                         <button type="button" id="check" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Check availability</button>
@@ -218,24 +225,29 @@
                 var state = $('#ptn_state').val();
                 var zip = $('#ptn_zip').val();
 
-                const apiUrl = 'https://api.distancematrix.ai/maps/api/geocode/json?address='+city+dist+state+zip+'&key=8MZhsYhR2pY97MTZyQRnaa6zccPrZo0zhGqFXJ5FzDNd4BlkcZeexuqUrthlXuCi';
+                api_key = "ee2dfca941774c139225977bbddebb90";
 
-                fetch(apiUrl)
-                .then(response=>{
-                    return response.json();
-                })
-                .then(data=>{
-                    var response = data.result[0];
-                    var formt_adrs = response['formatted_address'];
-                    var geometry = response['geometry']['location'];
-                    console.log(response);
-                    // window.location.href = "/amb-ptn-home?fmt_ads="+formt_adrs+"&lat="+geometry.lat+"&lng="+geometry.lng;
-                    // var geometry = data['geometry'];
-                })
-                .catch(error=>{
-                    console.log(error);
+                fetch('https://api.opencagedata.com/geocode/v1/json?q='+state+'%2C'+dist+'%2C'+city+'%2C'+zip+'&key='+api_key+'&Limit=1')
+                .then(response=>(response.json()))
+                .then(result=>{
+                    if(result)
+                    {
+                        let details = result.results[0];
+                        console.log(result.results);
+                        let loc_txt = details['formatted'];
+                        let loc_geometry = details['geometry'];
+                        let latitude = loc_geometry['lat'];
+                        let longitude = loc_geometry['lng'];
+                        console.log(latitude,longitude);
+                        window.location.href = "/amb-ptn-home?fmt_ads="+loc_txt+"&lat="+latitude+"&lng="+longitude+"&amb_type="+type+"&city="+city+"&state="+state+"&dist="+dist+"&zip="+zip;
+                    }
+                    else
+                    {
+                        alert("Sorry cannot detect location");
+                    }
                 })
             })
+            
             $('#current_addrs').on('click',function(){
                 
                 api_key = "ee2dfca941774c139225977bbddebb90";

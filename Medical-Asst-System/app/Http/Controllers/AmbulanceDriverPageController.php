@@ -53,9 +53,11 @@ class AmbulanceDriverPageController extends Controller
         //Function executes when driver clicks on Accept ride button on Driver-intf
         //Updating the ride status code and generating a 4-digit otp
         
-        $data = "";
         $otp = rand(1000,9999);
         $amb_no_key = session('amb_id');
+
+        $inv_id = Patient_ambulance::where('amb_no',$amb_no_key)->where('ride_status','000')->get(['invoice_no']);
+
         $ride_status_update = Patient_ambulance::where('amb_no',$amb_no_key)->where('ride_status','000')->update(['ride_status'=>'001','otp'=>$otp]);
         
         if($request->ajax())
@@ -64,11 +66,11 @@ class AmbulanceDriverPageController extends Controller
             return response()->json(['data'=>$amb]);
         }
         
-        if($ride_status_update)
-        {
-            $data = "Ride Accepted";
-        }
-        return view('amb_driver_ride_accepted_intf',compact('data'));
+    
+        $ride_info = Patient_ambulance::where('amb_no',$amb_no_key)->where('ride_status','001')->get();
+        $alert = "";
+        return view('amb_driver_ride_accepted_intf',compact('ride_info','inv_id','alert'));
+    
     }
 
     public function declineRide(Request $request)
@@ -78,5 +80,32 @@ class AmbulanceDriverPageController extends Controller
             $data = $request->amb_no;
             return response()->json(['data'=>$data]);
         }
+    }
+
+    //Function called when driver verifies OTP
+    public function verifyOTP(Request $request)
+    {
+        $amb_no_key = session('amb_id');
+
+        $inv_id = Patient_ambulance::where('amb_no',$amb_no_key)->where('ride_status','001')->get(['invoice_no']);
+
+        $data = Patient_ambulance::where('invoice_no',$inv_id[0]->invoice_no)->get();
+        if($request->otp == $data[0]->otp)
+        {
+            $update_status = Patient_ambulance::where('invoice_no',$inv_id[0]->invoice_no)->update(['ride_started_at'=>date('H:i:s')]);
+
+            if($update_status){
+                $dest_details = Patient_ambulance::where('invoice_no',$inv_id[0]->invoice_no)->get();
+                return view('amb_driver_ride_started',compact('dest_details'));
+            }
+        }
+        else
+        {
+            
+            $ride_info = Patient_ambulance::where('amb_no',$amb_no_key)->where('ride_status','001')->get();
+            $alert = "Please enter valid OTP";
+            return view('amb_driver_ride_accepted_intf',compact('ride_info','alert')); 
+        }
+
     }
 }

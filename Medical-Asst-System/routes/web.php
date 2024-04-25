@@ -6,6 +6,7 @@ use App\Http\Controllers\AmbulanceRideConfirmedController;
 use App\Http\Controllers\BloodBankController;
 use App\Http\Controllers\newAmbulanceRegistrationController;
 use App\Http\Controllers\AmbulanceRideRequestController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\searchContoller;
 use App\Http\Controllers\UserLogin;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,7 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\LoginController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,6 +70,7 @@ Route::get('/asearch',[searchContoller::class,'search'])->name('searchtest');
 
 
 /*-------------------Medical Supplies----------------------------------*/
+Route::get('/medical supplies/{medical_supplies_medical}',[MedicalSuppliesController::class,'index'])->name('medical_supplies.index');
 Route::get('/medical supplies',[MedicalSuppliesController::class,'index'])->name('medical_supplies.index');
 Route::get('/technical supplies',[MedicalSuppliesController::class,'indexb'])->name('medical_supplies.indexb');
 Route::get('/medical supplies/{medical_supplies_medical}/detail',[MedicalSuppliesController::class,'edit'])->name('medical_supplies.detail');
@@ -75,6 +78,7 @@ Route::get('/technical supplies/{medical_supplies_technical}/detail',[MedicalSup
 Route::post('/medical supplies/detail',[MedicalSuppliesController::class,'store'])->name('medical_supplies.store');
 Route::post('/technical supplies/detail',[MedicalSuppliesController::class,'storeb'])->name('technical_supplies.storeb');
 Route::get('/cart',[MedicalSuppliesController::class,'cart'])->name('medical_supplies.cart');
+Route::post('/carti',[MedicalSuppliesController::class,'storeImage'])->name('medical supplies.imagestore');
 Route::delete('/cart/{cart}/delete',[MedicalSuppliesController::class,'delete'])->name('cart.delete');
 Route::put('/cart/{cart}/update',[MedicalSuppliesController::class,'update'])->name('cart.update');
 Route::get('/order confirmation',[MedicalSuppliesController::class,'order'])->name('medical_supplies.order_confirmation');
@@ -126,9 +130,13 @@ Route::get('/amb-book',function()
 
 Route::get('/get-dist',[AmbulanceDriverPageController::class,'fetchDistance']);
 
-Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRidesAvailable'])->name('howAvblRidess');
+Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRidesAvailable'])->name('showAvblRides');
 
 Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAccepted'])->name('driverRideAccepted');
+
+Route::post('/driver-ride-accepted',[AmbulanceDriverPageController::class,'verifyOTP'])->name('driverRideAccepted');
+
+Route::get('/driver-ride-started',[AmbulanceDriverPageController::class,''])->name('driverRideStarted');
 
 Route::get('/amb-admin-set-pswd',[newAmbulanceRegistrationController::class,'showCreatePassword'])->name("ambAdminPassForm");
 
@@ -165,3 +173,9 @@ Route::get('/pnt_verify',[HospitalController::class,'DisplayPntVerify'])->name('
 Route::get('/login',[LoginController::class,'DisplayLogin'])->name('display.login');
 Route::post('/check',[LoginController::class,'FetchServiceData'])->name('login.validate');
 // ---------------------Login Routes end here-----------------------------
+
+//----------------------- Payment Routes starts here -----------------------
+
+Route::get('/payment',[PaymentController::class,'pay_amount']);
+
+//----------------------- Payment Routes ends here -----------------------
