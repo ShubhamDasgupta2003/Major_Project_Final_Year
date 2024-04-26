@@ -75,8 +75,13 @@
                         <h2 class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i> 27 Km</h2>
                     </div>
                     <div class='buy-price'>
-                        <a href=" {{ route('blood_booking_form')}} "><button class='btn buy'>Buy</button></a>
+                        <a href="{{ route('blood_booking_form', ['id' => $bank->id]) }}"><button class='btn buy'>Buy</button></a>
                         <p class='card-fare'>&#8377 {{$bank->price}}/-</p>
+                        @php
+                            
+                            Session::put('blood_price', $bank->price);
+                        @endphp
+
                     </div>
                     </div>
                     </div>
