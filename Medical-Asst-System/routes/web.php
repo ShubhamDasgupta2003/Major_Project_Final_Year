@@ -6,6 +6,7 @@ use App\Http\Controllers\AmbulanceRideConfirmedController;
 use App\Http\Controllers\BloodBankController;
 use App\Http\Controllers\newAmbulanceRegistrationController;
 use App\Http\Controllers\AmbulanceRideRequestController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\searchContoller;
 use App\Http\Controllers\UserLogin;
 use Illuminate\Support\Facades\Route;
@@ -53,7 +54,7 @@ Route::get('/booking_conf', function () {
 
 // routes for BloodBank
 // Route::view ('BookBlood','/Blood_Booking/bloodB_home')->name('bloodB_home');
-Route::view ('booking_form','/Blood_Booking/form')->name('blood_booking_form');
+// Route::view ('booking_form','/Blood_Booking/form')->name('blood_booking_form');
 Route::view ('RegisterNbank','/Blood_Booking/BbankRegister')->name('B_Bank_Register');
 Route::view ('Userlogin','/Blood_Booking/login')->name('Userlogin');
 
@@ -64,9 +65,11 @@ Route::post('/BanksRegister', [BloodBankController::class, 'newregistration'])->
 Route::get('/bloodGroup', [BloodBankController::class, 'bloodGroup']);
 // Route::post('/search', [BloodBankController::class, 'search'])->name('search');
 Route::get('/showBhome', [BloodBankController::class, 'showBloodBanks'])->name('showBhome');
+Route::get('/booking_form/{id}', [BloodBankController::class, 'booking'])->name('blood_booking_form');
 
 Route::view ('/test','/Blood_Booking/test');
 Route::view ('/b','/Blood_Booking/b')->name('b');
+Route::view ('/a','/Blood_Booking/a');
 Route::get('/asearch',[searchContoller::class,'search'])->name('searchtest');
 
 
@@ -139,9 +142,9 @@ Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRides
 
 Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAccepted'])->name('driverRideAccepted');
 
-Route::post('/driver-ride-accepted',[AmbulanceDriverPageController::class,'verifyOTP'])->name('driverRideAccepted');
+Route::post('/driver-ride-accepted',[AmbulanceDriverPageController::class,'verifyOTP'])->name('checkOtpVerification');
 
-Route::get('/driver-ride-started',[AmbulanceDriverPageController::class,''])->name('driverRideStarted');
+Route::get('/driver-ride-started',[AmbulanceDriverPageController::class,'reachDestination'])->name('driverRideStarted');
 
 Route::get('/amb-admin-set-pswd',[newAmbulanceRegistrationController::class,'showCreatePassword'])->name("ambAdminPassForm");
 
@@ -170,12 +173,16 @@ Route::get('/hos_admin_interface',[HospitalController::class,'HosInterfaceDispla
 Route::get('/hos_admin_interface',[HospitalController::class,'GetHosData'])->name('hos.data.interface');
 Route::get('/custom_bed',[HospitalController::class,'CustomBedDesign'])->name('display.custum.bed');
 Route::get('/custom_bed_pntdata',[HospitalController::class,'CustomBedPntDetails'])->name('display.pnt.data');
+Route::get('/pnt_verify',[HospitalController::class,'DisplayPntVerify'])->name('display.pnt.verify');
 // Route::get('/hos_form/{id}',[HospitalController::class,'UpdateBedCount'])->name('update.bedCount');
+Route::get('/pnt_verify',[HospitalController::class,'DeadlineCount'])->name('deadlineCount');
 // ---------------------Bed booking Service Routes end here-----------------------------
 
 // ---------------------Login Routes start here---------------------------
 Route::get('/login',[LoginController::class,'DisplayLogin'])->name('display.login');
 Route::post('/check',[LoginController::class,'FetchServiceData'])->name('login.validate');
+Route::get('/userReg',[UserregController::class,'DisplayForm'])->name('display.user.form');
+Route::post('/user_reg_validate',[UserregController::class,'StoreUserData'])->name('register.user');
 // ---------------------Login Routes end here-----------------------------
 Route::get('product',[RazorpayController::class,'index']);
 Route::post('razorpay-payment',[RazorpayController::class,'store'])->name('razorpay.payment');

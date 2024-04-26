@@ -27,11 +27,11 @@
                {{-- <li>
                     <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/bed booking admin/display_update_bed.php"><span class="las la-clipboard-list"></span>
                     <span>Update Beds</span></a>
-                </li>
-                <li>
-                    <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/bed booking admin/update_hos_info.php"><span class="las la-hospital"></span>
-                    <span>Update Hospital Details</span></a>
                 </li> --}}
+                <li>
+                    <a href={{url('pnt_verify')}}><span class="las la-hospital"></span>
+                    <span>Patient Verification</span></a>
+                </li> 
             </ul>
         </div>
     </div>

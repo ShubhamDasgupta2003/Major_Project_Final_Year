@@ -99,4 +99,45 @@ class HospitalController extends Controller
     public function CustomBedPntDetails(){
         return view('/hospital bed/pnt_status');
     }
+    // for patient verification  
+    public function DisplayPntVerify(){
+        $hos_id = session('hos_id');
+        // $pnt_id = session('pnt_id');
+        $hos_info_all= Hospital_info::where('hos_id','=',$hos_id)->first();
+        $hos_name=$hos_info_all->hos_name;
+        $pnt_info_all= Patient_booking_info::where('hos_name','=',$hos_name)->get();
+        return view ('/hospital bed/pnt_verify')->with([
+            'hos_info_all' => $hos_info_all,
+            'pnt_info_all' => $pnt_info_all
+        ]);
+    }
+    // patient verification functions starts here
+
+    public function DeadlineCount(){
+        // $pnt_deadline_check= Patient_booking_info::where('hos_name','=',$hos_name,'AND pnt_booking_status','=','Applied')->get();
+        $hos_id = session('hos_id');
+        $pnt_id = session('pnt_id');
+        $hos_info_all= Hospital_info::where('hos_id','=',$hos_id)->first();
+        $hos_name=$hos_info_all->hos_name;
+        $pnt_deadline_check = Patient_booking_info::where([
+            ['hos_name', '=', $hos_name],
+            ['pnt_booking_status','=','Applied'],
+            ])->get();
+            $curr_timestamp = time();
+            $stored_timestamp = [];
+            foreach ($pnt_deadline_check as $record) {
+            $stored_timestamp[] = $record->pnt_booking_deadline_timestamp;
+}
+            // $stored_timestamp=$pnt_deadline_check->pnt_booking_deadline_timestamp;
+            foreach($stored_timestamp as $data){
+                if($curr_timestamp>=$data){
+                    Patient_booking_info::where('pnt_booking_status','Applied')->update([
+                            'pnt_booking_status' => 'Expired'
+                        ]);
+            }
+            }
+            return view('/hospital bed/pnt_verify')->with('hos',$hos_info_all);
+        
+    }
+    // patient verification functions ends here
 }

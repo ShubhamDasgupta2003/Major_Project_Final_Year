@@ -8,19 +8,23 @@
 
     @include('common_css')
     <link rel="stylesheet" href="css/BloodBank/BookingForm.css">
+    {{-- <link rel="stylesheet" href="css/BloodBank/abc.css"> --}}
 
 </head>
 <body>
     <div class="container">
         <div class="card">
             <!-- <img src="https://maishacare.com/wp-content/uploads/2022/06/ambulance-service-van-emergency-medical-vehicle-vector-illustration-white-background-ambulance-service-van-emergency-medical-127018462.jpg" alt=""> -->
+            @php
+                $bloodPrice = session('blood_price');
+            @endphp
             <div class="column">
                 <div class='amb_info_cont'>
-                    <h1 class='descp' id='title'>PureLife Blood Bank Taherpur</h1>
-                    <h3><p class='descp' id='card-address'><i class='fa-solid fa-location-dot'></i> West Bengal Hooghly Taherpur</p></h3>
-                    <h3><p class='descp' id='card-type'>O+</p></h3>
+                    <h1 class='descp' id='title'>{{$bank->name}}</h1>
+                    <h3><p class='descp' id='card-address'><i class='fa-solid fa-location-dot'></i>{{$bank->state}},{{$bank->city}}</p></h3>
+                    <h3><p class='descp bg' id='card-type'>O+</p></h3>
                     <h2><p class='descp' id='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i>&nbsp&nbsp386.2 km</p></h2>
-                    <h2 class='descp' id='card-fare'>&#8377 700.00/-</h2>
+                    <h2 class='descp' id='card-fare'>&#8377 {{$bloodPrice}}/-</h2>
                     </div>                <div class="patient_info_cont">
     
                     <form method="post" action="">

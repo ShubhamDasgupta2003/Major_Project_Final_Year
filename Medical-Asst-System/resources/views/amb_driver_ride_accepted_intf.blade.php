@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         .marker-btn {
@@ -41,7 +43,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="{{route('driverRideAccepted')}}" method="post">
+        <form action="{{route('checkOtpVerification')}}" method="post">
         @csrf
           <div class="input-group mb-3">
           <input type="text" id="otp_val" class="form-control" placeholder="Enter OTP here" aria-label="OTP" aria-describedby="button-addon2" name="otp">
@@ -57,16 +59,23 @@
   </div>
 </div>
     <div class="container-fluid justify-content-center">
+        @if($alert != "")
+    
+          <h5 class="alert alert-danger alert-dismissible fade show mb-0 mt-1">{{$alert}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </h5>
+      
+        @endif
         <div id="map" style="width:100%; height:100vh" class="col "></div>
     
         <div class="card text-center position-absolute bottom-0 start-50 translate-middle-x shadow-lg p-3 rounded border-top-3" id="details_card" style="height:auto">
-  <div class="card-header">
+  <div class="card-header text-primary">
     Ride Details
   </div>
   <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <h3>{{$data}}</h3>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <h5 class="card-title">{{$ride_info[0]->patient_name}}</h5>
+    <h3><a href="tel: {{$ride_info[0]->patient_mobile}}"><button class="btn btn-success"><i class="fa-solid fa-phone-volume" style="color: #ffffff;"></i> Call Patient</button></a></h3>
+    <p class="card-text">{{$ride_info[0]->patient_booking_address}}</p>
     <a href="#" id="pickup_StartRide" class="btn btn-primary">Go to pickup location</a>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
