@@ -1,28 +1,3 @@
-<?php
-    session_start();
-    // $userid = $_SESSION['user_id'];
-    include_once("db_config/main_config.php");
-
-    $db = new Database();
-    $con = $db->connect();
-
-    $amount = $_GET['amount'];
-    $ord_id = $_GET['order_id'];
-
-    $query = "SELECT * FROM `user_ambulance` WHERE invoice_no='$ord_id'";
-
-    $result = mysqli_query($con,$query);
-    if($result)
-    {
-        $rows = mysqli_fetch_assoc($result);
-    }
-    $_SESSION['pt_name'] = $rows['patient_name'];
-    $_SESSION['pt_cont'] = $rows['patient_cont'];
-    // $query = $db->select('',"*","invoice_no=$ord_id");
-    // $rows = $query->fetch();
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,28 +11,8 @@
 </head>
 <body>
 
-    <?php
-
-        echo "<div class='container'>
-        <div class='card'>
-            <div class='column'>
-                <h1 id='cnfm-msg' class='title'>Payment Details</h1>
-                    <div class='amb_info_cont'>
-                    <h1 class='descp' id='title'>$rows[patient_name]</h1>
-                    <h3>Delivery address</h3>
-                    <p class='descp' id='card-address'>$rows[user_book_adrss]</p>
-                    <h3>Contact no.</h3>
-                    <p class='descp' id='card-distance'>$rows[patient_cont]</p>
-                    <h3>Order Id</h3>
-                    <p class='descp' id='card-type'>$ord_id</p>
-                    <h3>Total</h3>
-                    <h2 class='descp' id='card-fare'>&#8377 $amount/-</h2>
-            </div>
-            <input type='button' class='btn' name='btn' id='btn' value='Confirm & Pay' onclick='pay_now()'/>
-        </div>
-    </div>";
-    
-    ?>
+    <input type='button' class='btn' name='btn' id='btn' value='Confirm & Pay' onclick='pay_now()'/>
+  
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -65,20 +20,22 @@
         const urlParams = new URLSearchParams(window.location.search);
         var order_id = urlParams.get('order_id');   //Get orderid from url
         var amount = urlParams.get('amount');   //Get amount from url
+        var round_amount = Math.round(amount);
         var user_id = urlParams.get('user_id');
 
+        console.log(order_id,amount,user_id);
   function pay_now(){
 
                 var options = {
                 "key": "rzp_test_vgrShf9dHH7C80", // Enter the Key ID generated from the Dashboard
-                "amount": amount*100,
+                "amount": round_amount*100,
                 "currency": "INR",
                 "description": "Ambulance Service",
                 "image": "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg",
                 "prefill":
                 {
-                "email": "",
-                "contact": "<?php echo "+91$rows[patient_cont]"; ?>",
+                "email": "ghgfhfgh",
+                "contact": "788954645",
                 },
                 config: {
                 display: {
