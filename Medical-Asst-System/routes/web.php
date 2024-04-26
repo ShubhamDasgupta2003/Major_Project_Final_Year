@@ -52,6 +52,7 @@ Route::get('/rating', function () {
 // Route::view ('booking_form','/Blood_Booking/form')->name('blood_booking_form');
 Route::view ('RegisterNbank','/Blood_Booking/BbankRegister')->name('B_Bank_Register');
 Route::view ('Userlogin','/Blood_Booking/login')->name('Userlogin');
+Route::view ('BBadmin','/Blood_Booking/adminPanel');
 
 
 Route::view('/BookBlood', '/Blood_Booking/bloodBInitial');
@@ -60,7 +61,9 @@ Route::post('/BanksRegister', [BloodBankController::class, 'newregistration'])->
 Route::get('/bloodGroup', [BloodBankController::class, 'bloodGroup']);
 // Route::post('/search', [BloodBankController::class, 'search'])->name('search');
 Route::get('/showBhome', [BloodBankController::class, 'showBloodBanks'])->name('showBhome');
+Route::post('/confirm_booking', [BloodBankController::class, 'upload'])->name('confirm_Booking');
 Route::get('/booking_form/{id}', [BloodBankController::class, 'booking'])->name('blood_booking_form');
+// Route::get('/booking_form', [BloodBankController::class, 'booking1'])->name('blood_booking_form');
 
 Route::view ('/test','/Blood_Booking/test');
 Route::view ('/b','/Blood_Booking/b')->name('b');

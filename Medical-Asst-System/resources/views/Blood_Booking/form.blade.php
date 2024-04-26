@@ -25,9 +25,20 @@
                     <h3><p class='descp bg' id='card-type'>O+</p></h3>
                     <h2><p class='descp' id='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i>&nbsp&nbsp386.2 km</p></h2>
                     <h2 class='descp' id='card-fare'>&#8377 {{$bloodPrice}}/-</h2>
-                    </div>                <div class="patient_info_cont">
+                </div>                
+                
+                {{-- <div class='amb_info_cont'>
+                    <h1 class='descp' id='title'></h1>
+                    <h3><p class='descp' id='card-address'><i class='fa-solid fa-location-dot'></i>dfsafffffffffffsdfadfsafaf</p></h3>
+                    <h3><p class='descp bg' id='card-type'>O+</p></h3>
+                    <h2><p class='descp' id='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i>&nbsp&nbsp386.2 km</p></h2>
+                    <h2 class='descp' id='card-fare'>&#8377 {{$bloodPrice}}/-</h2>
+                </div>                 --}}
+
+                 <div class="patient_info_cont">
     
-                    <form method="post" action="">
+                    <form method="post" enctype="multipart/form-data" action="{{url('/confirm_booking')}}">
+                        @csrf
                         <label for="">Patient's Full Name<sup class="mandatory">*</sup></label>
                         <input type="text" name="pat_name" id="" placeholder="Enter Patient's full name"  required>
 
@@ -37,12 +48,16 @@
                         <label for="">Mobile No.<sup class="mandatory">*</sup></label>
                         <input type="tel" name="cont_num" id="" placeholder="Contact number" required>
 
+                        <label for="">Prescription<sup class="mandatory">*</sup></label>
+                        <input type="file" class="prex" name="prex" placeholder="Upload prescription" id="" required>
+
                         <label for="">Gender<sup class="mandatory">*</sup></label>
                         <div class="row">
                             <input type="radio" name="gender" value="male"> Male
                             <input type="radio" name="gender" value="female"> Female
                         </div>
-                        <button class="btn" name="book_blood">Confirm Order</button>
+                        {{-- <button class="btn" name="book_blood">Confirm Order</button> --}}
+                        <button type="submit" class="btn">Confirm Order</button>
                     </form>
                     <a href="{{route('showBhome')}}"><button class="btn-danger" name="cancel_ride">Cancel Order</button></a>
                 </div>
@@ -51,3 +66,7 @@
     </div>
 </body>
 </html>
+
+<style>
+
+</style>
