@@ -16,6 +16,8 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Hcs_register_form;
+use App\Http\Controllers\RazorpayController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,17 +32,22 @@ use App\Http\Controllers\LoginController;
 Route::get('/',[HomePageController::class,'locationPopUpWin'])->name('home');
 /*-------------------Healthcare Support----------------------------------*/
 Route::get('/aya', function () {
-    return view('aya');
+    return view('hcs_home_aya');
 })->name('aya_home');
 Route::get('/nurse', function () {
-    return view('nurse');
+    return view('hcs_home_nurse');
 })->name('nurse_home');
 Route::get('/technician', function () {
-    return view('technician');
+    return view('hcs_home_technician');
 })->name('technician_home');
 Route::get('/rating', function () {
     return view('healthcare_support_emp_rating');
 })->name('rating');
+Route::get('/registration',[Hcs_register_form::class,"index"])->name('registration');
+Route::post('/registration',[Hcs_register_form::class,"register"]);
+Route::get('/booking_conf', function () {
+    return view('hcs_booking_confirmation');
+})->name('hcs_booking_confirmation');
 /*-------------------Healthcare Support----------------------------------*/
 
 
@@ -170,3 +177,5 @@ Route::get('/custom_bed_pntdata',[HospitalController::class,'CustomBedPntDetails
 Route::get('/login',[LoginController::class,'DisplayLogin'])->name('display.login');
 Route::post('/check',[LoginController::class,'FetchServiceData'])->name('login.validate');
 // ---------------------Login Routes end here-----------------------------
+Route::get('product',[RazorpayController::class,'index']);
+Route::post('razorpay-payment',[RazorpayController::class,'store'])->name('razorpay.payment');

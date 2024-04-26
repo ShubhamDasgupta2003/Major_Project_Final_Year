@@ -35,10 +35,10 @@ Aya
                 <p class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i> 50 Km</p>
                 <br>
                 <br>
-                <a href='/Minor Project 5th_Sem/Emergency_Medical_Support_System/MedTechSupport/bookingForm.php?eid=$rows[eid]&dist=$rows[distance]&booklat=$lat_in_use&booklon=$lon_in_use&book_adrs=$full_address'><button class='btn btn-secondary-orange'>Book</button></a>
+                <a href="{{route('registration')}}"><button class='btn btn-secondary-orange'>Book</button></a>
                 </div> 
                 </div> 
-                <div class='card'> 
+                {{-- <div class='card'> 
                 <div class='card-part1'> <img
                 src='images/employee.png'
                 /></div>
@@ -409,8 +409,8 @@ Aya
                 <br>
                 <br>
                 <a href='/Minor Project 5th_Sem/Emergency_Medical_Support_System/MedTechSupport/bookingForm.php?eid=$rows[eid]&dist=$rows[distance]&booklat=$lat_in_use&booklon=$lon_in_use&book_adrs=$full_address'><button class='btn btn-secondary-orange'>Book</button></a>
-                </div> 
-                </div> 
+                </div>  
+                </div> --}}
             </div>
         </div>
 @endsection
