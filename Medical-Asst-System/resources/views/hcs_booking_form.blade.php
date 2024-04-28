@@ -26,22 +26,23 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                         <label for="">Gender<sup class="mandatory">*</sup></label>
-                        <select>
-                        <option>Male</option>
-                        <option>Female</option>
-                        <option>Others</option>
+                        <select name="gender">
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        <option value="O">Others</option>
                         </select>
-                        @error('contact')
+                        @error('gender')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
+                        <br/>
                         <label for="">Mobile No.<sup class="mandatory">*</sup></label>
-                        <input type="tel" name="contact" id="" placeholder="Contact number" value="{{old('contact')}}" >
-                        @error('contact')
-                        <span class="text-danger">{{ $message }}</span>
+                        <input type="tel" name="contact_num" id="" placeholder="Contact number" value="{{old('contact_num')}}" >
+                        @error('contact_num')
+                        <span class="text-danger">{{ "The Contact Field Is Required." }}</span>
                         @enderror
                         <label for="">Land Mark<sup class="mandatory">*</sup></label>
-                        <input type="text" name="lmark" id="" placeholder="Land Mark" value="{{old('lmark')}}">
-                        @error('lmark')
+                        <input type="text" name="land_mark" id="" placeholder="Land Mark" value="{{old('land_mark')}}">
+                        @error('land_mark')
                         <span class="text-danger">{{ "The Land Mark Field Is Required."}}</span>
                         @enderror
                         <label for="address">Your Address<sup class="mandatory">*</sup></label>
@@ -49,12 +50,36 @@
                         @error('address')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
-                        <a href="{{route('hcs_booking_confirmation')}}"><button class="btn" name="book_ride">Confirm</button></a>
-                    <a href="ambulance_booking.php"><button class="btn-danger" name="cancel_ride">Cancel</button></a>
+                        <label for="">District<sup class="mandatory">*</sup></label>
+                        <input type="text" name="district" id="" placeholder="District" value="{{old('district')}}">
+                        @error('district')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <label for="">State<sup class="mandatory">*</sup></label>
+                        <input type="text" name="state" id="" placeholder="State" value="{{old('state')}}">
+                        @error('state')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <label for="">PIN Code<sup class="mandatory">*</sup></label>
+                        <input type="number" name="pincode" id="" placeholder="PIN code" value="{{old('pincode')}}">
+                        @error('pincode')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        @php
+                        $emp_id = request('emp_id');
+                         @endphp
+                        <a href="{{route('hcs_booking_confirmation',['emp_id' =>$emp_id])}}"><button class="btn" name="book_ride">Confirm</button></a>
                      </form>
+                    <a href="{{route('home')}}"><button class="btn-danger" name="cancel_ride">Cancel</button></a>
                 </div>
             </div>     
         </div>
     </div>
+    
+    <script>
+     let user_id = urlParams.get('variable');
+     console.log(user_id);
+    <script/>
+
 </body>
 </html>
