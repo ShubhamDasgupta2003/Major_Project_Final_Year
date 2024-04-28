@@ -33,6 +33,8 @@ use App\Http\Controllers\HcsAuthController;
 */
 
 Route::get('/',[HomePageController::class,'locationPopUpWin'])->name('home');
+Route::get('/user_login',[UserLogin::class,"index"]);
+Route::post('/user_login',[UserLogin::class,"login"]);
 /*-------------------Healthcare Support----------------------------------*/
 Route::get('/aya',[Hcs_employee_registration_Controller::class,"aya_home"])->name('aya_home');
 Route::get('/nurse', function () {

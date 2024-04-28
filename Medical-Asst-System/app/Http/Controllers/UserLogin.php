@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Hcs_admin;
+use App\Models\User_info;
 
 class UserLogin extends Controller
-{   public function view(){
-    return view("UserLogin");
+{   public function index(){
+    return view("user_login");
 }
     public function login(Request $request){
-    $user=Hcs_admin::where('admin_email',$request->input('admin_email'))->where('admin_password',$request->input('admin_password'))->first();
+    $user=User_info::where('user_email',$request->input('email'))->where('user_password',$request->input('password'))->first();
     if($user){
-         $request->session()->put('hcs_admin_name',$user->admin_name);
-         return redirect('hcs_admin');
+         $request->session()->put('user_name',$user->user_first_name);
+         return redirect('/');
      }
      else{
-       return redirect('hcs_admin_login')->with('failed','Email/Password is incorrect.');
+       return redirect('user_login')->with('failed','Email/Password is incorrect.');
      }
  }
 }
