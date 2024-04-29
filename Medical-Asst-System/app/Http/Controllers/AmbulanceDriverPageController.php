@@ -135,6 +135,9 @@ class AmbulanceDriverPageController extends Controller
 
         if($request->ajax())
         {
+            //When driver clicks on finish ride button
+            $update_ride_status = Patient_ambulance::where('invoice_no',$request->inv_id)->update(['ride_status'=>111,'ride_finished_at'=>date('H:i:s'),'total_ride_distance'=>$request->dist]);
+
             $amb_ptn_join = Amb_info::join('patient_ambulance','amb_info.amb_no','=','patient_ambulance.amb_no')->where('patient_ambulance.invoice_no','=',$request->inv_id)->get();
             $amb_ride_amount = $amb_ptn_join[0]->amb_rate * ($request->dist)/1000;
             $order_id = $request->inv_id;
