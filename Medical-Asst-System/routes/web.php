@@ -17,8 +17,10 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Hcs_register_form;
+use App\Http\Controllers\Hcs_employee_registration_Controller;
+use App\Http\Controllers\HcsAuthController;
 use App\Http\Controllers\UserregController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,19 +33,41 @@ use App\Http\Controllers\UserregController;
 */
 
 Route::get('/',[HomePageController::class,'locationPopUpWin'])->name('home');
+Route::get('/user_login',[UserLogin::class,"index"]);
+Route::post('/user_login',[UserLogin::class,"login"]);
 /*-------------------Healthcare Support----------------------------------*/
-Route::get('/aya', function () {
-    return view('aya');
-})->name('aya_home');
+Route::get('/aya',[Hcs_employee_registration_Controller::class,"aya_home"])->name('aya_home');
 Route::get('/nurse', function () {
-    return view('nurse');
+    return view('hcs_home_nurse');
 })->name('nurse_home');
 Route::get('/technician', function () {
-    return view('technician');
+    return view('hcs_home_technician');
 })->name('technician_home');
 Route::get('/rating', function () {
     return view('healthcare_support_emp_rating');
 })->name('rating');
+Route::get('/registration',[Hcs_register_form::class,"index"])->name('registration');
+Route::post('/registration',[Hcs_register_form::class,"register"]);
+Route::get('/booking_conf', function () {
+    return view('hcs_booking_confirmation');
+})->name('hcs_booking_confirmation');
+Route::get('/abc', function () {
+    return view('hcs_employee_intf');
+});
+// Route::get('/hcs_admin', function () {
+//     return view('hcs_admin_intf');
+// })->name('hcs_admin');
+Route::get('/hcs', function () {
+    return view('hcs_employee_registration_form');
+})->name('hcs');
+Route::post('/hcs',[Hcs_employee_registration_Controller::class,"register"]);
+// Route::group(['middleware'=>'guest'],function(){
+    Route::get('/hcs_admin',[HcsAuthController::class,"admin_intf"]);
+    Route::get('/hcs_admin_login',[HcsAuthController::class,"index"]);
+    Route::post('/hcs_admin_login',[HcsAuthController::class,"login"]);
+    Route::get('/hcs_admin_logout',[HcsAuthController::class,"logout"]);
+// } );
+
 /*-------------------Healthcare Support----------------------------------*/
 
 
