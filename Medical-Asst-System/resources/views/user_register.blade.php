@@ -44,13 +44,18 @@
           </div>
         </div>
         <div class="column">
-            <div class="input-box">
-                <label>ID Card Type</label>
-                <input type="text" placeholder="Enter ID type" required />
+          <div class="input-box">
+          <label for="">ID Type</label>
+          <div class="select-box">
+                <select name="id_no" id="">
+                    <option value="Aadhaar">Aadhar Card</option>
+                    <option value="Voter">Voter Card</option>
+                </select>
             </div>
+          </div>
             <div class="input-box">
                 <label>ID Number</label>
-                <input name="user_aadhaar" type="number" placeholder="Enter ID number (Aadhaar/Voter)" required />
+                <input name="user_aadhaar" type="number" placeholder="Enter ID number" required />
             </div>
         </div>
         <div class="gender-box">
@@ -58,7 +63,7 @@
           <div class="gender-option">
             <div class="gender">
               <input type="radio" id="check-male" name="user_gender" checked value="Male"/>
-              <label for="check-male">male</label>
+              <label for="check-male">Male</label>
             </div>
             <div class="gender">
               <input type="radio" id="check-female" name="user_gender" value="Female"/>
