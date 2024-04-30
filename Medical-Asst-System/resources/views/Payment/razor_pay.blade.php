@@ -24,16 +24,18 @@
         <form id="payment_form" method="post" action="{{route('processPayment')}}">
             @csrf
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="inputPassword5" class="form-label mt-3">Patient name</label>
                     <input type="email" id="inputPassword5" name="patient_name" class="form-control" value="{{$ptn_detail[0]->patient_name}}" readonly>
                 </div>
-                <div class="col-md-6">
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <label for="inputPassword5" class="form-label mt-3">Patient mobile</label>
                     <input type="email" id="inputPassword5" name="patient_mob" class="form-control" value="{{$ptn_detail[0]->patient_mobile}}" readonly>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" hidden>
                 <div class="col-md-12">
                     <label for="inputPassword5" class="form-label mt-3">User Id</label>
                     <input type="email" id="inputPassword5" name="user_id" class="form-control" value="{{$ptn_detail[0]->user_id}}" readonly>
@@ -47,13 +49,17 @@
             </div>
            
             <div class="row">
-                <div class="col-md-6">
-                    <input type="email" id="inputPassword5" name="amount" class="form-control mt-2" value="{{round($amount)}}" readonly>
+                <div class="">
+                    <input type="email" id="inputPassword5" name="amount" class="form-control mt-2" value="{{round($amount)}}" readonly hidden>
                 </div>
-                <div class="col-md-6">
-                    
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    <button type='submit' class='btn btn-success text-center mt-2' name='start_payment'>Confirm & Pay</button>
                 </div>
-                <button type='submit' class='btn btn-success text-center mt-2' name='start_payment'>Confirm & Pay</button>
+                <div class="col-md-5 mt-2">
+                    <h3 mt-3>{{round($amount)}}/-</h3>
+                </div>
             </div>
             <div id="passwordHelpBlock" class="form-text">
             Make sure you check the details of patient in the payment section.

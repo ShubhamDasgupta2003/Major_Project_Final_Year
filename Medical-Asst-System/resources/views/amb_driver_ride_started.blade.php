@@ -173,7 +173,6 @@
                 })
             });
 
-    
             navigator.geolocation.watchPosition(w_success, w_error);
             function w_success(pos) {
                 marker.setLatLng([pos.coords.latitude, pos.coords.longitude]);

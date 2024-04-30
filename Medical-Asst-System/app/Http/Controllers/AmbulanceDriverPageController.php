@@ -13,7 +13,7 @@ class AmbulanceDriverPageController extends Controller
 
     public function getPatientData()
     {
-        $ptn_data = Patient_ambulance::all();
+        $ptn_data = Patient_ambulance::where('ride_status','000');
         return response()->json(['ptn_data'=>$ptn_data]);
     }
     public function getAmbulanceData()

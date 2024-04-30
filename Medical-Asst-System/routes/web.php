@@ -206,8 +206,10 @@ Route::post('/user_reg_validate',[UserregController::class,'StoreUserData'])->na
 
 //----------------------- Payment Routes starts here -----------------------
 
-Route::get('/payment',[PaymentController::class,'pay_amount']);
+Route::get('/payment',[PaymentController::class,'pay_amount']); //Pass order_id,amount,user_id as url params while hitting this url. Check 'amb_driver_ride_started' file: line no - 170 for implementation
+
 Route::post('/payment',[PaymentController::class,'process_payment'])->name('processPayment');
+
 Route::get('/payment-complete',[PaymentController::class,'makePayment'])->name('make-payment-page');
 Route::get('/payment-success',[PaymentController::class,'paymentSuccess'])->name('payment-sucess');
 //----------------------- Payment Routes ends here -----------------------

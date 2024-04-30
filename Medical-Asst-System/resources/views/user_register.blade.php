@@ -110,6 +110,22 @@
           </div>
         </div>
         <div class="column">
+          <div class="input-box">
+            <label>Current Latitude</label>
+            <input type="number" name="ptn_lat_reg" id="amb_lat_view" readonly>
+          </div>
+          <div class="input-box">
+            <label>Current Longitude</label>
+            <input type="number" name="ptn_lng_reg" id="amb_lon_view" readonly>
+          </div>
+        </div>
+        <div class="column">
+          <div class="input-box">
+            <label for="amb_addr_reg" >Current Address</label>
+            <input type="text" name="ptn_addr_reg" id="amb_address_view">
+          </div>
+        </div>
+        <div class="column">
             <div class="input-box">
                 <label>Password</label>
                 <input id="pswd" name="user_password" type="password" placeholder="Enter your password" required />
@@ -122,9 +138,6 @@
         <button id="sbmt-form" type="submit" name="register_user">Register</button>
       </form>
     </section>
-    {{-- <script src="js/signup.js"></script>
-    <script src="js/location_signup.js"></script> --}}
-    <script src="{{ asset('js/Homepage/signup.js') }}"></script>
-    <script src="{{ asset('js/Homepage/location_signup.js') }}"></script>
+    <script src="{{ asset('js/amb_admin_loc.js') }}"></script>
   </body>
 </html>

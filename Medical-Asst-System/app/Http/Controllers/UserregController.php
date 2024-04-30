@@ -39,17 +39,21 @@ class UserregController extends Controller
         $user->user_first_name = $request['user_first_name'];
         $user->user_last_name = $request['user_last_name'];
         $user->user_email = $request['user_email'];
-        // needs to add 
-        // $user->user_lat= $request['user_lat'];
-        // $user->user_long= $request['user_long'];
         $user->user_contactno = $request['user_contactno'];
         $user->user_dob = $request['user_dob'];
-        $user->user_aadhaar = $request['user_aadhaar'];
+        // $user->user_aadhaar = $request['user_aadhaar'];
         $user->user_gender = $request['user_gender'];
         $user->user_district = $request['user_district'];
         $user->user_city = $request['user_city'];
         $user->user_state = $request['user_state'];
         $user->pincode = $request['pincode'];
+        $user->user_curr_lat = $request['ptn_lat_reg'];
+        $user->user_curr_long = $request['ptn_lng_reg'];
+        $user->user_lat_in_use = $request['ptn_lat_reg'];
+        $user->user_long_in_use = $request['ptn_lng_reg'];
+        $user->user_formatted_address = $request['ptn_addr_reg'];
+        $user->user_email_verified = 0;
+        $user->user_last_login = date("d-m-y H:i:s");
         $user->user_password = $request['user_password'];
         $user->save();
         return redirect('/');

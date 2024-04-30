@@ -23,9 +23,9 @@
         <h4 class="card-title bg-success p-2 text-light text-center border rounded"><i class="fa-solid fa-circle-check fa-xl" style="color: #ffffff;"></i><br><br>Payment Successfull</h4>
         <h5 class="text-center">THANKYOU FOR PAYMENT</h5>
         <h3 class="text-center">Get well soon <i class="fa-regular fa-face-smile fa-xl" style="color: #ff66b0;"></i></h3>
-
     </div>
 </div>
+<a href="{{url('/')}}/driver-intf"><button class="btn btn-primary">Check new rides</button></a>
 </div>
     
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
