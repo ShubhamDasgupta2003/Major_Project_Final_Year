@@ -21,6 +21,8 @@ use App\Http\Controllers\Hcs_register_form;
 use App\Http\Controllers\RazorpayController;
 use App\Http\Controllers\Hcs_employee_registration_Controller;
 use App\Http\Controllers\HcsAuthController;
+use App\Http\Controllers\UserRatingController;
+use App\Http\Controllers\HcsUserRatingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +37,9 @@ use App\Http\Controllers\HcsAuthController;
 Route::get('/',[HomePageController::class,'locationPopUpWin'])->name('home');
 Route::get('/user_login',[UserLogin::class,"index"]);
 Route::post('/user_login',[UserLogin::class,"login"]);
+Route::get('/user_rating',[UserRatingController::class,"index"]);
+Route::post('/user_rating',[UserRatingController::class,"add_rating"])->name('add_rating');
+Route::get('/show_rating',[UserRatingController::class,"show"]);
 /*-------------------Healthcare Support----------------------------------*/
 Route::get('/aya',[Hcs_employee_registration_Controller::class,"aya_home"])->name('aya_home');
 Route::get('/nurse', function () {
@@ -46,21 +51,24 @@ Route::get('/technician', function () {
 Route::get('/rating', function () {
     return view('healthcare_support_emp_rating');
 })->name('rating');
+//hcs booking form
 Route::get('/registration',[Hcs_register_form::class,"index"])->name('registration');
 Route::post('/registration',[Hcs_register_form::class,"register"]);
+//hcs booking
 Route::get('/booking_conf', function () {
     return view('hcs_booking_confirmation');
 })->name('hcs_booking_confirmation');
 Route::get('/abc', function () {
     return view('hcs_employee_intf');
 });
-// Route::get('/hcs_admin', function () {
-//     return view('hcs_admin_intf');
-// })->name('hcs_admin');
+
 Route::get('/hcs', function () {
     return view('hcs_employee_registration_form');
 })->name('hcs');
 Route::post('/hcs',[Hcs_employee_registration_Controller::class,"register"]);
+Route::get('/hcs_user_rating',[HcsUserRatingController::class,"index"])->name('hcs_add_rating');
+Route::post('/hcs_user_rating',[HcsUserRatingController::class,"add_rating"]);
+Route::get('/hcs_show_rating',[HcsUserRatingController::class,"show"]);
 // Route::group(['middleware'=>'guest'],function(){
     Route::get('/hcs_admin',[HcsAuthController::class,"admin_intf"]);
     Route::get('/hcs_admin_login',[HcsAuthController::class,"index"]);
