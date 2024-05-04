@@ -21,7 +21,7 @@ class PaymentController extends Controller
 
             $payment_entry_model = new Payments_records();
             $count = Payments_records::count();
-            $payment_entry_model->payment_id = $count;
+            $payment_entry_model->payment_id = $count+1;
             $payment_entry_model->order_id = $request->order_id;
             $payment_entry_model->user_id = $request->user_id;
             $payment_entry_model->amount = $request->amount;

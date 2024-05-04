@@ -23,12 +23,13 @@
         }
         .left-panel
         {
-            background: rgb(255,224,174);
-            background: linear-gradient(324deg, rgba(255,224,174,1) 38%, rgba(148,255,200,1) 59%, rgba(152,202,255,1) 100%);
+            background: rgb(234,215,255);
+            background: linear-gradient(180deg, rgba(234,215,255,1) 0%, rgba(190,255,242,1) 100%);
         }
         #navbar
         {
-            background-color: rgb(128,197,172);
+            background: rgb(253,250,255);
+            background: linear-gradient(180deg, rgba(253,250,255,1) 0%, rgba(247,255,253,1) 100%);
         }
     </style>
 
@@ -36,37 +37,39 @@
 
 <body>
 
-    <div class="container-fluid row">
-            <nav class="navbar navbar-light" id="navbar">
+            <nav class="navbar navbar-light container-fluid shadow-sm p-1  bg-body rounded" id="navbar">
         <div class="container-fluid">
             <a class="navbar-brand text-dark">Navbar</a>
             <div class="d-flex">
-                <h2 class="me-2 text-dark">Hi, Patient</h2>
+                <h4 class="me-2 text-dark">Hi, {{session('user_name')}}</h4>
             </div>
         </div>
         </nav>
-        <div class="left-panel col-5 border vh-93 overflow-auto">
-            <div class="patient-card-body">
-                    <!-- Card header begins -->
-                    <div class="card-body border mt-5 bg-light d-flex">
-                        <h3 class="card-title" id="ptn_name"><div class="spinner-grow text-danger" role="status"></div class="flex-column justify-content-center align-items-center">  Tracking Ambulance</h3>
-                        <h6 class="card-subtitle mb-2 text-light" id="ptn_booking_addrs"></h6>
-                        <h5 id="ptn_mobile" class="text-light"></h5>
-                        <h5 id="acpt_ride_btn"></h5>
-                    </div>
+        <div class="container-fluid row">
+            <div class="left-panel col-5 border vh-93 overflow-auto">
+                <div class="patient-card-body">
+                        <!-- Card header begins -->
+                        <div class="card-body border mt-5 bg-light d-flex">
+                            <h3 class="card-title" id="ptn_name"><div class="spinner-grow text-danger" role="status"></div class="flex-column justify-content-center align-items-center">  Tracking Ambulance</h3>
+                            <h6 class="card-subtitle mb-2 text-light" id="ptn_booking_addrs"></h6>
+                            <h5 id="ptn_mobile" class="text-light"></h5>
+                            <h5 id="acpt_ride_btn"></h5>
+                        </div>
 
-                    <div class="card mt-3" style="width: 34.2rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Ambulance details</h5>
-                        <h6 class="card-subtitle mb-2" id="amb_no">{{$ptn_rqst_data[0]['amb_no']}}</h6>
-                        <p class="card-text" id="amb_name">{{$amb_data[0]['amb_name']}}</p>
-                        <h2 id="otp_no">OTP - {{$ptn_rqst_data[0]['otp']}}</h2>
-                    </div>
-                    </div>
-                    <!-- Card header ends -->
+                        <div class="card-body mt-5 bg-light pt-5 pb-5 shadow-lg p-3 mb-5 bg-body rounded" style="width: 34.2rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Ambulance details</h5>
+                            <h6 class="card-subtitle mb-2" id="amb_no">{{$ptn_rqst_data[0]['amb_no']}}</h6>
+                            <p class="card-text" id="amb_name">{{$amb_data[0]['amb_name']}}</p>
+                            <h2 id="otp_no">OTP - {{$ptn_rqst_data[0]['otp']}}</h2>
+                        </div>
+                        </div>
+                        <!-- Card header ends -->
+                </div>
             </div>
-        </div>
-        <div id="map" style="width:80%; height: 93vh" class="col border"></div>
+            <div class="col-md-7">
+                <div id="map" style="width: 57vw; height: 93vh" class="col border"></div>
+            </div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>

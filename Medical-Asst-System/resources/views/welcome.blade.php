@@ -166,7 +166,7 @@ Home Page
                 <img src="images/HomePage/ambulance.png" alt="">
                 <h3>24x7 Ambulance</h3>
                 <p>For More Information About This Service, Please Click On Learn More. </p>
-                <a href="#" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
+                <a href="{{route('check-availability')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
 
            <div class="box">
