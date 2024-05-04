@@ -3,106 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/amb_form_booking.css">
-    <link rel="stylesheet" href="css/navlink.css">
-    <link rel="stylesheet" href="css/payment.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Payment</title>
+    <style>
+        body
+        {
+            background: rgb(227,255,244);
+            background: linear-gradient(356deg, rgba(227,255,244,1) 0%, rgba(248,218,255,1) 100%);
+        }
+    </style>
 </head>
 <body>
 
-    <input type='button' class='btn' name='btn' id='btn' value='Confirm & Pay' onclick='pay_now()'/>
-  
+<div class="container d-flex flex-column justify-content-center align-items-center" style="height:100vh">
+ 
+        <div class="card shadow p-3 mb-5 bg-body rounded" style="width: 25rem;">
+    <div class="card-body p-5">
+        <h5 class="card-title bg-primary p-2 text-light text-center border rounded">Payment Details</h5>
 
+        <form id="payment_form" method="post" action="{{route('processPayment')}}">
+            @csrf
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="inputPassword5" class="form-label mt-3">Patient name</label>
+                    <input type="email" id="inputPassword5" name="patient_name" class="form-control" value="{{$ptn_detail[0]->patient_name}}" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="inputPassword5" class="form-label mt-3">Patient mobile</label>
+                    <input type="email" id="inputPassword5" name="patient_mob" class="form-control" value="{{$ptn_detail[0]->patient_mobile}}" readonly>
+                </div>
+            </div>
+            <div class="row" hidden>
+                <div class="col-md-12">
+                    <label for="inputPassword5" class="form-label mt-3">User Id</label>
+                    <input type="email" id="inputPassword5" name="user_id" class="form-control" value="{{$ptn_detail[0]->user_id}}" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="inputPassword5" class="form-label mt-3">Order Id</label>
+                    <input type="email" id="inputPassword5" name="order_id" class="form-control" value="{{$ptn_detail[0]->invoice_no}}" readonly>
+                </div>
+            </div>
+           
+            <div class="row">
+                <div class="">
+                    <input type="email" id="inputPassword5" name="amount" class="form-control mt-2" value="{{round($amount)}}" readonly hidden>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    <button type='submit' class='btn btn-success text-center mt-2' name='start_payment'>Confirm & Pay</button>
+                </div>
+                <div class="col-md-5 mt-2">
+                    <h3 mt-3>{{round($amount)}}/-</h3>
+                </div>
+            </div>
+            <div id="passwordHelpBlock" class="form-text">
+            Make sure you check the details of patient in the payment section.
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+    
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-        const urlParams = new URLSearchParams(window.location.search);
-        var order_id = urlParams.get('order_id');   //Get orderid from url
-        var amount = urlParams.get('amount');   //Get amount from url
-        var round_amount = Math.round(amount);
-        var user_id = urlParams.get('user_id');
 
-        console.log(order_id,amount,user_id);
-  function pay_now(){
 
-                var options = {
-                "key": "rzp_test_vgrShf9dHH7C80", // Enter the Key ID generated from the Dashboard
-                "amount": round_amount*100,
-                "currency": "INR",
-                "description": "Ambulance Service",
-                "image": "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg",
-                "prefill":
-                {
-                "email": "ghgfhfgh",
-                "contact": "788954645",
-                },
-                config: {
-                display: {
-                    blocks: {
-                    utib: { //name for Axis block
-                        name: "Pay using Axis Bank",
-                        instruments: [
-                        {
-                            method: "card",
-                            issuers: ["UTIB"]
-                        },
-                        {
-                            method: "netbanking",
-                            banks: ["UTIB"]
-                        },
-                        ]
-                    },
-                    other: { //  name for other block
-                        name: "Other Payment modes",
-                        instruments: [
-                        {
-                            method: "card",
-                            issuers: ["ICIC"]
-                        },
-                        {
-                            method: 'netbanking',
-                        },
-                        {
-                            method: "upi"
-                        }
-                        ]
-                    }
-                    },
-                    sequence: ["block.utib", "block.other"],
-                    preferences: {
-                    show_default_blocks: false // Should Checkout show its default blocks?
-                    }
-                }
-                },
-                "handler": function (response) {
-                var pid = response.razorpay_payment_id;
-                console.log(pid);
-                jQuery.ajax({
-                    type:'post',
-                    url:'payment_process.php',
-                    data:"&amount="+amount+"&payment_id="+pid+"&order_id="+order_id+"&user_id="+user_id,
-                    success:function(result){
-
-                        window.location.href = "payment_ackn.php?&payment_id="+pid+"&order_id="+order_id+"&user_id="+user_id+"&amount="+amount;
-                    }
-                })
-                },
-                "modal": {
-                "ondismiss": function () {
-                    if (confirm("Are you sure, you want to close the form?")) {
-                    txt = "You pressed OK!";
-                    console.log("Checkout form closed by the user");
-                    } else {
-                    txt = "You pressed Cancel!";
-                    console.log("Complete the Payment")
-                    }
-                }
-                }
-            };
-            var rzp1 = new Razorpay(options);
-            rzp1.open();
-}
-</script>  
 </body>
 </html>

@@ -42,8 +42,11 @@
       </div>
       <div class="modal-body">
           <div class="input-group mb-3">
-          <!-- <input type="text" id="feedback_val" class="form-control" placeholder="Any feedback" aria-label="" aria-describedby="button-addon2" name="feedback_val"> -->
-          <button class="btn btn-outline-primary text-center" id="submit_feedback" name="submit">Submit & Finish</button>
+          <div class="row">
+          <label for="" class="text-danger col-11">You want to finish the current ride ?</label>
+            <button class="btn btn-outline-primary text-center col-3" id="submit_feedback" name="submit">Yes</button>
+          </div>
+          
           </div>
       </div>
       <div class="modal-footer">
@@ -170,7 +173,6 @@
                 })
             });
 
-    
             navigator.geolocation.watchPosition(w_success, w_error);
             function w_success(pos) {
                 marker.setLatLng([pos.coords.latitude, pos.coords.longitude]);

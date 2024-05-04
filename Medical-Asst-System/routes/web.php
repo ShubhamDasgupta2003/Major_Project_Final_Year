@@ -18,7 +18,6 @@ use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Hcs_register_form;
-use App\Http\Controllers\RazorpayController;
 use App\Http\Controllers\Hcs_employee_registration_Controller;
 use App\Http\Controllers\HcsAuthController;
 use App\Http\Controllers\UserRatingController;
@@ -53,7 +52,12 @@ Route::get('/rating', function () {
 })->name('rating');
 //hcs booking form
 Route::get('/registration',[Hcs_register_form::class,"index"])->name('registration');
-Route::post('/registration',[Hcs_register_form::class,"register"]);
+Route::post('/registration',[Hcs_register_form::class,"register"])->name('reg_subm');
+Route::get('/hcs_show_data',[Hcs_register_form::class,"show_form_data"])->name('reg_subm');
+Route::get('/hcs_show',[Hcs_register_form::class,"process_payment"])->name('send.data');
+Route::get('/hcs_make_payment',[Hcs_register_form::class,"makePayment"])->name('hcs-make-payment-page');
+Route::get('/hcs_payment',[Hcs_register_form::class,'hcsPayment'])->name('hcs_payment');
+Route::get('/hcs_payment_success',[Hcs_register_form::class,'paymentSuccess'])->name('hcs_payment_sucess');
 //hcs booking
 Route::get('/booking_conf', function () {
     return view('hcs_booking_confirmation');
@@ -61,7 +65,6 @@ Route::get('/booking_conf', function () {
 Route::get('/abc', function () {
     return view('hcs_employee_intf');
 });
-
 Route::get('/hcs', function () {
     return view('hcs_employee_registration_form');
 })->name('hcs');
@@ -211,5 +214,13 @@ Route::post('/check',[LoginController::class,'FetchServiceData'])->name('login.v
 Route::get('/userReg',[UserregController::class,'DisplayForm'])->name('display.user.form');
 Route::post('/user_reg_validate',[UserregController::class,'StoreUserData'])->name('register.user');
 // ---------------------Login Routes end here-----------------------------
-Route::get('product',[RazorpayController::class,'index']);
-Route::post('razorpay-payment',[RazorpayController::class,'store'])->name('razorpay.payment');
+
+//----------------------- Payment Routes starts here -----------------------
+
+Route::get('/payment',[PaymentController::class,'pay_amount']); //Pass order_id,amount,user_id as url params while hitting this url. Check 'amb_driver_ride_started' file: line no - 170 for implementation
+
+Route::post('/payment',[PaymentController::class,'process_payment'])->name('processPayment');
+
+Route::get('/payment-complete',[PaymentController::class,'makePayment'])->name('make-payment-page');
+Route::get('/payment-success',[PaymentController::class,'paymentSuccess'])->name('payment-sucess');
+//----------------------- Payment Routes ends here -----------------------

@@ -85,7 +85,7 @@
                     data:{'order_id':order_id,'pid':pid},
                     success:function(data){
                         console.log(data);
-                        window.location.href="{{url('/')}}/payment-success";
+                        window.location.href="{{url('/')}}/hcs_payment_success";
                     }
                 })
 

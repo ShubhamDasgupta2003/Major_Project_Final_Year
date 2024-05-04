@@ -25,7 +25,7 @@
         <h3 class="text-center">Get well soon <i class="fa-regular fa-face-smile fa-xl" style="color: #ff66b0;"></i></h3>
     </div>
 </div>
-<a href="{{url('/')}}/driver-intf"><button class="btn btn-primary">Check new rides</button></a>
+<a href="{{url('/')}}/"><button class="btn btn-primary">Go to Home</button></a>
 </div>
     
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
