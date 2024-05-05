@@ -118,6 +118,7 @@ Route::post('/input admin panel',[AdminController::class,'store'])->name('admin_
 Route::get('/admin medical supplies',[AdminController::class,'admin_supplies'])->name('admin_panel.admin_medical_supplies');
 Route::get('/update admin panel',[AdminController::class,'update_admin'])->name('admin_panel.update');
 Route::get('/delete admin panel',[AdminController::class,'delete_admin'])->name('admin_panel.delete');
+Route::get('/amb_admin_panel',[AdminController::class,'getAmbAdmin_data'])->name('amb_admin_show_data');
 /*-------------------Admin Panel----------------------------------*/
 
 /*-------------------others----------------------------------*/
