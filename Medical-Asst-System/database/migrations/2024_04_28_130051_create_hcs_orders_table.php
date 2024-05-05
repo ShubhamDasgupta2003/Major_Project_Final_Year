@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('gender', ['M', 'F','O']);
             $table->string('contact_num');
             $table->enum('payment_status', ['Yes', 'No']);
-            $table->float('land_mark');
+            $table->string('land_mark');
             $table->string('order_loc_lat')->nullable();
             $table->string('order_loc_long')->nullable();
             $table->string('address');

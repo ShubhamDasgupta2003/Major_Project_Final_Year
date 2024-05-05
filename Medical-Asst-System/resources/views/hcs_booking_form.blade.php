@@ -68,7 +68,7 @@
                         @php
                         $emp_id = request('emp_id');
                          @endphp
-                        <a href="{{route('hcs_booking_confirmation',['emp_id' =>$emp_id])}}"><button class="btn" name="book_ride">Confirm</button></a>
+                        <a href="{{route('hcs_booking_confirmation',['emp_id' =>$emp_id])}}"><button class="btn"id="btn" name="book_ride">Confirm</button></a>
                      </form>
                     <a href="{{route('home')}}"><button class="btn-danger" name="cancel_ride">Cancel</button></a>
                 </div>
@@ -79,6 +79,16 @@
     <script>
      let user_id = urlParams.get('variable');
      console.log(user_id);
+      $('#btn').on('click',function(){
+                  $.ajax({
+                    url:'{{route('reg_subm')}}',
+                    type:'POST',
+                    data:{'inv_id':inv_id,'dist':distance},
+                    success:function(data){
+                      window.location.href = "{{url('/')}}/payment?order_id="+data.order_id+"&amount="+data.amb_ride_amount+"&user_id="+data.user_id;
+                    }
+                  })
+                })
     <script/>
 
 </body>
