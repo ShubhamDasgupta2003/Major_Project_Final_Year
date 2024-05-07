@@ -54,6 +54,7 @@
     color:#fff;
     font-size:1.1rem;
     padding-left:1rem;
+    text-decoration: none;
 }
 .sidebar-menu a.active
 {

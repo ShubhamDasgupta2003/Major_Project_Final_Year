@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Patient_ambulance;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
 use App\Models\medical_supplies_medical;
@@ -51,4 +52,33 @@ class AdminController extends Controller
   
     return redirect(route("medical_supplies.index"));   
  }
+
+ //-------------------- Ambulance Admin starts here ----------------------------
+
+ public function getAmbAdmin_data(Request $request)
+ {
+
+  if($request->ajax())
+    {
+      if($request->month == "all")
+      {
+        $data = DB::select("SELECT MONTH(booking_date) AS months,COUNT(*) AS count FROM patient_ambulance WHERE YEAR(booking_date)=$request->year AND ride_status=$request->ride_stat AND amb_type=$request->ride_type GROUP BY MONTH(booking_date)");
+      }
+      // $data = DB::select("SELECT year(booking_date) as year,count(*) as count from patient_ambulance group BY year(booking_date)");
+      else
+      {
+        $data = DB::select("SELECT MONTH(booking_date) AS months,COUNT(*) AS count FROM patient_ambulance WHERE YEAR(booking_date)=$request->year AND MONTH(booking_date)=$request->month GROUP BY MONTH(booking_date)");
+      }
+      
+      return response()->json(['data'=>$data]);
+
+    }
+
+    $avbl_years = DB::select("SELECT distinct YEAR(booking_date) as years from patient_ambulance ORDER BY booking_date");
+
+    return view('admin_panel.admin_amb_service',compact(array('avbl_years')));
+
+    // return sizeof($avbl_years);
+ }
+ //-------------------- Ambulance Admin ends here ----------------------------
 }

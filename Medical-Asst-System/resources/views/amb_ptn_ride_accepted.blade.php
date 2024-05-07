@@ -119,8 +119,10 @@
                 data:{'amb_no':amb_no,'inv_no':inv_no},
                 success:function(data)
                 {
-                    console.log(data.data[0]);
-                    var pos = data.data[0];
+                    // console.log(data.data[0]);
+                    // console.log(data)
+                    var pos = data.data.amb_coordinates[0];
+                    console.log(pos);
                     ambulance_Marker.setLatLng([pos.amb_loc_lat,pos.amb_loc_lng]);
                     map.setView([pos.amb_loc_lat,pos.amb_loc_lng]);
                 }
