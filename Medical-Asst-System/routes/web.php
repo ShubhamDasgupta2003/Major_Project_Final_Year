@@ -17,11 +17,9 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\Hcs_register_form;
-use App\Http\Controllers\Hcs_employee_registration_Controller;
-use App\Http\Controllers\HcsAuthController;
+use App\Http\Controllers\HcsController;
 use App\Http\Controllers\UserRatingController;
-use App\Http\Controllers\HcsUserRatingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,13 +32,13 @@ use App\Http\Controllers\HcsUserRatingController;
 */
 
 Route::get('/',[HomePageController::class,'locationPopUpWin'])->name('home');
-Route::get('/user_login',[UserLogin::class,"index"]);
+Route::get('/user_login',[UserLogin::class,"index"])->name('user_login');
 Route::post('/user_login',[UserLogin::class,"login"]);
 Route::get('/user_rating',[UserRatingController::class,"index"]);
 Route::post('/user_rating',[UserRatingController::class,"add_rating"])->name('add_rating');
 Route::get('/show_rating',[UserRatingController::class,"show"]);
 /*-------------------Healthcare Support----------------------------------*/
-Route::get('/aya',[Hcs_employee_registration_Controller::class,"aya_home"])->name('aya_home');
+Route::get('/aya',[HcsController::class,"aya_home"])->name('aya_home');
 Route::get('/nurse', function () {
     return view('hcs_home_nurse');
 })->name('nurse_home');
@@ -51,13 +49,16 @@ Route::get('/rating', function () {
     return view('healthcare_support_emp_rating');
 })->name('rating');
 //hcs booking form
-Route::get('/registration',[Hcs_register_form::class,"index"])->name('registration');
-Route::post('/registration',[Hcs_register_form::class,"register"])->name('reg_subm');
-Route::get('/hcs_show_data',[Hcs_register_form::class,"show_form_data"])->name('reg_subm');
-Route::get('/hcs_show',[Hcs_register_form::class,"process_payment"])->name('send.data');
-Route::get('/hcs_make_payment',[Hcs_register_form::class,"makePayment"])->name('hcs-make-payment-page');
-Route::get('/hcs_payment',[Hcs_register_form::class,'hcsPayment'])->name('hcs_payment');
-Route::get('/hcs_payment_success',[Hcs_register_form::class,'paymentSuccess'])->name('hcs_payment_sucess');
+Route::get('/registration',[HcsController::class,"reg_form_index"])->name('registration');
+Route::post('/registration',[HcsController::class,"user_register"])->name('reg_subm');
+Route::get('/hcs_show_data',[HcsController::class,"show_form_data"])->name('reg_subm');
+Route::get('/hcs_show',[HcsController::class,"process_payment"])->name('send.data');
+Route::get('/hcs_make_payment',[HcsController::class,"makePayment"])->name('hcs-make-payment-page');
+Route::get('/hcs_payment',[HcsController::class,'hcsPayment'])->name('hcs_payment');
+Route::get('/hcs_payment_success',[HcsController::class,'paymentSuccess'])->name('hcs_payment_sucess');
+Route::get('/show_emp_admin_intf',[HcsController::class,"show_emp_admin_intf"])->name('show_emp_admin_intf');
+Route::get('/hcs_emp_msg',[HcsController::class,"hcs_emp_msg_index"])->name('hcs_emp_msg');
+Route::post('/hcs_emp_msg',[HcsController::class,"hcs_emp_msg"])->name('hcs_emp_msg_post');
 //hcs booking
 Route::get('/booking_conf', function () {
     return view('hcs_booking_confirmation');
@@ -65,19 +66,24 @@ Route::get('/booking_conf', function () {
 Route::get('/abc', function () {
     return view('hcs_employee_intf');
 });
+Route::get('/hcs_emp_waitting', function () {
+    return view('hcs_emp_waitting');
+});
 Route::get('/hcs', function () {
     return view('hcs_employee_registration_form');
 })->name('hcs');
-Route::post('/hcs',[Hcs_employee_registration_Controller::class,"register"]);
-Route::get('/hcs_user_rating',[HcsUserRatingController::class,"index"])->name('hcs_add_rating');
-Route::post('/hcs_user_rating',[HcsUserRatingController::class,"add_rating"]);
-Route::get('/hcs_show_rating',[HcsUserRatingController::class,"show"]);
-// Route::group(['middleware'=>'guest'],function(){
-    Route::get('/hcs_admin',[HcsAuthController::class,"admin_intf"]);
-    Route::get('/hcs_admin_login',[HcsAuthController::class,"index"]);
-    Route::post('/hcs_admin_login',[HcsAuthController::class,"login"]);
-    Route::get('/hcs_admin_logout',[HcsAuthController::class,"logout"]);
-// } );
+Route::post('/hcs',[HcsController::class,"emp_register"]);
+Route::get('/hcs_emp_verification',[HcsController::class,"update_nemp_data"])->name('hcs_emp_verification');
+Route::get('/hcs_emp_delete',[HcsController::class,"delete_nemp_data"])->name('hcs_emp_delete');
+Route::get('/hcs_user_rating',[HcsController::class,"rating_index"])->name('hcs_add_rating');
+Route::post('/hcs_user_rating',[HcsController::class,"add_rating"]);
+Route::get('/hcs_show_rating',[HcsController::class,"show_rating"])->name('hcs_show_rating');
+Route::get('/hcs_emp_admin_logout',[HcsController::class,"emp_logout"]);
+Route::get('/hcs_admin',[HcsController::class,"admin_intf"])->name('hcs_admin');
+Route::get('/hcs_admin_login',[HcsController::class,"sup_admin_index"]);
+Route::post('/hcs_admin_login',[HcsController::class,"sup_admin_login"]);
+Route::get('/hcs_admin_logout',[HcsController::class,"sup_admin_logout"]);
+
 
 /*-------------------Healthcare Support----------------------------------*/
 

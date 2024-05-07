@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Geolocation</title>
+</head>
+<body>
+    <button id="det-location">Get Location</button>
+
+    <script>
+    const btn_loc = document.getElementById('det-location');
+
+function onSuccess(position)
+{
+    let {latitude,longitude} = position.coords;
+    console.log(latitude,longitude);
+    document.cookie = "lat_in_use= "+latitude;
+    document.cookie = "lon_in_use= "+longitude;
+    fetch('https://api.opencagedata.com/geocode/v1/json?q='+latitude+','+longitude+'&key='+api_key)
+    .then(response=>(response.json())).then(result=>{
+        let details = result.results[0];
+        let loc_txt = details['formatted'];
+        document.cookie = "address_in_use= "+loc_txt;
+        document.cookie = "loc_modify= "+true;
+        window.location.reload();
+    })
+}
+
+function onError(error)
+{
+    console.log(error);
+}
+
+btn_loc.addEventListener("click", ()=>{
+    if(navigator.geolocation)
+    {
+        navigator.geolocation.getCurrentPosition(onSuccess,onError);
+    }
+    else
+    {
+        btn_loc.innerText = "Geoloaction not supported";
+    }
+})
+      
+    </script>
+</body>
+</html>

@@ -159,7 +159,7 @@ input:checked ~ .form{
         <div class="edit">EDIT</div>
       </div>
       <form action="#" method="post">
-      <input type="hidden" name="emp_id" value="{{ $emp_id }}">
+      <input type="hidden" name="emp_id" value="{{request()->input('emp_id')}}">
       <div class="star-widget">
         <input type="radio" name="rate" id="rate-5" value="5">
         <label for="rate-5" class="fas fa-star"></label>

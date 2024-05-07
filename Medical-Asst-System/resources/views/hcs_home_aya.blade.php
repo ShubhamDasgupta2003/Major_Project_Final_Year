@@ -4,7 +4,7 @@
 Aya
 @endsection
 @section("main")
-<!-- header section end -->
+<!-- header section end -->        
     <section class="body-container">
         <div>
             <nav class="segmented-navigation">
@@ -13,14 +13,43 @@ Aya
                 <a href="/technician" class="segmented-item">Technician</a>
               </nav>
         </div>
-        </br>
+        <br/>
         <div class="openModalBtn"><button id="openModalBtn">Order History</button></div>
 
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Modal Title</h2>
-            <p>This is a simple modal dialog.</p>
+            <table id="myTable">
+              <thead>
+                  <tr>
+                      <th scope="col">Order Id</th>
+                      <th scope="col">Order For</th>
+                      <th scope="col">Order Date & Time</th>
+                      <th scope="col">Order Status</th>
+                      <th scope="col">Add Review</th>
+                  </tr>
+              </thead>
+              <tbody>
+               @foreach ( $userdatas as $userdata )
+                  <tr>
+                      <td>{{$userdata->order_id}}</td>
+                      <td>@if($userdata->order_type=="A")
+                {{"Aya"}}
+                
+                @elseif($userdata->order_type=="N")
+                    {{"Nurse"}}
+               
+                @else
+                    {{"Technician"}}
+                
+                @endif</td>
+                      <td>{{$userdata->created_at}}</td>
+                      <td>{{$userdata->order_status}}</td>
+                      <td><a href="{{route('hcs_add_rating', ['emp_id' => $userdata->emp_id ])}}"><button type="button" class="btn btn-primary">Add review</button></a></td>
+                  </tr>
+                  @endforeach
+              </tbody>
+            </table>
         </div>
     </div>
         <div class="contents">
@@ -31,7 +60,7 @@ Aya
                 @if ($employee->emp_type=="A")
                 <div class='card'> 
                 <div class='card-part1'> <img
-                src='images/employee.png'
+                src="{{ asset('storage/' . $employee->emp_photo_path) }}"
                 /></div>
                 <div class='card-part2'>
                 <strong>{{$employee->emp_name}}</strong><br/>
@@ -45,7 +74,7 @@ Aya
                     {{"Others"}}
                 
                 @endif</strong>
-                <a href="{{route('hcs_add_rating', ['emp_id' => $employee->emp_id ])}}"><div>4.4<span class="fa fa-star checked"></span>
+                <a href="{{route('hcs_show_rating', ['emp_id' => $employee->emp_id ])}}"><div>4.4<span class="fa fa-star checked"></span>
                 </div></a>
                 <strong><span style='color: red;'>INR {{$employee->emp_salary}}  per day</span></strong><br>
                 <strong>Book Amount:<span style='color: blue;'> INR 500</span></strong>

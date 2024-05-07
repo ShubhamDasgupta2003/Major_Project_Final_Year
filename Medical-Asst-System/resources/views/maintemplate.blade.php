@@ -51,9 +51,9 @@
             @if (session()->has('user_name'))
                {{session()->get('user_name')}}
             @else
-            Gust
+                Gust
             @endif   
-</div>
+    </div>
 <div id="menu-btn" class="fa fa-bars"> </div>
 </header>
 <div class="search-navbar" id="srchbar-below">
