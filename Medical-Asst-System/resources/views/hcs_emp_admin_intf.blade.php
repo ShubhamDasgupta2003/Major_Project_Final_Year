@@ -26,7 +26,7 @@
         <div class="sidebar-menu">
             <ul>
                 <li>
-                <a href="#" class="active"><span class="las la-igloo"></span>
+                <a href="#" class="active" style="text-decoration:none"><span class="las la-igloo"></span>
                     <span>Dashboard</span></a>
                 </li>
                 <li>
@@ -84,14 +84,14 @@
         </h3>
         <h6>
     <div class="user-avatar-container">
-    <a href="" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"style='font-size:15px;color:red'>  </i></a>@if (session()->has('hcs_admin_name'))
-               {{session()->get('hcs_admin_name')}}
+    <a href="" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"style='font-size:15px;color:red'>  </i></a>@if (session()->has('emp_admin_name'))
+               {{session()->get('emp_admin_name')}}
             @else
             @php
-            return redirect("hcs_admin_login");
+            return redirect("login");
             @endphp
             @endif
-           <a href="/hcs_admin_logout" id="user-avatar"><i class='fas fa-sign-out-alt' style='font-size:15px;color:red'></i></a>
+           <a href="/hcs_emp_admin_logout" id="user-avatar"><i class='fas fa-sign-out-alt' style='font-size:15px;color:red'></i></a>
     </div>
    
     </h6>
@@ -131,44 +131,40 @@
         </div><br/>
         <br/>
 
-<h2 class="text-center" >Employee Requests</h2>
+<h2 class="text-center" >Oreder Request</h2>
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Emp Id</th>
-      <th scope="col">Name</th>
+      <th scope="col">User Name</th>
       <th scope="col">Gender</th>
-      <th scope="col">Type</th>
+      <th scope="col">Contact Number</th>
       <th scope="col">Email</th>
-      <th scope="col">Number</th>
-      <th scope="col">Salary</th>
+      <th scope="col">Land Mark</th>
       <th scope="col">Address</th>
-      <th scope="col">Govt Id</th>
-      <th scope="col">Photo</th>
-      <th scope="col">Govt Id</th>
-      <th scope="col">BIO data</th>
-      <th scope="col">Approve</th>
+      <th scope="col">District</th>
+      <th scope="col">State</th>
+      <th scope="col">Date & Time</th>
+      <th scope="col">Accept</th>
       <th scope="col">Reject</th>
     </tr>
   </thead>
   <tbody>
-  @foreach ( $employess as $employee )
+  @foreach ( $orders as $order )
+  @if(session()->get('emp_admin_id')== $order->emp_id)
     <tr>
-      <td>{{$employee->emp_id}}</td>
-      <td>{{$employee->emp_name}}</td>
-      <td>{{$employee->emp_gender}}</td>
-      <td>{{$employee->emp_type}}</td>
-      <td>{{$employee->emp_email}}</td>
-      <td>{{$employee->emp_contact_num}}</td>
-      <td>{{$employee->emp_salary}}</td>
-      <td>{{$employee->emp_address}}</td>
-      <td>{{$employee->emp_govt_id}}</td>
-      <td><a href="{{ asset('storage/' . $employee->emp_photo_path) }}" style="text-decoration:none;">Click</a></td>
-      <td><a href="{{ asset('storage/' . $employee->emp_govt_id_path)}}"style="text-decoration:none;">Click</a></td>
-      <td><a href="{{ asset('storage/' . $employee->emp_bio_data_path)}}"style="text-decoration:none;">Click</a></td>
-      <td> <a href="{{route('hcs_admin',['emp_id' => $employee->emp_id ])}}" id="addBtn"><button type="button" class="btn btn-primary">Add</button></a></td>
-      <td> <a href="{{route('hcs_admin',['emp_id' => $employee->emp_id ])}}" id="deleteBtn"><button type="button" class="btn btn-danger">Delete</button></a><td>
+      <td>{{$order->name}}</td>
+      <td>{{$order->gender}}</td>
+      <td>{{$order->contact_num}}</td>
+      <td>{{$order->order_id}}</td>
+      <td>{{$order->land_mark}}</td>
+      <td>{{$order->address}}</td>
+      <td>{{$order->district}}</td>
+      <td>{{$order->state}}</td>
+      <td>{{$order->created_at}}</td>
+      <td> <a href="{{route('hcs_emp_msg',['order_id' => $order->order_id ])}}" ><button type="button" class="btn btn-primary">Accept</button></a></td>
+      <td> <a href="{{route('hcs_admin',['emp_id' => $order->order_id ])}}" id="deleteBtn"><button type="button" class="btn btn-danger">Reject</button></a><td>
     </tr>
+    @endif
     @endforeach
   </tbody>
 </table>
@@ -202,7 +198,7 @@
                 // Handle success response
 
                 // Redirect user after successful completion of Ajax request
-                window.location.href = "/hcs_emp_verification";
+                window.location.href = "/hcs_order_add";
             },
             error: function(xhr, status, error) {
                 // Handle error
@@ -233,7 +229,7 @@
                 // Handle success response
 
                 // Redirect user after successful completion of Ajax request
-                window.location.href = "/hcs_emp_delete";
+                window.location.href = "/hcs_emp_reject";
             },
             error: function(xhr, status, error) {
                 // Handle error

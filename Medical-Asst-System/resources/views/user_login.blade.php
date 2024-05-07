@@ -15,6 +15,11 @@
       </div>
       <form method="post" class="form">
         @csrf
+        @if(session()->has('alertMessage'))
+        <div class="alert alert-{{ session('alertType') }}" style="color:red ;text-align:center;" role="alert">
+        {{ session('alertMessage') }}
+        </div>
+        @endif
            @if (Session::has('success'))
                 <div class="alert alert-success">{{Session::get('success')}}</div>
             @endif

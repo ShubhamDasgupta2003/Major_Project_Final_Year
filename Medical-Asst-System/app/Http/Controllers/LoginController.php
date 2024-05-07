@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Hospital_info;
 use App\Models\Amb_info;
 use App\Models\Ambulance_Admin;
+use App\Models\HcsEmployeeTableModel;
 
 class LoginController extends Controller
 {
@@ -90,6 +91,35 @@ class LoginController extends Controller
                     echo "<script>alert('Invalid E-mail! Enter a valid E-mail')</script>";
                 }
        }
+       if($service=="Healthcare Support")
+       {
+                $hcs_data = HcsEmployeeTableModel::where('emp_verification','=',"Done")->where('emp_email','=',$email_number)->first();
+                if($hcs_data){
+                    //    echo "$hos_data";
+                    if($hcs_data){
+                    $storedpassword= $hcs_data->password;
+                        if($storedpassword===$password){
+                            // echo "$hos_data->hos_id";
+                            session(['emp_admin_name' => $hcs_data->emp_name]);
+                            session(['emp_admin_id' => $hcs_data->emp_id]);
+                            session(['is_adm_login' => 1]);
+                            return redirect()->route('show_emp_admin_intf')->with([
+                                'emp_id',$hcs_data->emp_id
+                            ]);
+                            
+                        //     echo"$hos_data->hos_id";
+                        }else{
+                            // echo "false";
+                            session(['is_adm_login' => 0]);
+                            echo "<script>alert('Password incorrect! Enter a valid password')</script>";
+                        }
+                    }
+                }else {
+                    echo "<script>alert('Invalid E-mail! Enter a valid E-mail')</script>";
+                    // return redirect()->route('display.login');
+                }
+       }
+       
         //Ambulance service login ends here
 
     //         // return view('hos_interface')->with([

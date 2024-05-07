@@ -1,33 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Service Booking Confirmation</title>
+</head>
+<body>
+    <p>
+        <strong>Subject:</strong> Confirmation of Your Healthcare Service Booking
+    </p>
 
-<pre>
-Subject: Confirmation of Your Healthcare Service Booking
+    <p>
+        Dear {{ $userdata->name }},
+    </p>
 
-Dear {{$userdata->name}},
+    <p>
+        Thank you for choosing [Your Company Name] for your healthcare needs. We are delighted to confirm your recent booking for {{ $userdata->order_type === 'A' ? 'Aya' : ($userdata->order_type === 'N' ? 'Nurse' : 'Technician') }}.
+    </p>
 
-Thank you for choosing [Your Company Name] for your healthcare needs. We are delighted to confirm your recent booking for [Aya/Nurse/Other Service].
+    <p>
+        Below are the details of your booking:
+    </p>
 
-Below are the details of your booking:
+    <ul>
+        <li><strong>Service:</strong> {{ $userdata->order_type === 'A' ? 'Aya' : ($userdata->order_type === 'N' ? 'Nurse' : 'Technician') }}</li>
+        <li><strong>Date & Time:</strong> {{ $userdata->created_at }}</li>
+        <li><strong>Land Mark:</strong> {{ $userdata->land_mark }}</li>
+        <li><strong>Location:</strong> {{ $userdata->address }}</li>
+        <!-- You can add more details here -->
+    </ul>
 
-Service: @if ($userdata->order_type == "A"){{"Aya"}};
-@elseif($userdata->order_type == "N"){{"Nurse"}};
-@else{{"Technician"}};
-@endif
-Date & Time: {{$userdata->created_at}}
-Land Mark: {{$userdata->land_mark}}
-Location: {{$userdata->address}}
-Employee Assigned: [Employee's Name]
-Contact Number of Employee: [Employee's Contact Number]
-Total Amount Paid: 500
-Payment Method: Online
-OTP: {{$userdata->otp}}
+    <p>
+        Employee Assigned: [Employee's Name] <br>
+        Contact Number of Employee: [Employee's Contact Number] <br>
+        Total Amount Paid: 500 <br>
+        Payment Method: Online <br>
+        OTP: {{ $userdata->otp }}
+    </p>
 
-Please ensure that you are available at the specified location at least [Duration before Service] before the scheduled time. Your assigned [Aya/Nurse/Other Service] will arrive promptly to provide the necessary care and support.
+    <p>
+        Please ensure that you are available at the specified location at least [Duration before Service] before the scheduled time. Your assigned {{ $userdata->order_type === 'A' ? 'Aya' : ($userdata->order_type === 'N' ? 'Nurse' : 'Technician') }} will arrive promptly to provide the necessary care and support.
+    </p>
 
-Should you have any questions or need further assistance, feel free to reach out to us at [Your Contact Information].
+    <p>
+        Should you have any questions or need further assistance, feel free to reach out to us at [Your Contact Information].
+    </p>
 
-Thank you for entrusting [Your Company Name] with your healthcare needs. We look forward to serving you.
+    <p>
+        Thank you for entrusting [Your Company Name] with your healthcare needs. We look forward to serving you.
+    </p>
 
-Warm regards,
-
-Emargency Medical Assistance System
-</pre>
+    <p>
+        Warm regards, <br>
+        Emargency Medical Assistance System
+    </p>
+</body>
+</html>

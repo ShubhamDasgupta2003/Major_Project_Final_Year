@@ -20,6 +20,7 @@
     
                     <form method="post">
                         @csrf
+                        <input type="hidden" name="emp_id" value="{{ request()->input('emp_id') }}">
                         <label for="">Full Name<sup class="mandatory">*</sup></label>
                         <input type="text" name="name" id="" placeholder="Enter full name" value="{{old('name')}}" >
                         @error('name')
