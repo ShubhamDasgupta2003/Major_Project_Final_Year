@@ -47,12 +47,13 @@
     </nav>
     <!--user avtar-->
     <div class="user-avatar-container">
-    <a href="{{route('Userlogin')}}" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
-            {{-- echo"<h3>$_SESSION[user_fname]</h3>";
-            echo "<input type='hidden' id='session_val' value=1>";
-            echo"<h3>Guest</h3>";
-            echo "<input type='hidden' id='session_val' value=0>"; --}} 
-</div>
+    <a href="/user_login" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
+            @if (session()->has('user_name'))
+               {{session()->get('user_name')}}
+            @else
+                Gust
+            @endif   
+    </div>
 <div id="menu-btn" class="fa fa-bars"> </div>
 </header>
 <div class="search-navbar" id="srchbar-below">

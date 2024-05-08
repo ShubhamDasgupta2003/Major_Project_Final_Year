@@ -35,7 +35,7 @@
     <div class="search-bar" id="srchbar-above">
         <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>       
         <input type="text" placeholder="Search" name=search_data id="search_data">
-       <button class="btn" value="submit" name="search_data_product" onclick="myfunction()"><i class="fa-solid fa-magnifying-glass"></i></button> 
+       <button class="btn" value="submit" name="search_data_product" id="search_btn"><i class="fa-solid fa-magnifying-glass"></i></button> 
        
     </div>
 
@@ -67,7 +67,7 @@
 <div class="search-navbar" id="srchbar-below">
     <div class="search-bar">
         <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>
-        <input type="text" placeholder="Search...">
+        <input type="text" placeholder="Search..." id="search_value">
         <button class="srch-btn btn"><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
 </div>
@@ -185,14 +185,32 @@
     <script src="location.js"></script>   
     <script src="common.js"></script>
     <script src="search.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         
-        function myfunction()
-        {
-            var x=document.getElementById("search_data").value;
-            window.location.href = "search supplies.php?search_data="+x;
+        $(document).ready(function(){
+            $('#search_btn').on('click',function(){
+                // console.log("Search clicked");
+                var srch_val = $('#search_data').val();
+                // console.log(srch_val);
+                $.ajax({
+                    url:"{{route('medical_supplies.index')}}",
+                    type:'GET',
+                    data:{'data':srch_val},
+                    success:function(response){
+                        console.log(response);
+                    }
+                })
+            })
+        })
+        // function myfunction()
+        // {
+        //     // var x=document.getElementById("search_data").value;
+        //     // window.location.href = "search supplies.php?search_data="+x;
+        //     
+        //     })
            
-        }
+        // }
     </script>
 </body>
 </html>

@@ -17,7 +17,8 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\UserregController;
+use App\Http\Controllers\HcsController;
+use App\Http\Controllers\UserRatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,19 +32,59 @@ use App\Http\Controllers\UserregController;
 */
 
 Route::get('/',[HomePageController::class,'locationPopUpWin'])->name('home');
+Route::get('/user_login',[UserLogin::class,"index"])->name('user_login');
+Route::post('/user_login',[UserLogin::class,"login"]);
+Route::get('/user_rating',[UserRatingController::class,"index"]);
+Route::post('/user_rating',[UserRatingController::class,"add_rating"])->name('add_rating');
+Route::get('/show_rating',[UserRatingController::class,"show"]);
 /*-------------------Healthcare Support----------------------------------*/
-Route::get('/aya', function () {
-    return view('aya');
-})->name('aya_home');
+Route::get('/aya',[HcsController::class,"aya_home"])->name('aya_home');
 Route::get('/nurse', function () {
-    return view('nurse');
+    return view('hcs_home_nurse');
 })->name('nurse_home');
 Route::get('/technician', function () {
-    return view('technician');
+    return view('hcs_home_technician');
 })->name('technician_home');
 Route::get('/rating', function () {
     return view('healthcare_support_emp_rating');
 })->name('rating');
+//hcs booking form
+Route::get('/registration',[HcsController::class,"reg_form_index"])->name('registration');
+Route::post('/registration',[HcsController::class,"user_register"])->name('reg_subm');
+Route::get('/hcs_show_data',[HcsController::class,"show_form_data"])->name('reg_subm');
+Route::get('/hcs_show',[HcsController::class,"process_payment"])->name('send.data');
+Route::get('/hcs_make_payment',[HcsController::class,"makePayment"])->name('hcs-make-payment-page');
+Route::get('/hcs_payment',[HcsController::class,'hcsPayment'])->name('hcs_payment');
+Route::get('/hcs_payment_success',[HcsController::class,'paymentSuccess'])->name('hcs_payment_sucess');
+Route::get('/show_emp_admin_intf',[HcsController::class,"show_emp_admin_intf"])->name('show_emp_admin_intf');
+Route::get('/hcs_emp_msg',[HcsController::class,"hcs_emp_msg_index"])->name('hcs_emp_msg');
+Route::post('/hcs_emp_msg',[HcsController::class,"hcs_emp_msg"])->name('hcs_emp_msg_post');
+//hcs booking
+Route::get('/booking_conf', function () {
+    return view('hcs_booking_confirmation');
+})->name('hcs_booking_confirmation');
+Route::get('/abc', function () {
+    return view('hcs_employee_intf');
+});
+Route::get('/hcs_emp_waitting', function () {
+    return view('hcs_emp_waitting');
+});
+Route::get('/hcs', function () {
+    return view('hcs_employee_registration_form');
+})->name('hcs');
+Route::post('/hcs',[HcsController::class,"emp_register"]);
+Route::get('/hcs_emp_verification',[HcsController::class,"update_nemp_data"])->name('hcs_emp_verification');
+Route::get('/hcs_emp_delete',[HcsController::class,"delete_nemp_data"])->name('hcs_emp_delete');
+Route::get('/hcs_user_rating',[HcsController::class,"rating_index"])->name('hcs_add_rating');
+Route::post('/hcs_user_rating',[HcsController::class,"add_rating"]);
+Route::get('/hcs_show_rating',[HcsController::class,"show_rating"])->name('hcs_show_rating');
+Route::get('/hcs_emp_admin_logout',[HcsController::class,"emp_logout"]);
+Route::get('/hcs_admin',[HcsController::class,"admin_intf"])->name('hcs_admin');
+Route::get('/hcs_admin_login',[HcsController::class,"sup_admin_index"]);
+Route::post('/hcs_admin_login',[HcsController::class,"sup_admin_login"]);
+Route::get('/hcs_admin_logout',[HcsController::class,"sup_admin_logout"]);
+
+
 /*-------------------Healthcare Support----------------------------------*/
 
 
@@ -97,6 +138,7 @@ Route::post('/input admin panel',[AdminController::class,'store'])->name('admin_
 Route::get('/admin medical supplies',[AdminController::class,'admin_supplies'])->name('admin_panel.admin_medical_supplies');
 Route::get('/update admin panel',[AdminController::class,'update_admin'])->name('admin_panel.update');
 Route::get('/delete admin panel',[AdminController::class,'delete_admin'])->name('admin_panel.delete');
+Route::get('/amb_admin_panel',[AdminController::class,'getAmbAdmin_data'])->name('amb_admin_show_data');
 /*-------------------Admin Panel----------------------------------*/
 
 /*-------------------others----------------------------------*/
@@ -140,9 +182,9 @@ Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRides
 
 Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAccepted'])->name('driverRideAccepted');
 
-Route::post('/driver-ride-accepted',[AmbulanceDriverPageController::class,'verifyOTP'])->name('driverRideAccepted');
+Route::post('/driver-ride-accepted',[AmbulanceDriverPageController::class,'verifyOTP'])->name('checkOtpVerification');
 
-Route::get('/driver-ride-started',[AmbulanceDriverPageController::class,''])->name('driverRideStarted');
+Route::get('/driver-ride-started',[AmbulanceDriverPageController::class,'reachDestination'])->name('driverRideStarted');
 
 Route::get('/amb-admin-set-pswd',[newAmbulanceRegistrationController::class,'showCreatePassword'])->name("ambAdminPassForm");
 
@@ -185,6 +227,10 @@ Route::post('/user_reg_validate',[UserregController::class,'StoreUserData'])->na
 
 //----------------------- Payment Routes starts here -----------------------
 
-Route::get('/payment',[PaymentController::class,'pay_amount']);
+Route::get('/payment',[PaymentController::class,'pay_amount']); //Pass order_id,amount,user_id as url params while hitting this url. Check 'amb_driver_ride_started' file: line no - 170 for implementation
 
+Route::post('/payment',[PaymentController::class,'process_payment'])->name('processPayment');
+
+Route::get('/payment-complete',[PaymentController::class,'makePayment'])->name('make-payment-page');
+Route::get('/payment-success',[PaymentController::class,'paymentSuccess'])->name('payment-sucess');
 //----------------------- Payment Routes ends here -----------------------

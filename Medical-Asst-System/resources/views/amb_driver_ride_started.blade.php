@@ -37,21 +37,20 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Verify Patient</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Are you sure ?</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="{{route('driverRideAccepted')}}" method="post">
-        @csrf
           <div class="input-group mb-3">
-          <input type="text" id="otp_val" class="form-control" placeholder="Enter OTP here" aria-label="OTP" aria-describedby="button-addon2" name="otp">
-          <button class="btn btn-outline-success" type="submit" id="verify_otp">Verify</button>
+          <div class="row">
+          <label for="" class="text-danger col-11">You want to finish the current ride ?</label>
+            <button class="btn btn-outline-primary text-center col-3" id="submit_feedback" name="submit">Yes</button>
           </div>
-        </form>
+          
+          </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -60,7 +59,7 @@
         <div id="map" style="width:100%; height:100vh" class="col "></div>
     
         <div class="card text-center position-absolute bottom-0 start-50 translate-middle-x shadow-lg p-3 rounded border-top-3" id="details_card" style="height:auto">
-  <div class="card-header">
+  <div class="card-header text-primary">
     Ride Details
   </div>
   <div class="card-body">
@@ -109,6 +108,7 @@
             const searchParams = new URLSearchParams(window.location.search);
             var ptn_lat = searchParams.get('ptn_lat');
             var ptn_lng = searchParams.get('ptn_lng');
+            var inv_id = searchParams.get('inv_id');
 
             var map = L.map('map').setView([lat, lon], 18);
 
@@ -132,8 +132,8 @@
             var hospital_marker = L.marker(['{{$dest_details[0]->dest_latitude}}','{{$dest_details[0]->dest_longitude}}'], { icon: hospital_icon }).addTo(map); //Patient marker on the map
 
 
-
             $(document).ready(() => {
+              var distance = 0;
                 L.Routing.control({
                     waypoints: [
                         L.latLng(lat, lon),
@@ -145,6 +145,7 @@
                     console.log(routes[0]['summary']);
                     var estm_time = routes[0]['summary']['totalTime'];
                     var time_roundup;
+                    distance = routes[0]['summary']['totalDistance']
                     if(estm_time>=3600)
                     {
                       time_roundup = estm_time/3600;
@@ -159,21 +160,23 @@
                     }
                     time_rqd.innerText = "Expected time: "+time_roundup;
                 }).addTo(map);
+
+                $('#submit_feedback').on('click',function(){
+                  $.ajax({
+                    url:'{{route('driverRideStarted')}}',
+                    type:'GET',
+                    data:{'inv_id':inv_id,'dist':distance},
+                    success:function(data){
+                      window.location.href = "{{url('/')}}/payment?order_id="+data.order_id+"&amount="+data.amb_ride_amount+"&user_id="+data.user_id;
+                    }
+                  })
+                })
             });
 
-    
             navigator.geolocation.watchPosition(w_success, w_error);
             function w_success(pos) {
                 marker.setLatLng([pos.coords.latitude, pos.coords.longitude]);
                 map.setView([pos.coords.latitude, pos.coords.longitude]);
-                var xhr = $.ajax({
-                    url:"{{ route('driverRideAccepted') }}",
-                    type:"GET",
-                    data:{'lat':pos.coords.latitude,'lng':pos.coords.longitude,'amb_id':'{{session('amb_id')}}'}, //amb_id to be fetched from session variable later
-                    success:function(data){
-                         console.log(data);
-                    }
-                })
             }
             function w_error(err) {
                 //Error to display

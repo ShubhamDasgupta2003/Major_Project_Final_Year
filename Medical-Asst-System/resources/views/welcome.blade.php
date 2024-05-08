@@ -165,52 +165,52 @@ Home Page
             <div class="box">
                 <img src="images/HomePage/ambulance.png" alt="">
                 <h3>24x7 Ambulance</h3>
-                <p> soluta a, pariatur dolore odit vadipisci fugiat.</p>
-                <a href="#" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
+                <p>For More Information About This Service, Please Click On Learn More. </p>
+                <a href="{{route('check-availability')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
 
            <div class="box">
                 <img src="images/HomePage/blood-bag.png" alt="">
                 <h3>Book Blood </h3>
-                <p> soluta a, pariatur dolore odit vadipisci fugiat.</p>
+                <p>For More Information About This Service, Please Click On Learn More. </p>
                 <a href=" {{route('showBhome')}} " class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
 
             <div class="box">
                 <img src="images/HomePage/hospital.png" alt="">
                 <h3>Book Hospital Bed </h3>
-                <p>Efficiently book hospital beds online for immediate medical care access.</p>
+                <p>For More Information About This Service, Please Click On Learn More.</p>
                 <a href="{{route('hos_bed')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
 
             <div class="box">
                 <img src="images/HomePage/babysitter.png" alt="">
                 <h3>Aya</h3>
-                <p> soluta a, pariatur vadipisci i hi jkl  ljl;a fugiat vadipisci.</p>
+                <p>For More Information About This Service, Please Click On Learn More. </p>
                 <a href="{{route('aya_home')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
             <div class="box">
                 <img src="images/HomePage/nurse.png" alt="">
                 <h3>Nurse</h3>
-                <p> soluta a, pariatur dolore fsf fsaf afsaf fsaf fsaf fsaf fasf .</p>
+                <p>For More Information About This Service, Please Click On Learn More. </p>
                 <a href="{{route('nurse_home')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
             <div class="box">
                 <img src="images/HomePage/radiologist.png" alt="">
-                <h3>Medical Technician</h3>
-                <p> soluta a, pariatur dolore odit vadipisci fugiat.</p>
+                <h3>Technician</h3>
+                <p>For More Information About This Service, Please Click On Learn More. </p>
                 <a href="{{route('technician_home')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
             <div class="box">
                 <img src="images/HomePage/medicine.png" alt="">
                 <h3>Buy Medicine 24x7</h3>
-                <p> soluta a, pariatur dolore odit vadipisci fugiat.</p>
+                <p> For More Information About This Service, Please Click On Learn More.</p>
                 <a href="" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
             <div class="box">
                 <img src="images/HomePage/oxygen.png" alt="">
                 <h3>Oxygen</h3>
-                <p> soluta a, pariatur dolore odit vadipisci fugiat.</p>
+                <p> For More Information About This Service, Please Click On Learn More.</p>
                 <a href="" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
 

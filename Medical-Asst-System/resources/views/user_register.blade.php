@@ -44,13 +44,18 @@
           </div>
         </div>
         <div class="column">
-            <div class="input-box">
-                <label>ID Card Type</label>
-                <input type="text" placeholder="Enter ID type" required />
+          <div class="input-box">
+          <label for="">ID Type</label>
+          <div class="select-box">
+                <select name="id_no" id="">
+                    <option value="Aadhaar">Aadhar Card</option>
+                    <option value="Voter">Voter Card</option>
+                </select>
             </div>
+          </div>
             <div class="input-box">
                 <label>ID Number</label>
-                <input name="user_aadhaar" type="number" placeholder="Enter ID number (Aadhaar/Voter)" required />
+                <input name="user_aadhaar" type="number" placeholder="Enter ID number" required />
             </div>
         </div>
         <div class="gender-box">
@@ -58,7 +63,7 @@
           <div class="gender-option">
             <div class="gender">
               <input type="radio" id="check-male" name="user_gender" checked value="Male"/>
-              <label for="check-male">male</label>
+              <label for="check-male">Male</label>
             </div>
             <div class="gender">
               <input type="radio" id="check-female" name="user_gender" value="Female"/>
@@ -110,6 +115,22 @@
           </div>
         </div>
         <div class="column">
+          <div class="input-box">
+            <label>Current Latitude</label>
+            <input type="number" name="ptn_lat_reg" id="amb_lat_view" readonly>
+          </div>
+          <div class="input-box">
+            <label>Current Longitude</label>
+            <input type="number" name="ptn_lng_reg" id="amb_lon_view" readonly>
+          </div>
+        </div>
+        <div class="column">
+          <div class="input-box">
+            <label for="amb_addr_reg" >Current Address</label>
+            <input type="text" name="ptn_addr_reg" id="amb_address_view">
+          </div>
+        </div>
+        <div class="column">
             <div class="input-box">
                 <label>Password</label>
                 <input id="pswd" name="user_password" type="password" placeholder="Enter your password" required />
@@ -122,9 +143,6 @@
         <button id="sbmt-form" type="submit" name="register_user">Register</button>
       </form>
     </section>
-    {{-- <script src="js/signup.js"></script>
-    <script src="js/location_signup.js"></script> --}}
-    <script src="{{ asset('js/Homepage/signup.js') }}"></script>
-    <script src="{{ asset('js/Homepage/location_signup.js') }}"></script>
+    <script src="{{ asset('js/amb_admin_loc.js') }}"></script>
   </body>
 </html>

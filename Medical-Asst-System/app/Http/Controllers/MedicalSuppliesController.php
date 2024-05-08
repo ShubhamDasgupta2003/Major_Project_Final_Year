@@ -26,12 +26,21 @@ class MedicalSuppliesController extends Controller
    {
     $medical_supplies_medicals=medical_supplies_medical::all();
     $totalcount=cart::count();
-    if(!empty($request->get('search'))){
-      $products=$medical_supplies_medicals->where('product_kewords','like','%'.$request->get('search').'%');
+
+    if($request->ajax())
+    {
+      // $data = $request->data;
+      $products=$medical_supplies_medicals->where('product_name',$request->data);
+      return response()->json(['data'=>$products]);
     }
+    // if(!empty($request->get('search'))){
+    //   $products=$medical_supplies_medicals->where('product_kewords','like','%'.$request->get('search').'%');
+    // }
     return view('medical_supplies.index',['medical_supplies_medicals'=>$medical_supplies_medicals],compact('totalcount'));
    // return view('medical_supplies.index');
    }
+
+
    public function indexb()
    {
     $medical_supplies_technicals=medical_supplies_technical::all();

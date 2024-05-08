@@ -89,7 +89,7 @@
 
     <!-- css -->
     @include("common_css")
-    <link rel="stylesheet" href="css/cont-card.css">
+    <link rel="stylesheet" href="css/hcs_cont_card.css">
     <link rel="stylesheet" href="css/mininav.css">
 
 

@@ -43,7 +43,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="{{route('driverRideAccepted')}}" method="post">
+        <form action="{{route('checkOtpVerification')}}" method="post">
         @csrf
           <div class="input-group mb-3">
           <input type="text" id="otp_val" class="form-control" placeholder="Enter OTP here" aria-label="OTP" aria-describedby="button-addon2" name="otp">

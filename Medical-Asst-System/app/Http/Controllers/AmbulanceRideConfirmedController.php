@@ -13,8 +13,9 @@ class AmbulanceRideConfirmedController extends Controller
         if($request->ajax())
         {
             $amb_coordinates = Amb_info::where('amb_no',$request->amb_no)->get(['amb_loc_lat','amb_loc_lng']);
-        
-            return response()->json(['data'=>$amb_coordinates]);
+            $amb_status = Patient_ambulance::where('invoice_no',$request->inv_no)->get(['ride_status']);
+            $full_data = compact('amb_coordinates','amb_status');
+            return response()->json(['data'=>$full_data]);
         }
 
         $ptn_rqst_data = Patient_ambulance::where('invoice_no',$request->inv_no)->get();
