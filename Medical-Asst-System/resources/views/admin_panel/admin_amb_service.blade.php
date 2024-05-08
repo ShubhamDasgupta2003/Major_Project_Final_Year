@@ -86,7 +86,7 @@
             <div class="card-single">
                 <div>
                   
-                    <h1 style="color: #fff;"></h1>
+                    <h1 style="color: #fff;">{{$reg_Drivers[0]->count}}</h1>
                     <span>Drivers Registered</span>
                 </div>
                 <div>
@@ -105,7 +105,7 @@
             </div>
             <div class="card-single">
                 <div>
-                    <h1 style="color: #fff;"> &#8377 </h1>
+                    <h4 style="color: #fff;"> &#8377 {{$cur_month_income[0]->amount}}</h4>
                     <span>Income(Current Month)</span>
                 </div>
                 <div>
@@ -171,9 +171,51 @@
             </div>
         </div>
 
+        <div class="income-report-menu mt-3">
+            <div class="row">
+                <div class="col-md-3 income_month_menu">
+                    <select name="" id="income_months" class="form-select income-select-menu">
+                        <option value="" disabled selected=true>Select month</option>
+                        <option value="all">All</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+                <div class="col-md-3 income_year_menu">
+                    <select name="" id="income_years" class="form-select income-select-menu">
+                        <option value="" disabled>Select Year</option>
+                        <option value="{{$avbl_years[0]->years}}" selected=true>{{$avbl_years[0]->years}}</option>
+                        @for($i=1;$i<sizeof($avbl_years);$i++)
+                            <option value="{{$avbl_years[$i]->years}}">{{$avbl_years[$i]->years}}</option>
+                        @endfor
+                        
+                    </select>
+                </div>
+                <div class="col-md-3 payment_status_menu">
+                    <select name="" id="payment_status" class="form-select">
+                        <option value="" disabled>Select status</option>
+                        <option value="'complete'" selected=true>Successful</option>
+                        <option value="'initiated'">Incomplete</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="row query-table mt-3">
             <div class="col-md-6">
                 <canvas id="ridesChart" class="text-center mt-3" style="width:100%;max-width:700px"></canvas>
+
+                <canvas id="incomeChart" class="text-center mt-3" style="width:100%;max-width:700px"></canvas>
             </div>
             <div class="col-md-6 ride-report-summary">
                 <div class="row text-center">
@@ -195,10 +237,39 @@
                         <div class="card-single bg-warning">
                             <div>
                                 <h1 style="color: #000000;" id="avg_count"></h1>
-                                <span>Avg Rides</span>
+                                <span class="text-dark">Avg Rides</span>
                             </div>
                             <div>
                                 <span class="las la-ambulance" style="color: #000000;"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 income-report-summary">
+                <div class="row text-center">
+                    <h3>Overview</h3>
+                </div>
+                <div class="row mt-3 text-center">
+                    <div class="col-md-6">
+                        <div class="card-single bg-success">
+                            <div>
+                                <h1 style="color: #fff;" id="total_income"></h1>
+                                <span>Yearly Income</span>
+                            </div>
+                            <div>
+                                <span class="las la-hand-holding-usd" style="color: #fff;"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-single bg-warning">
+                            <div>
+                                <h1 style="color: #000000;" id="avg_income"></h1>
+                                <span class="text-dark">Avg Income</span>
+                            </div>
+                            <div>
+                                <span class="las la-hand-holding-usd" style="color: #000000;"></span>
                             </div>
                         </div>
                     </div>
@@ -230,26 +301,58 @@
            "July", "August", "September", "October", "November", "December" ];
         var barColors = ["#f57242", "#009113","#009ff5","#f5cc00","#7d0096","#7a0140","#7a0140","#7a0140","#ff3d12","#94ff12","#94ff12","#ffcf6e"];
         var chartId;
+        var incomeChartId;
 
         $('.income-report-menu').hide();
         $('.ride-report-menu').hide();
         $('.ride-report-summary').hide();
+        $('.income-report-summary').hide();
 
         $('#main_menu').on('change',function()
     {
         var option = $('#main_menu').val();
+        xValues.length=0;
+        yValues.length=0;
         if(option=='i')
         {
             $('.income-report-menu').show();
             $('.ride-report-menu').hide();
             $('#ridesChart').hide();
+            $('#incomeChart').show();
             $('.ride-report-summary').hide();
+            $('.income-report-summary').show();
+            incomeChartId = new Chart(incomeChart, {
+                    type: 'bar',
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                        label: "Payments Data",
+                        data: yValues,
+                        backgroundColor: barColors,
+                        borderWidth: 2,
+                        }],
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                display: true,
+                                stacked: true,
+                                ticks: {
+                                    min: 0, // minimum value
+                                    // max:  // maximum value
+                                }
+                            }]
+                        },
+                        responsive: true,
+                    }
+                });
         }
         else if(option=='r')
         {
             $('.ride-report-menu').show();
             $('.ride-report-summary').show();
             $('#ridesChart').show();
+            $('#incomeChart').hide();
             $('.income-report-menu').hide();
             chartId = new Chart(ridesChart, {
                     type: 'bar',
@@ -289,7 +392,7 @@
             $.ajax({
                 url:"{{route('amb_admin_show_data')}}",
                 type:'GET',
-                data:{'month':month,'year':year,'ride_type':ride_type,'ride_stat':ride_status},
+                data:{'month':month,'year':year,'ride_type':ride_type,'ride_stat':ride_status,'qtype':'ride_report'},
                 success:function(data){
                     console.log(data);
                     xValues.length=0;
@@ -306,6 +409,35 @@
                     $('#total_count').text(totalRides);
                     $('#avg_count').text(avgRides);
                     chartId.update();
+                }
+            });
+        })
+
+        $('.income-report-menu').on('change',function(){
+            var month = $('#income_months').val()
+            var year = $('#income_years').val();
+            var status = $('#payment_status').val();
+
+            $.ajax({
+                url:"{{route('amb_admin_show_data')}}",
+                type:'GET',
+                data:{'month':month,'year':year,'p_stat':status,'qtype':'income_report'},
+                success:function(data){
+                    console.log(data);
+                    xValues.length=0;
+                    yValues.length=0;
+                    var len = (data.data).length;
+                    for(i=0;i<len;i++)
+                    {
+                        xValues.push(months[(data.data[i].months)-1]);
+                        yValues.push(data.data[i].amount);
+                    }
+
+                    var totalAmount = addElements(yValues);
+                    var avgAmount = Math.round(totalAmount/yValues.length)
+                    $('#total_income').text(totalAmount + "/-");
+                    $('#avg_income').text(avgAmount + "/-");
+                    incomeChartId.update();
                 }
             });
         })
