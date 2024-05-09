@@ -19,6 +19,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HcsController;
 use App\Http\Controllers\UserRatingController;
+use App\Http\Controllers\UserregController;
 
 /*
 |--------------------------------------------------------------------------

@@ -76,7 +76,7 @@
                     </div>
                     <div class='buy-price'>
                       
-                        <a href="{{ route('blood_booking_form', ['id' => $bank->id, 'name' => $bank->name,'city'=>$bank->city,'state'=>$bank->state]) }}"><button class='btn buy'>Buy</button></a>
+                        <a href="{{ route('blood_booking_form', ['id' => $bank->id, 'name' => $bank->name,'city'=>$bank->city,'state'=>$bank->state,'blood_gr'=>$bank->group_name]) }}"><button class='btn buy'>Buy</button></a>
                         <p class='card-fare'>&#8377 {{$bank->price}}/-</p>
                         @php                          
                             Session::put('blood_price', $bank->price);
