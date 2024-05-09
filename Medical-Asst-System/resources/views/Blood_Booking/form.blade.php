@@ -21,7 +21,7 @@
             <div class="column">
                 <div class='amb_info_cont'>
                     <h1 class='descp' id='title'>{{ request()->query('name') }}</h1>
-                    <h3><p class='descp' id='card-address'><i class='fa-solid fa-location-dot'></i>{{{{ request()->query('state') }}}},{{ request()->query('city') }}</p></h3>
+                    <h3><p class='descp' id='card-address'><i class='fa-solid fa-location-dot'></i>{{ request()->query('state') }},{{ request()->query('city') }}</p></h3>
                     <h3><p class='descp bg' id='card-type'>O+</p></h3>
                     <h2><p class='descp' id='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i>&nbsp&nbsp386.2 km</p></h2>
                     <h2 class='descp' id='card-fare'>&#8377 {{$bloodPrice}}/-</h2>
