@@ -80,9 +80,14 @@ class BloodBankController extends Controller
 
     }
 
-    public function booking($id){
+    // public function booking( ){
+    //     $bank = DB::table('blood_banks')->where('id', $id)->first();
+    //     return view('Blood_Booking/form',['bank'=>$bank]);
+    // }
+    public function at(){
+        $id = Session::get('blood_bank_id');
         $bank = DB::table('blood_banks')->where('id', $id)->first();
-        return view('Blood_Booking/form',['bank'=>$bank]);
+        return view('Blood_Booking/blood_book_form',['bank'=>$bank]);
     }
     // public function booking1(){
     //    return view('Blood_Booking.form');

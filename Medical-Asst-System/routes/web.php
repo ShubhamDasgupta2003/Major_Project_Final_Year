@@ -88,6 +88,7 @@ Route::get('/hcs_admin_logout',[HcsController::class,"sup_admin_logout"]);
 /*-------------------Healthcare Support----------------------------------*/
 
 
+/*-------------------Blood Bank Start----------------------------------*/
 // routes for BloodBank
 // Route::view ('BookBlood','/Blood_Booking/bloodB_home')->name('bloodB_home');
 // Route::view ('booking_form','/Blood_Booking/form')->name('blood_booking_form');
@@ -103,16 +104,17 @@ Route::get('/bloodGroup', [BloodBankController::class, 'bloodGroup']);
 // Route::post('/search', [BloodBankController::class, 'search'])->name('search');
 Route::get('/showBhome', [BloodBankController::class, 'showBloodBanks'])->name('showBhome');
 Route::post('/confirm_booking', [BloodBankController::class, 'upload'])->name('confirm_Booking');
-Route::get('/booking_form/{id}', [BloodBankController::class, 'booking'])->name('blood_booking_form');
-// Route::get('/booking_form', [BloodBankController::class, 'booking1'])->name('blood_booking_form');
+// Route::get('/booking_form', [BloodBankController::class, 'booking'])->name('blood_booking_form');
+// Route::get('/at', [BloodBankController::class, 'at'])->name('atest');
 
+Route::view ('/booking_form','/Blood_Booking/form')->name('blood_booking_form');
 Route::view ('/test','/Blood_Booking/test');
 Route::view ('/b','/Blood_Booking/b')->name('b');
 Route::view ('/a','/Blood_Booking/a');
 Route::get('/asearch',[searchContoller::class,'search'])->name('searchtest');
 
 
-
+/*-------------------Blood Bank End----------------------------------*/
 
 
 

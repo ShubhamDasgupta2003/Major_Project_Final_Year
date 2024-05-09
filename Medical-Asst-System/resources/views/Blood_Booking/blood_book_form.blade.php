@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     @include('common_css')
-    <link rel="stylesheet" href="css/BloodBank/BookingForm.css">
+    <link rel="stylesheet" href="css/BloodBank/BookingForm2.css">
     {{-- <link rel="stylesheet" href="css/BloodBank/abc.css"> --}}
 
 </head>
@@ -20,8 +20,8 @@
             @endphp
             <div class="column">
                 <div class='amb_info_cont'>
-                    <h1 class='descp' id='title'>{{ request()->query('name') }}</h1>
-                    <h3><p class='descp' id='card-address'><i class='fa-solid fa-location-dot'></i>{{{{ request()->query('state') }}}},{{ request()->query('city') }}</p></h3>
+                    <h1 class='descp' id='title'>{{$bank->name}}</h1>
+                    <h3><p class='descp' id='card-address'><i class='fa-solid fa-location-dot'></i>{{$bank->city}}</p></h3>
                     <h3><p class='descp bg' id='card-type'>O+</p></h3>
                     <h2><p class='descp' id='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i>&nbsp&nbsp386.2 km</p></h2>
                     <h2 class='descp' id='card-fare'>&#8377 {{$bloodPrice}}/-</h2>
@@ -32,7 +32,7 @@
                     <h3><p class='descp' id='card-address'><i class='fa-solid fa-location-dot'></i>dfsafffffffffffsdfadfsafaf</p></h3>
                     <h3><p class='descp bg' id='card-type'>O+</p></h3>
                     <h2><p class='descp' id='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i>&nbsp&nbsp386.2 km</p></h2>
-                    <h2 class='descp' id='card-fare'>&#8377 {{$bloodPrice}}/-</h2>
+                    <h2 class='descp' id='card-fare'>&#8377 1234/-</h2>
                 </div>                 --}}
 
                  <div class="patient_info_cont">
@@ -66,7 +66,3 @@
     </div>
 </body>
 </html>
-
-<style>
-
-</style>
