@@ -128,9 +128,13 @@ Route::get('/asearch',[searchContoller::class,'search'])->name('searchtest');
 Route::get('/medical supplies/{medical_supplies_medical}',[MedicalSuppliesController::class,'index'])->name('medical_supplies.index');
 Route::get('/medical_supplies',[MedicalSuppliesController::class,'index'])->name('medical_supplies.index');
 
-//Route::get('/medical_suppliess',[MedicalSuppliesController::class,'searchm'])->name('medical_supplies.search');
 
+Route::get('/medical_suppliess',[MedicalSuppliesController::class,'searchm'])->name('medical_supplies.search');
+Route::get('/medical_suppliest',[MedicalSuppliesController::class,'searcht'])->name('medical_supplies.searcht');
 Route::get('/technical supplies',[MedicalSuppliesController::class,'indexb'])->name('medical_supplies.indexb');
+
+
+
 Route::get('/medical supplies/{medical_supplies_medical}/detail',[MedicalSuppliesController::class,'edit'])->name('medical_supplies.detail');
 Route::get('/technical supplies/{medical_supplies_technical}/detail',[MedicalSuppliesController::class,'editb'])->name('technical_supplies.detail');
 Route::post('/medical supplies/detail',[MedicalSuppliesController::class,'store'])->name('medical_supplies.store');
@@ -139,7 +143,7 @@ Route::get('/cart',[MedicalSuppliesController::class,'cart'])->name('medical_sup
 Route::post('/carti',[MedicalSuppliesController::class,'storeImage'])->name('medical_supplies.imagestore');
 Route::delete('/cart/{cart}/delete',[MedicalSuppliesController::class,'delete'])->name('cart.delete');
 Route::put('/cart/{cart}/update',[MedicalSuppliesController::class,'update'])->name('cart.update');
-Route::get('/order confirmation/{cart}/include',[MedicalSuppliesController::class,'order'])->name('medical_supplies.order_confirmation');
+Route::get('/order confirmation/include',[MedicalSuppliesController::class,'order'])->name('medical_supplies.order_confirmation');
 /*-------------------Medical Supplies----------------------------------*/
 
 /*-------------------Admin Panel----------------------------------*/

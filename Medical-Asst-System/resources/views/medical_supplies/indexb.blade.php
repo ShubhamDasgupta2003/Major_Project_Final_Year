@@ -34,8 +34,8 @@
    
     <div class="search-bar" id="srchbar-above">
         <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>
-        <input type="text" placeholder="Search" name=search_data id="search_data">
-       <button class="btn" value="submit" name="search_data_product" onclick="myfunction()"><i class="fa-solid fa-magnifying-glass"></i></button>  
+        <input type="text" placeholder="Search" name="search_data" id="search_data">
+         <button class="btn" onclick="submitSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
 
     <nav class="navbar">
@@ -182,14 +182,17 @@
         <!-- Footer bar -->
     <script src="location.js"></script>   
     <script src="common.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        
-        function myfunction()
-        {
-            var x=document.getElementById("search_data").value;
-            window.location.href = "search_tech supplies.php?search_data="+x;
-           
-        }
-    </script>
+function submitSearch() {
+    // Get the value entered in the search bar
+    var searchData = document.getElementById("search_data").value;
+    console.log(searchData);
+    
+    var url = '/medical_suppliess?search='+ encodeURIComponent(searchData); // Replace '/your-url' with the desired URL
+    window.location.href = url;
+     
+}
+</script>
 </body>
 </html>

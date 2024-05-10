@@ -34,8 +34,8 @@
    
     <div class="search-bar" id="srchbar-above">
         <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>       
-        <input type="text" placeholder="Search" name=search_data id="search_data">
-       <button class="btn" value="submit" name="search_data_product" id="search_btn"><i class="fa-solid fa-magnifying-glass"></i></button> 
+        <input type="text" placeholder="Search" name="search_data" id="search_data">
+         <button class="btn" onclick="submitSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
        
     </div>
 
@@ -187,27 +187,15 @@
     <script src="search.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-    $(document).ready(function(){
-        $("#submit").on('click', function(){
-            const value = $('#search').val();
-
-            // Make AJAX request
-            $.ajax({
-                url: "/medical_supplies",
-                type: "GET",
-                data: {'search': value},
-                success: function(data){
-                     console.log(data);
-                    // let banks = data.banks;
-                    // let html = '';
-
-                 
-                   
-                }
-               
-            });
-        });
-    });
+function submitSearch() {
+    // Get the value entered in the search bar
+    var searchData = document.getElementById("search_data").value;
+    console.log(searchData);
+    
+    var url = '/medical_suppliest?search='+ encodeURIComponent(searchData); // Replace '/your-url' with the desired URL
+    window.location.href = url;
+     
+}
 </script>
 </body>
 </html>
