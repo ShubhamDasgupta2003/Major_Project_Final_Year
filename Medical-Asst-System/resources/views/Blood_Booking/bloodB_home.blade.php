@@ -26,6 +26,7 @@
     <!-- header section start -->
     <header class="header">
         <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>Medical a</a>
+        
         <div class="search-bar" id="srchbar-above">
             <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>
             <input type="text" id="search" name="search"  placeholder="Search blood Group...">
@@ -135,40 +136,11 @@
     </section>
 
     <style>
-        .loadingOperations {
-            display: flex;
-            width: 300px;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .loader {
-            border: 8px solid #f3f3f3; /* Light grey */
-            border-top: 8px solid #3498db; /* Blue */
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 2s linear infinite;
-            /* margin:0; */
-            /* margin: auto;  Center the spinner */
-            display: none; /* Initially hidden */
-        }
-
-        #loading-message {
-            display: none; /* Initially hidden */
-            text-align: center;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
+       /* .user-avatar-container h3 {
+        color: #00a896;
+        font-size: 20px;
+        /* padding-top: 20px; */
+    } */
     </style>
 
     <script>

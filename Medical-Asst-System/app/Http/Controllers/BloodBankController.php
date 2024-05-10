@@ -158,11 +158,45 @@ class BloodBankController extends Controller
     ->where('order_status', 'complete')
     ->get();
 
-    
+    $totalOrders = DB::table('blood_orders')
+    ->select(DB::raw('COUNT(order_id) AS comp_orders'))
+    ->where('bank_id', $bank_id)
+    ->groupBy('bank_id')
+    ->get();
+    $count = $totalOrders[0]->comp_orders;
+
+    //find out order in last 24 hour
+    $currentTime = Carbon::now();
+    $twentyFourHoursAgo = Carbon::now()->subHours(24);
+
+    $totalOrdersIn24hr = DB::table('blood_orders')
+    ->select(DB::raw('COUNT(order_id) AS comp_orders'))
+    ->where('bank_id', $bank_id)
+    ->where('date', '>=', $twentyFourHoursAgo->toDateString()) // Filter by date
+    ->orWhere(function($query) use ($twentyFourHoursAgo) {
+        $query->where('date', '=', $twentyFourHoursAgo->toDateString())
+            ->where('time', '>=', $twentyFourHoursAgo->toTimeString()); // Filter by time
+    })
+    ->groupBy('bank_id')
+    ->get();
+
+    $countIn24hr = $totalOrdersIn24hr[0]->comp_orders;
+
+    //find out total earnings
+    $result = DB::table('blood_orders')
+            ->select(DB::raw('SUM(price) AS earnings'))
+            ->first();
+
+    $earnings = $result->earnings;
+
+
 
     return view('Blood_Booking/adminPanel')
            ->with('bloodOrders', $bloodOrders)
-           ->with('bloodOrders_complete', $bloodOrders_complete);
+           ->with('bloodOrders_complete', $bloodOrders_complete)
+           ->with('totalOrders', $count)
+           ->with('totalOrdersIn24hr', $countIn24hr)
+           ->with('totalEarnings', $earnings);
 
    }
 
@@ -184,4 +218,5 @@ class BloodBankController extends Controller
             return redirect()->back();
     }
     
+  
 }

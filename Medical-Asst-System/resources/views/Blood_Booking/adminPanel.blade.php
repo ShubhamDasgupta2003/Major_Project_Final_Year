@@ -62,12 +62,7 @@
            
             <div class="card-single">
                 <div>
-                    <?php
-                         30
-                        // $ord_count=0;
-                        // $sqlr=$obj->select('blood_order','COUNT(order_id) AS comp_orders',"bloodbank_id='$blood_bank_id'")->fetch_assoc();    
-                     ?>
-                    <h1 style="color: #fff;"> &#8377</h1>
+                    <h1 style="color: #fff;">{{$totalOrders}}</h1>
                     <span>Successfull Orders</span>
                 </div>
                 <div>
@@ -77,8 +72,8 @@
             <div class="card-single">
                 <div>
                     <div>
-                        <h1 style="color: #fff;">24 hr></h1>
-                        <span>5000</span>
+                        <h1 style="color: #fff;">{{$totalOrdersIn24hr}}</h1>
+                        <span style="font-size: 16px">Today's order</span>
                     </div>
                 </div>
                 <div>
@@ -88,7 +83,7 @@
 
             <div class="card-single">
                 <div>
-                    <h1 style="color: #fff;">30000></h1>
+                    <h1 style="color: #fff;">{{$totalEarnings}}</h1>
                     <span>Income</span>
                 </div>
                 <div>
