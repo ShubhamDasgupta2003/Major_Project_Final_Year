@@ -25,12 +25,13 @@
 <body>
     <!-- header section start -->
     <header class="header">
-        <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>Medical Assistant</a>
+        <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>Medical a</a>
         <div class="search-bar" id="srchbar-above">
             <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>
             <input type="text" id="search" name="search"  placeholder="Search blood Group...">
             <button class="btn" id="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
+
         <!--navlinks-->
         <nav class="navbar">
             <a class="navlink" href="{{ route('home') }}">Home</a>
@@ -41,10 +42,16 @@
         <!--user avtar-->
         <div class="user-avatar-container">
             <a href="profile.php" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
+            <h3> @if (session()->has('user_name'))
+                {{session()->get('user_name')}}
+                @else
+                 Gust
+                @endif   
+            </h3> 
         </div>
         <div id="menu-btn" class="fa fa-bars"> </div>
     </header>
-
+ 
     <div class="search-navbar" id="srchbar-below">
         <div class="search-bar">
             <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>

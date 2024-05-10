@@ -95,7 +95,12 @@ Route::get('/hcs_admin_logout',[HcsController::class,"sup_admin_logout"]);
 // Route::view ('booking_form','/Blood_Booking/form')->name('blood_booking_form');
 Route::view ('RegisterNbank','/Blood_Booking/BbankRegister')->name('B_Bank_Register');
 Route::view ('Userlogin','/Blood_Booking/login')->name('Userlogin');
-Route::view ('BBadmin','/Blood_Booking/adminPanel');
+
+// .......................For Admin Panel........................ 
+
+Route::get('/BBadmin', [BloodBankController::class, 'BloodBank_admin'])->name('Blood_admin_page');
+Route::get('/approve_bld_order/{order_id}', [BloodBankController::class, 'approve_order'])->name('confirmed_bld_order');
+Route::get('/cancel_bld_order/{order_id}', [BloodBankController::class, 'delete_order'])->name('cancel_bld_order');
 
 
 Route::view('/BookBlood', '/Blood_Booking/bloodBInitial');
@@ -104,7 +109,7 @@ Route::post('/BanksRegister', [BloodBankController::class, 'newregistration'])->
 Route::get('/bloodGroup', [BloodBankController::class, 'bloodGroup']);
 // Route::post('/search', [BloodBankController::class, 'search'])->name('search');
 Route::get('/showBhome', [BloodBankController::class, 'showBloodBanks'])->name('showBhome');
-Route::post('/confirm_booking', [BloodBankController::class, 'upload'])->name('confirm_Booking');
+Route::post('/confirm_booking', [BloodBankController::class, 'submitOrder'])->name('submit_order');
 // Route::get('/booking_form', [BloodBankController::class, 'booking'])->name('blood_booking_form');
 // Route::get('/at', [BloodBankController::class, 'at'])->name('atest');
 
