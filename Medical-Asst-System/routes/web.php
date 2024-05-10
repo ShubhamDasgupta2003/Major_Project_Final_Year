@@ -128,7 +128,7 @@ Route::get('/asearch',[searchContoller::class,'search'])->name('searchtest');
 Route::get('/medical supplies/{medical_supplies_medical}',[MedicalSuppliesController::class,'index'])->name('medical_supplies.index');
 Route::get('/medical_supplies',[MedicalSuppliesController::class,'index'])->name('medical_supplies.index');
 
-
+Route::get('/order_view',[MedicalSuppliesController::class,'orderview'])->name('medical_supplies.order_view');
 Route::get('/medical_suppliess',[MedicalSuppliesController::class,'searchm'])->name('medical_supplies.search');
 Route::get('/medical_suppliest',[MedicalSuppliesController::class,'searcht'])->name('medical_supplies.searcht');
 Route::get('/technical supplies',[MedicalSuppliesController::class,'indexb'])->name('medical_supplies.indexb');
@@ -142,6 +142,7 @@ Route::post('/technical supplies/detail',[MedicalSuppliesController::class,'stor
 Route::get('/cart',[MedicalSuppliesController::class,'cart'])->name('medical_supplies.cart');
 Route::post('/carti',[MedicalSuppliesController::class,'storeImage'])->name('medical_supplies.imagestore');
 Route::delete('/cart/{cart}/delete',[MedicalSuppliesController::class,'delete'])->name('cart.delete');
+Route::delete('/order_view/{order}/delete',[MedicalSuppliesController::class,'orderdelete'])->name('order.delete');
 Route::put('/cart/{cart}/update',[MedicalSuppliesController::class,'update'])->name('cart.update');
 Route::get('/order confirmation/include',[MedicalSuppliesController::class,'order'])->name('medical_supplies.order_confirmation');
 /*-------------------Medical Supplies----------------------------------*/
