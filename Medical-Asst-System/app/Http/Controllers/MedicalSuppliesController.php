@@ -82,6 +82,15 @@ class MedicalSuppliesController extends Controller
     return view('medical_supplies.indexb',['medical_supplies_technicals'=>$medical_supplies_technicals],compact('totalcount'));
    // return view('medical_supplies.index');
    }
+
+
+   public function orderview(Request $request)
+   {
+    $orders=medical_supplies_order::all();
+ 
+    return view('medical_supplies.order_view',['orders'=>$orders]);
+  
+   }
    public function edit(medical_supplies_medical $medical_supplies_medical)
    {
      
@@ -146,6 +155,12 @@ public function delete(cart $cart)
       $cart->delete();
       return redirect(route("medical_supplies.cart")); 
     }
+    public function orderdelete(medical_supplies_order $order)
+    {
+      $order->delete();
+      return redirect(route("medical_supplies.order_view")); 
+    }
+   
     public function update(cart $cart,Request $request)
     {
         $data=$request->validate([
@@ -159,8 +174,36 @@ public function delete(cart $cart)
     }
     public function order()
     {
-      
-      return view('medical_supplies.order_confirmation');
+      $carts=cart::all();
+      $productNames = $carts->pluck('product_name')->toArray();
+      foreach ($productNames as $productName) {
+          // Do something with $productName
+      }
+      $p=0;
+      $s=0;
+      foreach($carts as $cart)
+      {
+        $p=$p+($cart->product_rate*$cart->product_quantity);
+        $s=$s+($cart->product_quantity);
+      }
+      echo $p ;
+
+      echo $s;
+      $u=1;
+      $productNamesString = implode(', ', $productNames);
+      echo  $productNamesString ;
+      $t="test";
+      $e="royaatraya@gmail.com";
+      $data = [
+        'product_name' => $productNamesString ,
+        'product_quantity' => $s,
+        'product_rate' => $p,
+        'user_id' => $u,
+        'user_name' => $t,
+        'user_email' => $e,
+        'order_id' => $u
+    ];
+    $newProduct=medical_supplies_order::create($data);
     }
     public function generatePdfb()
     {

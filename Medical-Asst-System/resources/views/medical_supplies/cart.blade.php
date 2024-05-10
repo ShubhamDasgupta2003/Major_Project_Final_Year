@@ -1,6 +1,6 @@
 <?php
 $s=0;
-$p=1;
+$p=0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,10 +83,11 @@ $p=1;
           
            $p=$p+($cart->product_rate*$cart->product_quantity);
            ?>
-           @endforeach <td></td><td>
+           @endforeach <td></td><td> <a href="{{route('medical_supplies.order_view')}}" class='bottom_btn'><i class="fa-solid fa-receipt fa-2xl"></i></i><h3>View Order</h3></a>
                </td>
                <td>
                <div class='table_bottom'>
+                
                  <a href="{{route('medical_supplies.index')}}" class='bottom_btn'><i class='fa-solid fa-hand-point-left fa-2xl'></i><h3>To the Previous Page</h3></a>
                 <h3 class='bottom_btn'>Grand Total :&#8377 <?php echo $p ?> <h3>
                 <a href="{{route('medical_supplies.order_confirmation')}}" class='bottom_btn'> <i class='fa-solid fa-hand-point-right fa-2xl'></i>Proceed To Checkout</a>
