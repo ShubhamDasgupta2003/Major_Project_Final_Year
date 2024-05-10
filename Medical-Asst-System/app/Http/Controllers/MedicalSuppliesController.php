@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\MailNotify;
 use Illuminate\contract\Mailer;
 use Illuminate\Support\Facades\Input;
-
+use Exception;
 
 
 
@@ -33,11 +33,9 @@ class MedicalSuppliesController extends Controller
       $products=$medical_supplies_medicals->where('product_name',$request->data);
       return response()->json(['data'=>$products]);
     }
-    // if(!empty($request->get('search'))){
-    //   $products=$medical_supplies_medicals->where('product_kewords','like','%'.$request->get('search').'%');
-    // }
+   
     return view('medical_supplies.index',['medical_supplies_medicals'=>$medical_supplies_medicals],compact('totalcount'));
-   // return view('medical_supplies.index');
+  
    }
 
 
@@ -96,16 +94,16 @@ public function cart()
 public function storeImage(Request $request)
 {
 
-
+  $filename = time()."-ws.".$request->file('image')->getClientOriginalExtension();
+  try{
   $request->validate(['image'=>'required|image|mimes:png,jpg,gif,svg,jpeg|max:2048']);
- /* $file=$request->file('image');
-  $extension=$file->getClientOriginalExtension();
-  $filename=time().'.'.$extension;
-  $file->move('uploads/pres/'.$filename);*/
-
-  $imageName=time().'.'.$request->image->extension();
-  $request->image->storeAs('images',$imageName);
-  
+  }catch (exception $e){
+    $carts=cart::all();
+    return view('medical_supplies.cart',['carts'=>$carts]);
+  }
+  $request->file('image')->storeAs('uploads',$filename);
+  $carts=cart::all();
+  return view('medical_supplies.cart',['carts'=>$carts]);
 }
 public function delete(cart $cart)
     {
