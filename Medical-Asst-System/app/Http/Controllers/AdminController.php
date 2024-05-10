@@ -95,8 +95,8 @@ class AdminController extends Controller
     $avbl_years = DB::select("SELECT distinct YEAR(booking_date) as years from patient_ambulance ORDER BY booking_date");
     $reg_Drivers = DB::select("SELECT COUNT(*) as count FROM amb_info");
     $cur_month_income = DB::select("SELECT SUM(amount) as amount FROM payments WHERE MONTH(payment_date)=$cur_month_no");
-
-    return view('admin_panel.admin_amb_service',compact(array('avbl_years','reg_Drivers','cur_month_income')));
+    $success_rides = DB::select("SELECT COUNT(*) AS count FROM patient_ambulance WHERE ride_status=111");
+    return view('admin_panel.admin_amb_service',compact(array('avbl_years','reg_Drivers','cur_month_income','success_rides')));
    
 
     // return sizeof($avbl_years);

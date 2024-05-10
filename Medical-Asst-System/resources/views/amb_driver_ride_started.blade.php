@@ -43,8 +43,15 @@
       <div class="modal-body">
           <div class="input-group mb-3">
           <div class="row">
-          <label for="" class="text-danger col-11">You want to finish the current ride ?</label>
-            <button class="btn btn-outline-primary text-center col-3" id="submit_feedback" name="submit">Yes</button>
+            <div class="col-md-12">
+              <h4>Do you want to finish the current ride?</h4>
+            </div>
+            <div class="col-md-12 form-text">
+              Once you click <strong>'yes'</strong> you will be redirected to the payment page to complete the payment process. Else click <strong>'close'</strong> to continue the ride.
+            </div>
+            <div class="col-md-12 text-center mt-3">
+              <button class="btn btn-danger text-center col-3" id="submit_feedback" name="submit">Yes</button>
+            </div>
           </div>
           
           </div>
