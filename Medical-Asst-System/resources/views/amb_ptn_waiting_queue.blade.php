@@ -12,26 +12,56 @@
     <style>
         body
         {
-            background: rgb(255,224,174);
-            background: linear-gradient(324deg, rgba(255,224,174,1) 38%, rgba(148,255,200,1) 59%, rgba(152,202,255,1) 100%);
+            background: rgb(227,255,244);
+            background: linear-gradient(356deg, rgba(227,255,244,1) 0%, rgba(248,218,255,1) 100%);
+        }
+        .profile
+        {
+          color:blue;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
+
+<nav class="navbar navbar-light container-fluid bg-light shadow-sm p-1  bg-body rounded">
+            
+            <a class="navbar-brand text-primary ms-5">Navbar</a>
+
+            <div class="d-flex">
+                <h2 class="me-2 text-light"> 
+                <!-- Example single danger button -->
+                <div class="btn-group dropstart profile">
+                <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="row">
+                        <div class="col-1">
+                        <i class="fa-regular fa-user fa-xl" style="color: #0470ce;"></i>
+                    </div>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><h4 class="dropdown-item">{{session('user_name')}}</h4></li>
+                </ul>
+                </div>
+            </h2>
+            </div>
+        </div>
+        </nav>
+
     <div class="container d-flex flex-column justify-content-center align-items-center" style="height:100vh">
 
    
     <h1 id="status">Booking ride</h1>
-        <div class="card mt-3" style="width:25rem;height:20rem">
-            <div class="card-body rounded">
-                <h4 class="card-title d-flex flex-column justify-content-center align-items-center" id="srvc_name">
-                <div class="spinner-grow text-success" role="status"></div>     <div class="comment mt-3">Please wait...</div>
+        <div class="card shadow p-3 mb-5 bg-body rounded mt-3" style="width:25rem;height:20rem">
+            <div class="card-body rounded p-3">
+                <h4 class="card-subtitle mb-2 text-center p-2" id="srvc_amb_no"></h4>
+                <h4 class="card-title d-flex flex-column justify-content-center align-items-center text-center" id="srvc_name">
+                <div class="spinner-grow text-success" role="status"></div>     <div class="comment mt-3 text-center">Please wait...</div>
                 <div class="comment mt-3">While we confirm your ride</div>
                 </h4>
-                <h6 class="card-subtitle mb-2 text-muted" id="srvc_amb_no"></h6>
-                <p class="card-text" id="srvc_driver"></p>
-                <h4 id="srvc_mob"></h4>
-                <h5 id="track_btn"></h5>
+                <h4 class="card-text text-center" id="srvc_driver"></h4>
+                <h4 id="srvc_mob" class="text-center"></h4>
+                <h5 id="track_btn" class="text-center mt-3"></h5>
             </div>
         </div>
 
@@ -64,10 +94,15 @@
                             var link = '{{url('/')}}/amb-ptn-ride-confirmed?ptn_lat='+patient_info.patient_booking_lat+"&ptn_lng="+patient_info.patient_booking_lng+"&amb_lat="+patient_info.amb_current_lat+"&amb_lng="+patient_info.amb_current_lng+"&amb_no="+patient_info.amb_no+"&inv_no="+patient_info.invoice_no;
 
                             $('#srvc_amb_no').html(service_van_no);
+                            $('#srvc_amb_no').css({"background-color":"#ffa600","color":"#000000"})
                             $('#srvc_name').html(service_name);
+                            $('#srvc_name').css("color","#006aff");
                             $('#srvc_mob').html(service_mob);
+                            $('#srvc_mob').css('color',"#16a300");
                             $('#srvc_driver').html(service_driver);
+                            $('#srvc_driver').css('color',"#003870");
                             $('#status').html('Ride Booked successfully');
+                            $('#status').css("color","green");
                             $("#track_btn").html("<a href="+link+"><button class='btn btn-success'>Track ambulance</button></a>")
                         }
                     }

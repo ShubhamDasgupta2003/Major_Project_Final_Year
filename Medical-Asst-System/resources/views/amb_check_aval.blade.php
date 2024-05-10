@@ -219,6 +219,7 @@
                 })
             })
             $('#proceed_addrs').on('click',function(){
+
                 var type = $('#amb_type').val();
                 var dist = $('#amb_district').val();
                 var city = $('#ptn_city').val();

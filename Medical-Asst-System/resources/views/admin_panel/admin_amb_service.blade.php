@@ -83,7 +83,7 @@
     </header>
     <main>
         <div class="cards">
-            <div class="card-single">
+            <div class="card-single bg-primary">
                 <div>
                   
                     <h1 style="color: #fff;">{{$reg_Drivers[0]->count}}</h1>
@@ -93,17 +93,17 @@
                     <span class="las la-users" style="color: #fff;"></span>
                 </div>
             </div>
-            <div class="card-single">
+            <div class="card-single bg-success">
                 <div>
                     
-                    <h1 style="color: #fff;"></h1>
+                    <h1 style="color: #fff;">{{$success_rides[0]->count}}</h1>
                     <span>Successful Rides</span>
                 </div>
                 <div>
-                    <span class="las la-shopping-bag" style="color: #fff;"></span>
+                    <span class="las la-ambulance" style="color: #fff;"></span>
                 </div>
             </div>
-            <div class="card-single">
+            <div class="card-single bg-secondary">
                 <div>
                     <h4 style="color: #fff;"> &#8377 {{$cur_month_income[0]->amount}}</h4>
                     <span>Income(Current Month)</span>
@@ -120,7 +120,6 @@
                     <option value="" disabled selected=true>Choose Report Type</option>
                     <option value="i">Income Report</option>
                     <option value="r">Rides Report</option>
-                    <option value="d">Drivers Report</option>
                 </select>
             </div>
         </div>
@@ -275,6 +274,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </main>
    </div>
@@ -283,6 +283,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
 
+    
     function addElements(arr)
     {
         sum=0;
@@ -353,6 +354,7 @@
             $('.ride-report-summary').show();
             $('#ridesChart').show();
             $('#incomeChart').hide();
+            $('.income-report-summary').hide();
             $('.income-report-menu').hide();
             chartId = new Chart(ridesChart, {
                     type: 'bar',
