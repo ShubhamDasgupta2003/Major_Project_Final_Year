@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Hospital_info;
 use App\Models\Amb_info;
 use App\Models\Ambulance_Admin;
+use App\Models\BloodBank;
 use App\Models\HcsEmployeeTableModel;
 
 class LoginController extends Controller
@@ -64,6 +65,7 @@ class LoginController extends Controller
                 }
        }
        //Ambulance service login starts here
+      
        if($service=="Ambulance Service")
        {
 
@@ -91,6 +93,9 @@ class LoginController extends Controller
                     echo "<script>alert('Invalid E-mail! Enter a valid E-mail')</script>";
                 }
        }
+
+        //Ambulance service login ends here
+
        if($service=="Healthcare Support")
        {
                 $hcs_data = HcsEmployeeTableModel::where('emp_verification','=',"Done")->where('emp_email','=',$email_number)->first();
@@ -120,34 +125,37 @@ class LoginController extends Controller
                 }
        }
        
-        //Ambulance service login ends here
 
-    //         // return view('hos_interface')->with([
-    //         //     'email_number' => $email_number,
-    //         //     'password' => $password,
-    //         //     'service' => $service,
-    //         //     'hos_data' =>$hos_data
-    //         // ]);
-    //         if($hos_data){
-    //             if($hos_data->count() == 1){
-    //                 $storedpassword= $hos_data->hos_password;
-    //                 if($storedpassword===$password){
-    //                     session(['hos_id' => $hos_data->hos_id]);
-    //                     session(['is_adm_login' => 1]);
-    //                     // return view('hos_interface');
-    //                     return view('hos_interface')->with([
-    //                         'email_number' => $email_number,
-    //                         'password' => $password,
-    //                         'service' => $service,
-    //                         'hos_data' =>$hos_data
-    //                     ]);
-    //                 }else{
-    //                     session(['is_adm_login' => 0]);
-    //                     echo "<script>alert('Password incorrect! Enter a valid password')</script>";
-    //                 }
-    //             }
-    //         }else{
-    //             echo "no";
-    //         }
+
+        // Blood Bank Admin login 
+        if($service=="Blood Bank Service")
+        {
+                 $bloodBank_admin = BloodBank::where('email',$email_number)->orWhere('phone',$email_number)->first();
+                 if($bloodBank_admin){
+                     //    echo "$hos_data";
+                     if($bloodBank_admin){
+                     $storedpassword= $bloodBank_admin->password;
+                         if($storedpassword===$password){
+                             // echo "$hos_data->hos_id";
+                             session(['bloodBank_id' => $bloodBank_admin->id]);
+                             session(['bloodBank_name' => $bloodBank_admin->name]);
+                             session(['is_bldadmin_login' => 1]);
+                             return redirect()->route('Blood_admin_page')
+                                              ->with(['bldBank_id',
+                                                      $bloodBank_admin->id
+                                                     ]);
+                             
+                         //     echo"$hos_data->hos_id";
+                         }else{
+                             // echo "false";
+                             session(['is_bldadmin_login' => 0]);
+                             echo "<script>alert('Password incorrect! Enter a valid password')</script>";
+                         }
+                     }
+                 }else {
+                     echo "<script>alert('Invalid E-mail! Enter a valid E-mail')</script>";
+                 }
+        }
+
     }
 }
