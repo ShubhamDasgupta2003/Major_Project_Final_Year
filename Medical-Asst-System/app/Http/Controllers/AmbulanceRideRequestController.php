@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use App\Models\Patient_ambulance;
 use App\Http\Controllers\AmbulanceDriverPageController;
 use Illuminate\Support\Facades\Http;
-
 use DB;
 use Cache;
 
