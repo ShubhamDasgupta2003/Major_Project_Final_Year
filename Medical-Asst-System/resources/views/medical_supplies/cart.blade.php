@@ -89,9 +89,8 @@ $p=1;
                <div class='table_bottom'>
                  <a href="{{route('medical_supplies.index')}}" class='bottom_btn'><i class='fa-solid fa-hand-point-left fa-2xl'></i><h3>To the Previous Page</h3></a>
                 <h3 class='bottom_btn'>Grand Total :&#8377 <?php echo $p ?> <h3>
-                     
-              <a href="{{route('medical_supplies.order_confirmation')}}" class='bottom_btn'> <i class='fa-solid fa-hand-point-right fa-2xl'></i>Proceed To Checkout</a>
-               </div>
+                <a href="{{route('medical_supplies.order_confirmation')}}" class='bottom_btn'> <i class='fa-solid fa-hand-point-right fa-2xl'></i>Proceed To Checkout</a>
+            </div>
                <div class="fileinput">
           
                      <form method="post" enctype="multipart/form-data" action="{{route('medical_supplies.imagestore')}}">

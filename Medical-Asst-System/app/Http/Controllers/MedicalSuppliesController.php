@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
 use App\Models\medical_supplies_medical;
 use App\Models\medical_supplies_technical;
+use App\Models\medical_supplies_order;
 use App\Models\cart;
 use App\Mail\DemoMail;
 use Illuminate\Support\Facades\Mail;
@@ -16,28 +17,54 @@ use App\Mail\MailNotify;
 use Illuminate\contract\Mailer;
 use Illuminate\Support\Facades\Input;
 use Exception;
-
+use Illuminate\Support\Facades\Session;
 
 
 class MedicalSuppliesController extends Controller
 {
     //
-   public function index(Request $request)
-   {
+    public function index(Request $request)
+   {  /*
     $medical_supplies_medicals=medical_supplies_medical::all();
     $totalcount=cart::count();
 
     if($request->ajax())
     {
-      // $data = $request->data;
+       $data = $request->data;
       $products=$medical_supplies_medicals->where('product_name',$request->data);
       return response()->json(['data'=>$products]);
     }
    
-    return view('medical_supplies.index',['medical_supplies_medicals'=>$medical_supplies_medicals],compact('totalcount'));
+    return view('medical_supplies.index',['medical_supplies_medicals'=>$medical_supplies_medicals],compact('totalcount'));  */
   
-   }
 
+
+    $medical_supplies_medicals = medical_supplies_medical::query();
+    $totalcount=cart::count();
+    if ($request->ajax()) {
+      $productName = $request->input('product_name');
+      $banks = DB::table('medical_supplies_table')
+          ->where('product_name', $productName)
+          ->get();
+
+        //    $banks = $query->where('id', $req->search)->get();
+        Session::put('bloodB_search_result', $banks);
+        
+        return response()->json(['data'=>$banks]);
+        
+    } else {
+      $medical_supplies_medicals = medical_supplies_medical::query();
+      $totalcount=cart::count();
+        $bloodbanks = $medical_supplies_medicals->where('id', '')->get();
+        return view('medical_supplies.index',['medical_supplies_medicals'=>$medical_supplies_medicals],compact('totalcount')); 
+    }
+
+   }
+   public function searchm()
+   { 
+    $banks = Session::get('bloodB_search_result');
+     
+   }
 
    public function indexb()
    {
@@ -123,6 +150,7 @@ public function delete(cart $cart)
     }
     public function order()
     {
+      $carts=cart::all();
       return view('medical_supplies.order_confirmation');
     }
     public function generatePdfb()

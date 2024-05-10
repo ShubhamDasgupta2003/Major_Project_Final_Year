@@ -187,30 +187,27 @@
     <script src="search.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        
-        $(document).ready(function(){
-            $('#search_btn').on('click',function(){
-                // console.log("Search clicked");
-                var srch_val = $('#search_data').val();
-                // console.log(srch_val);
-                $.ajax({
-                    url:"{{route('medical_supplies.index')}}",
-                    type:'GET',
-                    data:{'data':srch_val},
-                    success:function(response){
-                        console.log(response);
-                    }
-                })
-            })
-        })
-        // function myfunction()
-        // {
-        //     // var x=document.getElementById("search_data").value;
-        //     // window.location.href = "search supplies.php?search_data="+x;
-        //     
-        //     })
-           
-        // }
-    </script>
+    $(document).ready(function(){
+        $("#submit").on('click', function(){
+            const value = $('#search').val();
+
+            // Make AJAX request
+            $.ajax({
+                url: "/medical_supplies",
+                type: "GET",
+                data: {'search': value},
+                success: function(data){
+                     console.log(data);
+                    // let banks = data.banks;
+                    // let html = '';
+
+                 
+                   
+                }
+               
+            });
+        });
+    });
+</script>
 </body>
 </html>
