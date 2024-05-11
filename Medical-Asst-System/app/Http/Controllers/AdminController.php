@@ -37,6 +37,25 @@ class AdminController extends Controller
    {
     return view('admin_panel.delete');
    }
+   public function supplies()
+   {
+    $medical_supplies_medicals = medical_supplies_medical::all();
+    return view('admin_panel.supplies',['medical_supplies_medicals'=>$medical_supplies_medicals]); 
+  }
+   
+  public function suppliesu(medical_supplies_medical $medical_supplies_medical,Request $request)
+   {
+   
+    
+    $data=$request->validate([
+      'id'=>'required',
+      'quantity'=>'required|numeric'
+    ]); 
+
+     $medical_supplies_medical->update($data);
+
+return redirect(route("admin_panel.supplies")); 
+  }
    public function store(Request $request)
    {
     $data=$request->validate([

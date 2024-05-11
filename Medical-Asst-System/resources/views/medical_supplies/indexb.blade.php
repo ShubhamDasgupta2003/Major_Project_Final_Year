@@ -96,7 +96,7 @@
                     <p class='card-address'>..... </p>
                     <p class='card-type'>{{$medical_supplies_technicals->product_para}}</p>
                     <p class='card-fare'>{{$medical_supplies_technicals->product_rate}}</p>
-                    <a href="{{route('technical_supplies.detail',['medical_supplies_technical'=>$medical_supplies_technicals])}}"><button class='btn btn-secondary-orange'>Details</button></a>
+                    <a href="{{route('medical_supplies.detail',['medical_supplies_medical'=>$medical_supplies_technicals])}}"><button class='btn btn-secondary-orange'>Details</button></a>
                 </div>
                </div>
           @endforeach

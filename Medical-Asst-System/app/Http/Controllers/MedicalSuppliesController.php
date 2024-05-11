@@ -25,9 +25,17 @@ class MedicalSuppliesController extends Controller
     //
     public function index(Request $request)
    { 
+        if (!session()->has('user_name')) {
+               // Set alert message and type
+                $alertMessage = 'Please login to access this page.';
+                $alertType = 'warning';
 
-
-    $medical_supplies_medicals = medical_supplies_medical::all();
+                // Redirect to login page with alert message
+                return redirect()->route('user_login')->with(compact('alertMessage', 'alertType'));
+        } else {
+               //Enter your previous view code
+     
+    $medical_supplies_medicals = medical_supplies_medical::where('category', 'medical')->get();
     $totalcount=cart::count();
     if ($request->ajax()) {
       $productName = $request->input('product_name');
@@ -42,18 +50,25 @@ class MedicalSuppliesController extends Controller
         return response()->json(['data'=>$products]);
         
     } else {
-      $medical_supplies_medicals = medical_supplies_medical::all();
+      $medical_supplies_medicals = medical_supplies_medical::where('category', 'medical')
+      ->where('quantity', '>', 0)
+      ->get();
       $totalcount=cart::count();
        
         return view('medical_supplies.index',['medical_supplies_medicals'=>$medical_supplies_medicals],compact('totalcount')); 
     }
 
-   }
+  }
+    }
+
+   
    public function searchm(Request $request)
    { 
     
     $searchQuery = $request->query('search');
-    $medical_supplies_technicals = medical_supplies_technical::where('product_keywords', 'like', '%' .$searchQuery . '%')->get();
+    $medical_supplies_technicals = medical_supplies_medical::where('product_keywords', 'like', '%' . $searchQuery . '%')
+    ->where('quantity', '>', 0)
+    ->get();
     $totalcount=cart::count();
     return view('medical_supplies.indexb',['medical_supplies_technicals'=>$medical_supplies_technicals],compact('totalcount')); 
    }
@@ -61,14 +76,18 @@ class MedicalSuppliesController extends Controller
    public function searcht(Request $request)
    { 
     $searchQuery = $request->query('search');
-    $medical_supplies_medicals = medical_supplies_medical::where('product_keywords', 'like', '%' .$searchQuery . '%')->get();
+    $medical_supplies_medicals = medical_supplies_medical::where('product_keywords', 'like', '%' . $searchQuery . '%')
+    ->where('quantity', '>', 0)
+    ->get();
     $totalcount=cart::count();
     return view('medical_supplies.index',['medical_supplies_medicals'=>$medical_supplies_medicals],compact('totalcount')); 
    }
 
    public function indexb(Request $request)
    {
-    $medical_supplies_technicals=medical_supplies_technical::all();
+    $medical_supplies_technicals = medical_supplies_medical::where('category', 'technical')
+    ->where('quantity', '>', 0)
+    ->get();
     $totalcount=cart::count();
     if($request->ajax())
     {
@@ -96,10 +115,10 @@ class MedicalSuppliesController extends Controller
      
      return view('medical_supplies.detail',['medical_supplies_medical'=>$medical_supplies_medical]);
    }
-   public function editb(medical_supplies_technical $medical_supplies_technical)
+   public function editb(medical_supplies_medical $medical_supplies_medical)
    {
      
-     return view('medical_supplies.detailb',['medical_supplies_technical'=>$medical_supplies_technical]);
+    return view('medical_supplies.detail',['medical_supplies_technical'=>$medical_supplies_medical]);
    }
    public function store(Request $request)
    {
@@ -131,11 +150,23 @@ class MedicalSuppliesController extends Controller
 }
 public function cart()
 {
- $carts=cart::all();
- 
- return view('medical_supplies.cart',['carts'=>$carts]);
-// return view('medical_supplies.index');
+/* $carts=cart::all();
+ $medical_supplies_technicals=medical_supplies_technical::all();
+return view('medical_supplies.cart',['carts'=>$carts]);
+*/
+
+$joinedData = DB::table('carts')
+    ->join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+    ->select('medical_supplies_medicals.quantity')
+    ->get();
+   
+    $carts = Cart::join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+    ->where('medical_supplies_medicals.quantity', '>', 0)
+    ->get();
+  return view('medical_supplies.cart',['carts'=>$carts],['j'=>$joinedData]);
 }
+
+
 public function storeImage(Request $request)
 {
 
@@ -181,11 +212,19 @@ public function delete(cart $cart)
       }
       $p=0;
       $s=0;
+     
       foreach($carts as $cart)
       {
         $p=$p+($cart->product_rate*$cart->product_quantity);
         $s=$s+($cart->product_quantity);
+       
       }
+      Cart::join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+       ->update(['medical_supplies_medicals.quantity' => DB::raw('medical_supplies_medicals.quantity - carts.product_quantity')]);
+
+
+
+
       echo $p ;
 
       echo $s;
