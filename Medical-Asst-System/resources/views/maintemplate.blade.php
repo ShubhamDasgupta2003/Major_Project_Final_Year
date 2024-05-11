@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/body_cont.css">
     <link rel="stylesheet" href="css/footer_style.css">
     <link rel="stylesheet" href="css/location_win.css">
+    {{-- <link rel="stylesheet" href="css/useravatar.css"> --}}
     <!-- for slider  -->
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/freeps2/a7rarpress@main/swiper-bundle.min.css">
@@ -47,7 +48,7 @@
     <div class="user-avatar-container">
     <a href="/user_login" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
             @if (session()->has('user_name'))
-               <h5>{{session()->get('user_name')}}</h5>
+               <h3>{{session()->get('user_name')}}</h3>
             @else
                 {{"Gust"}}
             @endif   
