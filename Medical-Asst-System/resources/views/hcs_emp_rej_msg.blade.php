@@ -56,7 +56,7 @@
         <div class="input-group">
         <label for="message">Message:</label>
         <input type="text" id="message" name="msg" required>
-        <input type="text" id="message" name="order_id" value="{{request('order_id')}}" placeholder="{{request('order_id')}}">
+        <input type="hidden" id="message" name="order_id" value="{{request('order_id')}}" placeholder="{{request('order_id')}}">
         </div>
         <div class="input-group">
             <input type="submit" value="Send Message">

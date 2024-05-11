@@ -59,6 +59,8 @@ Route::get('/hcs_payment_success',[HcsController::class,'paymentSuccess'])->name
 Route::get('/show_emp_admin_intf',[HcsController::class,"show_emp_admin_intf"])->name('show_emp_admin_intf');
 Route::get('/hcs_emp_msg',[HcsController::class,"hcs_emp_msg_index"])->name('hcs_emp_msg');
 Route::post('/hcs_emp_msg',[HcsController::class,"hcs_emp_msg"])->name('hcs_emp_msg_post');
+Route::get('/hcs_emp_rej_msg',[HcsController::class,"hcs_emp_rej_msg_index"])->name('hcs_emp_rej_msg');
+Route::post('/hcs_emp_rej_msg',[HcsController::class,"hcs_emp_rej_msg"])->name('hcs_emp_rej_msg_post');
 //hcs booking
 Route::get('/booking_conf', function () {
     return view('hcs_booking_confirmation');
@@ -135,7 +137,6 @@ Route::post('/input admin panel',[AdminController::class,'store'])->name('admin_
 Route::get('/admin medical supplies',[AdminController::class,'admin_supplies'])->name('admin_panel.admin_medical_supplies');
 Route::get('/update admin panel',[AdminController::class,'update_admin'])->name('admin_panel.update');
 Route::get('/delete admin panel',[AdminController::class,'delete_admin'])->name('admin_panel.delete');
-Route::get('/amb_admin_panel',[AdminController::class,'getAmbAdmin_data'])->name('amb_admin_show_data');
 /*-------------------Admin Panel----------------------------------*/
 
 /*-------------------others----------------------------------*/

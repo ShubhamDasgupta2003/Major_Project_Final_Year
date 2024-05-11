@@ -162,7 +162,7 @@
       <td>{{$order->state}}</td>
       <td>{{$order->created_at}}</td>
       <td> <a href="{{route('hcs_emp_msg',['order_id' => $order->order_id ])}}" ><button type="button" class="btn btn-primary">Accept</button></a></td>
-      <td> <a href="{{route('hcs_admin',['emp_id' => $order->order_id ])}}" id="deleteBtn"><button type="button" class="btn btn-danger">Reject</button></a><td>
+      <td> <a href="{{route('hcs_emp_rej_msg',['order_id' => $order->order_id ])}}" =><button type="button" class="btn btn-danger">Reject</button></a><td>
     </tr>
     @endif
     @endforeach

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Mail;
 use App\Mail\Hcs_emp_booking_mail;
 use App\Mail\Hcs_emp_msg_mail;
+use App\Mail\Hcs_emp_rej_msg_mail;
 
 class HcsController extends Controller
 {
@@ -216,7 +217,7 @@ class HcsController extends Controller
             if($payment_id_update)
             { 
             $userdata= Hcs_order::where('order_id', $orderId)->first(); 
-            Mail::to('session()->get("user_email")')->send(new Hcs_emp_booking_mail($userdata));   
+            Mail::to(session()->get("user_email"))->send(new Hcs_emp_booking_mail($userdata));   
             return view('hcs_payment_ackn');}
         }
         public function hcsPayment(Request $request){
@@ -235,6 +236,7 @@ class HcsController extends Controller
         public function hcs_emp_msg(Request $request)
         {
             $userdata = Hcs_order::where('order_id', $request->input('order_id'))->first();
+            Hcs_order::where('order_id', $request->input('order_id'))->update(['order_status' => 'Ongoing']);
         
             if (!$userdata) {
                 // Handle case where order data is not found
@@ -254,8 +256,40 @@ class HcsController extends Controller
             $msg = $request->input('msg');
         
             Mail::to($userinfo->user_email)->send(new Hcs_emp_msg_mail($userdata, $msg));
+
         
-            return redirect("hcs_emp_admin_intf");
+            return redirect("show_emp_admin_intf");
+        }
+        public function hcs_emp_rej_msg_index(){
+            return view('hcs_emp_rej_msg');
+        }
+        public function hcs_emp_rej_msg(Request $request){
+            $userdata = Hcs_order::where('order_id', $request->input('order_id'))->first();
+            if (!$userdata) {
+                // Handle case where order data is not found
+                return redirect()->back()->with('error', 'Order not found');
+            }
+        
+            $user_id = $userdata->user_id;
+        
+            // Retrieve user info
+            $userinfo = User_info::where('user_id', $user_id)->first();
+        
+            if (!$userinfo) {
+                // Handle case where user info is not found
+                return redirect()->back()->with('error', 'User information not found');
+            }
+        
+            $msg = $request->input('msg');
+            Hcs_order::where('order_id', $request->input('order_id'))->update([
+                'order_status' => 'Canceled',
+                'rej_msg' => $msg
+            ]);
+        
+            Mail::to($userinfo->user_email)->send(new Hcs_emp_rej_msg_mail($userdata, $msg));
+
+        
+            return redirect("show_emp_admin_intf");
         }
         
 }
