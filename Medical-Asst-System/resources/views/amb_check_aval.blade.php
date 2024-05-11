@@ -45,8 +45,14 @@
         </div>
     </div>
     </div>
-
+    
     <div class="container-fluid row">
+
+        <div class="alert-conatiner sticky-sm-top" id="alert">
+        <div class="alert alert-danger mt-0 p-1 text-center mb-0 ms-0 me-0" role="alert">
+        <p class="text-danger fs-5 text-decoration-none">Please login to book rides<a href="/user_login" class=""> click here</a></p>
+        </div>
+        </div>
         <div class="left-panel col-5 border vh-100 overflow-auto">
             <div class="patient-card-body">
                     <!-- Card header begins -->
@@ -187,6 +193,7 @@
             }
 
             $(document).ready(function(){
+            $('#alert').hide();
             $('#check').on('click',function(){
                 var type = $('#amb_type').val();
                 var dist = $('#amb_district').val();
@@ -220,6 +227,12 @@
             })
             $('#proceed_addrs').on('click',function(){
 
+                if(!'{{session()->has('user_id')}}')
+                {
+                    $('#alert').show();
+                    $("#proceed_addrs").prop("disabled",true);
+                    $("#current_addrs").prop("disabled",true);
+                }
                 var type = $('#amb_type').val();
                 var dist = $('#amb_district').val();
                 var city = $('#ptn_city').val();
@@ -251,7 +264,15 @@
             
             $('#current_addrs').on('click',function(){
                 
-                api_key = "ee2dfca941774c139225977bbddebb90";
+                if(!'{{session()->has('user_id')}}')
+                {
+                    $('#alert').show();
+                    $("#proceed_addrs").prop("disabled",true);
+                    $("#current_addrs").prop("disabled",true);
+                }
+                else
+                {
+                    api_key = "ee2dfca941774c139225977bbddebb90";
                     let loc_txt = "";
 
                     fetch('https://api.opencagedata.com/geocode/v1/json?q='+lat+','+lon+'&key='+api_key)
@@ -262,6 +283,8 @@
                         var address = loc_txt;
                         window.location.href = "/amb-ptn-home?fmt_ads="+address+"&lat="+lat+"&lng="+lon;
                     })
+                }
+                
             })
         })
         }
