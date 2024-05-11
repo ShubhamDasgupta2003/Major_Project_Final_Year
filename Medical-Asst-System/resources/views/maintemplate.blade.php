@@ -29,7 +29,6 @@
     <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>&lt;EMAS&gt;</a>
     <div class="search-bar" id="srchbar-above">
         <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>
-
         <input type="text" id="searchInput" name="search"  placeholder="Search for services...">
         <button class="btn" onclick="search()"><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
@@ -50,7 +49,7 @@
             @if (session()->has('user_name'))
                <h5>{{session()->get('user_name')}}</h5>
             @else
-                Gust
+                {{"Gust"}}
             @endif   
     </div>
 <div id="menu-btn" class="fa fa-bars"> </div>
@@ -257,6 +256,7 @@ const btn_loc = document.getElementById('det-location');
 btn_loc.addEventListener("click", ()=>{
 
 })
-    </script>
+   
+
 </body>
 </html>

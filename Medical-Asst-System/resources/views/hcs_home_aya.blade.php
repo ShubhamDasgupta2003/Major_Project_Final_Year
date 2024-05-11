@@ -130,4 +130,32 @@ window.onclick = function(event) {
 }
 
 </script>
+<script>
+        function search() {
+            var query = document.getElementById("searchInput").value.toLowerCase();
+            var links = document.querySelectorAll(".card"); // Select all navigation links
+
+            links.forEach(function(link) {
+                var text = link.textContent.toLowerCase(); // Get text content of the link
+                if (text.includes(query)) {
+                    link.style.display = "block"; // Show the link if it matches the search query
+                } else {
+                    link.style.display = "none"; // Hide the link if it doesn't match the search query
+                }
+            });
+        }
+         function search1() {
+            var query = document.getElementById("searchInput1").value.toLowerCase();
+            var links = document.querySelectorAll(".card"); // Select all navigation links
+
+            links.forEach(function(link) {
+                var text = link.textContent.toLowerCase(); // Get text content of the link
+                if (text.includes(query)) {
+                    link.style.display = "block"; // Show the link if it matches the search query
+                } else {
+                    link.style.display = "none"; // Hide the link if it doesn't match the search query
+                }
+            });
+        }
+    </script>
 @endsection
