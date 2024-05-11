@@ -22,15 +22,13 @@
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/freeps2/a7rarpress@main/swiper-bundle.min.css">
     <link rel="stylesheet" href="css/HomePage/slider.css">
-    
-
+    <link rel="stylesheet" href="css/useravatar.css">   
 </head>
 <body>
 <header class="header">
     <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>&lt;EMAS&gt;</a>
     <div class="search-bar" id="srchbar-above">
         <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>
-
         <input type="text" id="searchInput" name="search"  placeholder="Search for services...">
         <button class="btn" onclick="search()"><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
@@ -49,9 +47,9 @@
     <div class="user-avatar-container">
     <a href="/user_login" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
             @if (session()->has('user_name'))
-               {{session()->get('user_name')}}
+               <h5>{{session()->get('user_name')}}</h5>
             @else
-                Gust
+                {{"Gust"}}
             @endif   
     </div>
 <div id="menu-btn" class="fa fa-bars"> </div>
@@ -59,7 +57,7 @@
 <div class="search-navbar" id="srchbar-below">
 <div class="search-bar">
     <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>
-    <input type="text" id="searchInput1" name="search"  placeholder="Search ...">
+    <input type="text" id="searchInput1" name="search"  placeholder="Search for services...">
     <button class="btn" onclick="search1()"><i class="fa-solid fa-magnifying-glass"></i></button>
 </div>
 </div>
@@ -258,6 +256,7 @@ const btn_loc = document.getElementById('det-location');
 btn_loc.addEventListener("click", ()=>{
 
 })
-    </script>
+   
+
 </body>
 </html>

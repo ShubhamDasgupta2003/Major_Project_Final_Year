@@ -1,132 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="css/BloodBank/regbank.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    {{-- Include Bootstrap CSS --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    {{-- @include('common_css') --}}
+    {{-- <link rel="stylesheet" href="css/BloodBank/BookingForm.css"> --}}
+    {{-- <link rel="stylesheet" href="css/BloodBank/abc.css"> --}}
+
+</head>
+<body>
     <div class="container">
-        <div class="row d-flex justify-content-center">
-          <div class="col-md-7">
-              <div class="card shadow">
-                
-                <div class="card-header">
-                   <div class="row "> <!--justify-content-center -->
-                      <div class="col-md-9 "><h2>Blood Bank's Registration form </h2></div>   <!-- text-center -->
-                      <div class="col-md-3"><a href="" class="btn btn-info">login</a></div>
-                  </div>
+        <div class="card">
+            <!-- <img src="https://maishacare.com/wp-content/uploads/2022/06/ambulance-service-van-emergency-medical-vehicle-vector-illustration-white-background-ambulance-service-van-emergency-medical-127018462.jpg" alt=""> -->
+            @php
+                $bloodPrice = session('blood_price');
+            @endphp
+            <div class="column">
+                <div class='amb_info_cont'>
+                    <h1 class='descp' id='title'>{{ request()->query('name') }}</h1>
+                    <h3><p class='descp' id='card-address'><i class='fa-solid fa-location-dot'></i>{{ request()->query('state') }},{{ request()->query('city') }}</p></h3>
+                    <h3><p class='descp bg' id='card-type'>{{ request()->query('blood_gr')}}</p></h3>
+                    <h2><p class='descp' id='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i>&nbsp&nbsp386.2 km</p></h2>
+                    <h2 class='descp' id='card-fare'>&#8377 {{$bloodPrice}}/-</h2>
+                </div>                
+              
+
+                 <div class="patient_info_cont">
+    
+                    <form method="post" enctype="multipart/form-data" action="{{url('/confirm_booking')}}">
+                        @csrf
+
+                        <div class="mb-3">
+                            <label for="pat_name" class="form-label">Patient's Full Name<sup class="mandatory">*</sup></label>
+                            <input type="text" class="form-control" id="pat_name" name="pat_name" placeholder="Enter Patient's full name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="pat_age" class="form-label">Age<sup class="mandatory">*</sup></label>
+                            <input type="number" class="form-control" id="pat_age" name="pat_age" placeholder="Patient's age" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="cont_num" class="form-label">Mobile No.<sup class="mandatory">*</sup></label>
+                            <input type="tel" class="form-control" id="cont_num" name="cont_num" placeholder="Contact number" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="prex" class="form-label">Prescription<sup class="mandatory">*</sup></label>
+                            <input type="file" class="form-control prex" id="prex" name="prex" placeholder="Upload prescription" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">Gender<sup class="mandatory">*</sup></label>
+                            <div class="row">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                                    <label class="form-check-label" for="male">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                                    <label class="form-check-label" for="female">Female</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Confirm Order</button>
+                    </form>
+                    <a href="{{route('showBhome')}}" class="btn btn-danger">Cancel Order</a>
                 </div>
-  
-                <div class="card-body">
-                  <form action="{{route('registerBanks')}}" method="post">
-                    @csrf
+            </div>     
+        </div>
+    </div>
 
-                    @if (Session::has('success'))
-                    <div class="alert alert-success">{{Session::get('success')}}</div>
-                @endif
-                @if (Session::has('failed'))
-                    <div class="alert alert-danger">{{Session::get('failed')}}</div>
-                @endif
+    {{-- Include Bootstrap JS --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
 
-                      <div>
-                        <label for="">Name</label>
-                        <input type="text" name="name"  placeholder="Enter your Blood bank name" class="form-control">
-                        <span class="text-danger">@error('name') {{ $message }}  @enderror</span>
-                      </div>
-                      <div>
-                        <label for="">Email</label>
-                        <input type="email" name="email" placeholder="Enter email" class="form-control">
-                        <span class="text-danger">@error('email') {{ $message }}  @enderror</span>
-                      </div>
-                      
-                      
-
-                      <div>
-                        <label for="">Latitude</label>
-                        <input type="text" name="lat" placeholder="Enter your Latitude" class="form-control">
-                        <span class="text-danger">@error('lat') {{ $message }}  @enderror</span>
-                      </div>
-
-                      <div>
-                        <label for="">Longitude</label>
-                        <input type="text" name="lon" placeholder="Enter your Longitude" class="form-control">
-                        <span class="text-danger">@error('lon') {{ $message }}  @enderror</span>
-                      </div>
-
-                      <div>
-                        <label for="">State</label>
-                        <input type="text" readonly name="state" value="West Bengal" placeholder="Enter your state" class="form-control">
-                        <span class="text-danger">@error('state') {{ $message }}  @enderror</span>
-                      </div>
-                                                         
-                      <div>
-                        <label for="">City</label>
-                        <input type="text" name="city" placeholder="Enter your city" class="form-control">
-                        <span class="text-danger">@error('city') {{ $message }}  @enderror</span>
-                      </div>
-  
-                     
-  
-                      <label for="">Phone</label>
-                      <input type="number" name="phone" placeholder="Enter your Longitude" class="form-control">
-  
-                       <label for="">Dist</label>
-                      <!--<input type="text" name="branch" placeholder="Enter your district" > -->
-  
-                      <select name="dist" class="form-control">
-                      <option value="" selected disabled>Select District</option>
-                                          <option value="Alipurduar">Alipurduar</option>
-                                          <option value="Bankura">Bankura</option>
-                                          <option value="Birbhum">Birbhum</option>
-                                          <option value="Cooch Behar">Cooch Behar</option>
-                                          <option value="Dakshin Dinajpur">Dakshin Dinajpur</option>
-                                          <option value="Darjeeling">Darjeeling</option>
-                                          <option value="Hooghly">Hooghly</option>
-                                          <option value="Howrah">Howrah</option>
-                                          <option value="Jalpaiguri">Jalpaiguri</option>
-                                          <option value="Jhargram">Jhargram</option>
-                                          <option value="Kalimpong">Kalimpong</option>
-                                          <option value="Kolkata">Kolkata</option>
-                                          <option value="Malda">Malda</option>
-                                          <option value="Nadia">Nadia</option>
-                                          <option value="North 24 Parganas">North 24 Parganas</option>
-                                          <option value="Paschim Bardhaman">Paschim Bardhaman</option>
-                                          <option value="Paschim Medinipur">Paschim Medinipur</option>
-                                          <option value="Purba Bardhaman">Purba Bardhaman</option>
-                                          <option value="Purba Medinipur">Purba Medinipur</option>
-                                          <option value="Purulia">Purulia</option>
-                                          <option value="South 24 Parganas">South 24 Parganas</option>
-                                          <option value="Uttar Dinajpur">Uttar Dinajpur</option>
-                                          </select>
-  
-                      <label for="">Pin code</label>
-                      <input type="text" name="pin" placeholder="Enter your Pincode" class="form-control">
-                      
-
-                      <div>
-                        <label for="">Password</label>
-                        <input type="password" name="password" placeholder="Enter password" class="form-control">
-                        <span class="text-danger">@error('password') {{ $message }}  @enderror</span>
-                      </div>
-
-                      <div>
-                        <label for="rpass">Confirmpassword</label>
-                        <input type="text" name="password_confirmation" id="rpass" placeholder="Reenter password" class="form-control">
-                        <span class="text-danger">@error('password_confirmation') {{ $message }}  @enderror</span>
-                      </div >
-
-                     
-                      <!-- <label for="">Photo</label>
-                      <input type="file" name="photo" id="photo" class="form-control"> -->
-                        
-                      <input type="submit" value="Submit" name="submit" class="btn btn-success submit-btn form-control">
-                  </form>
-                </div>
-               
-              </div>
-          </div>
-  </body>
 </html>

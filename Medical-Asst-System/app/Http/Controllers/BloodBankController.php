@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\blood_group;
 use App\Models\BloodBank;
+use App\Models\BloodOrder;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -80,8 +82,143 @@ class BloodBankController extends Controller
 
     }
 
-   public function upload(request $req){
+   public function submitOrder(request $req){
+    $validate = $req->validate([
+        'pat_name' => 'required',
+        'pat_age' => 'required',
+        'cont_num' => 'required',
+        'prex' => 'required|mimes:png,jpg,pjpeg',
+        'gender' => 'required',
+    ], [
+        'pat_name.required' => 'Patient name is required.',
+        'pat_age.required' => 'Patient age is required.',
+        'cont_num.required' => 'Contact number is required.',
+        'prex.required' => 'Prescription is required.',
+        'gender.required' => 'Gender is required.',
+    ]);
     
+    if($req->has('prex')){
+        $file=$req->file('prex');
+        $extension=$file->getClientOriginalExtension();
+        $filename=time().'.'.$extension;
+        $path='uploads/prescription/';
+        $file->move($path,$filename);
+    }
+    // generate the order id
+    $lastOrder = BloodOrder::orderBy('order_id', 'desc')->first();
+    if ($lastOrder == null) {
+    $numericPart = "00000";
+    } else {
+    // Extract the numeric part of the existing order ID
+    $numericPart = substr($lastOrder->order_id, 3);
+    }
+    // $numericPart="0000";
+    $newNumericPart = str_pad((intval($numericPart) + 1), strlen($numericPart), '0', STR_PAD_LEFT);
+    $newOrderID = "BLD" . $newNumericPart;
+    $order_type="Blood_Booking";
+    $order_status="process";
+    
+    $current_time = Carbon::now();
+
+    //calculate price
+    $price= session('blood_price')*$req->quantity;
+
+    $orders = new BloodOrder();
+  
+
+    $orders->order_id=$newOrderID;
+    $orders->order_type=$order_type;
+    $orders->user_id=session()->get('user_id');
+    $orders->bank_id=$req->bank_id;
+    $orders->pat_name = $req->pat_name;
+    $orders->pat_age = $req->pat_age;
+    $orders->pat_gender = $req->gender;
+    $orders->phone_no = $req->cont_num;
+    $orders->prex = $path.$filename;
+    $orders->order_status =$order_status;
+    $orders->blood_gr=$req->blood_gr;
+    $orders->quantity=$req->quantity;
+    $orders->price=$price;
+    $orders->date=date('Y-m-d');
+    $orders->time=date('H:i:s');
+    // $res = $orders->save();
+
+    // $orders-> = $req->pat_age;
+
+   return view('Blood_Booking/payment',['orders' => $orders]);
    }
 
+   public function BloodBank_admin(){
+    $bank_id=session('bloodBank_id');
+    $bloodOrders = DB::table('blood_orders')
+    ->where('bank_id', $bank_id)
+    ->where('order_status', 'process')
+    ->get();
+   
+    $bloodOrders_complete = DB::table('blood_orders')
+    ->where('bank_id', $bank_id)
+    ->where('order_status', 'complete')
+    ->get();
+
+    $totalOrders = DB::table('blood_orders')
+    ->select(DB::raw('COUNT(order_id) AS comp_orders'))
+    ->where('bank_id', $bank_id)
+    ->groupBy('bank_id')
+    ->get();
+    $count = $totalOrders[0]->comp_orders;
+
+    //find out order in last 24 hour
+    $currentTime = Carbon::now();
+    $twentyFourHoursAgo = Carbon::now()->subHours(24);
+
+    $totalOrdersIn24hr = DB::table('blood_orders')
+    ->select(DB::raw('COUNT(order_id) AS comp_orders'))
+    ->where('bank_id', $bank_id)
+    ->where('date', '>=', $twentyFourHoursAgo->toDateString()) // Filter by date
+    ->orWhere(function($query) use ($twentyFourHoursAgo) {
+        $query->where('date', '=', $twentyFourHoursAgo->toDateString())
+            ->where('time', '>=', $twentyFourHoursAgo->toTimeString()); // Filter by time
+    })
+    ->groupBy('bank_id')
+    ->get();
+
+    $countIn24hr = $totalOrdersIn24hr[0]->comp_orders;
+
+    //find out total earnings
+    $result = DB::table('blood_orders')
+            ->select(DB::raw('SUM(price) AS earnings'))
+            ->first();
+
+    $earnings = $result->earnings;
+
+
+
+    return view('Blood_Booking/adminPanel')
+           ->with('bloodOrders', $bloodOrders)
+           ->with('bloodOrders_complete', $bloodOrders_complete)
+           ->with('totalOrders', $count)
+           ->with('totalOrdersIn24hr', $countIn24hr)
+           ->with('totalEarnings', $earnings);
+
+   }
+
+   public function approve_order(string $Order_id) {
+        // Update the order status to 'complete' where order_id matches
+        DB::table('blood_orders')
+        ->where('order_id', $Order_id)
+        ->update(['order_status' => 'complete']);
+
+        return redirect()->back();
+    }
+
+    public function delete_order(string $Order_id) {
+        // Delete the record where order_id matches
+        DB::table('blood_orders')
+            ->where('order_id', $Order_id)
+            ->delete();
+        
+            return redirect()->back();
+    }
+    
+  
 }
