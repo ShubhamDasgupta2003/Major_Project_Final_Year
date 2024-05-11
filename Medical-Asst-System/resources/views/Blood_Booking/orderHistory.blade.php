@@ -40,7 +40,7 @@
             color: #fff;
             background-color:#40bba2;
             border-color:#8dd8c9;
-            margin-bottom: 16px;
+            /* margin-bottom: 16px; */
         }
         .btn-d:hover {
             background-color:#009879;
@@ -62,7 +62,7 @@
                             <img src="images/BloodB/Blood_Bank.png" style="width: 50px; height: 50px;" alt="">
                         </div>
                         <div>
-                            Quantity: 2
+                            <p>Quantity: 2</p>
                         </div>
                         <div>
                             <p>Total Amount: $100</p>
@@ -76,7 +76,7 @@
                             <p>Status: Delivered</p>
                         </div>
                         <div class="order-actions">
-                            <button class="btn btn-sucess btn-d">Book Again</button>
+                            <p><button class="btn btn-sucess btn-d">Book Again</button></p>
                         </div>
                     </div>
                 </div>

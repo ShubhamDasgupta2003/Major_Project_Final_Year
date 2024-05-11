@@ -116,11 +116,16 @@ class BloodBankController extends Controller
     $newNumericPart = str_pad((intval($numericPart) + 1), strlen($numericPart), '0', STR_PAD_LEFT);
     $newOrderID = "BLD" . $newNumericPart;
     $order_type="Blood_Booking";
+    $order_status="process";
+    
     $current_time = Carbon::now();
 
     //calculate price
     $price= session('blood_price')*$req->quantity;
+
     $orders = new BloodOrder();
+  
+
     $orders->order_id=$newOrderID;
     $orders->order_type=$order_type;
     $orders->user_id=session()->get('user_id');
@@ -130,20 +135,17 @@ class BloodBankController extends Controller
     $orders->pat_gender = $req->gender;
     $orders->phone_no = $req->cont_num;
     $orders->prex = $path.$filename;
-    $orders->order_status = "process";
+    $orders->order_status =$order_status;
     $orders->blood_gr=$req->blood_gr;
     $orders->quantity=$req->quantity;
     $orders->price=$price;
     $orders->date=date('Y-m-d');
     $orders->time=date('H:i:s');
-    $res = $orders->save();
+    // $res = $orders->save();
+
     // $orders-> = $req->pat_age;
 
-    // if ($res) {
-    //     return back()->with('success', 'You have registered successfully');
-    // } else {
-    //     return back()->with('failed', 'You have not registered successfully');
-    // }
+   return view('Blood_Booking/payment',['orders' => $orders]);
    }
 
    public function BloodBank_admin(){

@@ -118,6 +118,7 @@
                     
                         <div class="action d-flex justify-content-between">
                             <a href="{{route('showBhome')}}" class="btn btn-danger">Cancel Order</a>
+                            {{-- <a href="{{route('payment')}}" class="btn btn-primary">Confirm Order</a> --}}
                             <button type="submit" class="btn btn-primary">Confirm Order</button>
                         </div>
                     </form>

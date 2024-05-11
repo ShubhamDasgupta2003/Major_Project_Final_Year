@@ -14,9 +14,9 @@ class UserLogin extends Controller
     }
 
     public function login(Request $request){
-        if (session('logged_in')) {
+        if (session()->has('logged_in')) {
             // Redirect to another page
-            return view('/profilePage');
+            return view('Blood_Booking/profilePage');
         }
     $user=User_info::where('user_email',$request->input('email'))->where('user_password',$request->input('password'))->first();
     if($user){
