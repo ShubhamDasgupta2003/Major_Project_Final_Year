@@ -210,6 +210,8 @@ Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAc
 
 Route::post('/driver-ride-accepted',[AmbulanceDriverPageController::class,'verifyOTP'])->name('checkOtpVerification');
 
+Route::get('/driver-ride-declined',[AmbulanceDriverPageController::class,'declineRide'])->name('driver_decline');
+
 Route::get('/driver-ride-started',[AmbulanceDriverPageController::class,'reachDestination'])->name('driverRideStarted');
 
 Route::get('/amb-admin-set-pswd',[newAmbulanceRegistrationController::class,'showCreatePassword'])->name("ambAdminPassForm");

@@ -66,12 +66,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="" method="post">
-        <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Enter reason here" aria-label="OTP" aria-describedby="button-addon2">
-        <button class="btn btn-outline-success" type="button" id="dcln_rqst">Submit</button>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="form-text">Once you decline the ride, you will not be able to accept ride for 30 mins and your account will get automatically activated when you login the next time</p>
+            </div>
+            <div class="col-md-12 text-center">
+                <button class="btn btn-success" type="button" id="dcln_rqst">Yes</button>
+            </div>
         </div>
-        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -108,8 +110,9 @@
                     <li><a class="dropdown-item" href="#"><i class="fa-solid fa-money-check-dollar"></i> My Earnings</a></li>
                     <li><a class="dropdown-item"><button class="btn btn-danger"><i class="fa-solid fa-moon"></i> Take break</button></a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-power-off"></i> Logout</a></li>
+                    <li><button class="btn" id="logout"><i class="fa-solid fa-power-off"></i> Logout</button></li>
                 </ul>
+                <!--  -->
                 </div>
             </h2>
             </div>
@@ -149,18 +152,13 @@
     <script>
              $(document).ready(function(){
             $('#dcln_rqst').on('click',function(){
-                    $.ajax({
-                        url:'{{route('showAvblRides')}}',
-                        type:'GET',
-                        data:{'amb_no':1423},
-                        success:function(data){
-                            console.log(data);
-                        }
-                    })
+                console.log("declined");
+                // console.log(response.invoice_no);
+                window.location.href="/driver-ride-declined?inv_no="+response.invoice_no+"&amb_no="+response.amb_no;
                 })
         })
         
-        var data;
+        var response;
         navigator.geolocation.getCurrentPosition(success, error);
 
         function success(pos) {

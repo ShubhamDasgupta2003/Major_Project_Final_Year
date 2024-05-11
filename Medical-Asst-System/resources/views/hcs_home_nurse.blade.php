@@ -1,4 +1,4 @@
-@extends("healthcare_support_template")
+@extends("hcs_template")
 
 @section("title")
 Nurse

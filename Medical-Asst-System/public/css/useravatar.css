@@ -2,19 +2,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    justify-content: center;
     /* padding-left: 30px; */
   }
   
   .user-avatar-container a {
     margin-right: 10px; /* Adjust as needed for spacing between icon and text */
     margin-top: 10px;
+    
   }
   .user-avatar-container a :hover {
     color: #00a896;
   }
   
-  .user-avatar-container h3 {
+  .user-avatar-container h5 {
     color: #00a896;
-    font-size: 13px;
+    font-size: 10px;
+    text-align: center;
     /* padding-top:20px; */
   }
