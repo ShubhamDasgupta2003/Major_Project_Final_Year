@@ -98,6 +98,11 @@ Route::get('/hcs_admin_logout',[HcsController::class,"sup_admin_logout"]);
 Route::view ('RegisterNbank','/Blood_Booking/BbankRegister')->name('B_Bank_Register');
 Route::view ('Userlogin','/Blood_Booking/login')->name('Userlogin');
 Route::view ('/profilePage','/Blood_Booking/profilePage')->name('profile');
+// Route::view ('/bldPayment','/Blood_Booking/proceedToPay')->name('bldPayment');
+
+
+Route::get('/process_payment', [BloodBankController::class,'process_payment'])->name('process_payment');
+Route::get('/proceedToPay', [BloodBankController::class,'proceedToPay'])->name('proceedToPay');
 
 // .......................For Admin Panel........................ 
 

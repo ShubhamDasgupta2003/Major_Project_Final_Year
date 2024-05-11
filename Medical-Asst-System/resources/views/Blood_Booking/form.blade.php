@@ -73,6 +73,16 @@
                             <span class="text-danger">@error('cont_num') {{ $message }} @enderror</span>
                         </div>
                         <div class="mb-3">
+                            <label for="address" class="form-label">Address<sup class="mandatory">*</sup></label>
+                            <input type="tel" class="form-control" id="address" name="address" placeholder="Enter your full address" value="{{ old('address') }}">
+                            <span class="text-danger">@error('address') {{ $message }} @enderror</span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="landmark" class="form-label">Landmark<sup class="mandatory">*</sup></label>
+                            <input type="tel" class="form-control" id="landmark" name="landmark" placeholder="Enter a landmark" value="{{ old('landmark') }}">
+                            <span class="text-danger">@error('landmark') {{ $message }} @enderror</span>
+                        </div>
+                        <div class="mb-3">
                              <div class="mb-3">
                             <label for="quantity" class="form-label">Quantity<sup class="mandatory">*</sup></label>
                             <div class="input-group">

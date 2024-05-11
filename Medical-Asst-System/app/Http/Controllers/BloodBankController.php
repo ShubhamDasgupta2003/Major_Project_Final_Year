@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\blood_group;
+use App\Models\Payments_records;
 use App\Models\BloodBank;
 use App\Models\BloodOrder;
 use Carbon\Carbon;
@@ -89,12 +90,16 @@ class BloodBankController extends Controller
         'cont_num' => 'required',
         'prex' => 'required|mimes:png,jpg,pjpeg',
         'gender' => 'required',
+        'address' => 'required',
+        'landmark' => 'required',
     ], [
         'pat_name.required' => 'Patient name is required.',
         'pat_age.required' => 'Patient age is required.',
         'cont_num.required' => 'Contact number is required.',
         'prex.required' => 'Prescription is required.',
         'gender.required' => 'Gender is required.',
+        'address.required' => 'Address is required.',
+        'landmark.required' => 'Please enter a landmark.',
     ]);
     
     if($req->has('prex')){
@@ -117,6 +122,7 @@ class BloodBankController extends Controller
     $newOrderID = "BLD" . $newNumericPart;
     $order_type="Blood_Booking";
     $order_status="process";
+    $pay_status="due";
     
     $current_time = Carbon::now();
 
@@ -136,12 +142,15 @@ class BloodBankController extends Controller
     $orders->phone_no = $req->cont_num;
     $orders->prex = $path.$filename;
     $orders->order_status =$order_status;
+    $orders->paymentstatus =$pay_status;
     $orders->blood_gr=$req->blood_gr;
     $orders->quantity=$req->quantity;
     $orders->price=$price;
     $orders->date=date('Y-m-d');
     $orders->time=date('H:i:s');
-    // $res = $orders->save();
+    $orders->address=$req->address;
+    $orders->landmark=$req->landmark;
+    $res = $orders->save();
 
     // $orders-> = $req->pat_age;
 
@@ -153,11 +162,13 @@ class BloodBankController extends Controller
     $bloodOrders = DB::table('blood_orders')
     ->where('bank_id', $bank_id)
     ->where('order_status', 'process')
+    ->where('paymentStatus', 'due')
     ->get();
    
     $bloodOrders_complete = DB::table('blood_orders')
     ->where('bank_id', $bank_id)
     ->where('order_status', 'complete')
+    ->where('paymentStatus', 'complete')
     ->get();
 
     $totalOrders = DB::table('blood_orders')
@@ -206,9 +217,40 @@ class BloodBankController extends Controller
         // Update the order status to 'complete' where order_id matches
         DB::table('blood_orders')
         ->where('order_id', $Order_id)
-        ->update(['order_status' => 'complete']);
+        ->update(['order_status' => 'complete','paymentStatus'=>'complete']);
 
         return redirect()->back();
+    }
+
+    public function process_payment(Request $request){
+        if($request->ajax())
+       {
+        $payment_entry_model = new Payments_records();
+        $count = Payments_records::count();
+        $payment_entry_model->payment_id = $count;
+        $payment_entry_model->order_id = $request->order_id;
+        $payment_entry_model->user_id = session()->get('user_id');
+        $payment_entry_model->amount = $request->amount;
+        $payment_entry_model->service_type = $request->type;
+        $payment_entry_model->payment_status = "Initiated";
+        $payment_entry_model->payment_date = date('Y-m-d');
+        $payment_entry_model->payment_time = date('H:i:s');
+        $request->session()->put('pid',$count);
+        
+        // Save the payment record
+        if ($payment_entry_model->save()) {
+            return response()->json(['success' => true]); // Return success response
+        } else {
+            return response()->json(['success' => false]); // Return failure response
+        }
+      }
+    }
+    public function proceedToPay(Request $req){
+        $orderId = $req->input('order_id');
+        $amount = $req->input('amount');
+        $serviceType = $req->input('service_type');
+
+        return view('Blood_Booking/proceedToPay', compact('orderId', 'amount','serviceType'));
     }
 
     public function delete_order(string $Order_id) {
