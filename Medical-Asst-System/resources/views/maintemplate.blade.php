@@ -22,8 +22,7 @@
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/freeps2/a7rarpress@main/swiper-bundle.min.css">
     <link rel="stylesheet" href="css/HomePage/slider.css">
-    
-
+    <link rel="stylesheet" href="css/useravatar.css">   
 </head>
 <body>
 <header class="header">
@@ -49,7 +48,7 @@
     <div class="user-avatar-container">
     <a href="/user_login" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
             @if (session()->has('user_name'))
-               {{session()->get('user_name')}}
+               <h5>{{session()->get('user_name')}}</h5>
             @else
                 Gust
             @endif   
@@ -59,7 +58,7 @@
 <div class="search-navbar" id="srchbar-below">
 <div class="search-bar">
     <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>
-    <input type="text" id="searchInput1" name="search"  placeholder="Search ...">
+    <input type="text" id="searchInput1" name="search"  placeholder="Search for services...">
     <button class="btn" onclick="search1()"><i class="fa-solid fa-magnifying-glass"></i></button>
 </div>
 </div>

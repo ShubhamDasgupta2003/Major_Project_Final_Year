@@ -189,13 +189,17 @@ html{
         transition: none;
         
     }
+    #srchbar-below{
+        position: relative;
+        top:85px;
+    }
     #user-avatar
     {
         display: flex;
         color: var(--black);
         position: relative;
-        right: 10px;
-        justify-content: right;
+        right: -5px;
+        justify-content: center;
         width: 19rem;
         padding: 10px;
     }

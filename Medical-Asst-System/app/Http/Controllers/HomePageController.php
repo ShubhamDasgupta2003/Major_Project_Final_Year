@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\User_rating;
 class HomePageController extends Controller
 {
     public function locationPopUpWin(Request $request)
@@ -19,6 +19,8 @@ class HomePageController extends Controller
             return response()->json(['data'=>$data]);
         }
 
-        return view('welcome');
+        $ratings= User_rating::all()->sortByDesc('rating')->take(5); 
+        $data = compact('ratings');    
+        return view('welcome')->with($data);
     }
 }

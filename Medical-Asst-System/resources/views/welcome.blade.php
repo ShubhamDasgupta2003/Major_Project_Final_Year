@@ -12,7 +12,112 @@ Home Page
     <link rel="stylesheet" href="css/body_cont.css">
     <!-- <link rel="stylesheet" href="css/location_win.css"> -->
     <link rel="stylesheet" href="css/cont-card.css">
-    <link rel="stylesheet" href="css/useravatar.css">
+    <style>
+
+.heading {
+  font-size: 25px;
+  margin-right: 25px;
+}
+
+.fa {
+  font-size: 25px;
+}
+
+.checked {
+  color: orange;
+}
+
+/* Three column layout */
+.side {
+  float: left;
+  width: 15%;
+  margin-top:10px;
+}
+
+.middle {
+  margin-top:10px;
+  float: left;
+  width: 70%;
+}
+
+/* Place text to the right */
+.right {
+  text-align: right;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The bar container */
+
+
+
+#file {
+  width: 100%; /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+  border-radius: 10px; /* Adjust the border radius as needed */
+  background-color: #f0f0f0; /* Background color of the progress bar */
+}
+
+#file::-webkit-progress-bar {
+  background-color: #f0f0f0; /* Background color of the progress bar container */
+}
+/* Individual bars */
+.s5::-webkit-progress-value {
+  background-color: #4caf50; /* Color of the progress bar */
+  border-radius: 1px; /* Adjust the border radius as needed */
+}
+
+.s5::-moz-progress-bar {
+  background-color: #4caf50; /* Color of the progress bar in Firefox */
+}
+.s4::-webkit-progress-value {
+  background-color: #2196F3; /* Color of the progress bar */
+  border-radius: 1px; /* Adjust the border radius as needed */
+}
+
+.s4::-moz-progress-bar {
+  background-color: #2196F3; /* Color of the progress bar in Firefox */
+}
+.s3::-webkit-progress-value {
+  background-color: #00bcd4; /* Color of the progress bar */
+  border-radius: 1px; /* Adjust the border radius as needed */
+}
+
+.s3::-moz-progress-bar {
+  background-color: #00bcd4; /* Color of the progress bar in Firefox */
+}
+.s2::-webkit-progress-value {
+  background-color: #ff9800; /* Color of the progress bar */
+  border-radius: 1px; /* Adjust the border radius as needed */
+}
+
+.s2::-moz-progress-bar {
+  background-color: #ff9800; /* Color of the progress bar in Firefox */
+}
+.s1::-webkit-progress-value {
+  background-color:  #f44336; /* Color of the progress bar */
+  border-radius: 1px; /* Adjust the border radius as needed */
+}
+
+.s1::-moz-progress-bar {
+  background-color: #f44336; /* Color of the progress bar in Firefox */
+}
+
+/* Responsive layout - make the columns stack on top of each other instead of next to each other */
+@media (max-width: 400px) {
+  .side, .middle {
+    width: 100%;
+  }
+  .right {
+    display: none;
+  }
+}
+</style>
 
 @endsection
 @section("navbar")
@@ -224,56 +329,25 @@ Home Page
     <section class="review" id="review">
         <h1 class="heading">client's <span>review</span></h1>
         <div class="box-container">
-
-            
-            <div class="box">
-                <img src="images/HomePage/profile.avif" alt="">
-                <h3>Jagannath Sarkar</h3>
-                <div class="stars">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <!-- <i class="fa fa-star-half-alt"></i> -->
-                    <p class="text">Lorem ipsum dolodipisicing elit. Voluptatum est facere corrupti ipsa, enim culpa omnis reprehenderit unde. Eum laboriosam esse tenetur veritatis, a dolorem voluptate quam veniam !</p>
-                </div>
-            </div>
-            <div class="box">
-                <img src="images/HomePage/profile.avif" alt="">
-                <h3>Jagannath Sarkar</h3>
-                <div class="stars">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <!-- <i class="fa fa-star-half-alt"></i> -->
-                    <p class="text">Lorem ipsum dolodipisicing elit. Voluptatum est facere corrupti ipsa, enim culpa omnis reprehenderit unde. Eum laboriosam esse tenetur veritatis, a dolorem voluptate quam veniam !</p>
-                </div>
-            </div>
-            <div class="box">
-                <img src="images/HomePage/profile.avif" alt="">
-                <h3>Jagannath Sarkar</h3>
-                <div class="stars">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <!-- <i class="fa fa-star-half-alt"></i> -->
-                    <p class="text">Lorem ipsum dolodipisicing elit. Voluptatum est facere corrupti ipsa, enim culpa omnis reprehenderit unde. Eum laboriosam esse tenetur veritatis, a dolorem voluptate quam veniam !</p>
-                </div>
-            </div>
-            <div class="box">
-                <img src="images/HomePage/profile.avif" alt="">
-                <h3>Jagannath Sarkar</h3>
-                <div class="stars">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <!-- <i class="fa fa-star-half-alt"></i> -->
-                    <p class="text">Lorem ipsum dolodipisicing elit. Voluptatum est facere corrupti ipsa, enim culpa omnis reprehenderit unde. Eum laboriosam esse tenetur veritatis, a dolorem voluptate quam veniam !</p>
-                </div>
-            </div>    
+        @foreach($ratings as $rating)
+        <div class="box">
+            <img src="images/HomePage/profile.avif" alt="">
+            <h3>{{$rating->user_name}}</h3>
+        <div class="stars">
+        <span class="fa fa-star @php if($rating->rating_value>=1){
+        echo "checked";}@endphp"></span>
+        <span class="fa fa-star @php if($rating->rating_value>=2){
+        echo "checked";}@endphp"></span>
+        <span class="fa fa-star @php if($rating->rating_value>=3){
+        echo "checked";}@endphp"></span>
+        <span class="fa fa-star @php if($rating->rating_value>=4){
+        echo "checked";}@endphp"></span>
+        <span class="fa fa-star @php if($rating->rating_value>=5){
+        echo "checked";}@endphp"></span>
+        <p class="text">{{$rating->rating_comment}}</p>
+        </div>
+        </div>
+        @endforeach
         </div>
     </section>
 @endsection

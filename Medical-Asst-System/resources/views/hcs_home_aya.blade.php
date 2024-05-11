@@ -1,4 +1,4 @@
-@extends("healthcare_support_template")
+@extends("hcs_template")
 
 @section("title")
 Aya
@@ -91,6 +91,18 @@ Aya
 @endsection
 
 @section("js")<script>
+let menu=document.querySelector('#menu-btn');
+let navbar=document.querySelector('.navbar');
+
+menu.onclick=()=>{
+    menu.classList.toggle('fa-times');
+    navbar.classList.toggle('active');
+}
+
+window.onscroll=()=>{
+    menu.classList.remove('fa-times');
+    menu.classList.remove('active');
+}
 // Get the modal element
 var modal = document.getElementById("modal");
 
@@ -118,6 +130,4 @@ window.onclick = function(event) {
 }
 
 </script>
-
-//Enter your page unique js files.
 @endsection
