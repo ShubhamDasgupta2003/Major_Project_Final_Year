@@ -1,4 +1,4 @@
-@extends("healthcare_support_template")
+@extends("hcs_template")
 
 @section("title")
 Aya
@@ -91,6 +91,18 @@ Aya
 @endsection
 
 @section("js")<script>
+let menu=document.querySelector('#menu-btn');
+let navbar=document.querySelector('.navbar');
+
+menu.onclick=()=>{
+    menu.classList.toggle('fa-times');
+    navbar.classList.toggle('active');
+}
+
+window.onscroll=()=>{
+    menu.classList.remove('fa-times');
+    menu.classList.remove('active');
+}
 // Get the modal element
 var modal = document.getElementById("modal");
 
@@ -118,6 +130,32 @@ window.onclick = function(event) {
 }
 
 </script>
+<script>
+        function search() {
+            var query = document.getElementById("searchInput").value.toLowerCase();
+            var links = document.querySelectorAll(".card"); // Select all navigation links
 
-//Enter your page unique js files.
+            links.forEach(function(link) {
+                var text = link.textContent.toLowerCase(); // Get text content of the link
+                if (text.includes(query)) {
+                    link.style.display = "block"; // Show the link if it matches the search query
+                } else {
+                    link.style.display = "none"; // Hide the link if it doesn't match the search query
+                }
+            });
+        }
+         function search1() {
+            var query = document.getElementById("searchInput1").value.toLowerCase();
+            var links = document.querySelectorAll(".card"); // Select all navigation links
+
+            links.forEach(function(link) {
+                var text = link.textContent.toLowerCase(); // Get text content of the link
+                if (text.includes(query)) {
+                    link.style.display = "block"; // Show the link if it matches the search query
+                } else {
+                    link.style.display = "none"; // Hide the link if it doesn't match the search query
+                }
+            });
+        }
+    </script>
 @endsection

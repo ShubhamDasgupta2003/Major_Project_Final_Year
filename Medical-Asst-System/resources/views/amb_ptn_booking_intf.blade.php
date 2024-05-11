@@ -76,7 +76,6 @@
                     <li><h4 class="dropdown-item">{{session('user_name')}}</h4></li>
                     <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user"></i> My Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-power-off"></i> Logout</a></li>
                 </ul>
                 </div>
             </h2>
@@ -271,6 +270,10 @@
                             <label for="">Destination Longitude</label>
                             <input type="text" class="form-control" readonly id="hos_lng" name="hos_lng">
                         </div>
+                        <div class="col-md-6">
+                            <label for="" hidden>user id</label>
+                            <input type="text" class="form-control" readonly id="user_id" name="user_id" value="{{session('user_id')}}" hidden>
+                        </div>
                     </div>
                     </div>
                     
@@ -282,7 +285,7 @@
                     <!-- Card header ends -->
             </div>
         </div>
-        <div id="map" style="width:80%; height: 100vh" class="col"></div>
+        <div id="map" style="width: 100vw; height: 100vh" class="col"></div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
@@ -326,6 +329,7 @@
         //On selecting any hospital, hos_id is being extracted from the string and displayed on input box in readonly mode using AJAX
 
         $(document).ready(function(){
+
             $('#hos_details').on('change',function(){
                 var st_ind = $('#hos_details').val().search("HSP");
                 var id = $('#hos_details').val().slice(st_ind);

@@ -18,7 +18,7 @@ class AmbulanceDriverPageController extends Controller
     }
     public function getAmbulanceData()
     {
-        $amb_data = Amb_info::all();
+        $amb_data = Amb_info::where('amb_status','active')->get();
         return response()->json(['amb_data'=>$amb_data]);
     }
     public function fetchDistance($org_lat,$org_lng,$dest_lat,$dest_lng)
@@ -78,11 +78,28 @@ class AmbulanceDriverPageController extends Controller
 
     public function declineRide(Request $request)
     {
+        $inv=$request->inv_no;
+        $amb_no=$request->amb_no;
+        $driver_details=Amb_info::where('amb_no',$amb_no)->get();
+
         if($request->ajax())
         {
-            $data = $request->amb_no;
-            return response()->json(['data'=>$data]);
+            $driver = Amb_info::where('amb_no',$request->amb)->get();
+
+            if($driver[0]->amb_drv_email==$request->email)
+            {
+                Patient_ambulance::where('invoice_no',$request->inv)->update(['ride_status'=>"101"]);
+                Amb_info::where('amb_no',$request->amb)->update(['amb_status'=>'inactive']);
+                return response()->json(['data'=>1]);
+            }
+            else
+            {
+                return response()->json(['data'=>0]);
+            }
         }
+
+        return view('amb_driver_ride_declined',compact('inv','amb_no','driver_details'));
+
     }
 
     //Function is called when driver finishes the ride 

@@ -36,6 +36,6 @@ class UserLogin extends Controller
  }
  public function logout(){
     Session::flush();
-    return view('/bwelcome');
+    return view('/welcome');
  }
 }

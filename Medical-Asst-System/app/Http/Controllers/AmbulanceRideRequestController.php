@@ -85,7 +85,7 @@ class AmbulanceRideRequestController extends Controller
 
         $inv_id = "AMB".$counter+1;
         $ptn_request->invoice_no = $inv_id;
-        $ptn_request->user_id = session('user_id');
+        $ptn_request->user_id = $request['user_id'];
         $ptn_request->booking_date = $cur_date;
         $ptn_request->booking_time = $cur_time;
         $ptn_request->patient_booking_lat = $request['ptn_latitude'];
@@ -136,7 +136,7 @@ class AmbulanceRideRequestController extends Controller
 
         if($request->ajax())
         {
-            $amb_data = $amb_query->where('amb_type','=',$request->type)->where('amb_town','=',$request->city)
+            $amb_data = $amb_query->where('amb_type','=',$request->type)->where('amb_status','active')->where('amb_town','=',$request->city)
             ->orWhere('amb_district','=',$request->dist)
             ->where('amb_type','=',$request->type)->get();
 
