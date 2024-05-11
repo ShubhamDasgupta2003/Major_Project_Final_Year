@@ -25,12 +25,14 @@
 <body>
     <!-- header section start -->
     <header class="header">
-        <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>Medical Assistant</a>
+        <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>Medical a</a>
+        
         <div class="search-bar" id="srchbar-above">
             <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>
             <input type="text" id="search" name="search"  placeholder="Search blood Group...">
             <button class="btn" id="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
+
         <!--navlinks-->
         <nav class="navbar">
             <a class="navlink" href="{{ route('home') }}">Home</a>
@@ -41,10 +43,16 @@
         <!--user avtar-->
         <div class="user-avatar-container">
             <a href="profile.php" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
+            <h3> @if (session()->has('user_name'))
+                {{session()->get('user_name')}}
+                @else
+                 Gust
+                @endif   
+            </h3> 
         </div>
         <div id="menu-btn" class="fa fa-bars"> </div>
     </header>
-
+ 
     <div class="search-navbar" id="srchbar-below">
         <div class="search-bar">
             <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>
@@ -75,10 +83,10 @@
                         <h2 class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i> 27 Km</h2>
                     </div>
                     <div class='buy-price'>
-                        <a href="{{ route('blood_booking_form', ['id' => $bank->id]) }}"><button class='btn buy'>Buy</button></a>
+                      
+                        <a href="{{ route('blood_booking_form', ['id' => $bank->id, 'name' => $bank->name,'city'=>$bank->city,'state'=>$bank->state,'blood_gr'=>$bank->group_name]) }}"><button class='btn buy'>Buy</button></a>
                         <p class='card-fare'>&#8377 {{$bank->price}}/-</p>
-                        @php
-                            
+                        @php                          
                             Session::put('blood_price', $bank->price);
                         @endphp
 
@@ -128,40 +136,11 @@
     </section>
 
     <style>
-        .loadingOperations {
-            display: flex;
-            width: 300px;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .loader {
-            border: 8px solid #f3f3f3; /* Light grey */
-            border-top: 8px solid #3498db; /* Blue */
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 2s linear infinite;
-            /* margin:0; */
-            /* margin: auto;  Center the spinner */
-            display: none; /* Initially hidden */
-        }
-
-        #loading-message {
-            display: none; /* Initially hidden */
-            text-align: center;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
+       /* .user-avatar-container h3 {
+        color: #00a896;
+        font-size: 20px;
+        /* padding-top: 20px; */
+    } */
     </style>
 
     <script>

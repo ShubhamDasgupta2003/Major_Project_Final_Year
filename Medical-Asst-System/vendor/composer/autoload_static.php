@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
+class ComposerStaticInit9b5903158699aa64ca9f77916b169812
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -14,31 +14,32 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '662a729f963d39afe703c9d9b7ab4a8c' => __DIR__ . '/..' . '/symfony/polyfill-php83/bootstrap.php',
-        '3bd81c9b8fcc150b69d8b63b4d2ccf23' => __DIR__ . '/..' . '/spatie/flare-client-php/src/helpers.php',
         '35a6ad97d21e794e7e22a17d806652e4' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Functions.php',
-        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        '3bd81c9b8fcc150b69d8b63b4d2ccf23' => __DIR__ . '/..' . '/spatie/flare-client-php/src/helpers.php',
         '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '47e1160838b5e5a10346ac4084b58c23' => __DIR__ . '/..' . '/laravel/prompts/src/helpers.php',
-        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
-        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
-        '941748b3c8cae4466c827dfb5ca9602a' => __DIR__ . '/..' . '/rmccue/requests/library/Deprecated.php',
-        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '265b4faa2b3a9766332744949e83bf97' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/helpers.php',
         'c7a3c339e7e14b60e06a2d7fcce9476b' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Events/functions.php',
         'f57d353b41eb2e234b26064d63d8c5dd' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Filesystem/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
+        '941748b3c8cae4466c827dfb5ca9602a' => __DIR__ . '/..' . '/rmccue/requests/library/Deprecated.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'c72349b1fe8d0deeedd3a52e8aa814d8' => __DIR__ . '/..' . '/mockery/mockery/library/helpers.php',
         'ce9671a430e4846b44e1c68c7611f9f5' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'a1cfe24d14977df6878b9bf804af2d1c' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Phpunit/Autoload.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '13906c19e3d8fcd1341b24ed4d51cf72' => __DIR__ . '/..' . '/razorpay/razorpay/Deprecated.php',
+        '6b34c85f7b1ad6faa15aa12109e030f2' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/functions.php',
         '320163ac6b93aebe3dc25b60a0533d56' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/helpers.php',
     );
 
@@ -98,6 +99,7 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         ),
         'R' => 
         array (
+            'RealRashid\\SweetAlert\\' => 22,
             'Razorpay\\Tests\\' => 15,
             'Razorpay\\Api\\' => 13,
             'Ramsey\\Uuid\\' => 12,
@@ -355,6 +357,10 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         array (
             0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
         ),
+        'RealRashid\\SweetAlert\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/realrashid/sweet-alert/src',
+        ),
         'Razorpay\\Tests\\' => 
         array (
             0 => __DIR__ . '/..' . '/razorpay/razorpay/tests',
@@ -385,8 +391,8 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -584,15 +590,18 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         'App\\Http\\Controllers\\AmbulanceRideRequestController' => __DIR__ . '/../..' . '/app/Http/Controllers/AmbulanceRideRequestController.php',
         'App\\Http\\Controllers\\BloodBankController' => __DIR__ . '/../..' . '/app/Http/Controllers/BloodBankController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
-        'App\\Http\\Controllers\\Hcs_register_form' => __DIR__ . '/../..' . '/app/Http/Controllers/Hcs_register_form.php',
+        'App\\Http\\Controllers\\HcsController' => __DIR__ . '/../..' . '/app/Http/Controllers/HcsController.php',
         'App\\Http\\Controllers\\HomePageController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomePageController.php',
         'App\\Http\\Controllers\\HospitalController' => __DIR__ . '/../..' . '/app/Http/Controllers/HospitalController.php',
         'App\\Http\\Controllers\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoginController.php',
         'App\\Http\\Controllers\\MailController' => __DIR__ . '/../..' . '/app/Http/Controllers/MailController.php',
         'App\\Http\\Controllers\\MedicalSuppliesController' => __DIR__ . '/../..' . '/app/Http/Controllers/MedicalSuppliesController.php',
         'App\\Http\\Controllers\\PatientController' => __DIR__ . '/../..' . '/app/Http/Controllers/PatientController.php',
+        'App\\Http\\Controllers\\PaymentController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaymentController.php',
         'App\\Http\\Controllers\\PdfController' => __DIR__ . '/../..' . '/app/Http/Controllers/PdfController.php',
         'App\\Http\\Controllers\\UserLogin' => __DIR__ . '/../..' . '/app/Http/Controllers/UserLogin.php',
+        'App\\Http\\Controllers\\UserRatingController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserRatingController.php',
+        'App\\Http\\Controllers\\UserregController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserregController.php',
         'App\\Http\\Controllers\\newAmbulanceRegistrationController' => __DIR__ . '/../..' . '/app/Http/Controllers/newAmbulanceRegistrationController.php',
         'App\\Http\\Controllers\\searchContoller' => __DIR__ . '/../..' . '/app/Http/Controllers/searchContoller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -606,14 +615,25 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         'App\\Http\\Middleware\\ValidateSignature' => __DIR__ . '/../..' . '/app/Http/Middleware/ValidateSignature.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Mail\\DemoMail' => __DIR__ . '/../..' . '/app/Mail/DemoMail.php',
+        'App\\Mail\\Hcs_emp_booking_mail' => __DIR__ . '/../..' . '/app/Mail/Hcs_emp_booking_mail.php',
+        'App\\Mail\\Hcs_emp_msg_mail' => __DIR__ . '/../..' . '/app/Mail/Hcs_emp_msg_mail.php',
         'App\\Models\\Amb_info' => __DIR__ . '/../..' . '/app/Models/Amb_info.php',
         'App\\Models\\Ambulance_Admin' => __DIR__ . '/../..' . '/app/Models/Ambulance_Admin.php',
         'App\\Models\\BloodBank' => __DIR__ . '/../..' . '/app/Models/BloodBank.php',
+        'App\\Models\\BloodOrder' => __DIR__ . '/../..' . '/app/Models/BloodOrder.php',
         'App\\Models\\City_Table' => __DIR__ . '/../..' . '/app/Models/City_Table.php',
+        'App\\Models\\HcsEmployeeTableModel' => __DIR__ . '/../..' . '/app/Models/HcsEmployeeTableModel.php',
+        'App\\Models\\Hcs_admin' => __DIR__ . '/../..' . '/app/Models/Hcs_admin.php',
+        'App\\Models\\Hcs_order' => __DIR__ . '/../..' . '/app/Models/Hcs_order.php',
+        'App\\Models\\Hcs_user_rating' => __DIR__ . '/../..' . '/app/Models/Hcs_user_rating.php',
         'App\\Models\\Hospital_info' => __DIR__ . '/../..' . '/app/Models/Hospital_info.php',
         'App\\Models\\Patient_ambulance' => __DIR__ . '/../..' . '/app/Models/Patient_ambulance.php',
         'App\\Models\\Patient_booking_info' => __DIR__ . '/../..' . '/app/Models/Patient_booking_info.php',
+        'App\\Models\\Payment' => __DIR__ . '/../..' . '/app/Models/Payment.php',
+        'App\\Models\\Payments_records' => __DIR__ . '/../..' . '/app/Models/Payments_records.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\User_info' => __DIR__ . '/../..' . '/app/Models/User_info.php',
+        'App\\Models\\User_rating' => __DIR__ . '/../..' . '/app/Models/User_rating.php',
         'App\\Models\\blood_bank_blood_group' => __DIR__ . '/../..' . '/app/Models/blood_bank_blood_group.php',
         'App\\Models\\blood_group' => __DIR__ . '/../..' . '/app/Models/blood_group.php',
         'App\\Models\\cart' => __DIR__ . '/../..' . '/app/Models/cart.php',
@@ -2971,7 +2991,10 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         'Laravel\\Prompts\\Concerns\\Truncation' => __DIR__ . '/..' . '/laravel/prompts/src/Concerns/Truncation.php',
         'Laravel\\Prompts\\Concerns\\TypedValue' => __DIR__ . '/..' . '/laravel/prompts/src/Concerns/TypedValue.php',
         'Laravel\\Prompts\\ConfirmPrompt' => __DIR__ . '/..' . '/laravel/prompts/src/ConfirmPrompt.php',
+        'Laravel\\Prompts\\Exceptions\\FormRevertedException' => __DIR__ . '/..' . '/laravel/prompts/src/Exceptions/FormRevertedException.php',
         'Laravel\\Prompts\\Exceptions\\NonInteractiveValidationException' => __DIR__ . '/..' . '/laravel/prompts/src/Exceptions/NonInteractiveValidationException.php',
+        'Laravel\\Prompts\\FormBuilder' => __DIR__ . '/..' . '/laravel/prompts/src/FormBuilder.php',
+        'Laravel\\Prompts\\FormStep' => __DIR__ . '/..' . '/laravel/prompts/src/FormStep.php',
         'Laravel\\Prompts\\Key' => __DIR__ . '/..' . '/laravel/prompts/src/Key.php',
         'Laravel\\Prompts\\MultiSearchPrompt' => __DIR__ . '/..' . '/laravel/prompts/src/MultiSearchPrompt.php',
         'Laravel\\Prompts\\MultiSelectPrompt' => __DIR__ . '/..' . '/laravel/prompts/src/MultiSelectPrompt.php',
@@ -2989,6 +3012,7 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         'Laravel\\Prompts\\Table' => __DIR__ . '/..' . '/laravel/prompts/src/Table.php',
         'Laravel\\Prompts\\Terminal' => __DIR__ . '/..' . '/laravel/prompts/src/Terminal.php',
         'Laravel\\Prompts\\TextPrompt' => __DIR__ . '/..' . '/laravel/prompts/src/TextPrompt.php',
+        'Laravel\\Prompts\\TextareaPrompt' => __DIR__ . '/..' . '/laravel/prompts/src/TextareaPrompt.php',
         'Laravel\\Prompts\\Themes\\Contracts\\Scrolling' => __DIR__ . '/..' . '/laravel/prompts/src/Themes/Contracts/Scrolling.php',
         'Laravel\\Prompts\\Themes\\Default\\Concerns\\DrawsBoxes' => __DIR__ . '/..' . '/laravel/prompts/src/Themes/Default/Concerns/DrawsBoxes.php',
         'Laravel\\Prompts\\Themes\\Default\\Concerns\\DrawsScrollbars' => __DIR__ . '/..' . '/laravel/prompts/src/Themes/Default/Concerns/DrawsScrollbars.php',
@@ -3006,6 +3030,7 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         'Laravel\\Prompts\\Themes\\Default\\SuggestPromptRenderer' => __DIR__ . '/..' . '/laravel/prompts/src/Themes/Default/SuggestPromptRenderer.php',
         'Laravel\\Prompts\\Themes\\Default\\TableRenderer' => __DIR__ . '/..' . '/laravel/prompts/src/Themes/Default/TableRenderer.php',
         'Laravel\\Prompts\\Themes\\Default\\TextPromptRenderer' => __DIR__ . '/..' . '/laravel/prompts/src/Themes/Default/TextPromptRenderer.php',
+        'Laravel\\Prompts\\Themes\\Default\\TextareaPromptRenderer' => __DIR__ . '/..' . '/laravel/prompts/src/Themes/Default/TextareaPromptRenderer.php',
         'Laravel\\Sail\\Console\\AddCommand' => __DIR__ . '/..' . '/laravel/sail/src/Console/AddCommand.php',
         'Laravel\\Sail\\Console\\Concerns\\InteractsWithDockerComposeServices' => __DIR__ . '/..' . '/laravel/sail/src/Console/Concerns/InteractsWithDockerComposeServices.php',
         'Laravel\\Sail\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/sail/src/Console/InstallCommand.php',
@@ -3449,6 +3474,7 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         'Mockery\\CountValidator\\AtLeast' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/CountValidator/AtLeast.php',
         'Mockery\\CountValidator\\AtMost' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/CountValidator/AtMost.php',
         'Mockery\\CountValidator\\CountValidatorAbstract' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/CountValidator/CountValidatorAbstract.php',
+        'Mockery\\CountValidator\\CountValidatorInterface' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/CountValidator/CountValidatorInterface.php',
         'Mockery\\CountValidator\\Exact' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/CountValidator/Exact.php',
         'Mockery\\CountValidator\\Exception' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/CountValidator/Exception.php',
         'Mockery\\Exception' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Exception.php',
@@ -4616,7 +4642,6 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         'PHPUnit\\Util\\PHP\\AbstractPhpProcess' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/PHP/AbstractPhpProcess.php',
         'PHPUnit\\Util\\PHP\\DefaultPhpProcess' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/PHP/DefaultPhpProcess.php',
         'PHPUnit\\Util\\PHP\\PhpProcessException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Exception/PhpProcessException.php',
-        'PHPUnit\\Util\\PHP\\WindowsPhpProcess' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/PHP/WindowsPhpProcess.php',
         'PHPUnit\\Util\\Reflection' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Reflection.php',
         'PHPUnit\\Util\\Test' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Test.php',
         'PHPUnit\\Util\\ThrowableToStringMapper' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/ThrowableToStringMapper.php',
@@ -5397,6 +5422,13 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         'Razorpay\\Tests\\TransferTest' => __DIR__ . '/..' . '/razorpay/razorpay/tests/TransferTest.php',
         'Razorpay\\Tests\\UpiTest' => __DIR__ . '/..' . '/razorpay/razorpay/tests/UpiTest.php',
         'Razorpay\\Tests\\VirtualAccountTest' => __DIR__ . '/..' . '/razorpay/razorpay/tests/VirtualAccountTest.php',
+        'RealRashid\\SweetAlert\\Console\\PublishCommand' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/Console/PublishCommand.php',
+        'RealRashid\\SweetAlert\\Facades\\Alert' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/Facades/Alert.php',
+        'RealRashid\\SweetAlert\\Storage\\AlertSessionStore' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/Storage/AlertSessionStore.php',
+        'RealRashid\\SweetAlert\\Storage\\SessionStore' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/Storage/SessionStore.php',
+        'RealRashid\\SweetAlert\\SweetAlertServiceProvider' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/SweetAlertServiceProvider.php',
+        'RealRashid\\SweetAlert\\ToSweetAlert' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/ToSweetAlert.php',
+        'RealRashid\\SweetAlert\\Toaster' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/Toaster.php',
         'Requests' => __DIR__ . '/..' . '/rmccue/requests/library/Requests.php',
         'SQLite3Exception' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/SQLite3Exception.php',
         'Sabberworm\\CSS\\CSSList\\AtRuleBlockList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/CSSList/AtRuleBlockList.php',
@@ -5664,8 +5696,11 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         'Spatie\\Backtrace\\Arguments\\Reducers\\StringableArgumentReducer' => __DIR__ . '/..' . '/spatie/backtrace/src/Arguments/Reducers/StringableArgumentReducer.php',
         'Spatie\\Backtrace\\Arguments\\Reducers\\SymphonyRequestArgumentReducer' => __DIR__ . '/..' . '/spatie/backtrace/src/Arguments/Reducers/SymphonyRequestArgumentReducer.php',
         'Spatie\\Backtrace\\Backtrace' => __DIR__ . '/..' . '/spatie/backtrace/src/Backtrace.php',
-        'Spatie\\Backtrace\\CodeSnippet' => __DIR__ . '/..' . '/spatie/backtrace/src/CodeSnippet.php',
-        'Spatie\\Backtrace\\File' => __DIR__ . '/..' . '/spatie/backtrace/src/File.php',
+        'Spatie\\Backtrace\\CodeSnippets\\CodeSnippet' => __DIR__ . '/..' . '/spatie/backtrace/src/CodeSnippets/CodeSnippet.php',
+        'Spatie\\Backtrace\\CodeSnippets\\FileSnippetProvider' => __DIR__ . '/..' . '/spatie/backtrace/src/CodeSnippets/FileSnippetProvider.php',
+        'Spatie\\Backtrace\\CodeSnippets\\LaravelSerializableClosureSnippetProvider' => __DIR__ . '/..' . '/spatie/backtrace/src/CodeSnippets/LaravelSerializableClosureSnippetProvider.php',
+        'Spatie\\Backtrace\\CodeSnippets\\NullSnippetProvider' => __DIR__ . '/..' . '/spatie/backtrace/src/CodeSnippets/NullSnippetProvider.php',
+        'Spatie\\Backtrace\\CodeSnippets\\SnippetProvider' => __DIR__ . '/..' . '/spatie/backtrace/src/CodeSnippets/SnippetProvider.php',
         'Spatie\\Backtrace\\Frame' => __DIR__ . '/..' . '/spatie/backtrace/src/Frame.php',
         'Spatie\\FlareClient\\Api' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Api.php',
         'Spatie\\FlareClient\\Concerns\\HasContext' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Concerns/HasContext.php',
@@ -5747,6 +5782,7 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         'Spatie\\LaravelIgnition\\Exceptions\\ViewException' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Exceptions/ViewException.php',
         'Spatie\\LaravelIgnition\\Exceptions\\ViewExceptionWithSolution' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Exceptions/ViewExceptionWithSolution.php',
         'Spatie\\LaravelIgnition\\Facades\\Flare' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Facades/Flare.php',
+        'Spatie\\LaravelIgnition\\FlareMiddleware\\AddContext' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/FlareMiddleware/AddContext.php',
         'Spatie\\LaravelIgnition\\FlareMiddleware\\AddDumps' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/FlareMiddleware/AddDumps.php',
         'Spatie\\LaravelIgnition\\FlareMiddleware\\AddEnvironmentInformation' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/FlareMiddleware/AddEnvironmentInformation.php',
         'Spatie\\LaravelIgnition\\FlareMiddleware\\AddExceptionInformation' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/FlareMiddleware/AddExceptionInformation.php',
@@ -5797,6 +5833,8 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\UndefinedLivewireMethodSolutionProvider' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Solutions/SolutionProviders/UndefinedLivewireMethodSolutionProvider.php',
         'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\UndefinedLivewirePropertySolutionProvider' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Solutions/SolutionProviders/UndefinedLivewirePropertySolutionProvider.php',
         'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\UndefinedViewVariableSolutionProvider' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Solutions/SolutionProviders/UndefinedViewVariableSolutionProvider.php',
+        'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\UnknownMariadbCollationSolutionProvider' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Solutions/SolutionProviders/UnknownMariadbCollationSolutionProvider.php',
+        'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\UnknownMysql8CollationSolutionProvider' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Solutions/SolutionProviders/UnknownMysql8CollationSolutionProvider.php',
         'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\UnknownValidationSolutionProvider' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Solutions/SolutionProviders/UnknownValidationSolutionProvider.php',
         'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\ViewNotFoundSolutionProvider' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Solutions/SolutionProviders/ViewNotFoundSolutionProvider.php',
         'Spatie\\LaravelIgnition\\Solutions\\SolutionTransformers\\LaravelSolutionTransformer' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Solutions/SolutionTransformers/LaravelSolutionTransformer.php',
@@ -5805,6 +5843,8 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         'Spatie\\LaravelIgnition\\Solutions\\SuggestLivewireMethodNameSolution' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Solutions/SuggestLivewireMethodNameSolution.php',
         'Spatie\\LaravelIgnition\\Solutions\\SuggestLivewirePropertyNameSolution' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Solutions/SuggestLivewirePropertyNameSolution.php',
         'Spatie\\LaravelIgnition\\Solutions\\SuggestUsingCorrectDbNameSolution' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Solutions/SuggestUsingCorrectDbNameSolution.php',
+        'Spatie\\LaravelIgnition\\Solutions\\SuggestUsingMariadbDatabaseSolution' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Solutions/SuggestUsingMariadbDatabaseSolution.php',
+        'Spatie\\LaravelIgnition\\Solutions\\SuggestUsingMysql8DatabaseSolution' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Solutions/SuggestUsingMysql8DatabaseSolution.php',
         'Spatie\\LaravelIgnition\\Solutions\\UseDefaultValetDbCredentialsSolution' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Solutions/UseDefaultValetDbCredentialsSolution.php',
         'Spatie\\LaravelIgnition\\Support\\Composer\\Composer' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Support/Composer/Composer.php',
         'Spatie\\LaravelIgnition\\Support\\Composer\\ComposerClassMap' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Support/Composer/ComposerClassMap.php',
@@ -5845,6 +5885,7 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
         'Svg\\Tag\\Shape' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Shape.php',
         'Svg\\Tag\\Stop' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Stop.php',
         'Svg\\Tag\\StyleTag' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/StyleTag.php',
+        'Svg\\Tag\\Symbol' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Symbol.php',
         'Svg\\Tag\\Text' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Text.php',
         'Svg\\Tag\\UseTag' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/UseTag.php',
         'Symfony\\Component\\Console\\Application' => __DIR__ . '/..' . '/symfony/console/Application.php',
@@ -6950,9 +6991,9 @@ class ComposerStaticInit86d175a4767d6f85317a165e1d21db5a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit86d175a4767d6f85317a165e1d21db5a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit86d175a4767d6f85317a165e1d21db5a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit86d175a4767d6f85317a165e1d21db5a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9b5903158699aa64ca9f77916b169812::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9b5903158699aa64ca9f77916b169812::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9b5903158699aa64ca9f77916b169812::$classMap;
 
         }, null, ClassLoader::class);
     }

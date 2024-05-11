@@ -19,6 +19,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HcsController;
 use App\Http\Controllers\UserRatingController;
+use App\Http\Controllers\UserregController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,11 +91,19 @@ Route::get('/hcs_admin_logout',[HcsController::class,"sup_admin_logout"]);
 /*-------------------Healthcare Support----------------------------------*/
 
 
+/*-------------------Blood Bank Start----------------------------------*/
 // routes for BloodBank
 // Route::view ('BookBlood','/Blood_Booking/bloodB_home')->name('bloodB_home');
 // Route::view ('booking_form','/Blood_Booking/form')->name('blood_booking_form');
 Route::view ('RegisterNbank','/Blood_Booking/BbankRegister')->name('B_Bank_Register');
 Route::view ('Userlogin','/Blood_Booking/login')->name('Userlogin');
+Route::view ('/profilePage','/Blood_Booking/profilePage')->name('profile');
+
+// .......................For Admin Panel........................ 
+
+Route::get('/BBadmin', [BloodBankController::class, 'BloodBank_admin'])->name('Blood_admin_page');
+Route::get('/approve_bld_order/{order_id}', [BloodBankController::class, 'approve_order'])->name('confirmed_bld_order');
+Route::get('/cancel_bld_order/{order_id}', [BloodBankController::class, 'delete_order'])->name('cancel_bld_order');
 
 
 Route::view('/BookBlood', '/Blood_Booking/bloodBInitial');
@@ -103,31 +112,45 @@ Route::post('/BanksRegister', [BloodBankController::class, 'newregistration'])->
 Route::get('/bloodGroup', [BloodBankController::class, 'bloodGroup']);
 // Route::post('/search', [BloodBankController::class, 'search'])->name('search');
 Route::get('/showBhome', [BloodBankController::class, 'showBloodBanks'])->name('showBhome');
-Route::get('/booking_form/{id}', [BloodBankController::class, 'booking'])->name('blood_booking_form');
+Route::post('/confirm_booking', [BloodBankController::class, 'submitOrder'])->name('submit_order');
 
+        //   for users login,logout,orders view
+Route::get('/logout', [UserLogin::class, 'logout'])->name('logout');
+Route::get('/orderHistory', [UserLogin::class, 'orderHistory'])->name('orderHistory');
+
+
+Route::view ('/booking_form','/Blood_Booking/form')->name('blood_booking_form');
 Route::view ('/test','/Blood_Booking/test');
 Route::view ('/b','/Blood_Booking/b')->name('b');
 Route::view ('/a','/Blood_Booking/a');
 Route::get('/asearch',[searchContoller::class,'search'])->name('searchtest');
 
 
-
+/*-------------------Blood Bank End----------------------------------*/
 
 
 
 /*-------------------Medical Supplies----------------------------------*/
 Route::get('/medical supplies/{medical_supplies_medical}',[MedicalSuppliesController::class,'index'])->name('medical_supplies.index');
-Route::get('/medical supplies',[MedicalSuppliesController::class,'index'])->name('medical_supplies.index');
+Route::get('/medical_supplies',[MedicalSuppliesController::class,'index'])->name('medical_supplies.index');
+
+Route::get('/order_view',[MedicalSuppliesController::class,'orderview'])->name('medical_supplies.order_view');
+Route::get('/medical_suppliess',[MedicalSuppliesController::class,'searchm'])->name('medical_supplies.search');
+Route::get('/medical_suppliest',[MedicalSuppliesController::class,'searcht'])->name('medical_supplies.searcht');
 Route::get('/technical supplies',[MedicalSuppliesController::class,'indexb'])->name('medical_supplies.indexb');
+
+
+
 Route::get('/medical supplies/{medical_supplies_medical}/detail',[MedicalSuppliesController::class,'edit'])->name('medical_supplies.detail');
 Route::get('/technical supplies/{medical_supplies_technical}/detail',[MedicalSuppliesController::class,'editb'])->name('technical_supplies.detail');
 Route::post('/medical supplies/detail',[MedicalSuppliesController::class,'store'])->name('medical_supplies.store');
 Route::post('/technical supplies/detail',[MedicalSuppliesController::class,'storeb'])->name('technical_supplies.storeb');
 Route::get('/cart',[MedicalSuppliesController::class,'cart'])->name('medical_supplies.cart');
-Route::post('/carti',[MedicalSuppliesController::class,'storeImage'])->name('medical supplies.imagestore');
+Route::post('/carti',[MedicalSuppliesController::class,'storeImage'])->name('medical_supplies.imagestore');
 Route::delete('/cart/{cart}/delete',[MedicalSuppliesController::class,'delete'])->name('cart.delete');
+Route::delete('/order_view/{order}/delete',[MedicalSuppliesController::class,'orderdelete'])->name('order.delete');
 Route::put('/cart/{cart}/update',[MedicalSuppliesController::class,'update'])->name('cart.update');
-Route::get('/order confirmation',[MedicalSuppliesController::class,'order'])->name('medical_supplies.order_confirmation');
+Route::get('/order confirmation/include',[MedicalSuppliesController::class,'order'])->name('medical_supplies.order_confirmation');
 /*-------------------Medical Supplies----------------------------------*/
 
 /*-------------------Admin Panel----------------------------------*/

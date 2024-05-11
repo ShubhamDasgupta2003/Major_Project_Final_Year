@@ -64,6 +64,9 @@ class newAmbulanceRegistrationController extends Controller
 
         $amb = new Amb_info;
 
+        $count = Amb_info::count();
+
+        $amb->sl_no = $count+1;
         $amb->amb_name = $request['amb_name_reg'];
         $amb->amb_no = $request['amb_no'];
         $amb->amb_type = $request['amb_type_reg'];

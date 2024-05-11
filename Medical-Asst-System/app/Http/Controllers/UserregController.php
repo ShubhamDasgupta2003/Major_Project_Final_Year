@@ -12,21 +12,21 @@ class UserregController extends Controller
         return view ('user_register');
     }
     public function StoreUserData(Request $request){
-        $request->validate([
-            "user_id"=>"required|max:10|",
-            "user_first_name"=>"required|max:50|",
-            "user_last_name"=>"required|max:50|",
-            "user_email"=>"required|email",
-            "user_contactno"=>"required|max:10",
-            "user_dob"=>"required",
-            "user_aadhaar"=>"required|max:12",
-            "user_gender"=>"required",
-            "user_district"=>"required",
-            "user_city"=>"required",
-            "user_state"=>"required",
-            "pincode"=>"required|max:6",
-            "user_password"=>"required",
-        ]);
+        // $request->validate([
+        //     "user_id"=>"required|max:10|",
+        //     "user_first_name"=>"required|max:50|",
+        //     "user_last_name"=>"required|max:50|",
+        //     "user_email"=>"required|email",
+        //     "user_contactno"=>"required|max:10",
+        //     "user_dob"=>"required",
+        //     "user_aadhaar"=>"required|max:12",
+        //     "user_gender"=>"required",
+        //     "user_district"=>"required",
+        //     "user_city"=>"required",
+        //     "user_state"=>"required",
+        //     "pincode"=>"required|max:6",
+        //     "user_password"=>"required",
+        // ]);
         $user = new User_info;
 
         // random user id generate starts here

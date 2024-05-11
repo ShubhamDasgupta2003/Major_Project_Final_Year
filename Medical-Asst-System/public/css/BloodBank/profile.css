@@ -1,0 +1,109 @@
+:root{
+    --blue:#3498db;
+    --dark-blue:#2980b9;
+    --red:#e74c3c;
+    --dark-red:#c0392b;
+    --green:#4fc6af;
+    --dark-green:#009879;
+    --black:#333;
+    --white:#fff;
+    --light-bg:#eee;
+    --box-shadow:0 5px 10px rgba(0,0,0,.1);
+ }
+.p_btn,
+.btn-order,
+.delete-btn{
+   width: 80%;
+   border-radius: 8px;
+   padding:10px 30px;
+   color:var(--white);
+   display: block;
+   text-align: center;
+   cursor: pointer;
+   font-size: 20px;
+   margin-top: 10px;
+   margin-left: 10%;
+}
+
+.p_btn{
+   background-color: var(--blue);
+}
+
+.p_btn:hover{
+   background-color: var(--dark-blue);
+}
+
+.btn-order{
+   background-color: var(--green);
+}
+
+.btn-order:hover{
+   background-color: var(--dark-green);
+}
+.delete-btn{
+   background-color: var(--red);
+}
+
+.delete-btn:hover{
+   background-color: var(--dark-red);
+}
+
+.message{
+   margin:10px 0;
+   width: 100%;
+   border-radius: 5px;
+   padding:10px;
+   text-align: center;
+   background-color: var(--red);
+   color:var(--white);
+   font-size: 20px;
+}
+
+
+
+.profile_container{
+   min-height: 100vh;
+   background-color: var(--light-bg);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding:20px;
+   align-items: center;
+}
+
+.profile_container .profile{
+   padding:20px;
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   text-align: center;
+   width: 400px;
+   border-radius: 5px;
+}
+
+.profile_container .profile img{
+   height: 150px;
+   width: 150px;
+   border-radius: 50%;
+   object-fit: cover;
+   margin-bottom: 5px;
+}
+
+.profile_container .profile h3{
+   margin:5px 0;
+   font-size: 20px;
+   color:var(--black);
+}
+
+.profile_container .profile p{
+   margin-top: 20px;
+   color:var(--black);
+   font-size: 20px;
+}
+
+.profile_container .profile p a{
+   color:var(--red);
+}
+
+.profile_container .profile p a:hover{
+   text-decoration: underline;
+}
