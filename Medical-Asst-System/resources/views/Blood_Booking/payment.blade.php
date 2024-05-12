@@ -79,12 +79,40 @@
         </div>
     </div>
 
+    <script>
+        $(document).ready(function() {
+            $('#payBtn').on('click', function() {
+                
+                var order_id =  @json($orders->order_id)   //Get orderid from url
+                var type=  @json($orders->order_type)   //Get orderid from url
+                var amount = @json($orders->price)   //Get amount from url
+
+                // Make AJAX request to the controller
+                $.ajax({
+                    url: "{{ route('process_payment') }}",
+                    type: "GET",
+                    data: { order_id: order_id, amount: amount , type:type },
+                    success: function(response) {
+                        // Handle response from the controller if needed
+                        {{-- console.log(response); --}}
+                        
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
    
 </body>
 </html>
 
-<script>
+{{-- <script>
     $.ajax({
+
+        
     url: "{{ route('process_payment') }}",
     type: "GET",
     data: { order_id: order_id, amount: amount,type:type },
@@ -105,4 +133,4 @@
     }
 });
 
-</script>
+</script> --}}
