@@ -104,6 +104,8 @@ Route::view ('/profilePage','/Blood_Booking/profilePage')->name('profile');
 
 Route::get('/process_payment', [BloodBankController::class,'process_payment'])->name('process_payment');
 Route::get('/proceedToPay', [BloodBankController::class,'proceedToPay'])->name('proceedToPay');
+Route::get('/bld_payment_success',[BloodBankController::class,'paymentSuccess'])->name('bld_payment_sucess');
+
 
 // .......................For Admin Panel........................ 
 
@@ -112,7 +114,7 @@ Route::get('/approve_bld_order/{order_id}', [BloodBankController::class, 'approv
 Route::get('/cancel_bld_order/{order_id}', [BloodBankController::class, 'delete_order'])->name('cancel_bld_order');
 
 
-Route::view('/BookBlood', '/Blood_Booking/bloodBInitial');
+Route::view('/bld_payment_ack', '/Blood_Booking/payment_ack');
 Route::post('/Userlogin', [UserLogin::class, 'userLogin'])->name('UserLogin-controller');
 Route::post('/BanksRegister', [BloodBankController::class, 'newregistration'])->name('registerBanks');
 Route::get('/bloodGroup', [BloodBankController::class, 'bloodGroup']);
@@ -263,5 +265,5 @@ Route::get('/payment',[PaymentController::class,'pay_amount']); //Pass order_id,
 Route::post('/payment',[PaymentController::class,'process_payment'])->name('processPayment');
 
 Route::get('/payment-complete',[PaymentController::class,'makePayment'])->name('make-payment-page');
-Route::get('/payment-success',[PaymentController::class,'paymentSuccess'])->name('payment-sucess');
+Route::get('/payment-success',[PaymentController::class,'p'])->name('payment-sucess');
 //----------------------- Payment Routes ends here -----------------------

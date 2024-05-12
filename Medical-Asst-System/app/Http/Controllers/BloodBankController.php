@@ -236,6 +236,7 @@ class BloodBankController extends Controller
         $payment_entry_model->payment_date = date('Y-m-d');
         $payment_entry_model->payment_time = date('H:i:s');
         $request->session()->put('pid',$count);
+        $request->session()->put('order_id',$request->order_id);
         
         // Save the payment record
         if ($payment_entry_model->save()) {
@@ -252,6 +253,20 @@ class BloodBankController extends Controller
 
         return view('Blood_Booking/proceedToPay', compact('orderId', 'amount','serviceType'));
     }
+
+
+    public function paymentSuccess(Request $request)
+        { $orderId = $request->session()->get('order_id');
+            
+            $payment_id_update = Payments_records::where('order_id',$orderId)->update(['payment_status' => 'completed','payment_id'=>$request->pid]);
+            // $payment_id_update = Payments_records::where('order_id',$orderId)->update(['payment_status' => 'completed','payment_id'=>$request->pid]);
+            if($payment_id_update)
+            { 
+            // $userdata= Hcs_order::where('order_id', $orderId)->first(); 
+            // Mail::to(session()->get("user_email"))->send(new Hcs_emp_booking_mail($userdata));   
+            // return view('Blood_Booking/payment_ack');
+          }
+        }
 
     public function delete_order(string $Order_id) {
         // Delete the record where order_id matches
