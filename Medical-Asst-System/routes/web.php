@@ -160,12 +160,15 @@ Route::get('/order confirmation/include',[MedicalSuppliesController::class,'orde
 /*-------------------Admin Panel----------------------------------*/
 Route::get('/admin panel',[AdminController::class,'index'])->name('admin_panel.index');
 Route::get('/input admin panel',[AdminController::class,'input_admin'])->name('admin_panel.input');
-Route::post('/input admin panel',[AdminController::class,'store'])->name('admin_panel.input');
+Route::post('/store admin panel',[AdminController::class,'store'])->name('admin_panel.store');
 Route::get('/admin medical supplies',[AdminController::class,'admin_supplies'])->name('admin_panel.admin_medical_supplies');
-Route::get('/update admin panel',[AdminController::class,'update_admin'])->name('admin_panel.update');
-Route::get('/delete admin panel',[AdminController::class,'delete_admin'])->name('admin_panel.delete');
+Route::get('/admin_order/{medical_supplies_medical}/update',[AdminController::class,'update_admin'])->name('admin_panel.update');
+Route::put('/admin_order/{medical_supplies_medical}/updated',[AdminController::class,'updated_admin'])->name('admin_panel.updated');
+Route::get('/admin_order/{medical_supplies_medical}/delete',[AdminController::class,'delete_admin'])->name('admin_panel.delete');
 Route::get('/supplies admin panel',[AdminController::class,'supplies'])->name('admin_panel.supplies');
 Route::put('/supplies/{medical_supplies_medical}/update',[AdminController::class,'suppliesu'])->name('admin_panel.updatesupplies');
+Route::get('/admin_order',[AdminController::class,'order'])->name('admin_panel.order');
+Route::delete('/admin_order/{order}/delete',[MedicalSuppliesController::class,'adminorderdelete'])->name('adminorder.delete');
 /*-------------------Admin Panel----------------------------------*/
 
 /*-------------------others----------------------------------*/

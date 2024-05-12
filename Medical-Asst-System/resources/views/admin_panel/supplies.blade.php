@@ -25,6 +25,8 @@ $p=0;
           <!--  <th>Serial No</th> -->  
             <th>product Name</th>
             <th>Product Quanity</th>
+            <th>update</th>
+            <th>delete</th>
         </tr>
     </thead>
     <tbody>
@@ -46,7 +48,7 @@ $p=0;
             </div>
             </form>
             </td>
-            
+            <td><a href="{{route('admin_panel.update',['medical_supplies_medical'=>$medical_supplies_medical])}}"><i class="fa-solid fa-pen-nib"></i></a></td><td><a href="{{route('admin_panel.delete',['medical_supplies_medical'=>$medical_supplies_medical])}}"><i class="fa-solid fa-delete-left"></i></a></td>
            <!-- <td>
                 <a href="delete.php?delete=" onclick="return confirm('Are you sure you want to delete this product');"><i class="fa-solid fa-trash" id="delete">  Remove</i></a>
             </td> -->

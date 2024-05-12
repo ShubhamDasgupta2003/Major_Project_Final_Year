@@ -13,7 +13,7 @@
         
         <header>Input Table Form</header>
       </div>
-      <form class="form" method="post" action="{{route('admin_panel.input')}}"  enctype="multipart/form-data">
+      <form class="form" method="post" action="{{route('admin_panel.store')}}"  enctype="multipart/form-data">
            @csrf
            @method('post')
         <div class="column">
@@ -37,15 +37,15 @@
         <div class="column">
             <div class="input-box">
                 <label>Product Image </label>
-                <input name="photo" id="photo" type="file" placeholder="Enter Product Image" required />
+                <input name="image" id="photo" type="file" placeholder="Enter Product Image" required />
             </div>
 
             <div class="input-box">
                 <label>Table Name</label>
                 <div class="select-box">
-                    <select name="tabletype" id="">
-                        <option value="medical_supplies_medical">medical_supplies_medical</option>
-                        <option value="medical_supplies_technical">medical_supplies_technical</option>
+                    <select name="category" id="">
+                        <option value="medical">medical</option>
+                        <option value="technical">technical</option>
                     </select>
                 </div>
             </div>
@@ -62,15 +62,15 @@
         </div>
         <div class="column">
             <div class="input-box">
-                <label>Source ID</label>
-                <input name="source_id" type="number" placeholder="Enter Source Id" required maxlength="10"/>
+                <label>File name</label>
+                <input name="product_image" type="text" placeholder="Enter Source Id" required maxlength="10"/>
             </div>
         </div>
        
         <div class="column">
           <div class="input-box">
             <label>Product Info</label>
-            <input name="product_info" type="text" placeholder="Enter Product Info "required minlength="148"  maxlength="148"/>
+            <input name="product_para" type="text" placeholder="Enter Product Info "required minlength="136"  maxlength="136"/>
           </div>
         </div>
         <div class="column">

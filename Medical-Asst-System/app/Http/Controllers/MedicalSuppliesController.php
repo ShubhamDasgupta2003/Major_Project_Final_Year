@@ -66,7 +66,7 @@ class MedicalSuppliesController extends Controller
    { 
     
     $searchQuery = $request->query('search');
-    $medical_supplies_technicals = medical_supplies_medical::where('product_keywords', 'like', '%' . $searchQuery . '%')
+    $medical_supplies_technicals = medical_supplies_medical::where('product_name', 'like', '%' . $searchQuery . '%')
     ->where('quantity', '>', 0)
     ->get();
     $totalcount=cart::count();
@@ -76,7 +76,7 @@ class MedicalSuppliesController extends Controller
    public function searcht(Request $request)
    { 
     $searchQuery = $request->query('search');
-    $medical_supplies_medicals = medical_supplies_medical::where('product_keywords', 'like', '%' . $searchQuery . '%')
+    $medical_supplies_medicals = medical_supplies_medical::where('product_name', 'like', '%' . $searchQuery . '%')
     ->where('quantity', '>', 0)
     ->get();
     $totalcount=cart::count();
@@ -206,10 +206,13 @@ public function delete(cart $cart)
     public function order()
     {
       $carts=cart::all();
-      $productNames = $carts->pluck('product_name')->toArray();
-      foreach ($productNames as $productName) {
-          // Do something with $productName
-      }
+      $productInfo = $carts->map(function ($item) {
+        return [
+            'product_name' => $item->product_name,
+            'product_quantity' => $item->product_quantity
+        ];
+    })->toArray();
+      
       $p=0;
       $s=0;
      
@@ -229,12 +232,19 @@ public function delete(cart $cart)
 
       echo $s;
       $u=1;
-      $productNamesString = implode(', ', $productNames);
-      echo  $productNamesString ;
+      $productInfoString = '';
+
+    foreach ($productInfo as $info)
+     {
+         $productInfoString .= $info['product_name'] . ' (' . $info['product_quantity'] . '), ';
+     }
+
+     // echo  $productNamesString ;
+     echo   $productInfoString;
       $t="test";
       $e="royaatraya@gmail.com";
       $data = [
-        'product_name' => $productNamesString ,
+        'product_name' => $productInfoString,
         'product_quantity' => $s,
         'product_rate' => $p,
         'user_id' => $u,
