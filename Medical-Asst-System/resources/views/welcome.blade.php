@@ -310,13 +310,13 @@ Home Page
                 <img src="images/HomePage/medicine.png" alt="">
                 <h3>Buy Medicine 24x7</h3>
                 <p> For More Information About This Service, Please Click On Learn More.</p>
-                <a href="" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
+                <a href="{{route('medical_supplies.index')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
             <div class="box">
                 <img src="images/HomePage/oxygen.png" alt="">
                 <h3>Oxygen</h3>
                 <p> For More Information About This Service, Please Click On Learn More.</p>
-                <a href="" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
+                <a href="{{route('medical_supplies.indexb')}}" class="btn">learn more <span class="fa fa-chevron-right"></span></a>
             </div>
 
           

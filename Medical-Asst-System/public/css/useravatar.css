@@ -16,9 +16,8 @@
     color: #00a896;
   }
   
-  .user-avatar-container h5 {
+  .user-avatar-container h3 {
     color: #00a896;
-    font-size: 10px;
     text-align: center;
-    /* padding-top:20px; */
+
   }

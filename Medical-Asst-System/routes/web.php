@@ -99,6 +99,11 @@ Route::get('/user_cancel_order',[HcsController::class,"user_cancel_order"])->nam
 Route::view ('RegisterNbank','/Blood_Booking/BbankRegister')->name('B_Bank_Register');
 Route::view ('Userlogin','/Blood_Booking/login')->name('Userlogin');
 Route::view ('/profilePage','/Blood_Booking/profilePage')->name('profile');
+// Route::view ('/bldPayment','/Blood_Booking/proceedToPay')->name('bldPayment');
+
+
+Route::get('/process_payment', [BloodBankController::class,'process_payment'])->name('process_payment');
+Route::get('/proceedToPay', [BloodBankController::class,'proceedToPay'])->name('proceedToPay');
 
 // .......................For Admin Panel........................ 
 
@@ -143,7 +148,7 @@ Route::get('/technical supplies',[MedicalSuppliesController::class,'indexb'])->n
 
 
 Route::get('/medical supplies/{medical_supplies_medical}/detail',[MedicalSuppliesController::class,'edit'])->name('medical_supplies.detail');
-Route::get('/technical supplies/{medical_supplies_technical}/detail',[MedicalSuppliesController::class,'editb'])->name('technical_supplies.detail');
+Route::get('/technical supplies/{medical_supplies_medical}/detail',[MedicalSuppliesController::class,'editb'])->name('technical_supplies.detail');
 Route::post('/medical supplies/detail',[MedicalSuppliesController::class,'store'])->name('medical_supplies.store');
 Route::post('/technical supplies/detail',[MedicalSuppliesController::class,'storeb'])->name('technical_supplies.storeb');
 Route::get('/cart',[MedicalSuppliesController::class,'cart'])->name('medical_supplies.cart');
@@ -161,6 +166,8 @@ Route::post('/input admin panel',[AdminController::class,'store'])->name('admin_
 Route::get('/admin medical supplies',[AdminController::class,'admin_supplies'])->name('admin_panel.admin_medical_supplies');
 Route::get('/update admin panel',[AdminController::class,'update_admin'])->name('admin_panel.update');
 Route::get('/delete admin panel',[AdminController::class,'delete_admin'])->name('admin_panel.delete');
+Route::get('/supplies admin panel',[AdminController::class,'supplies'])->name('admin_panel.supplies');
+Route::put('/supplies/{medical_supplies_medical}/update',[AdminController::class,'suppliesu'])->name('admin_panel.updatesupplies');
 /*-------------------Admin Panel----------------------------------*/
 
 /*-------------------others----------------------------------*/
@@ -205,6 +212,8 @@ Route::get('/driver-intf',[AmbulanceDriverPageController::class,'driverShowRides
 Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAccepted'])->name('driverRideAccepted');
 
 Route::post('/driver-ride-accepted',[AmbulanceDriverPageController::class,'verifyOTP'])->name('checkOtpVerification');
+
+Route::get('/driver-ride-declined',[AmbulanceDriverPageController::class,'declineRide'])->name('driver_decline');
 
 Route::get('/driver-ride-started',[AmbulanceDriverPageController::class,'reachDestination'])->name('driverRideStarted');
 
