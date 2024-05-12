@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('medical_supplies_medicals', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id');
+            $table->integer('quantity');
             $table->string('product_name');
+            $table->string('category');
             $table->string('product_keywords');
             $table->decimal('product_rate');
             $table->string('product_image');

@@ -16,4 +16,5 @@ class cart extends Model
         'product_image',
         'product_quantity'
     ];
+  
 }

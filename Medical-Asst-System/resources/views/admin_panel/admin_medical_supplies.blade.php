@@ -81,6 +81,7 @@
     <main>
         <div class="cards">
             <div class="card-single">
+                
                 <div>
                    
                     <h1 style="color: #fff;"></h1>
@@ -128,6 +129,14 @@
             <a href="{{route('admin_panel.delete')}}" style="color:#fff"><div class="card-single">
                 <div>
                     <h1 style="color: #fff;">Delete</h1>
+                    <span>Table</span>
+                </div>
+                <div>
+                </div>
+            </div></a> 
+            <a href="{{route('admin_panel.supplies')}}"><div class="card-single">
+                <div>
+                    <h1 style="color: #fff;">Supplies</h1>
                     <span>Table</span>
                 </div>
                 <div>
@@ -187,32 +196,7 @@
                      </div>
                   </div>
             </div>
-            <div class="projects">
-                  <div class="card">
-                     <div class="card-header">
-                          <h2> Technical Supplies</h2>
-                          
-                     </div>
-                     <div class="card-body">
-                           <table width="100%">
-                            <thead>
-                                <tr>
-                                    <td>Product ID</td>
-                                    <td>Product Name</td>
-                                    <td>Product Rate</td>
-                                </tr>
-                            </thead>
-                            @foreach($medical_supplies_technicals as $medical_supplies_technicals)
-                            <tbody>
-                                   <td>{{$medical_supplies_technicals->product_id}}</td>
-                                   <td>{{$medical_supplies_technicals->product_name}}</td>
-                                   <td>{{$medical_supplies_technicals->product_rate}}</td>
-                            </tbody>
-                            @endforeach
-                           </table>
-                     </div>
-                  </div>
-            </div>
+            
          </div>
 
       
