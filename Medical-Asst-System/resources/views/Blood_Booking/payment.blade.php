@@ -1,18 +1,17 @@
-{{$orders->order_id}}
+{{-- {{$orders->order_id}}
 {{$orders->order_type}}
 {{$orders->user_id}}
 {{$orders->bank_id}}
 {{$orders->pat_name}}
 {{$orders->pat_age}}
 {{$orders->pat_gender}}
-{{$orders->phone_no}}
-{{$orders->prex}}
+{{$orders->phone_no}}}}
 {{$orders->order_status}}
 {{$orders->blood_gr}}
 {{$orders->quantity}}
 {{$orders->price}}
 {{$orders->date}}
-{{$orders->time}}
+{{$orders->time}} --}}
 
 <!DOCTYPE html>
 <html>
@@ -83,9 +82,9 @@
         $(document).ready(function() {
             $('#payBtn').on('click', function() {
                 
-                var order_id =  @json($orders->order_id)   //Get orderid from url
-                var type=  @json($orders->order_type)   //Get orderid from url
-                var amount = @json($orders->price)   //Get amount from url
+                var order_id =  @json($orders->order_id)    //fetch data that are passe by the controller and get from the form page
+                var type=  @json($orders->order_type)   
+                var amount = @json($orders->price)   
 
                 // Make AJAX request to the controller
                 $.ajax({

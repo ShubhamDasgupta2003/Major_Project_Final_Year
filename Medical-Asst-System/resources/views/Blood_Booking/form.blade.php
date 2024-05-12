@@ -52,7 +52,7 @@
     
                 <div class="patient_info_cont">
     
-                    <form method="post" enctype="multipart/form-data" action="{{url('/confirm_booking')}}">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('submit_order')}}">
                         @csrf
                     
                         <div class="mb-3">

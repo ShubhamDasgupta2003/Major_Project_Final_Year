@@ -92,21 +92,21 @@ Route::get('/hcs_admin_logout',[HcsController::class,"sup_admin_logout"]);
 
 
 /*-------------------Blood Bank Start----------------------------------*/
-// routes for BloodBank
-// Route::view ('BookBlood','/Blood_Booking/bloodB_home')->name('bloodB_home');
-// Route::view ('booking_form','/Blood_Booking/form')->name('blood_booking_form');
+
 Route::view ('RegisterNbank','/Blood_Booking/BbankRegister')->name('B_Bank_Register');
 Route::view ('Userlogin','/Blood_Booking/login')->name('Userlogin');
 Route::view ('/profilePage','/Blood_Booking/profilePage')->name('profile');
-// Route::view ('/bldPayment','/Blood_Booking/proceedToPay')->name('bldPayment');
+
+Route::get('/orderHistory', [BloodBankController::class, 'orderHistory'])->name('orderHistory');
+Route::get('/order_detail}', [BloodBankController::class, 'showOrderDetail'])->name('order_detail');
 
 
-Route::get('/process_payment', [BloodBankController::class,'process_payment'])->name('process_payment');
 Route::get('/proceedToPay', [BloodBankController::class,'proceedToPay'])->name('proceedToPay');
+Route::get('/process_payment', [BloodBankController::class,'process_payment'])->name('process_payment');
 Route::get('/bld_payment_success',[BloodBankController::class,'paymentSuccess'])->name('bld_payment_sucess');
 
 
-// .......................For Admin Panel........................ 
+// .......................For Blood bank Admin Panel........................ 
 
 Route::get('/BBadmin', [BloodBankController::class, 'BloodBank_admin'])->name('Blood_admin_page');
 Route::get('/approve_bld_order/{order_id}', [BloodBankController::class, 'approve_order'])->name('confirmed_bld_order');
@@ -123,14 +123,11 @@ Route::post('/confirm_booking', [BloodBankController::class, 'submitOrder'])->na
 
         //   for users login,logout,orders view
 Route::get('/logout', [UserLogin::class, 'logout'])->name('logout');
-Route::get('/orderHistory', [UserLogin::class, 'orderHistory'])->name('orderHistory');
+
 
 
 Route::view ('/booking_form','/Blood_Booking/form')->name('blood_booking_form');
-Route::view ('/test','/Blood_Booking/test');
-Route::view ('/b','/Blood_Booking/b')->name('b');
-Route::view ('/a','/Blood_Booking/a');
-Route::get('/asearch',[searchContoller::class,'search'])->name('searchtest');
+
 
 
 /*-------------------Blood Bank End----------------------------------*/
