@@ -81,12 +81,12 @@
 
                 //ajax goes here
                 $.ajax({
-                    url:'{{route('proceedToPay')}}',
+                    url:'{{route('bld_payment_sucess')}}',
                     type:'GET',
                     data:{'order_id':order_id,'pid':pid,'service':service},
                     success:function(data){
                         console.log(data);
-                        window.location.href="{{url('/')}}/payment-success";
+                        window.location.href="{{url('/')}}/bld_payment_ack";
                     }
                 })
 
