@@ -14,7 +14,7 @@ Aya
               </nav>
         </div>
         <br/>
-        <div class="openModalBtn"><button id="openModalBtn">Order History</button></div>
+        <div class="openModalBtn"><button id="openModalBtn">All Orders &nbsp;<i class="fa fa-history"></i></button></div>
 
     <div id="modal" class="modal">
         <div class="modal-content">
@@ -26,7 +26,7 @@ Aya
                       <th scope="col">Order For</th>
                       <th scope="col">Order Date & Time</th>
                       <th scope="col">Order Status</th>
-                      <th scope="col">Add Review</th>
+                      <th scope="col">Options</th>
                   </tr>
               </thead>
               <tbody>
@@ -45,7 +45,13 @@ Aya
                 @endif</td>
                       <td>{{$userdata->created_at}}</td>
                       <td>{{$userdata->order_status}}</td>
+                      @if($userdata->order_status == "Completed")
                       <td><a href="{{route('hcs_add_rating', ['emp_id' => $userdata->emp_id ])}}"><button type="button" class="btn btn-primary">Add review</button></a></td>
+                      @elseif($userdata->order_status == "Canceled")
+                      <td></td>
+                      @else
+                      <td><a href="{{route('user_cancel_order', ['order_id' => $userdata->order_id ])}}"><button type="button" class="btn btn-danger">Cancel</button></a></td>
+                      @endif
                   </tr>
                   @endforeach
               </tbody>
@@ -74,7 +80,7 @@ Aya
                     {{"Others"}}
                 
                 @endif</strong>
-                <a href="{{route('hcs_show_rating', ['emp_id' => $employee->emp_id ])}}"><div>4.4<span class="fa fa-star checked"></span>
+                <a href="{{route('hcs_show_rating', ['emp_id' => $employee->emp_id ])}}"><div>{{$employee->rating_value}}<span class="fa fa-star checked"></span>
                 </div></a>
                 <strong><span style='color: red;'>INR {{$employee->emp_salary}}  per day</span></strong><br>
                 <strong>Book Amount:<span style='color: blue;'> INR 500</span></strong>

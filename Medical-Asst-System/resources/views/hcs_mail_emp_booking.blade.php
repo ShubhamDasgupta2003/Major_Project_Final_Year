@@ -39,6 +39,10 @@
     </p>
 
     <p>
+        Your booking is currently pending acceptance by our employee. Once accepted, you will receive a confirmation notification.
+    </p>
+
+    <p>
         Please ensure that you are available at the specified location at least [Duration before Service] before the scheduled time. Your assigned {{ $userdata->order_type === 'A' ? 'Aya' : ($userdata->order_type === 'N' ? 'Nurse' : 'Technician') }} will arrive promptly to provide the necessary care and support.
     </p>
 

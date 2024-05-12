@@ -31,7 +31,7 @@ class Hcs_emp_rej_msg_mail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Healthcare Support Order Cancellation Mail😞',
+            subject: 'Healthcare Service Order Cancellation Mail😞',
         );
     }
 
@@ -41,7 +41,7 @@ class Hcs_emp_rej_msg_mail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'hcs_emp_rej_msg_mail',
+            view: 'hcs_mail_emp_rej_msg',
         );
     }
 

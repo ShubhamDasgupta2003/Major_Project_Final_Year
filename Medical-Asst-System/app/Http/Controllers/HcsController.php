@@ -12,6 +12,7 @@ use Mail;
 use App\Mail\Hcs_emp_booking_mail;
 use App\Mail\Hcs_emp_msg_mail;
 use App\Mail\Hcs_emp_rej_msg_mail;
+use App\Mail\Hcs_user_cancel_order_mail;
 
 class HcsController extends Controller
 {
@@ -58,7 +59,6 @@ class HcsController extends Controller
                 'employess' => $employess,
                 'userdatas' => $userdatas
             ];
-    
             // Pass the associative array to the view
             return view("hcs_home_aya", $data);
         }
@@ -80,6 +80,17 @@ class HcsController extends Controller
         $table->emp_id = $request->input('emp_id');
         $table->rating_value = $request->input('rate'); // Correctly retrieve rating_value from the request
         $table->save();
+
+        // Inside your controller or wherever you need to perform this operation
+        $ratings = Hcs_user_rating::where('emp_id', $request->input('emp_id'))->get();
+        $totalRatingValue = $ratings->sum('rating_value');
+        $count = $ratings->count();
+
+        // Calculate the average rating value
+        $averageRating = $count > 0 ? number_format($totalRatingValue / $count, 1) : 0.0;
+        HcsEmployeeTableModel::where('emp_id', $request->input('emp_id'))->update(['rating_value' => $averageRating]);
+        // Now $averageRating contains the average rating value
+
         return redirect("/");
     }
     public function show_rating(Request $request){
@@ -291,6 +302,11 @@ class HcsController extends Controller
         
             return redirect("show_emp_admin_intf");
         }
-        
+        public function user_cancel_order(Request $request){
+        Hcs_order::where('order_id', $request->input('order_id'))->update(['order_status' => 'Canceled']);
+        $userdata= Hcs_order::where('order_id',$request->input('order_id'))->first(); 
+        Mail::to(session()->get("user_email"))->send(new Hcs_user_cancel_order_mail($userdata));     
+        return redirect("aya");
+        }
 }
 

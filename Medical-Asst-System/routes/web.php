@@ -86,6 +86,7 @@ Route::get('/hcs_admin',[HcsController::class,"admin_intf"])->name('hcs_admin');
 Route::get('/hcs_admin_login',[HcsController::class,"sup_admin_index"]);
 Route::post('/hcs_admin_login',[HcsController::class,"sup_admin_login"]);
 Route::get('/hcs_admin_logout',[HcsController::class,"sup_admin_logout"]);
+Route::get('/user_cancel_order',[HcsController::class,"user_cancel_order"])->name('user_cancel_order');
 
 
 /*-------------------Healthcare Support----------------------------------*/

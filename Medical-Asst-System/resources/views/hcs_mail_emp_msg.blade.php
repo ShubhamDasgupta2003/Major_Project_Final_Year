@@ -7,7 +7,7 @@
 </head>
 <body>
     <p>
-        <strong>Subject:</strong> Messege from Healthcare Service Booked Employee
+        <strong>Subject:</strong> Your order request accepted by our employee and they have sent you a message. Please read it carefully.
     </p>
 
     <p>
@@ -19,9 +19,10 @@
     </p>
 
     <p>
-        <strong>Messege<strong>
+        <strong>Message:</strong><br>
         {{$msg}}
     </p>
+
     <p>
         Please ensure that you are available at the specified location at least [Duration before Service] before the scheduled time. Your assigned {{ $userdata->order_type === 'A' ? 'Aya' : ($userdata->order_type === 'N' ? 'Nurse' : 'Technician') }} will arrive promptly to provide the necessary care and support.
     </p>
