@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\blood_group;
 use App\Models\Payments_records;
 use App\Models\BloodBank;
-use App\Models\BloodOrder;
+use App\Models\BloodOrder; 
+use App\Models\testOrders; 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -298,27 +299,27 @@ class BloodBankController extends Controller
     // ......................to show the orer_history ................. 
     public function orderHistory(){
         $user_id = Session::get('user_id');
-        // $orders = DB::table('payments')
-        // ->select('payments.payment_id', 'payments.order_id','payments.service_type',
-        //          'payments.payment_date','payments.amount','payments.payment_status',
+        
+        $orders = DB::table('payments')
+        ->select('payments.payment_id', 'payments.order_id','payments.service_type',
+                 'payments.payment_date','payments.amount','payments.payment_status',
 
-        //          'blood_orders.pat_name AS blood_customer_name', 'blood_orders.pat_age AS blood_age' 
-        //         //  'blood_orders.pat_name AS blood_customer_name', 'blood_order.age AS blood_age', 
-        //         )
-        //         //  'ambulance.customer_name AS ambulance_customer_name', 'ambulance.age AS ambulance_age')
-        //         // ->join('ambulance', 'Payments_records.order_id', '=', 'ambulance.order_id')
-                
-        // ->join('blood_orders', 'payments.order_id', '=', 'blood_orders.order_id')
-        // ->where('payments.user_id', $user_id)
-        // ->get();
+                 'blood_orders.pat_name', 'blood_orders.pat_age',
+                 'test_orders.pat_name', 'test_orders.pat_age')
 
-        $orders = DB::table('blood_orders')
-        ->select('*')
-        ->where('user_id', $user_id)
+        ->join('test_orders', 'payments.order_id', '=', 'test_orders.order_id')
+        ->join('blood_orders', 'payments.order_id', '=', 'blood_orders.order_id')
+        ->where('payments.user_id', $user_id)
         ->get();
 
+        // $orders = DB::table('blood_orders')
+        // ->select('*')
+        // ->where('user_id', $user_id)
+        // ->get();
 
-        return view('Blood_Booking.orderHistory',['orders'=>$orders]);
+        return $orders;
+
+        // return view('Blood_Booking.orderHistory',['orders'=>$orders]);
      }
    
     public function showOrderDetail(Request $req){

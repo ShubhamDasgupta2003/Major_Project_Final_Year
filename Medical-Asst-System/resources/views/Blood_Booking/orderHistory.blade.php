@@ -57,12 +57,14 @@
                 <!-- Sample Order Cards -->
                 @foreach ($orders as $order)
                 <div class="order-card">
-                    <h5>Order #{{ $order->order_id }}</h5>
+                    {{-- <h5>Order #{{ $order->order_id }}</h5> --}}
                     <div class="order-details">
                         <div>
                             <img src="images/BloodB/Blood_Bank.png" style="width: 50px; height: 50px;" alt="">
                         </div>
-                        <div>
+                        {{$order->blood_age}}
+                        {{$order->blood_customer_name}}
+                        {{-- <div>
                             <p>Quantity: {{ $order->quantity }}</p>
                         </div>
                         <div>
@@ -77,7 +79,7 @@
                         <div>
                             <p>Status: {{ $order->order_status }}</p>
                         </div>
-                        <p><a href="{{ route('order_detail', ['order_id' => $order->order_id]) }}" class="btn btn-success btn-d">Details</a></p>
+                        <p><a href="{{ route('order_detail', ['order_id' => $order->order_id]) }}" class="btn btn-success btn-d">Details</a></p> --}}
                         <p><button class="btn btn-danger">Cancel Order</button> </p>
                         <p><button class="btn btn-success btn-d">Book Again</button></p>
                         <div class="order-actions">

@@ -127,7 +127,7 @@ Route::get('/logout', [UserLogin::class, 'logout'])->name('logout');
 
 
 Route::view ('/booking_form','/Blood_Booking/form')->name('blood_booking_form');
-
+Route::get('/asearch',[searchContoller::class,'search'])->name('searchtest');
 
 
 /*-------------------Blood Bank End----------------------------------*/
