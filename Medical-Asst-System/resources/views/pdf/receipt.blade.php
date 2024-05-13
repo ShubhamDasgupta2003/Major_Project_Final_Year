@@ -15,7 +15,7 @@ $p=0;
 
 </head>
 <body>
-<h2>{{$date}}</h2>
+<h2></h2>
 
  <div class="main">
   
@@ -29,29 +29,20 @@ $p=0;
             <th>Product price</th>
             <th>Product Quanity</th>
             <th>Total Price</th>
-            <th>Delete Item</th>
+          
         </tr>
     </thead>
     <tbody>
-    @php
-    $joinedData = DB::table('carts')
-        ->join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
-        ->select('medical_supplies_medicals.quantity')
-        ->get();
- 
-@endphp
-      @foreach($carts as $index => $cart)
+  
+      @foreach($carts as $cart)
         <tr>
            <!--   <td></td>-->
-            <td ><img src="{{asset('pictures/'.$cart->product_image)}}" ></td>
+          
             <td>{{$cart->product_name}}</td>
             <td>&#8377 {{$cart->product_rate}}</td>
-            <td><input type="hidden" value="{{$cart->id}}" name="id">
-            <input type="number" min="1" max="{{ max(1, $joinedData[$index]->quantity) }}" value="{{ $cart->product_quantity }}" name="product_quantity">
-             <input type="submit" class="update_quantity" value="update" name="update_product_quantity">
-            </td>
+            <td>{{ $cart->product_quantity }}</td>
             <td>&#8377 {{$cart->product_rate*$cart->product_quantity}}</td>
-            <td> <input type="submit" class="update_quantity" value="Delete" /></td>
+           
            <!-- <td>
                 <a href="delete.php?delete=" onclick="return confirm('Are you sure you want to delete this product');"><i class="fa-solid fa-trash" id="delete">  Remove</i></a>
             </td> -->
@@ -62,15 +53,13 @@ $p=0;
              </script>
           <td></td>
            -->
-           <?php
-          
-           $p=$p+($cart->product_rate*$cart->product_quantity);
-           ?>
+         
            @endforeach <td></td><td>
                </td>
                <td>
               </td>  <td></td><td></td><td></td></tbody>
                </table>
+               <h3 class='bottom_btn'>Grand Total :&#8377 <?php echo $p ?> <h3>
             
                    
          

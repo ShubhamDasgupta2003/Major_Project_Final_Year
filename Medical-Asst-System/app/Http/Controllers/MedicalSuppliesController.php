@@ -53,7 +53,12 @@ class MedicalSuppliesController extends Controller
       $medical_supplies_medicals = medical_supplies_medical::where('category', 'medical')
       ->where('quantity', '>', 0)
       ->get();
-      $totalcount=cart::count();
+      $carts = Cart::join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+    ->where('medical_supplies_medicals.quantity', '>', 0)
+    ->where('carts.user_id', session()->get('user_id'))
+    ->get();
+
+$totalcount = $carts->count();
        
         return view('medical_supplies.index',['medical_supplies_medicals'=>$medical_supplies_medicals],compact('totalcount')); 
     }
@@ -88,7 +93,12 @@ class MedicalSuppliesController extends Controller
     $medical_supplies_technicals = medical_supplies_medical::where('category', 'technical')
     ->where('quantity', '>', 0)
     ->get();
-    $totalcount=cart::count();
+    $carts = Cart::join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+    ->where('medical_supplies_medicals.quantity', '>', 0)
+    ->where('carts.user_id', session()->get('user_id'))
+    ->get();
+
+$totalcount = $carts->count();
     if($request->ajax())
     {
     $searchData = $request->input('search_data');
@@ -105,7 +115,7 @@ class MedicalSuppliesController extends Controller
 
    public function orderview(Request $request)
    {
-    $orders=medical_supplies_order::all();
+    $orders = medical_supplies_order::where('user_id', session()->get('user_id'))->get();
  
     return view('medical_supplies.order_view',['orders'=>$orders]);
   
@@ -127,7 +137,7 @@ class MedicalSuppliesController extends Controller
         'product_quantity'=>'required|numeric',
         'product_rate'=>'required|decimal:0,2',
         'product_image'=>'required',
-        'user_id'=>'required'
+        'user_id'=> 'required'
       ]); 
  
                $newProduct=cart::create($data);
@@ -159,9 +169,9 @@ $joinedData = DB::table('carts')
     ->join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
     ->select('medical_supplies_medicals.quantity')
     ->get();
-   
-    $carts = Cart::join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+  $carts = Cart::join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
     ->where('medical_supplies_medicals.quantity', '>', 0)
+    ->where('carts.user_id', session()->get('user_id'))
     ->get();
   return view('medical_supplies.cart',['carts'=>$carts],['j'=>$joinedData]);
 }
@@ -170,26 +180,40 @@ $joinedData = DB::table('carts')
 public function storeImage(Request $request)
 {
 
-  $filename = time()."-ws.".$request->file('image')->getClientOriginalExtension();
+  $filename = session()->get('user_id')."_".time()."-ws.".$request->file('image')->getClientOriginalExtension();
   try{
-  $request->validate(['image'=>'required|image|mimes:png,jpg,gif,svg,jpeg|max:2048']);
+  $request->validate(['image'=>'required|image|mimes:png,jpg,gif,svg,jpeg']);
   }catch (exception $e){
-    $carts=cart::all();
+    $carts = Cart::join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+  ->where('medical_supplies_medicals.quantity', '>', 0)
+  ->where('carts.user_id', session()->get('user_id'))
+  ->get();
     return view('medical_supplies.cart',['carts'=>$carts]);
   }
   $request->file('image')->storeAs('uploads',$filename);
-  $carts=cart::all();
+  $carts = Cart::join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+  ->where('medical_supplies_medicals.quantity', '>', 0)
+  ->where('carts.user_id', session()->get('user_id'))
+  ->get();
   return view('medical_supplies.cart',['carts'=>$carts]);
 }
 public function delete(cart $cart)
     {
       $cart->delete();
-      return redirect(route("medical_supplies.cart")); 
+      $joinedData = DB::table('carts')
+    ->join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+    ->select('medical_supplies_medicals.quantity')
+    ->get();
+  $carts = Cart::join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+    ->where('medical_supplies_medicals.quantity', '>', 0)
+    ->where('carts.user_id', session()->get('user_id'))
+    ->get();
+       return view('medical_supplies.cart',['carts'=>$carts],['j'=>$joinedData]);
     }
     public function orderdelete(medical_supplies_order $order)
     {
       $order->delete();
-      return redirect(route("medical_supplies.order_view")); 
+      return view('medical_supplies.cart');
     }
    
     public function update(cart $cart,Request $request)
@@ -201,7 +225,7 @@ public function delete(cart $cart)
 
      $cart->update($data);
 
-     return redirect(route("medical_supplies.cart"));  
+     return view('medical_supplies.cart'); 
     }
     public function order()
     {
@@ -231,7 +255,7 @@ public function delete(cart $cart)
       echo $p ;
 
       echo $s;
-      $u=1;
+      $u= mt_rand(1000000, 9999999);;
       $productInfoString = '';
 
     foreach ($productInfo as $info)
@@ -247,20 +271,24 @@ public function delete(cart $cart)
         'product_name' => $productInfoString,
         'product_quantity' => $s,
         'product_rate' => $p,
-        'user_id' => $u,
-        'user_name' => $t,
-        'user_email' => $e,
+        'user_id' => session()->get('user_id'),
+        'user_name' => session()->get('user_name'),
+        'user_email' => session()->get('user_email'),
         'order_id' => $u
     ];
-    $newProduct=medical_supplies_order::create($data);
-   // return view('medical_supplies.order_confirmation',['price'=>$p]);
+    $dataString = implode(", ", $data);
+
+    echo $dataString;
+
+   // $newProduct=medical_supplies_order::create($data);
+   //return redirect()->route('generatepdf');
     }
     public function generatePdfb()
     {
-      
-    $carts = Cart::join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
-    ->where('medical_supplies_medicals.quantity', '>', 0)
-    ->get();
+      $carts = Cart::join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+      ->where('medical_supplies_medicals.quantity', '>', 0)
+      ->where('carts.user_id', session()->get('user_id'))
+      ->get();
         $data=[
            'tittle'=>'Receipt',
            'date'=>date('m/d/Y'),

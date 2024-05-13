@@ -42,12 +42,11 @@
 
    
     <nav class="navbar">
-        <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/index.php">Home</a>
-            <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/index.php#services">Services</a>
-            <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/index.php#review">Review</a>
-            <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/index.php#footer">contact Us</a>
-    </nav>
-    
+            <a class="navlink" href="{{ route('home') }}">Home</a>
+            <a class="navlink" href="{{ route('home') }}#services">Services</a>
+            <a class="navlink" href="{{ route('home') }}#review">Review</a>
+            <a class="navlink" href="#footer">contact Us</a>
+        </nav>
     
     <div class="user-avatar-container">
         <a href="http://localhost/Minor%20Project%205th_Sem/Emergency_Medical_Support_System/HomePage/profile.php" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>

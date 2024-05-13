@@ -74,6 +74,7 @@ return array(
     'App\\Models\\medical_supplies_order' => $baseDir . '/app/Models/medical_supplies_order.php',
     'App\\Models\\medical_supplies_technical' => $baseDir . '/app/Models/medical_supplies_technical.php',
     'App\\Models\\states' => $baseDir . '/app/Models/states.php',
+    'App\\Models\\testOrders' => $baseDir . '/app/Models/testOrders.php',
     'App\\Output\\Concerns\\InteractsWithSymbols' => $vendorDir . '/laravel/pint/app/Output/Concerns/InteractsWithSymbols.php',
     'App\\Output\\ProgressOutput' => $vendorDir . '/laravel/pint/app/Output/ProgressOutput.php',
     'App\\Output\\SummaryOutput' => $vendorDir . '/laravel/pint/app/Output/SummaryOutput.php',

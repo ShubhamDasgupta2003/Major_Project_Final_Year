@@ -149,12 +149,18 @@ Route::get('/medical supplies/{medical_supplies_medical}/detail',[MedicalSupplie
 Route::get('/technical supplies/{medical_supplies_medical}/detail',[MedicalSuppliesController::class,'editb'])->name('technical_supplies.detail');
 Route::post('/medical supplies/detail',[MedicalSuppliesController::class,'store'])->name('medical_supplies.store');
 Route::post('/technical supplies/detail',[MedicalSuppliesController::class,'storeb'])->name('technical_supplies.storeb');
-Route::get('/cart',[MedicalSuppliesController::class,'cart'])->name('medical_supplies.cart');
+
 Route::post('/carti',[MedicalSuppliesController::class,'storeImage'])->name('medical_supplies.imagestore');
-Route::delete('/cart/{cart}/delete',[MedicalSuppliesController::class,'delete'])->name('cart.delete');
+
 Route::delete('/order_view/{order}/delete',[MedicalSuppliesController::class,'orderdelete'])->name('order.delete');
+
+Route::get('/order confirmation',[MedicalSuppliesController::class,'order'])->name('medical_supplies.order_confirmation');
+
+
+Route::get('/cart',[MedicalSuppliesController::class,'cart'])->name('medical_supplies.cart');
 Route::put('/cart/{cart}/update',[MedicalSuppliesController::class,'update'])->name('cart.update');
-Route::get('/order confirmation/include',[MedicalSuppliesController::class,'order'])->name('medical_supplies.order_confirmation');
+Route::delete('/cart/{cart}/delete',[MedicalSuppliesController::class,'delete'])->name('cart.delete');
+
 /*-------------------Medical Supplies----------------------------------*/
 
 /*-------------------Admin Panel----------------------------------*/
@@ -174,8 +180,8 @@ Route::delete('/admin_order/{order}/delete',[MedicalSuppliesController::class,'a
 /*-------------------others----------------------------------*/
 Route::get('/send-mail',[MailController::class,'index']);
 Route::get('/send-attach-mail',[MailController::class,'send_attach_email']);
-Route::get('/generate-pdf',[PdfController::class,'generatePdf']);
-Route::get('/generate-pdfb',[MedicalSuppliesController::class,'generatePdfb']);//not ready yet
+Route::get('/generate-pdf',[PdfController::class,'generatePdf'])->name('generatepdf');
+Route::get('/generate-pdfb',[MedicalSuppliesController::class,'generatePdfb'])->name('pdf.receipt');//not ready yet
 /*-------------------others----------------------------------*/
 
 // ---------------------Ambulance Service Routes---------------------------
