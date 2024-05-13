@@ -240,7 +240,7 @@ public function delete(cart $cart)
      }
 
      // echo  $productNamesString ;
-     echo   $productInfoString;
+     //echo   $productInfoString;
       $t="test";
       $e="royaatraya@gmail.com";
       $data = [
@@ -253,24 +253,32 @@ public function delete(cart $cart)
         'order_id' => $u
     ];
     $newProduct=medical_supplies_order::create($data);
+   // return view('medical_supplies.order_confirmation',['price'=>$p]);
     }
     public function generatePdfb()
     {
+      
+    $carts = Cart::join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+    ->where('medical_supplies_medicals.quantity', '>', 0)
+    ->get();
         $data=[
-           'tittle'=>'test pdf',
+           'tittle'=>'Receipt',
            'date'=>date('m/d/Y'),
-           
+           'carts'=>$carts,
         ];
-        $pdf = Pdf::loadView('pdf.invoice', $data);
+        $pdf = Pdf::loadView('pdf.receipt', $data);
         //return Pdf::loadFile(public_path().'\myfile.html')->save('\C:\xampp\htdocs\test\public\my_stored_file.pdf')->stream('download.pdf');
         // return $pdf->download('\C:\xampp\htdocs\test\public\invoice.pdf');
          Pdf::loadView('pdf.invoice', $data)->save('C:/xampp/htdocs/test/public/saves/my_stored_file.pdf')->stream('download.pdf');
         $datab=array('name'=>'gazi adib');
-        Mail::send(['text'=>'mail'],$datab,function($message)
+
+
+
+       /* Mail::send(['text'=>'mail'],$datab,function($message)
         {
             $message->to('royaatraya5@gmail.com','user')->subject('laravel email with attachment');
             $message->attach('C:/xampp/htdocs/test/public/saves/my_stored_file.pdf');
             $message->from('emergencymedicalservices23@gmail.com','user');
-        });
+        });     */
     }
 }

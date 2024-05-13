@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking Confirmation</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="css/Medical Supplies/navbar.css">
-    <link rel="stylesheet" href="css/Medical Supplies/amb_form_booking.css">
-    <link rel="stylesheet" href="css/Medical Supplies/navlink.css">
+    <link rel="stylesheet" href="{{asset('css/Medical Supplies/navbar.css')}}">
+    <link rel="stylesheet" href="{{asset('css/Medical Supplies/amb_form_booking.css')}}">
+    <link rel="stylesheet" href="{{asset('css/Medical Supplies/navlink.css')}}">
 
 </head>
 <body>
@@ -21,8 +21,10 @@
                     <p class="descp" id="card-type"></p>
                     <p class="descp" id="card-address"><i class="fa-solid fa-calendar-days"></i>></i> Estimated Arrival</p>
                     <p class="descp" id="card-type"><?php echo date('Y-m-d', strtotime("+10 days")); ?></p>
-                    <h2 class="descp" id="card-fare">Total Price: &#8377  </h2>
+                    <h2 class="descp" id="card-fare">Total Price: &#8377  {{ $price }} </h2>
                     <div class="bton">
+                 
+                        <a href="#" class='btn'>Receipt</a>
                     </div>
                 </div>
             </div>
