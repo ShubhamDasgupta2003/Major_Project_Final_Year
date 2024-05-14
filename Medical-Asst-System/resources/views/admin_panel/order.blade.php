@@ -25,7 +25,7 @@ $p=0;
     {
         
        ?> <script>alert("no products present in cart");
-             window.location.href = "{{route('medical_supplies.index')}}";
+             window.location.href = "{{route('admin_panel.admin_medical_supplies')}}";
         </script><?php
 
     }
@@ -55,10 +55,10 @@ $p=0;
             <td>&#8377 {{$order->product_rate}}</td>
             <td>{{$order->product_quantity}}</td>
          
-            <td>  <form method="post" action="{{route('order.delete',['order' => $order])}}">
+            <td>  <form method="post" action="{{route('admin_order.delete',['order' => $order])}}">
                         @csrf
                         @method('delete')
-                        <input type="submit" class="update_quantity" value="cancel" />
+                        <input type="submit" class="update_quantity" onclick="return confirm('Are you sure you want to delete this product');" value="cancel" />
                     </form>
             </td>
            <!-- <td>
@@ -84,53 +84,7 @@ $p=0;
   
 </div>
 
-<div class="sub">
-<table class='styled-table' style='width:60%'>
-                <thead>
-        <tr>
-            <th style='width:20%'>product Name</th>
-            <th style='width:20%'>Product Quanity</th>
-            <th style='width:5%'>Total Price</th>
-            <th style='width:5%'>Delete Item</th>
-        </tr>
-    </thead>
-    @foreach($orders as $order)
-    <tbody>
-        <tr>
-            <td >{{$order->product_name}}</td>
-            <td>
-            <form action="{{route('cart.update',['cart' => $order])}}" method="post">
-               @csrf
-               @method('put')
-                <input type="hidden" value="{{$order->id}}" name="id">
-            <div class="quantity_box">
-             <input type="number" min="1" value="{{$order->product_quantity}}" name="product_quantity">
-             <input type="submit" class="update_quantity" value="update" name="update_product_quantity">
-            </div>
-            </form>
-            </td>
-            <td>&#8377 &#8377 {{$order->product_rate*$order->product_quantity}}</td>
-            <td>  <form method="post" action="{{route('order.delete',['order' => $order])}}">
-                        @csrf
-                        @method('delete')
-                        <input type="submit" class="update_quantity" value="Delete" />
-                    </form>
-            </td>
-        </tr>
-       
-           <!-- <script>alert("no products present in cart");
-             window.location.href = '/Minor Project 5th_Sem/Emergency_Medical_Support_System/Medical Supplies/Medical Supplies.php'
-             </script> -->
-          
-             <td></td><td>
-               <div class='table_bottom'>
-               <h3 class='bottom_btn'>Grand Total :&#8377 {{$order->product_rate*$order->product_quantity}}<h3>
-               @endforeach    
-               <a href='order confirmation.php?pgt=$grand_total' class='bottom_btn'>Proceed To Checkout</a>
-               </div></td> <td></td><td></td> </tbody>
-               </table>  
-    
-</div>
+
   
 
   <!-- '/Minor Project 5th_Sem/Emergency_Medical_Support_System/Medical Supplies/Medical Supplies.php' -->

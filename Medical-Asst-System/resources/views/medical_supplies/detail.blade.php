@@ -14,7 +14,13 @@
 <link rel="stylesheet" href="{{asset('css/Medical Supplies/navlink.css')}}">
 </head>
 <body>
-
+@if(session('error'))
+    <script>
+        $(document).ready(function(){
+            alert("{{ session('error') }}");
+        });
+    </script>
+@endif
   <div class="container">
     <div class="card">
         <img src="{{asset('pictures/'.$medical_supplies_medical->product_image)}}" alt="">
@@ -36,7 +42,7 @@
                     <input type="hidden" name="product_rate" value="{{$medical_supplies_medical->product_rate}}">
                     <input type="hidden" name="product_image"  value="{{$medical_supplies_medical->product_image}}">
                     <input type="hidden" name="product_quantity" value="1">
-                    <input type="hidden" name="user_id" value="1">
+                    <input type="hidden" name="user_id" value="{{session()->get('user_id')}}">
                     <input type="submit" class="btn" value="Add To Cart" name="add_to_cart"></input>
                 </form>
              <!--   <a href="order confirmation.html">   </a>  -->

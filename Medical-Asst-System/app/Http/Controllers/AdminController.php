@@ -13,6 +13,7 @@ use App\Models\User_info;
 use App\Models\medical_supplies_technical;
 use App\Models\medical_supplies_order;
 use App\Models\cart;
+use Exception;
 class AdminController extends Controller
 {
     public function index()
@@ -42,7 +43,10 @@ class AdminController extends Controller
    public function adminorderdelete(medical_supplies_order $order)
    {
     $order->delete();
-    return redirect(route("admin_panel.order")); 
+    $orders=medical_supplies_order::all();
+ 
+    return view('admin_panel.order',['orders'=>$orders]);
+    
    }
    public function input_admin()
    {
@@ -123,8 +127,14 @@ return redirect(route("admin_panel.supplies"));
 
     // Move the uploaded file to the desired location with its original name
     $product_image->move(public_path('pictures'), $product_image->getClientOriginalName());
- 
-               $newProduct=medical_supplies_medical::create($data);
+    try{
+      $newProduct=medical_supplies_medical::create($data);
+     }catch(Exception $e)
+     {
+     
+      return redirect(route("admin_panel.admin_medical_supplies"))  ;   
+     }
+              
            
   
     return redirect(route("admin_panel.admin_medical_supplies"));   

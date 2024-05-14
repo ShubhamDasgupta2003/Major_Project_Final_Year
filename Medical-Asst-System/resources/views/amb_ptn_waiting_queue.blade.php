@@ -62,6 +62,7 @@
                 <h4 class="card-text text-center" id="srvc_driver"></h4>
                 <h4 id="srvc_mob" class="text-center"></h4>
                 <h5 id="track_btn" class="text-center mt-3"></h5>
+                <h5 id="rebook_btn" class="text-center mt-3"></h5>
             </div>
         </div>
 
@@ -69,13 +70,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
+
+            $('#rebook_btn').on('click',function(){
+                location.reload();
+            });
+
             var  checkAjax = function()
             {
                     $.ajax({
                     url:'{{route('assignedRidePatient')}}',
                     type:'GET',
+                    data:{'inv':'{{$inv_id}}'},
                     success:function(data){
-                        if(data.data)
+                        // console.log(data);
+                        if(data.data.ptn_data[0].ride_status=='101')
+                        {
+                            $('#status').html('Ride declined');
+                            $('#status').css("color","red");
+                            $("#rebook_btn").html("<button class='btn btn-success'>Book Again</button>")
+                        }
+                        else
                         {
                             var patient_info = data.data.ptn_data[0];
                             var amb_info = data.data.amb_data[0];

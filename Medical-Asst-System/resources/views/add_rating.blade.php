@@ -148,9 +148,17 @@ input:checked ~ .form{
   border: 1px solid  #00A896;
 }
     </style>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   </head>
   <body>
     <div class="container">
+      <div class="row">
+        <div class="col-md-12 mb-3">
+            <h4 class="text-light">Share your valuable feedback with us</h4>
+        </div>
+      </div>
+      
       <div class="post">
         <div class="text">Thanks for rating us!</div>
         <div class="edit">EDIT</div>

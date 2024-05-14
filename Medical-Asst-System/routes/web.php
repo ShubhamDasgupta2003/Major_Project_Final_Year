@@ -151,12 +151,23 @@ Route::get('/medical supplies/{medical_supplies_medical}/detail',[MedicalSupplie
 Route::get('/technical supplies/{medical_supplies_medical}/detail',[MedicalSuppliesController::class,'editb'])->name('technical_supplies.detail');
 Route::post('/medical supplies/detail',[MedicalSuppliesController::class,'store'])->name('medical_supplies.store');
 Route::post('/technical supplies/detail',[MedicalSuppliesController::class,'storeb'])->name('technical_supplies.storeb');
-Route::get('/cart',[MedicalSuppliesController::class,'cart'])->name('medical_supplies.cart');
+
 Route::post('/carti',[MedicalSuppliesController::class,'storeImage'])->name('medical_supplies.imagestore');
-Route::delete('/cart/{cart}/delete',[MedicalSuppliesController::class,'delete'])->name('cart.delete');
+
 Route::delete('/order_view/{order}/delete',[MedicalSuppliesController::class,'orderdelete'])->name('order.delete');
+
+Route::get('/order confirmation',[MedicalSuppliesController::class,'order'])->name('medical_supplies.order_confirmation');
+
+
+Route::get('/cart',[MedicalSuppliesController::class,'cart'])->name('medical_supplies.cart');
 Route::put('/cart/{cart}/update',[MedicalSuppliesController::class,'update'])->name('cart.update');
-Route::get('/order confirmation/include',[MedicalSuppliesController::class,'order'])->name('medical_supplies.order_confirmation');
+Route::delete('/cart/{cart}/delete',[MedicalSuppliesController::class,'delete'])->name('cart.delete');
+
+
+
+Route::get('/proceedpay', [MedicalSuppliesController::class,'order'])->name('proceedpay');
+
+
 /*-------------------Medical Supplies----------------------------------*/
 
 /*-------------------Admin Panel----------------------------------*/
@@ -170,14 +181,16 @@ Route::get('/admin_order/{medical_supplies_medical}/delete',[AdminController::cl
 Route::get('/supplies admin panel',[AdminController::class,'supplies'])->name('admin_panel.supplies');
 Route::put('/supplies/{medical_supplies_medical}/update',[AdminController::class,'suppliesu'])->name('admin_panel.updatesupplies');
 Route::get('/admin_order',[AdminController::class,'order'])->name('admin_panel.order');
-Route::delete('/admin_order/{order}/delete',[MedicalSuppliesController::class,'adminorderdelete'])->name('adminorder.delete');
+Route::delete('/admin_order/{order}/delete',[AdminController::class,'adminorderdelete'])->name('admin_order.delete');
+
+Route::get('/amb-admin-panel',[AdminController::class,'getAmbAdmin_data'])->name('amb_admin_show_data');
 /*-------------------Admin Panel----------------------------------*/
 
 /*-------------------others----------------------------------*/
 Route::get('/send-mail',[MailController::class,'index']);
 Route::get('/send-attach-mail',[MailController::class,'send_attach_email']);
-Route::get('/generate-pdf',[PdfController::class,'generatePdf']);
-Route::get('/generate-pdfb',[MedicalSuppliesController::class,'generatePdfb']);//not ready yet
+Route::get('/generate-pdf',[PdfController::class,'generatePdf'])->name('generatepdf');
+Route::get('/generate-pdfb',[MedicalSuppliesController::class,'generatePdfb'])->name('pdf.receipt');//not ready yet
 /*-------------------others----------------------------------*/
 
 // ---------------------Ambulance Service Routes---------------------------
@@ -217,6 +230,8 @@ Route::get('/driver-ride-accepted',[AmbulanceDriverPageController::class,'rideAc
 Route::post('/driver-ride-accepted',[AmbulanceDriverPageController::class,'verifyOTP'])->name('checkOtpVerification');
 
 Route::get('/driver-ride-declined',[AmbulanceDriverPageController::class,'declineRide'])->name('driver_decline');
+
+Route::get('/driver-activate',[AmbulanceDriverPageController::class,'activateAccount'])->name('driverActivate');
 
 Route::get('/driver-ride-started',[AmbulanceDriverPageController::class,'reachDestination'])->name('driverRideStarted');
 
@@ -266,5 +281,5 @@ Route::get('/payment',[PaymentController::class,'pay_amount']); //Pass order_id,
 Route::post('/payment',[PaymentController::class,'process_payment'])->name('processPayment');
 
 Route::get('/payment-complete',[PaymentController::class,'makePayment'])->name('make-payment-page');
-Route::get('/payment-success',[PaymentController::class,'p'])->name('payment-sucess');
+Route::get('/payment-success',[PaymentController::class,'paymentSuccess'])->name('payment-sucess');
 //----------------------- Payment Routes ends here -----------------------
