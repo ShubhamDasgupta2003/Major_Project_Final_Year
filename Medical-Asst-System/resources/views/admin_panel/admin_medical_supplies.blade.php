@@ -74,16 +74,14 @@
            Dashboard
         </h3>
      </header>
-
-
-
-     
+  
     <main>
         <div class="cards">
             <div class="card-single">
+                
                 <div>
                    
-                    <h1 style="color: #fff;"></h1>
+                    <h1 style="color: #fff;"> <{{ $userCount }}</h1>
                     <span>Customers</span>
                 </div>
                 <div>
@@ -91,22 +89,25 @@
                 </div>
             </div>
             <div class="card-single">
+           
                 <div>
                   
-                    <h1 style="color: #fff;"></h1>
-                    <span>orders</span>
+                    <h1 style="color: #fff;">{{ $currentMonthOrdersCount }}</h1>
+                    <span>orders(Current Month)</span>
                 </div>
                 <div>
                     <span class="las la-shopping-bag" style="color: #fff;"></span>
                 </div>
+                <div>
             </div>
+            </div></a> 
             <div class="card-single">
                 <div>
-                    <h1 style="color: #fff;"> &#8377</h1>
+                    <h1 style="color: #fff;"> &#8377  {{ $totalProductrate }}</h1>
                     <span>Income(Current Month)</span>
                 </div>
                 <div>
-                   <span class="lab la-google-wallet" ></span>  
+                   <span class="lab la-google-wallet" ></span>                                          
                 </div>
             </div>
             <a href="{{route('admin_panel.input')}}"><div class="card-single">
@@ -117,17 +118,18 @@
                 <div>
                 </div>
             </div></a> 
-            <a href="{{route('admin_panel.update')}}" style="color:#fff"><div class="card-single">
+          
+            <a href="{{route('admin_panel.supplies')}}"><div class="card-single">
                 <div>
-                    <h1 style="color: #fff;">Update</h1>
+                    <h1 style="color: #fff;">Supplies</h1>
                     <span>Table</span>
                 </div>
                 <div>
                 </div>
-            </div></a>
-            <a href="{{route('admin_panel.delete')}}" style="color:#fff"><div class="card-single">
+            </div></a> 
+            <a href="{{route('admin_panel.order')}}" style="color:#fff"><div class="card-single">
                 <div>
-                    <h1 style="color: #fff;">Delete</h1>
+                    <h1 style="color: #fff;">Order</h1>
                     <span>Table</span>
                 </div>
                 <div>
@@ -140,32 +142,33 @@
             <div class="projects">
                   <div class="card">
                      <div class="card-header">
-                          <h2> Mddical Supplies</h2>
+                          <h2> Medical Supplies</h2>
                           
                      </div>
-                     <div class="card-body">
-                           <table width="100%">
-                            <thead>
-                          
-                                <tr>
-                                    <td>Product ID</td>
-                                    <td>Product Name</td>
-                                    <td>Product Rate</td>
-                                </tr>
-                            </thead>
-                            @foreach($medical_supplies_medicals as $medical_supplies_medical)
-                            <tbody>
-                                   <td>{{$medical_supplies_medical->product_id}}</td>
-                                   <td>{{$medical_supplies_medical->product_name}}</td>
-                                   <td>{{$medical_supplies_medical->product_rate}}</td>
-                            </tbody>
-                            @endforeach
-                           </table>
-                     </div>
+                     <div class="card-body" style="height: 300px; overflow: auto;">
+                        <table width="100%">
+                             <thead>
+                                  <tr>
+                                      <td>Product ID</td>
+                                      <td>Product Name</td>
+                                      <td>Product Rate</td>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  @foreach($medical_supplies_medicals as $medical_supplies_medical)
+                                  <tr>
+                                      <td>{{$medical_supplies_medical->product_id}}</td>
+                                      <td>{{$medical_supplies_medical->product_name}}</td>
+                                      <td>{{$medical_supplies_medical->product_rate}}</td>
+                                  </tr>
+                                  @endforeach
+                              </tbody>
+                          </table>
+                      </div>
                   </div>
             </div>
            
-            <div class="projects">
+     <!--       <div class="projects">
                   <div class="card">
                      <div class="card-header">
                           <h2> Orders</h2>
@@ -186,33 +189,8 @@
                            </table>
                      </div>
                   </div>
-            </div>
-            <div class="projects">
-                  <div class="card">
-                     <div class="card-header">
-                          <h2> Technical Supplies</h2>
-                          
-                     </div>
-                     <div class="card-body">
-                           <table width="100%">
-                            <thead>
-                                <tr>
-                                    <td>Product ID</td>
-                                    <td>Product Name</td>
-                                    <td>Product Rate</td>
-                                </tr>
-                            </thead>
-                            @foreach($medical_supplies_technicals as $medical_supplies_technicals)
-                            <tbody>
-                                   <td>{{$medical_supplies_technicals->product_id}}</td>
-                                   <td>{{$medical_supplies_technicals->product_name}}</td>
-                                   <td>{{$medical_supplies_technicals->product_rate}}</td>
-                            </tbody>
-                            @endforeach
-                           </table>
-                     </div>
-                  </div>
-            </div>
+            </div>                         -->
+            
          </div>
 
       

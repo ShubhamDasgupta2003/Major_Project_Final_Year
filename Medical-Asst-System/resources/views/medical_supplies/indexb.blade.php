@@ -39,11 +39,11 @@
     </div>
 
     <nav class="navbar">
-        <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/index.php">Home</a>
-            <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/index.php#services">Services</a>
-            <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/index.php#review">Review</a>
-            <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/index.php#footer">contact Us</a>
-    </nav>
+            <a class="navlink" href="{{ route('home') }}">Home</a>
+            <a class="navlink" href="{{ route('home') }}#services">Services</a>
+            <a class="navlink" href="{{ route('home') }}#review">Review</a>
+            <a class="navlink" href="#footer">contact Us</a>
+        </nav>
     
     <div class="user-avatar-container">
         <a href="http://localhost/Minor%20Project%205th_Sem/Emergency_Medical_Support_System/HomePage/profile.php" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
@@ -96,7 +96,7 @@
                     <p class='card-address'>..... </p>
                     <p class='card-type'>{{$medical_supplies_technicals->product_para}}</p>
                     <p class='card-fare'>{{$medical_supplies_technicals->product_rate}}</p>
-                    <a href="{{route('technical_supplies.detail',['medical_supplies_technical'=>$medical_supplies_technicals])}}"><button class='btn btn-secondary-orange'>Details</button></a>
+                    <a href="{{route('medical_supplies.detail',['medical_supplies_medical'=>$medical_supplies_technicals])}}"><button class='btn btn-secondary-orange'>Details</button></a>
                 </div>
                </div>
           @endforeach

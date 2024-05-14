@@ -33,7 +33,7 @@
         $(document).ready(function() {
             $(".pay_now").click(function() {
                $.ajax({
-                url:'{{route("razorpay.payment")}}',
+                url:'{{route("payment")}}',
                 type:"POST",
                 data:{'_token':'{{csrf_token()}}'},
                 success:function(res){

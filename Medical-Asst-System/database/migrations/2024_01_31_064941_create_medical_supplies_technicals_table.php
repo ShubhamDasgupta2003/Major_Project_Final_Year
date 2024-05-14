@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('product_id');
             $table->string('product_name');
+            $table->integer('quantity');
             $table->string('product_keywords');
             $table->decimal('product_rate');
             $table->string('product_image');

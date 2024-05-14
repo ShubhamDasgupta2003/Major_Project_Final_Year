@@ -31,11 +31,9 @@ class UserLogin extends Controller
      }
  }
 
- public function orderHistory(){
-    return view('Blood_Booking/orderHistory');
- }
+
  public function logout(){
     Session::flush();
-    return view('/bwelcome');
+    return view('/welcome');
  }
 }

@@ -12,6 +12,7 @@ class medical_supplies_technical extends Model
     [
         'product_id',
         'product_name',
+        'quantity',
         'product_keywords',
         'product_rate',
         'product_image',
