@@ -161,6 +161,11 @@ Route::get('/cart',[MedicalSuppliesController::class,'cart'])->name('medical_sup
 Route::put('/cart/{cart}/update',[MedicalSuppliesController::class,'update'])->name('cart.update');
 Route::delete('/cart/{cart}/delete',[MedicalSuppliesController::class,'delete'])->name('cart.delete');
 
+
+
+Route::get('/proceedpay', [MedicalSuppliesController::class,'order'])->name('proceedpay');
+
+
 /*-------------------Medical Supplies----------------------------------*/
 
 /*-------------------Admin Panel----------------------------------*/
@@ -174,7 +179,7 @@ Route::get('/admin_order/{medical_supplies_medical}/delete',[AdminController::cl
 Route::get('/supplies admin panel',[AdminController::class,'supplies'])->name('admin_panel.supplies');
 Route::put('/supplies/{medical_supplies_medical}/update',[AdminController::class,'suppliesu'])->name('admin_panel.updatesupplies');
 Route::get('/admin_order',[AdminController::class,'order'])->name('admin_panel.order');
-Route::delete('/admin_order/{order}/delete',[MedicalSuppliesController::class,'adminorderdelete'])->name('adminorder.delete');
+Route::delete('/admin_order/{order}/delete',[AdminController::class,'adminorderdelete'])->name('admin_order.delete');
 /*-------------------Admin Panel----------------------------------*/
 
 /*-------------------others----------------------------------*/

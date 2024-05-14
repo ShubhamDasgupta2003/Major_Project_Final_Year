@@ -24,7 +24,7 @@
                     <h2 class="descp" id="card-fare">Total Price: &#8377  {{ $price }} </h2>
                     <div class="bton">
                  
-                        <a href="#" class='btn'>Receipt</a>
+                        <a href="{{route('generatepdf')}}" class='btn'>Receipt</a>
                     </div>
                 </div>
             </div>
