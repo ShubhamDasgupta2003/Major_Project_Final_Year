@@ -99,6 +99,7 @@ Route::view ('/profilePage','/Blood_Booking/profilePage')->name('profile');
 
 Route::get('/orderHistory', [BloodBankController::class, 'orderHistory'])->name('orderHistory');
 Route::get('/order_detail}', [BloodBankController::class, 'showOrderDetail'])->name('order_detail');
+Route::get('/cancel_order}', [BloodBankController::class, 'cancelOrder'])->name('cancel_order');
 
 
 Route::get('/proceedToPay', [BloodBankController::class,'proceedToPay'])->name('proceedToPay');
@@ -123,6 +124,7 @@ Route::post('/confirm_booking', [BloodBankController::class, 'submitOrder'])->na
 
         //   for users login,logout,orders view
 Route::get('/logout', [UserLogin::class, 'logout'])->name('logout');
+Route::get('/send-cnfrm-mail', [BloodBankController::class, 'index'])->name('bld_cnfm_mail');
 
 
 

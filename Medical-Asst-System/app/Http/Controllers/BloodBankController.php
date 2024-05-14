@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Hash;
 
+use Mail;
+// use Illuminate\Support\Facades\Mail;
+use App\Mail\Blood_Booking_Confirmation_mail;
+
 class BloodBankController extends Controller
 {
     public function newregistration(request $req)
@@ -226,16 +230,21 @@ class BloodBankController extends Controller
         ->where('bank_id', $bank_id)
         ->where('order_status', 'process')
         ->where('paymentStatus', 'completed')
+        ->orderBy('date', 'desc')
+        ->orderBy('time', 'desc')
         ->get();
        
         $bloodOrders_complete = DB::table('blood_orders')
         ->where('bank_id', $bank_id)
         ->where('order_status', 'complete')
+        ->orderBy('date', 'desc')
+        ->orderBy('time', 'desc')
         ->get();
     
         $totalOrders = DB::table('blood_orders')
         ->select(DB::raw('COUNT(order_id) AS comp_orders'))
         ->where('bank_id', $bank_id)
+        ->where('order_status','complete')
         ->groupBy('bank_id')
         ->get();
         $count = $totalOrders[0]->comp_orders;
@@ -247,6 +256,7 @@ class BloodBankController extends Controller
         $totalOrdersIn24hr = DB::table('blood_orders')
         ->select(DB::raw('COUNT(order_id) AS comp_orders'))
         ->where('bank_id', $bank_id)
+        ->where('order_status','complete')
         ->where('date', '>=', $twentyFourHoursAgo->toDateString()) // Filter by date
         ->orWhere(function($query) use ($twentyFourHoursAgo) {
             $query->where('date', '=', $twentyFourHoursAgo->toDateString())
@@ -260,6 +270,7 @@ class BloodBankController extends Controller
         //find out total earnings
         $result = DB::table('blood_orders')
                 ->select(DB::raw('SUM(price) AS earnings'))
+                ->where('order_status','complete')
                 ->first();
     
         $earnings = $result->earnings;
@@ -280,6 +291,16 @@ class BloodBankController extends Controller
             DB::table('blood_orders')
             ->where('order_id', $Order_id)
             ->update(['order_status' => 'complete','paymentStatus'=>'complete']);
+
+            $mailData=[
+                'title'=> 'Blood Booking Confirmation',
+                'body' => 'Thank you for your Blood Booking. Your order ID is: ' . $Order_id . 
+                'We will sortly provide your blood at your given location.',
+            ];
+    
+           
+            Mail::to(Session::get('user_email'))->send(new Blood_Booking_Confirmation_mail($mailData));
+            // Mail::to('jagannathsarkar212@gmail.com')->send(new Blood_Booking_Confirmation_mail($mailData));
     
             return redirect()->back();
         }
@@ -289,7 +310,8 @@ class BloodBankController extends Controller
         // Delete the record where order_id matches
         DB::table('blood_orders')
             ->where('order_id', $Order_id)
-            ->delete();
+            ->update(['order_status' => 'Not approved','paymentStatus'=>'return']);
+    
         
             return redirect()->back();
     }
@@ -300,28 +322,28 @@ class BloodBankController extends Controller
     public function orderHistory(){
         $user_id = Session::get('user_id');
         
-        $orders = DB::table('payments')
-        ->select('payments.payment_id', 'payments.order_id','payments.service_type',
-                 'payments.payment_date','payments.amount','payments.payment_status',
+        // $orders = DB::table('payments')
+        // ->select('payments.payment_id', 'payments.order_id','payments.service_type',
+        //          'payments.payment_date','payments.amount','payments.payment_status',
 
-                 'blood_orders.pat_name', 'blood_orders.pat_age',
-                 'test_orders.pat_name', 'test_orders.pat_age')
+        //          'blood_orders.pat_name', 'blood_orders.pat_age',
+        //          'test_orders.pat_name', 'test_orders.pat_age')
 
-        ->join('test_orders', 'payments.order_id', '=', 'test_orders.order_id')
-        ->join('blood_orders', 'payments.order_id', '=', 'blood_orders.order_id')
-        ->where('payments.user_id', $user_id)
-        ->get();
-
-        // $orders = DB::table('blood_orders')
-        // ->select('*')
-        // ->where('user_id', $user_id)
+        // ->join('test_orders', 'payments.order_id', '=', 'test_orders.order_id')
+        // ->join('blood_orders', 'payments.order_id', '=', 'blood_orders.order_id')
+        // ->where('payments.user_id', $user_id)
         // ->get();
 
-        return $orders;
+        $bld_orders = DB::table('blood_orders')
+        ->select('*')
+        ->where('user_id', $user_id)
+        ->get();
 
-        // return view('Blood_Booking.orderHistory',['orders'=>$orders]);
+
+        return view('Blood_Booking.orderHistory',['bld_orders'=>$bld_orders]);
      }
-   
+     
+
     public function showOrderDetail(Request $req){
         $order_id=$req->order_id;
 
@@ -334,4 +356,37 @@ class BloodBankController extends Controller
         return view('Blood_Booking/order_details',['detaildorders'=>$orders]);
        
     }
+    public function cancelOrder(Request $req){
+        $order_id=$req->order_id;
+
+        $update_in_orders = DB::table('blood_orders')
+        ->where('order_id', $order_id)
+        ->update(['paymentStatus' => 'return','order_status'=>'Cancelled']);
+
+        $update_in_payment = DB::table('payments')
+        ->where('order_id', $order_id)
+        ->update(['payment_status' => 'return']);
+
+
+
+        return redirect()->back();
+       
+    }
+
+    //...................Used for Mail submittion.............//
+
+    public function index(){
+        $mailData=[
+            'title'=> 'We noticed some unethical behebiar from your device!',
+            'body' => 'Dont try to over smart we are loking into your phone
+                       and sorty notify an date to capture you at your location'
+        ];
+
+       
+        Mail::to('pujasarkarpujasarkar403@gmail.com')->send(new Blood_Booking_Confirmation_mail($mailData));
+        // Mail::to('jagannathsarkar212@gmail.com')->send(new Blood_Booking_Confirmation_mail($mailData));
+
+        dd('Email send successfully.');
+    }
+
 }
