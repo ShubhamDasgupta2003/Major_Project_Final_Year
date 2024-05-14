@@ -32,39 +32,62 @@
             background: linear-gradient(180deg, rgba(253,250,255,1) 0%, rgba(247,255,253,1) 100%);
         }
     </style>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
 
-            <nav class="navbar navbar-light container-fluid shadow-sm p-1  bg-body rounded" id="navbar">
-        <div class="container-fluid">
-            <a class="navbar-brand text-dark">Navbar</a>
+<nav class="navbar navbar-light container-fluid bg-light shadow-sm p-1  bg-body rounded">
+            
+            <a class="navbar-brand text-primary ms-5">Navbar</a>
+
             <div class="d-flex">
-                <h4 class="me-2 text-dark">Hi, {{session('user_name')}}</h4>
+                <h2 class="me-2 text-light"> 
+                <!-- Example single danger button -->
+                <div class="btn-group dropstart profile">
+                <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="row">
+                        <div class="col-1">
+                        <i class="fa-regular fa-user fa-xl" style="color: #0470ce;"></i>
+                    </div>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><h4 class="dropdown-item">{{session('user_name')}}</h4></li>
+                </ul>
+                </div>
+            </h2>
             </div>
         </div>
         </nav>
+
         <div class="container-fluid row">
             <div class="left-panel col-5 border vh-93 overflow-auto">
-                <div class="patient-card-body">
-                        <!-- Card header begins -->
-                        <div class="card-body border mt-5 bg-light d-flex">
+                        <div class="card-body border mt-5 bg-light d-flex" id="amb_tracking_banner">
                             <h3 class="card-title" id="ptn_name"><div class="spinner-grow text-danger" role="status"></div class="flex-column justify-content-center align-items-center">  Tracking Ambulance</h3>
-                            <h6 class="card-subtitle mb-2 text-light" id="ptn_booking_addrs"></h6>
-                            <h5 id="ptn_mobile" class="text-light"></h5>
-                            <h5 id="acpt_ride_btn"></h5>
                         </div>
 
-                        <div class="card-body mt-5 bg-light pt-5 pb-5 shadow-lg p-3 mb-5 bg-body rounded" style="width: 34.2rem;">
+                <div class="patient-card-body">
+                        <!-- Card header begins -->
+                        <h5 class="alert alert-success mt-2" id="amb_status"></h5>
+
+                        <div class="card-body mt-3 bg-light pt-3 pb-3 shadow-lg p-3 mb-5 bg-body rounded" style="width: 34.2rem;">
                         <div class="card-body">
                             <h5 class="card-title">Ambulance details</h5>
                             <h6 class="card-subtitle mb-2" id="amb_no">{{$ptn_rqst_data[0]['amb_no']}}</h6>
                             <p class="card-text" id="amb_name">{{$amb_data[0]['amb_name']}}</p>
                             <h2 id="otp_no">OTP - {{$ptn_rqst_data[0]['otp']}}</h2>
+                            <p class="form-text">Please share the OTP with your assigned driver, so that he can start the ride. Once the ride ends, please share your feedback with us</p>
                         </div>
                         </div>
                         <!-- Card header ends -->
+                </div>
+                <div class="row card-body mt-3 bg-light pt-3 pb-3 shadow-lg p-3 mb-5 bg-body rounded" id="feedback_section">
+                <div class="col-md-7 text-center">
+                        <h5>Your feedback is valuable to us</h5>
+                    </div>
+                    <div class="col-md-5 text-center">
+                        <a href="/user_rating"><button class="btn btn-primary" id="feedback">Share Feedback</button></a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-7">
@@ -78,6 +101,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script>
+
+        const ride_status_view =document.getElementById('amb_status');
 
         const searchParams = new URLSearchParams(window.location.search);
         var ptn_lat = searchParams.get('ptn_lat');
@@ -112,6 +137,35 @@
         //ajax for fetching the realtime location of ambulance for every 2 seconds
 
         $(document).ready(function(){
+            $('#feedback_section').hide();
+            var distance = 0;
+                L.Routing.control({
+                    waypoints: [
+                        L.latLng(ptn_lat,ptn_lng),
+                        L.latLng(amb_lat,amb_lng)
+                    ]
+                }).on('routesfound', function (e) {
+                    var routes = e.routes;
+                    routesFound = true;
+                    console.log(routes[0]['summary']);
+                    var estm_time = routes[0]['summary']['totalTime'];
+                    var time_roundup;
+                    distance = routes[0]['summary']['totalDistance']
+                    if(estm_time>=3600)
+                    {
+                      time_roundup = estm_time/3600;
+                      time_roundup = time_roundup.toFixed(1);
+                      time_roundup = time_roundup + " hrs";
+                    }
+                    else
+                    {
+                      time_roundup = estm_time/60;
+                      time_roundup = time_roundup.toFixed(1);
+                      time_roundup = time_roundup + " mins";
+                    }
+                    ride_status_view.innerText="Driver has started his ride and will reach your pickup location within "+time_roundup;
+                }).addTo(map);
+
             var fetchAmbLoc = function(){
                 $.ajax({
                 url:'{{route('patientRideConfirmed')}}',
@@ -119,10 +173,19 @@
                 data:{'amb_no':amb_no,'inv_no':inv_no},
                 success:function(data)
                 {
+                    if(data.data.amb_status[0].ride_status=='011')
+                    {
+                        ride_status_view.innerText="Driver has successfully picked up";
+                    }
+                    else if(data.data.amb_status[0].ride_status=='111')
+                    {
+                        ride_status_view.innerText="Driver has successfully reached it's destination";
+                        $('#feedback_section').show();
+                    }
                     // console.log(data.data[0]);
-                    // console.log(data)
+                    console.log(data.data.amb_status[0].ride_status)
                     var pos = data.data.amb_coordinates[0];
-                    console.log(pos);
+                    // console.log(pos);
                     ambulance_Marker.setLatLng([pos.amb_loc_lat,pos.amb_loc_lng]);
                     map.setView([pos.amb_loc_lat,pos.amb_loc_lng]);
                 }

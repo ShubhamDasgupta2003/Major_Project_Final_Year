@@ -207,6 +207,8 @@ Route::post('/driver-ride-accepted',[AmbulanceDriverPageController::class,'verif
 
 Route::get('/driver-ride-declined',[AmbulanceDriverPageController::class,'declineRide'])->name('driver_decline');
 
+Route::get('/driver-activate',[AmbulanceDriverPageController::class,'activateAccount'])->name('driverActivate');
+
 Route::get('/driver-ride-started',[AmbulanceDriverPageController::class,'reachDestination'])->name('driverRideStarted');
 
 Route::get('/amb-admin-set-pswd',[newAmbulanceRegistrationController::class,'showCreatePassword'])->name("ambAdminPassForm");

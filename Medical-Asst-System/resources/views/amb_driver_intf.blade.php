@@ -105,10 +105,10 @@
                     </div>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><h4 class="dropdown-item">{{$amb_record->amb_driver_name}}</h4></li>
+                    <li><h4 class="dropdown-item">{{$amb_record['amb_driver_name']}}</h4></li>
                     <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user"></i> My Profile</a></li>
                     <li><a class="dropdown-item" href="#"><i class="fa-solid fa-money-check-dollar"></i> My Earnings</a></li>
-                    <li><a class="dropdown-item"><button class="btn btn-danger"><i class="fa-solid fa-moon"></i> Take break</button></a></li>
+                    <li><a class="dropdown-item"><button class="btn btn-danger" id="take_break"><i class="fa-solid fa-moon"></i> Take break</button></a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><button class="btn" id="logout"><i class="fa-solid fa-power-off"></i> Logout</button></li>
                 </ul>
@@ -120,7 +120,7 @@
         </nav>
         <div class="container-fluid row">
             <div class="left-panel col-md-5 border overflow-auto">
-                <div class="patient-card-body">
+                <div class="patient-card-body" id="patient-card">
                         <!-- Card header begins -->
                         <div class="card-body mt-5 bg-light pt-5 pb-5 shadow-lg p-3 mb-5 bg-body rounded">
                             <h3 class="card-title text-dark text-center mb-2" id="ptn_name">
@@ -141,6 +141,14 @@
                         </div>
                         <!-- Card header ends -->
                 </div>
+                <div class="inactive-card" id="inactive-card">
+                <div class="card-body mt-5 pt-5 pb-5 shadow-lg p-3 mb-5 bg-danger rounded">
+                            <h3 class="card-title text-light text-center mb-2" id="ptn_name"><i class="fa-solid fa-triangle-exclamation" style="color: #ffffff;"></i>
+                            Your account is curently inactive</h3>
+                            <h3 class="form-text text-center text-light mt-2">To activate yourself again <a href="/driver-activate?amb_no={{$amb_record->amb_no}}">click here</a></h3>
+                            <h6 class="card-subtitle mb-2 text-dark" id="ptn_booking_addrs"></h6>
+                        </div>
+                </div>
             </div>
             <div class="col-md-7">
                 <div id="map" style="width: 57vw; height: 93vh" class="border"></div>
@@ -151,6 +159,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
              $(document).ready(function(){
+                $('#inactive-card').hide();
+                var amb_status = "{{$amb_record->amb_status}}";
+                console.log(amb_status);
+                if(amb_status=='inactive')
+                {
+                    $('#patient-card').hide();
+                    $('#inactive-card').show();
+                    $('#take_break').prop("disabled",true);
+                }
             $('#dcln_rqst').on('click',function(){
                 console.log("declined");
                 // console.log(response.invoice_no);

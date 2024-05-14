@@ -92,17 +92,17 @@
         </nav>
         <div class="container d-flex flex-column justify-content-center align-items-center" style="height:100vh">
         <div class="card" style="width: 25rem;">
-        <p class="alert alert-danger mb-3" id="alert_box"></p>
+        <p class="alert alert-success mb-3" id="alert_box"></p>
     <div class="card-body">
-        <h5 class="card-title">Ride decline confirmation</h5>
+        <h5 class="card-title">Account Activation</h5>
         
         <label for="inputPassword5" class="form-label mt-3">Email-id</label>
         <input type="email" id="emailid" name="emailid" class="form-control" placeholder="Enter your registered email id">
 
         <div id="passwordHelpBlock" class="form-text">
-          This step is just for safety purpose, so that rides don't get cancelled accidently by the driver.
+          This step is just for safety purpose, so that your account don't get activated accidently without your knowledge.
         </div>
-        <button id="decline_ride" class="btn btn-danger mt-5">Decline ride</button>
+        <button id="activate_acc" class="btn btn-success mt-5">Activate</button>
     </div>
 </div>
         </div>
@@ -112,24 +112,23 @@
 
       const searchParams = new URLSearchParams(window.location.search);
       var amb_no = searchParams.get('amb_no');
-      var inv_no = searchParams.get('inv_no');
 
       $(document).ready(function(){
         $('#alert_box').hide();
-        $('#decline_ride').on('click',function(){
+        $('#activate_acc').on('click',function(){
           var email = $('#emailid').val();
           console.log(email);
-          console.log("declined");
+          console.log("activated");
           $.ajax({
-            url:"{{route('driver_decline')}}",
+            url:"{{route('driverActivate')}}",
             type:'GET',
-            data:{'email':email,'amb':amb_no,'inv':inv_no},
+            data:{'email':email,'amb':amb_no},
             success:function(data){
               console.log(data);
               if(data.data==1)
               {
                 $('#alert_box').show();
-                $('#alert_box').html("Ride declined successfully");
+                $('#alert_box').html("Account activated successfully");
                 window.location.href="/login";
               }
               else

@@ -166,4 +166,27 @@ class AmbulanceDriverPageController extends Controller
         $dest_details = Patient_ambulance::where('invoice_no',$inv_id)->get();
         return view('amb_driver_ride_started',compact('dest_details'));
     }
+
+    public function activateAccount(Request $request)
+    {
+        $amb_no=$request->amb_no;
+        $driver_details=Amb_info::where('amb_no',$amb_no)->get();
+        if($request->ajax())
+        {
+            $driver = Amb_info::where('amb_no',$request->amb)->get();
+
+            if($driver[0]->amb_drv_email==$request->email)
+            {
+                Amb_info::where('amb_no',$request->amb)->update(['amb_status'=>'active']);
+                return response()->json(['data'=>1]);
+            }
+            else
+            {
+                return response()->json(['data'=>0]);
+            }
+        }
+        return view("amb_driver_acc_activate",compact('driver_details'));
+
+        
+    }
 }
