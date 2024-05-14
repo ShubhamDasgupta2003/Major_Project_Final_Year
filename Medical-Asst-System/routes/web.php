@@ -180,6 +180,8 @@ Route::get('/supplies admin panel',[AdminController::class,'supplies'])->name('a
 Route::put('/supplies/{medical_supplies_medical}/update',[AdminController::class,'suppliesu'])->name('admin_panel.updatesupplies');
 Route::get('/admin_order',[AdminController::class,'order'])->name('admin_panel.order');
 Route::delete('/admin_order/{order}/delete',[AdminController::class,'adminorderdelete'])->name('admin_order.delete');
+
+Route::get('/amb-admin-panel',[AdminController::class,'getAmbAdmin_data'])->name('amb_admin_show_data');
 /*-------------------Admin Panel----------------------------------*/
 
 /*-------------------others----------------------------------*/
@@ -277,5 +279,5 @@ Route::get('/payment',[PaymentController::class,'pay_amount']); //Pass order_id,
 Route::post('/payment',[PaymentController::class,'process_payment'])->name('processPayment');
 
 Route::get('/payment-complete',[PaymentController::class,'makePayment'])->name('make-payment-page');
-Route::get('/payment-success',[PaymentController::class,'p'])->name('payment-sucess');
+Route::get('/payment-success',[PaymentController::class,'paymentSuccess'])->name('payment-sucess');
 //----------------------- Payment Routes ends here -----------------------

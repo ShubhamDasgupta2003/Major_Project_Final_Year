@@ -120,8 +120,6 @@ class AmbulanceRideRequestController extends Controller
     {
         if($request->ajax())
         {
-            // return response()->json(['data'=>$request->inv]);
-            // $ptn_data = Patient_ambulance::where(['user_id'=>session('user_id')],['invoice_no'=>$request->inv])->where('ride_status','001')->orWhere('ride_status','101')->get();
             $user_id = session('user_id');
             $inv_no = $request->inv;
             $ptn_data = DB::select("SELECT * FROM patient_ambulance WHERE user_id='$user_id' AND invoice_no='$inv_no' AND (ride_status='001' OR ride_status='101')");

@@ -27,7 +27,7 @@
 
 <nav class="navbar navbar-light container-fluid bg-light shadow-sm p-1  bg-body rounded">
             
-            <a class="navbar-brand text-primary ms-5">{{$inv_id}}</a>
+            <a class="navbar-brand text-primary ms-5">Navbar</a>
 
             <div class="d-flex">
                 <h2 class="me-2 text-light"> 
