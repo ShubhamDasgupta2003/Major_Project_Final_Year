@@ -15,6 +15,7 @@ $p=0;
 
 </head>
 <body>
+  
  <div class="main">
     <?php
     foreach($carts as $cart)
@@ -73,7 +74,7 @@ $p=0;
             <td>  <form method="post" action="{{route('cart.delete',['cart' => $cart])}}">
                         @csrf
                         @method('delete')
-                        <input type="submit" class="update_quantity" value="Delete" />
+                        <input type="submit" class="update_quantity" onclick="return confirm('Are you sure you want to delete this product');" value="Delete" />
                     </form>
             </td>
            <!-- <td>

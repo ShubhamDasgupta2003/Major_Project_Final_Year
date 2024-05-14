@@ -14,7 +14,13 @@
 <link rel="stylesheet" href="{{asset('css/Medical Supplies/navlink.css')}}">
 </head>
 <body>
-
+@if(session('error'))
+    <script>
+        $(document).ready(function(){
+            alert("{{ session('error') }}");
+        });
+    </script>
+@endif
   <div class="container">
     <div class="card">
         <img src="{{asset('pictures/'.$medical_supplies_medical->product_image)}}" alt="">

@@ -53,13 +53,13 @@ class PdfController extends Controller
 
          $data["email"] = session()->get('user_email');
 
-        $data["title"] = "From ItSolutionStuff.com";
+        $data["title"] = "From Emergency Medical Assistance System";
 
         $data["body"] = "This is Demo";
 
   
 
-        $pdf = Pdf::loadView('pdf.invoice', $data)->save(public_path(session()->get('user_name').'.pdf'));
+        $pdf = Pdf::loadView('pdf.invoice', $data)->save(public_path(session()->get('user_name').session()->get('user_id').time().'.pdf'));
 
   
 
