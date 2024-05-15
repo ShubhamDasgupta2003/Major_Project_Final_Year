@@ -47,11 +47,12 @@ $p=0;
     </thead>
     <tbody>
     @php
-    $joinedData = DB::table('carts')
-        ->join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
-        ->select('medical_supplies_medicals.quantity')
-        ->get();
- 
+   $joinedData = DB::table('carts')
+    ->join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+    ->where('carts.user_id', '=', session()->get('user_id'))
+    ->select('medical_supplies_medicals.quantity')
+    ->get();
+
 @endphp
       @foreach($carts as $index => $cart)
         <tr>
@@ -65,7 +66,7 @@ $p=0;
                @method('put')
                 <input type="hidden" value="{{$cart->id}}" name="id">
             <div class="quantity_box">
-            <input type="number" min="1" max="{{ max(1, $joinedData[$index]->quantity) }}" value="{{ $cart->product_quantity }}" name="product_quantity">
+            <input type="number" min="0" max="{{ max(0, $joinedData[$index]->quantity) }}" value="{{ $cart->product_quantity }}" name="product_quantity">
              <input type="submit" class="update_quantity" value="update" name="update_product_quantity">
             </div>
             </form>

@@ -211,10 +211,11 @@ public function delete(cart $cart)
       $user_id = session()->get('user_id');
       $carts = Cart::where('user_id', $user_id)->get();
      
-    $joinedData = DB::table('carts')
-    ->join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
-    ->select('medical_supplies_medicals.quantity')
-    ->get();
+      $joinedData = DB::table('carts')
+      ->join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+      ->where('carts.user_id', '=', session()->get('user_id'))
+      ->select('medical_supplies_medicals.quantity')
+      ->get();
      
  
     return view('medical_supplies.cart',['carts'=>$carts,'j'=>$joinedData]);

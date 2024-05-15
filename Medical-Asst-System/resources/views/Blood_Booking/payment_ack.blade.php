@@ -21,7 +21,8 @@
         <div class="card shadow p-3 mb-5 bg-body rounded" style="width: 25rem;">
     <div class="card-body p-5">
         <h4 class="card-title bg-success p-2 text-light text-center border rounded"><i class="fa-solid fa-circle-check fa-xl" style="color: #ffffff;"></i><br><br>Payment Successfull</h4>
-        <h5 class="text-center">THANKYOU FOR PAYMENT</h5>
+        <h5 class="text-center">Thank You For Your Order</h5>
+        <h5 class="text-center">Your order is currently being processed. Once we have verified your prescription, we will promptly confirm it. Thank you for your patience. </h5>
         <h3 class="text-center">Get well soon <i class="fa-regular fa-face-smile fa-xl" style="color: #ff66b0;"></i></h3>
     </div>
 </div>

@@ -98,8 +98,8 @@
                      @endphp --}}
 @php
 
-use App\Models\Patient_booking_info;
-use Carbon\Carbon;
+// use App\Models\Patient_booking_info;
+// use Carbon\Carbon;
 
 $startTime = Carbon::now()->subHours(24);
 $count = Patient_booking_info::where('pnt_booking_date', '<=', $startTime)->count();
