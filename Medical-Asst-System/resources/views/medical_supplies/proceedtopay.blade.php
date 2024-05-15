@@ -19,9 +19,9 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        var order_id = urlParams.get('order_id');   //Get orderid from url
-        var amount = urlParams.get('amount');   //Get amount from url
-        var service = urlParams.get('service_type');   //Get amount from url
+        var order_id = '{{$order_id}}';   //Get orderid from url
+        var amount = '{{$amount}}'   //Get amount from url
+        var service = '{{$service_type}}';   //Get amount from url
 
         console.log(order_id,amount,service);
 
@@ -81,12 +81,12 @@
 
                 //ajax goes here
                 $.ajax({
-                    url:'{{route('bld_payment_sucess')}}',
+                    url:'{{route('proceedpay')}}',
                     type:'GET',
                     data:{'order_id':order_id,'pid':pid,'service':service},
                     success:function(data){
                         console.log(data);
-                        window.location.href="{{url('/')}}/bld_payment_ack";
+                        window.location.href="{{url('/')}}/exit";
                     }
                 })
 

@@ -21,7 +21,7 @@
                     <p class="descp" id="card-type"></p>
                     <p class="descp" id="card-address"><i class="fa-solid fa-calendar-days"></i>></i> Estimated Arrival</p>
                     <p class="descp" id="card-type"><?php echo date('Y-m-d', strtotime("+10 days")); ?></p>
-                    <h2 class="descp" id="card-fare">Total Price: &#8377  {{ $price }} </h2>
+                    <h2 class="descp" id="card-fare">  </h2>
                     <div class="bton">
                  
                         <a href="{{route('generatepdf')}}" class='btn'>Receipt</a>

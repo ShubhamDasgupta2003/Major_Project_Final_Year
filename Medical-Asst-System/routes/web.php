@@ -158,7 +158,7 @@ Route::delete('/order_view/{order}/delete',[MedicalSuppliesController::class,'or
 
 Route::get('/order confirmation',[MedicalSuppliesController::class,'order'])->name('medical_supplies.order_confirmation');
 
-
+Route::get('/exit',[MedicalSuppliesController::class,'toexit'])->name('medical_supplies.exit');
 Route::get('/cart',[MedicalSuppliesController::class,'cart'])->name('medical_supplies.cart');
 Route::put('/cart/{cart}/update',[MedicalSuppliesController::class,'update'])->name('cart.update');
 Route::delete('/cart/{cart}/delete',[MedicalSuppliesController::class,'delete'])->name('cart.delete');
