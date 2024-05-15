@@ -111,7 +111,7 @@ class AmbulanceRideRequestController extends Controller
 
             $ptn_request->where('invoice_no',$inv_id)->update(['amb_no'=>$data[0]['amb_no'],'amb_current_lat'=>$data[0]['amb_lat'],'amb_current_lng'=>$data[0]['amb_lng']]); //Updating the ambulance no. and coordinates for corrs invoice no
 
-            return view('amb_ptn_waiting_queue',compact('data'));
+            return view('amb_ptn_waiting_queue',compact('data','inv_id'));
         }
 
     }
@@ -120,7 +120,9 @@ class AmbulanceRideRequestController extends Controller
     {
         if($request->ajax())
         {
-            $ptn_data = Patient_ambulance::where('user_id',session('user_id'))->where('ride_status','001')->get();
+            $user_id = session('user_id');
+            $inv_no = $request->inv;
+            $ptn_data = DB::select("SELECT * FROM patient_ambulance WHERE user_id='$user_id' AND invoice_no='$inv_no' AND (ride_status='001' OR ride_status='101')");
             $amb_data = Amb_info::where('amb_no',$ptn_data[0]->amb_no)->get();
             $full_data = compact('ptn_data','amb_data');
         }

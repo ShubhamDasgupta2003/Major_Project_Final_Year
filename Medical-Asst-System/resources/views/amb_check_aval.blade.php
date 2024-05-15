@@ -233,7 +233,9 @@
                     $("#proceed_addrs").prop("disabled",true);
                     $("#current_addrs").prop("disabled",true);
                 }
-                var type = $('#amb_type').val();
+                else
+                {
+                    var type = $('#amb_type').val();
                 var dist = $('#amb_district').val();
                 var city = $('#ptn_city').val();
                 var state = $('#ptn_state').val();
@@ -260,6 +262,8 @@
                         alert("Sorry cannot detect location");
                     }
                 })
+                }
+
             })
             
             $('#current_addrs').on('click',function(){

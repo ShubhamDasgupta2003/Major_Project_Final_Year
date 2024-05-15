@@ -78,9 +78,7 @@ class LoginController extends Controller
                             // echo "$hos_data->hos_id";
                             session(['amb_id' => $amb_admin->amb_no]);
                             session(['is_adm_login' => 1]);
-                            return redirect()->route('showAvblRides')->with([
-                                'amb_id',$amb_admin->amb_no
-                            ]);
+                            return redirect()->route('showAvblRides');
                             
                         //     echo"$hos_data->hos_id";
                         }else{

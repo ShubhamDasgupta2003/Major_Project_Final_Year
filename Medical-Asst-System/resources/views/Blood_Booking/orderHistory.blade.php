@@ -49,41 +49,120 @@
         }
     </style>
 </head>
+
+
 <body>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center mb-4">Order History</h2>
                 <!-- Sample Order Cards -->
+                @foreach ($bld_orders as $order)
                 <div class="order-card">
-                    <h5>Order #123456</h5>
+                    <h5>Order #{{ $order->order_id }}</h5>
                     <div class="order-details">
                         <div>
                             <img src="images/BloodB/Blood_Bank.png" style="width: 50px; height: 50px;" alt="">
                         </div>
+                       
                         <div>
-                            <p>Quantity: 2</p>
+                            <p>Quantity: {{ $order->quantity }}</p>
                         </div>
                         <div>
-                            <p>Total Amount: $100</p>
-                            
+                            <p>Total Amount: ₹ {{ $order->price }}</p>
                         </div>
                         <div>
-                            <p>Order Date: 2023-12-01</p>
+                            <p>Order Date: {{ $order->date }}</p>
                         </div>
                         <div>
+                            <p>Order Time: {{ $order->time }}</p>
+                        </div>
+                        <div>
+                            @php
+                                $status = $order->order_status;
+                                if ($status == 'complete')
+                                    $status = 'Approved';
+                            @endphp
 
-                            <p>Status: Delivered</p>
+                            <p>Status: {{ $status }}</p>
                         </div>
+                        <p><a href="{{ route('order_detail', ['order_id' => $order->order_id]) }}" class="btn btn-success btn-d">Details</a></p>
+
+                        @php
+                        if ($order->order_status == 'complete'):
+                        @endphp
+                            <p><a href=" {{route('cancel_order',['order_id' => $order->order_id])}} " class="btn btn-danger">Cancel Order</a></p>
+                        @php
+                        endif;
+                        @endphp
+                    
+
+                        <p> <a href=" {{route('showBhome')}} " class="btn btn-success btn-d">Book Again</a> </p>
                         <div class="order-actions">
-                            <p><button class="btn btn-sucess btn-d">Book Again</button></p>
                         </div>
                     </div>
                 </div>
-                
+                @endforeach
             </div>
         </div>
     </div>
+
+    {{---------------------------   order history of your service  ---------------------}}
+    {{-- <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">Order History</h2>
+                <!-- Sample Order Cards -->
+                @foreach ($bld_orders as $order)
+                <div class="order-card">
+                    <h5>Order #{{ $order->order_id }}</h5>
+                    <div class="order-details">
+                        <div>
+                            <img src="images/BloodB/Blood_Bank.png" style="width: 50px; height: 50px;" alt="">
+                        </div>
+                       
+                        <div>
+                            <p>Quantity: {{ $order->quantity }}</p>
+                        </div>
+                        <div>
+                            <p>Total Amount: ₹ {{ $order->price }}</p>
+                        </div>
+                        <div>
+                            <p>Order Date: {{ $order->date }}</p>
+                        </div>
+                        <div>
+                            <p>Order Time: {{ $order->time }}</p>
+                        </div>
+                        <div>
+                            @php
+                                $status = $order->order_status;
+                                if ($status == 'complete')
+                                    $status = 'Approved';
+                            @endphp
+
+                            <p>Status: {{ $status }}</p>
+                        </div>
+                        <p><a href="{{ route('order_detail', ['order_id' => $order->order_id]) }}" class="btn btn-success btn-d">Details</a></p>
+
+                        @php
+                        if ($order->order_status == 'complete'):
+                        @endphp
+                            <p><a href=" {{route('cancel_order',['order_id' => $order->order_id])}} " class="btn btn-danger">Cancel Order</a></p>
+                        @php
+                        endif;
+                        @endphp
+                    
+
+                        <p> <a href=" {{route('showBhome')}} " class="btn btn-success btn-d">Book Again</a> </p>
+                        <div class="order-actions">
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div> --}}
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>

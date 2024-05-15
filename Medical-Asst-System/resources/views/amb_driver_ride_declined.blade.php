@@ -130,6 +130,7 @@
               {
                 $('#alert_box').show();
                 $('#alert_box').html("Ride declined successfully");
+                window.location.href="/login";
               }
               else
               {

@@ -9,8 +9,11 @@ use App\Models\Amb_info;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
 use App\Models\medical_supplies_medical;
+use App\Models\User_info;
 use App\Models\medical_supplies_technical;
+use App\Models\medical_supplies_order;
 use App\Models\cart;
+use Exception;
 class AdminController extends Controller
 {
     public function index()
@@ -21,21 +24,69 @@ class AdminController extends Controller
    {
     $medical_supplies_medicals=medical_supplies_medical::all();
     $medical_supplies_technicals=medical_supplies_technical::all();
+    $currentMonthOrdersCount = medical_supplies_order::whereMonth('created_at', now()->month)->count();
+    $currentMonthOrders = medical_supplies_order::select('product_rate')
+    ->whereRaw('MONTH(created_at) = MONTH(NOW())')
+    ->get();
+    $totalProductrate = $currentMonthOrders->sum('product_rate');
+    $userCount = User_info::count();
     $totalcount=cart::count();
-    return view('admin_panel.admin_medical_supplies',['medical_supplies_medicals'=>$medical_supplies_medicals],['medical_supplies_technicals'=>$medical_supplies_technicals],compact('totalcount'));
+    return view('admin_panel.admin_medical_supplies',['medical_supplies_medicals'=>$medical_supplies_medicals,'userCount' => $userCount,'totalProductrate' => $totalProductrate,'currentMonthOrdersCount'=> $currentMonthOrdersCount ],compact('totalcount'));
    
+   }
+   public function order()
+   {
+    $orders=medical_supplies_order::all();
+ 
+    return view('admin_panel.order',['orders'=>$orders]);
+   }
+   public function adminorderdelete(medical_supplies_order $order)
+   {
+    $order->delete();
+    $orders=medical_supplies_order::all();
+ 
+    return view('admin_panel.order',['orders'=>$orders]);
+    
    }
    public function input_admin()
    {
     return view('admin_panel.input');
    }
-   public function update_admin()
+   public function update_admin(medical_supplies_medical $medical_supplies_medical )
    {
-    return view('admin_panel.update');
+    return view('admin_panel.update',['medical_supplies_medical'=>$medical_supplies_medical]);
    }
-   public function delete_admin()
+   public function updated_admin(medical_supplies_medical $medical_supplies_medical , Request $request)
    {
-    return view('admin_panel.delete');
+    $data=$request->validate([
+        'product_id'=>'required',
+        'category'=>'required',
+        'product_name'=>'required',
+        'product_rate'=>'required',
+        'product_image' =>'required',
+        'product_para'=>'required',
+        'product_desc'=>'required',
+        'product_makers'=>'required',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2148',
+    ]); 
+
+    $medical_supplies_medical->update($data);
+
+
+
+  // Get the uploaded file
+  $product_image = $request->file('image');
+
+  // Move the uploaded file to the desired location with its original name
+  $product_image->move(public_path('pictures'), $product_image->getClientOriginalName());
+         
+
+  return redirect(route("admin_panel.admin_medical_supplies"));  
+   }
+   public function delete_admin(medical_supplies_medical $medical_supplies_medical)
+   {
+    $medical_supplies_medical->delete();
+    return redirect(route("admin_panel.admin_medical_supplies"));  
    }
    public function supplies()
    {
@@ -59,19 +110,34 @@ return redirect(route("admin_panel.supplies"));
    public function store(Request $request)
    {
     $data=$request->validate([
+        'product_id'=>'required',
+        'category'=>'required',
         'product_name'=>'required|unique:carts,product_name',
-        'product_quantity'=>'required|numeric',
         'product_rate'=>'required|decimal:0,2',
-       // 'product_image'=>'required',
-        'product_info'=>'required',
+        'product_image' => 'required',
+        'product_para'=>'required',
         'product_desc'=>'required',
-        'user_id'=>'required'
+        'product_makers'=>'required',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
       ]); 
- 
-               $newProduct=medical_supplies_medical::create($data);
+  
+
+    // Get the uploaded file
+    $product_image = $request->file('image');
+
+    // Move the uploaded file to the desired location with its original name
+    $product_image->move(public_path('pictures'), $product_image->getClientOriginalName());
+    try{
+      $newProduct=medical_supplies_medical::create($data);
+     }catch(Exception $e)
+     {
+     
+      return redirect(route("admin_panel.admin_medical_supplies"))  ;   
+     }
+              
            
   
-    return redirect(route("medical_supplies.index"));   
+    return redirect(route("admin_panel.admin_medical_supplies"));   
  }
 
  //-------------------- Ambulance Admin starts here ----------------------------

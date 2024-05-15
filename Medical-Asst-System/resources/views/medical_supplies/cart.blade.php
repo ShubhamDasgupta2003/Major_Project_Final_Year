@@ -15,6 +15,7 @@ $p=0;
 
 </head>
 <body>
+  
  <div class="main">
     <?php
     foreach($carts as $cart)
@@ -46,11 +47,12 @@ $p=0;
     </thead>
     <tbody>
     @php
-    $joinedData = DB::table('carts')
-        ->join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
-        ->select('medical_supplies_medicals.quantity')
-        ->get();
- 
+   $joinedData = DB::table('carts')
+    ->join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+    ->where('carts.user_id', '=', session()->get('user_id'))
+    ->select('medical_supplies_medicals.quantity')
+    ->get();
+
 @endphp
       @foreach($carts as $index => $cart)
         <tr>
@@ -64,7 +66,7 @@ $p=0;
                @method('put')
                 <input type="hidden" value="{{$cart->id}}" name="id">
             <div class="quantity_box">
-            <input type="number" min="1" max="{{ max(1, $joinedData[$index]->quantity) }}" value="{{ $cart->product_quantity }}" name="product_quantity">
+            <input type="number" min="0" max="{{ max(0, $joinedData[$index]->quantity) }}" value="{{ $cart->product_quantity }}" name="product_quantity">
              <input type="submit" class="update_quantity" value="update" name="update_product_quantity">
             </div>
             </form>
@@ -73,7 +75,7 @@ $p=0;
             <td>  <form method="post" action="{{route('cart.delete',['cart' => $cart])}}">
                         @csrf
                         @method('delete')
-                        <input type="submit" class="update_quantity" value="Delete" />
+                        <input type="submit" class="update_quantity" onclick="return confirm('Are you sure you want to delete this product');" value="Delete" />
                     </form>
             </td>
            <!-- <td>
@@ -117,53 +119,6 @@ $p=0;
   
 </div>
 
-<div class="sub">
-<table class='styled-table' style='width:60%'>
-                <thead>
-        <tr>
-            <th style='width:20%'>product Name</th>
-            <th style='width:20%'>Product Quanity</th>
-            <th style='width:5%'>Total Price</th>
-            <th style='width:5%'>Delete Item</th>
-        </tr>
-    </thead>
-    @foreach($carts as $cart)
-    <tbody>
-        <tr>
-            <td >{{$cart->product_name}}</td>
-            <td>
-            <form action="{{route('cart.update',['cart' => $cart])}}" method="post">
-               @csrf
-               @method('put')
-                <input type="hidden" value="{{$cart->id}}" name="id">
-            <div class="quantity_box">
-             <input type="number" min="1" value="{{$cart->product_quantity}}" name="product_quantity">
-             <input type="submit" class="update_quantity" value="update" name="update_product_quantity">
-            </div>
-            </form>
-            </td>
-            <td>&#8377 &#8377 {{$cart->product_rate*$cart->product_quantity}}</td>
-            <td>  <form method="post" action="{{route('cart.delete',['cart' => $cart])}}">
-                        @csrf
-                        @method('delete')
-                        <input type="submit" class="update_quantity" value="Delete" />
-                    </form>
-            </td>
-        </tr>
-       
-           <!-- <script>alert("no products present in cart");
-             window.location.href = '/Minor Project 5th_Sem/Emergency_Medical_Support_System/Medical Supplies/Medical Supplies.php'
-             </script> -->
-          
-             <td></td><td>
-               <div class='table_bottom'>
-               <h3 class='bottom_btn'>Grand Total :&#8377 {{$cart->product_rate*$cart->product_quantity}}<h3>
-               @endforeach    
-               <a href='order confirmation.php?pgt=$grand_total' class='bottom_btn'>Proceed To Checkout</a>
-               </div></td> <td></td><td></td> </tbody>
-               </table>  
-    
-</div>
   
 
   <!-- '/Minor Project 5th_Sem/Emergency_Medical_Support_System/Medical Supplies/Medical Supplies.php' -->
