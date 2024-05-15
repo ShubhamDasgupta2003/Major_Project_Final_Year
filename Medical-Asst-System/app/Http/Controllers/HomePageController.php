@@ -15,7 +15,8 @@ class HomePageController extends Controller
             $lng = $request->lng;
 
             $data = compact('adds','lat','lng');
-            //Update users table with requested address and return 
+            //Update users table with requested address and return
+            
             return response()->json(['data'=>$data]);
         }
 
