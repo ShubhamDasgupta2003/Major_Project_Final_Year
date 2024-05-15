@@ -15,10 +15,6 @@
 
     <link rel="stylesheet" href="{{asset('css/hcs_admin.css')}}">
     {{-- <link rel="stylesheet" href="{{asset('css/useravatar.css')}}"> --}}
-    <style>
-    
-
-    </style>
     <title>HCS Admin</title>
 </head>
 <body>
@@ -30,7 +26,7 @@
         <div class="sidebar-menu">
             <ul>
                 <li>
-                <a href="#" class="active" style="text-decoration:none"><span class="las la-igloo"></span>
+                <a href="/show_emp_admin_intf"  style="text-decoration:none"><span class="las la-igloo"></span>
                     <span>Dashboard</span></a>
                 </li>
                 <li>
@@ -42,9 +38,10 @@
                     <span>All Orders</span></a>
                 </li>
                 <li>
-                 <a href="/hcs_emp_admin_completed_orders"><span class="las la-shopping-bag"></span>
+                 <a href="#" class="active"><span class="las la-shopping-bag"></span>
                     <span>Completed Orders</span></a>
                 </li>
+                 
                 {{--<li>
                     <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/ambulance Srvc admin/amb_srvc_admin.php" ><span class="las la-ambulance"></span>
                     <span>Ambulance Service</span></a>
@@ -121,61 +118,10 @@
      
 </header>
     <main>
-        <div class="cards">
-            <div class="card-single">
-                <div>
-                @php
-                    $uniqueUserIds = $allorders->where('emp_id', session()->get('emp_admin_id'))->pluck('emp_id')->unique();
-                    $uniqueUserCount = $uniqueUserIds->count();
-                @endphp
-
-                <h1 style="color: #fff;">{{ $uniqueUserCount }}</h1>
-                    <span>Customers</span>
-                </div>
-                <div>
-                    <span class="las la-users" style="color: #fff;"></span>
-                </div>
-            </div>
-            <div class="card-single">
-                <div>
-                    @php
-                        $orderCount = $allorders->where('emp_id', session()->get('emp_admin_id'))->count();
-                    @endphp
-                    <h1 style="color: #fff;">{{$orderCount}}</h1>
-                    <span>All Orders</span>
-                </div>
-                <div>
-                    <span class="las la-shopping-bag" style="color: #fff;"></span>
-                </div>
-            </div>
-            <div class="card-single">
-                <div>
-                    @php
-                        $corderCount = $allorders->where('emp_id', session()->get('emp_admin_id'))->where('order_status', 'Completed')->count();
-                    @endphp
-                    <h1 style="color: #fff;">{{$corderCount}}</h1>
-                    <span>Completed Orders</span>
-                </div>
-                <div>
-                    <span class="las la-shopping-bag" style="color: #fff;"></span>
-                </div>
-            </div>
-            {{-- <div class="card-single">
-                <div>
-                    <h1 style="color: #fff;"> &#8377 </h1>
-                    <span>Income(Current Month)</span>
-                </div>
-                <div>
-                   <span class="lab la-google-wallet" ></span>  
-                </div>
-            </div> --}}
-        </div>
-        <br/>
-        <br/>
-<h2 class="text-center" style="color:#009879;" >Oreder Request</h2>
-<table class="table table-striped">
+<h2 class="text-center" style="color:#009879;" >Completed Orders</h2>
+<table class="table table-striped-columns ">
   <thead>
-    <tr  style="background-color:#009879;color:white;">
+  <tr  style="background-color:#009879;color:white;">
       <th scope="col">User Name</th>
       <th scope="col">Gender</th>
       <th scope="col">Contact Number</th>
@@ -185,9 +131,8 @@
       <th scope="col">District</th>
       <th scope="col">State</th>
       <th scope="col">Date & Time</th>
-      <th scope="col">Accept</th>
-      <th scope="col">Reject</th>
-    </tr>
+      <th scope="col">Status</th>
+      </tr>
   </thead>
   <tbody>
   @foreach ( $orders as $order )
@@ -202,91 +147,14 @@
       <td>{{$order->district}}</td>
       <td>{{$order->state}}</td>
       <td>{{$order->created_at}}</td>
-      <td> <a href="{{route('hcs_emp_msg',['order_id' => $order->order_id ])}}"><button type="button" class="btn btn-primary">Accept</button></a></td>
-      <td> <a href="{{route('hcs_emp_rej_msg',['order_id' => $order->order_id ])}}"><button type="button" class="btn btn-danger">Reject</button></a><td>
-    </tr>
+      <td>{{$order->order_status}}</td>
+      <td></td>
+      </tr>
     @endif
     @endforeach
   </tbody>
 </table>
     </main>
    </div>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<script>
-     $(document).ready(function() {
-        $(".user-avatar-container").click(function() {
-            $(".dropdown-content").toggle();
-        });
-    });
-   $(document).ready(function() {
-    $('#addBtn').click(function(event) {
-        // Prevent the default behavior of the anchor tag
-        event.preventDefault();
-
-        // Show alert to the user
-        alert("Are you sure you want to perform this action?");
-
-        // Get emp_id from the href attribute of the anchor tag
-        var emp_id = $(this).attr('href').split('=')[1];
-
-        // Send Ajax request
-        $.ajax({
-            url: "{{ route('hcs_emp_verification') }}",
-            method: 'GET',
-            data: {
-                _token: '{{ csrf_token() }}',
-                emp_id: emp_id
-            },
-            success: function(response) {
-                // Handle success response
-
-                // Redirect user after successful completion of Ajax request
-                window.location.href = "/hcs_order_add";
-            },
-            error: function(xhr, status, error) {
-                // Handle error
-                console.error(error);
-                alert("Error occurred while processing your request.");
-            }
-        });
-    });
-     $('#deleteBtn').click(function(event) {
-        // Prevent the default behavior of the anchor tag
-        event.preventDefault();
-
-        // Show alert to the user
-        alert("Are you sure you want to perform this action?");
-
-        // Get emp_id from the href attribute of the anchor tag
-        var emp_id = $(this).attr('href').split('=')[1];
-
-        // Send Ajax request
-        $.ajax({
-            url: "{{ route('hcs_emp_delete') }}",
-            method: 'GET',
-            data: {
-                _token: '{{ csrf_token() }}',
-                emp_id: emp_id
-            },
-            success: function(response) {
-                // Handle success response
-
-                // Redirect user after successful completion of Ajax request
-                window.location.href = "/hcs_emp_reject";
-            },
-            error: function(xhr, status, error) {
-                // Handle error
-                console.error(error);
-                alert("Error occurred while processing your request.");
-            }
-        });
-    });
-});
-
-</script>
-
 </body>
 </html>

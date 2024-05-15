@@ -58,6 +58,10 @@ Route::get('/hcs_make_payment',[HcsController::class,"makePayment"])->name('hcs-
 Route::get('/hcs_payment',[HcsController::class,'hcsPayment'])->name('hcs_payment');
 Route::get('/hcs_payment_success',[HcsController::class,'paymentSuccess'])->name('hcs_payment_sucess');
 Route::get('/show_emp_admin_intf',[HcsController::class,"show_emp_admin_intf"])->name('show_emp_admin_intf');
+Route::get('/hcs_emp_admin_all_orders',[HcsController::class,"hcs_emp_admin_all_orders"])->name('hcs_emp_admin_all_orders');
+Route::get('/hcs_emp_admin_completed_orders',[HcsController::class,"hcs_emp_admin_completed_orders"])->name('hcs_emp_admin_completed_orders');
+Route::get('/hcs_emp_admin_ongoing_order',[HcsController::class,"hcs_emp_admin_ongoing_order"])->name('hcs_emp_admin_ongoing_order');
+Route::post('/hcs_emp_admin_ongoing_order',[HcsController::class,"hcs_emp_admin_otp_ongoing_order"])->name('hcs_emp_admin_otp_ongoing_order');
 Route::get('/hcs_emp_msg',[HcsController::class,"hcs_emp_msg_index"])->name('hcs_emp_msg');
 Route::post('/hcs_emp_msg',[HcsController::class,"hcs_emp_msg"])->name('hcs_emp_msg_post');
 Route::get('/hcs_emp_rej_msg',[HcsController::class,"hcs_emp_rej_msg_index"])->name('hcs_emp_rej_msg');

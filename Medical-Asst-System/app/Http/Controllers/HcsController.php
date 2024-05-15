@@ -20,6 +20,7 @@ class HcsController extends Controller
     public function emp_register(Request $request){
         $emp_table = new HcsEmployeeTableModel;
         $emp_table->emp_name = $request->input('emp_name');
+        $emp_table->emp_dob = $request->input('dob');
         $emp_table->emp_gender = $request->input('emp_gender');
         $emp_table->emp_type = $request->input('emp_type');
         $emp_table->emp_email = $request->input('emp_email');
@@ -32,6 +33,7 @@ class HcsController extends Controller
         $emp_table->emp_salary = $request->input('emp_salary');
         $emp_table->emp_govt_id = $request->input('emp_govt_id');
         $emp_table->emp_verification = "Pending";
+        $emp_table->rating_value = 0;
         $emp_table->emp_photo_path = str_replace('public/', '', $request->file('photo')->store("public/hcs_emp_files"));
         $emp_table->emp_govt_id_path = str_replace('public/', '', $request->file('govt_id_copy')->store("public/hcs_emp_files"));
         $emp_table->emp_bio_data_path = str_replace('public/', '', $request->file('bio_data')->store("public/hcs_emp_files"));
@@ -63,12 +65,56 @@ class HcsController extends Controller
             return view("hcs_home_aya", $data);
         }
     }
+     //Employee Admin Section
     public function show_emp_admin_intf(){
             if(session()->has('emp_admin_name')){
-            $orders= Hcs_Order::where('order_status',"Pending")->get(); 
-            $data = compact('orders');    
+            $orders= Hcs_Order::where('order_status',"Pending")->get();
+            $allorders = Hcs_Order::all();
+            $data = [
+                'orders' => $orders,
+                'allorders' => $allorders
+            ];   
         return view("hcs_emp_admin_intf")->with($data);}
     }
+    public function hcs_emp_admin_all_orders(){
+        if(session()->has('emp_admin_name')){
+            $orders= Hcs_Order::all(); 
+            $data = compact('orders');    
+        return view("hcs_emp_admin_all_orders")->with($data);}
+    }
+    public function hcs_emp_admin_completed_orders(){
+        if(session()->has('emp_admin_name')){
+            $orders= Hcs_Order::where('order_status',"Completed")->get();  
+            $data = compact('orders');    
+        return view("hcs_emp_admin_completed_orders")->with($data);}
+    }
+    public function hcs_emp_admin_ongoing_order(){
+        if(session()->has('emp_admin_name')){
+            $orders= Hcs_Order::where('order_status',"Ongoing")->get();  
+            $data = compact('orders');    
+        return view("hcs_emp_admin_ongoing_order")->with($data);}
+    }
+    public function hcs_emp_admin_otp_ongoing_order(Request $request){
+        if(session()->has('emp_admin_name')){
+            // Validate the input
+            $request->validate([
+                'otp' => 'required|numeric', // Adjust validation rules as needed
+            ]);
+    
+            $otp = $request->input('otp');
+            $order = Hcs_Order::where('order_status', 'Ongoing')->where('otp', $otp)->update(['order_status' => 'Completed']);
+    
+            if($order){
+                // Update the order status
+                
+                return redirect()->route('hcs_emp_admin_ongoing_order')->with('success', 'Order completed successfully.');
+            } else {
+                // Invalid OTP
+                return redirect()->route('hcs_emp_admin_ongoing_order')->with('failed', 'OTP is incorrect.');
+            }    
+       }
+    }
+    //Rating Section
     public function rating_index(){
         return view("hcs_add_rating");
     }
@@ -227,8 +273,10 @@ class HcsController extends Controller
             $payment_id_update = Payments_records::where('order_id',$orderId)->update(['payment_status' => 'completed']);
             if($payment_id_update)
             { 
-            $userdata= Hcs_order::where('order_id', $orderId)->first(); 
-            Mail::to(session()->get("user_email"))->send(new Hcs_emp_booking_mail($userdata));   
+            $userdata= Hcs_order::where('order_id', $orderId)->first();
+            $empdata= Hcs_order::where('emp_id', $userdata->emp_id)->first();
+            Mail::to(session()->get("user_email"))->send(new Hcs_emp_booking_mail($userdata));
+            // Mail::to($empdata->emp_mail)->send(new Hcs_emp_booking_mail_for_emp($userdata));   
             return view('hcs_payment_ackn');}
         }
         public function hcsPayment(Request $request){
@@ -248,6 +296,9 @@ class HcsController extends Controller
         {
             $userdata = Hcs_order::where('order_id', $request->input('order_id'))->first();
             Hcs_order::where('order_id', $request->input('order_id'))->update(['order_status' => 'Ongoing']);
+            HcsEmployeeTableModel::where('emp_id', $userdata->emp_id)->update([
+                'emp_status' => 'Busy'
+            ]);
         
             if (!$userdata) {
                 // Handle case where order data is not found
@@ -295,6 +346,9 @@ class HcsController extends Controller
             Hcs_order::where('order_id', $request->input('order_id'))->update([
                 'order_status' => 'Canceled',
                 'rej_msg' => $msg
+            ]);
+            HcsEmployeeTableModel::where('emp_id', $userdata->emp_id)->update([
+                'emp_status' => 'Free'
             ]);
         
             Mail::to($userinfo->user_email)->send(new Hcs_emp_rej_msg_mail($userdata, $msg));
