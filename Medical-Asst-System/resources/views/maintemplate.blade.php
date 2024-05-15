@@ -86,7 +86,11 @@
                     <div class="loc-head">
                         <div class="loc-option-tab">
                             <label for="" id="location-txt">
-                                <h2 id="loc-txt"></h2>
+                                <h2 id="loc-txt">
+                                    @if(session()->has('user_id'))
+                                        {{$user_adds[0]->user_formatted_address}}
+                                    @endif
+                                </h2>
                             </label>
                         </div>
                     </div>
@@ -168,6 +172,7 @@ function openPopup()
         // document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
         document.body.classList.add("disable-scroll");
+ 
     }
 }
 
@@ -202,7 +207,7 @@ $(document).ready(function(){
         $.ajax({
             url:"{{route('home')}}",
             type:"GET",
-            data:{'full_address':loc_txt,'lat':latitude,'lng':longitude},
+            data:{'full_address':loc_txt,'lat':latitude,'lng':longitude,'uid':'{{session('user_id')}}'},
             success:function(data){
                 console.log(data);
                 var html = '';
@@ -236,7 +241,7 @@ $(document).ready(function(){
                 $.ajax({
                     url:"{{route('home')}}",
                     type:"GET",
-                    data:{'full_address':loc_txt,'lat':latitude,'lng':longitude},
+                    data:{'full_address':loc_txt,'lat':latitude,'lng':longitude,'uid':'{{session('user_id')}}'},
                     success:function(data){
                         console.log(data);
                         var html = '';
