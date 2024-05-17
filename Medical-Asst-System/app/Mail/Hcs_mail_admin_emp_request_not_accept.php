@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\HcsEmployeeTableModel;
 
 class Hcs_mail_admin_emp_request_not_accept extends Mailable
 {
@@ -16,8 +17,10 @@ class Hcs_mail_admin_emp_request_not_accept extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public $empdata;
+    public function __construct(HcsEmployeeTableModel $empdata)
     {
+        $this->empdata=$empdata;
         //
     }
 
@@ -27,7 +30,7 @@ class Hcs_mail_admin_emp_request_not_accept extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Hcs Mail Admin Emp Request Not Accept',
+            subject: 'Notice Regarding Your Employee Application',
         );
     }
 
@@ -37,7 +40,7 @@ class Hcs_mail_admin_emp_request_not_accept extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'hcs_mail_admin_emp_request_not_accept',
         );
     }
 

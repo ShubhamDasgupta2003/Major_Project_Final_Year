@@ -13,6 +13,9 @@ use App\Mail\Hcs_emp_booking_mail;
 use App\Mail\Hcs_emp_msg_mail;
 use App\Mail\Hcs_emp_rej_msg_mail;
 use App\Mail\Hcs_user_cancel_order_mail;
+use App\Mail\Hcs_mail_emp_booking_for_emp;
+use App\Mail\Hcs_mail_admin_emp_request_accept;
+use App\Mail\Hcs_mail_admin_emp_request_not_accept;
 
 class HcsController extends Controller
 {
@@ -20,7 +23,7 @@ class HcsController extends Controller
     public function emp_register(Request $request){
         $emp_table = new HcsEmployeeTableModel;
         $emp_table->emp_name = $request->input('emp_name');
-        $emp_table->emp_dob = $request->input('dob');
+        $emp_table->emp_dob = $request->input('emp_dob');
         $emp_table->emp_gender = $request->input('emp_gender');
         $emp_table->emp_type = $request->input('emp_type');
         $emp_table->emp_email = $request->input('emp_email');
@@ -43,8 +46,18 @@ class HcsController extends Controller
 
         
     }
-    public function aya_home()
-    {
+    public function aya_home(Request $request)
+    {   if($request->ajax())
+        {
+            $adds = $request->full_address;
+            $lat = $request->lat;
+            $lng = $request->lng;
+            $uid = $request->uid;
+            $data = compact('adds','lat','lng','uid');
+            //Update users table with requested address and return
+            User_info::where('user_id',$uid)->update(['user_lat_in_use'=>$lat,'user_long_in_use'=>$lng,'user_formatted_address'=>$adds]);
+            return response()->json(['data'=>$data]);
+        }
         if (!session()->has('user_name')) {
             // Set alert message and type
             $alertMessage = 'Please login to access this page.';
@@ -55,11 +68,14 @@ class HcsController extends Controller
         } else {
             $employess = HcsEmployeeTableModel::where('emp_verification', 'Done')->where('emp_status', "Free")->get();
             $userdatas = Hcs_order::where('user_id', session()->get('user_id'))->get();
+            $userinfo = User_info::where('user_id', session()->get('user_id'))->first();
     
             // Create an associative array with data from both tables
             $data = [
-                'employess' => $employess,
-                'userdatas' => $userdatas
+                'employees' => $employess,
+                'userdatas' => $userdatas,
+                'userinfo' =>  $userinfo,
+                'user_adds'
             ];
             // Pass the associative array to the view
             return view("hcs_home_aya", $data);
@@ -102,11 +118,14 @@ class HcsController extends Controller
             ]);
     
             $otp = $request->input('otp');
-            $order = Hcs_Order::where('order_status', 'Ongoing')->where('otp', $otp)->update(['order_status' => 'Completed']);
-    
+            $order = Hcs_Order::where('order_status', 'Ongoing')->where('otp', $otp)->first();
+            
             if($order){
                 // Update the order status
-                
+                $order->update(['order_status' => 'Completed']);
+                HcsEmployeeTableModel::where('emp_id', $order->emp_id)->update([
+                    'emp_status' => 'Free'
+                ]);
                 return redirect()->route('hcs_emp_admin_ongoing_order')->with('success', 'Order completed successfully.');
             } else {
                 // Invalid OTP
@@ -172,12 +191,17 @@ class HcsController extends Controller
         {return redirect("hcs_admin_login");}
             
     }
-    public function update_nemp_data(Request $request){
-        $employess= HcsEmployeeTableModel::where('emp_id',$request->input('emp_id'))->update(['emp_verification' => 'Done']);
+    public function update_nemp_data($emp_id){
+        $employess= HcsEmployeeTableModel::where('emp_id',$emp_id)->update(['emp_verification' => 'Done']);
+        $empdata= HcsEmployeeTableModel::where('emp_id', $emp_id)->first();
+        Mail::to($empdata->emp_email)->send(new Hcs_mail_admin_emp_request_accept($empdata));
         return redirect('hcs_admin');
     }
-    public function delete_nemp_data(Request $request){
-        $employess= HcsEmployeeTableModel::where('emp_id',$request->input('emp_id'))->delete();
+    public function delete_nemp_data($emp_id){
+        
+        $empdata= HcsEmployeeTableModel::where('emp_id', $emp_id)->first();
+        Mail::to($empdata->emp_email)->send(new Hcs_mail_admin_emp_request_not_accept($empdata));
+        $employess= HcsEmployeeTableModel::where('emp_id',$emp_id)->delete();
         return redirect('hcs_admin');
     }
     //Employee Admin
@@ -207,11 +231,7 @@ class HcsController extends Controller
             $amb_ride_amount = 500;
             $order_table = new Hcs_order;
             $rowCount = Hcs_order::count();
-    
-            $randomNumber = rand(15, 35);
-    
-            $order_id = $randomNumber . $rowCount;
-    
+            $order_id = $rowCount;
             $order_table->order_id = $order_id;
             $order_table->user_id = session()->get('user_id');
             $order_table->emp_id =$request->input('emp_id');
@@ -274,9 +294,9 @@ class HcsController extends Controller
             if($payment_id_update)
             { 
             $userdata= Hcs_order::where('order_id', $orderId)->first();
-            $empdata= Hcs_order::where('emp_id', $userdata->emp_id)->first();
-            Mail::to(session()->get("user_email"))->send(new Hcs_emp_booking_mail($userdata));
-            // Mail::to($empdata->emp_mail)->send(new Hcs_emp_booking_mail_for_emp($userdata));   
+            $empdata= HcsEmployeeTableModel::where('emp_id', $userdata->emp_id)->first();
+            Mail::to(session()->get("user_email"))->send(new Hcs_emp_booking_mail($userdata,$empdata));
+            Mail::to($empdata->emp_email)->send(new Hcs_mail_emp_booking_for_emp($userdata,$empdata));   
             return view('hcs_payment_ackn');}
         }
         public function hcsPayment(Request $request){

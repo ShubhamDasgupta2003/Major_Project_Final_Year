@@ -15,7 +15,7 @@
 
     <link rel="stylesheet" href="{{asset('css/hcs_admin.css')}}">
     {{-- <link rel="stylesheet" href="{{asset('css/useravatar.css')}}"> --}}
-    <title>HCS Admin</title>
+    <title>Healthcare Support Service Employee Admin</title>
 </head>
 <body>
     <input type="checkbox" id="nav-toggle">
@@ -41,43 +41,6 @@
                  <a href="/hcs_emp_admin_completed_orders" ><span class="las la-shopping-bag"></span>
                     <span>Completed Orders</span></a>
                 </li>
-                {{--<li>
-                    <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/ambulance Srvc admin/amb_srvc_admin.php" ><span class="las la-ambulance"></span>
-                    <span>Ambulance Service</span></a>
-                </li>
-                <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/Blood_Bank/adminb.php" ><i class="fa-solid fa-building-columns"></i></span>
-                <li>
-                    <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/Blood_Bank/adminb.php"> <span class="las la-landmark"></span>
-                    <span>Blood Bannk Service</span></a>
-                </li>
-                <li>
-                    <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/bed booking admin/bed_booking_admin.php" ><span class="las la-hospital"></span>
-                    <span>Bed Booking Service</span></a>
-                </li>
-                <li>
-                    <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/MedTechSupport/medtech_admin.php" ><span class="las la-hospital"></span>
-                    <span>Aya/Nurse/Medical Technician</span></a>
-                </li> --}}
-              <!--  <li>
-                    <a href=""><span class="las la-clipboard-list"></span>
-                    <span>Projects</span></a>
-                </li>
-                <li>
-                    <a href=""><span class="las la-shopping-bag"></span>
-                    <span>Orders</span></a>
-                </li>
-                <li>
-                    <a href=""><span class="las la-circle"></span>
-                    <span>Inventory</span></a>
-                </li>
-                <li>
-                    <a href=""><span class="las la-circle"></span>
-                    <span>Accounts</span></a>
-                </li>
-                <li>
-                    <a href=""><span class="las la-clipboard-list"></span>
-                    <span>Inventory</span></a>
-                </li>  -->
             </ul>
         </div>
     </div>
@@ -92,11 +55,15 @@
         </h3>
         <h3>
         <div class="container-fluid">
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-outline-success" type="button" onclick="search()">Search</button>
+        </div>
+    </div>
+</div>
         </h3>
    <div class="user-avatar-container">
     <div class="user-avatar-dropdown">
@@ -107,7 +74,7 @@
     </div>
     <br>
     @if (session()->has('emp_admin_name'))
-       <h6>{{ session()->get('emp_admin_name') }}</h6>
+       <h6 style="font-size:13px;">{{ session()->get('emp_admin_name') }}</h6>
     @else
         @php
             return redirect("/login");
@@ -124,7 +91,6 @@
       <th scope="col">User Name</th>
       <th scope="col">Gender</th>
       <th scope="col">Contact Number</th>
-      <th scope="col">Email</th>
       <th scope="col">Land Mark</th>
       <th scope="col">Address</th>
       <th scope="col">District</th>
@@ -140,14 +106,13 @@
       <td>{{$order->name}}</td>
       <td>{{$order->gender}}</td>
       <td>{{$order->contact_num}}</td>
-      <td>{{$order->order_id}}</td>
       <td>{{$order->land_mark}}</td>
       <td>{{$order->address}}</td>
       <td>{{$order->district}}</td>
       <td>{{$order->state}}</td>
       <td>{{$order->created_at}}</td>
       <td>{{$order->order_status}}</td>
-      <td></td>
+      <td class="d-none"></td>
       </tr>
     @endif
     @endforeach
@@ -156,4 +121,19 @@
     </main>
    </div>
 </body>
+<script>
+ function search() {
+            var query = document.getElementById("searchInput").value.toLowerCase();
+            var links = document.querySelectorAll("tr"); // Select all navigation links
+
+            links.forEach(function(link) {
+                var text = link.textContent.toLowerCase(); // Get text content of the link
+                if (text.includes(query)) {
+                    link.style.display = "block"; // Show the link if it matches the search query
+                } else {
+                    link.style.display = "none"; // Hide the link if it doesn't match the search query
+                }
+            });
+        }
+</script>
 </html>

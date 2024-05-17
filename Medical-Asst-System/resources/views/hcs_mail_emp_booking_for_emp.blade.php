@@ -11,7 +11,7 @@
     </p>
 
     <p>
-        Dear [Employee's Name],
+        Dear {{$empdata->emp_name}},
     </p>
 
     <p>
@@ -23,9 +23,12 @@
     </p>
 
     <ul>
-        <li><strong>Service:</strong> [Service Type]</li>
-        <li><strong>Date & Time:</strong> [Date & Time]</li>
-        <li><strong>Location:</strong> [Location]</li>
+        <li><strong>Booking Name:</strong>{{ $userdata->name }}</li>
+        <li><strong>Service:</strong> {{ $userdata->order_type === 'A' ? 'Aya' : ($userdata->order_type === 'N' ? 'Nurse' : 'Technician') }}</li>
+        <li><strong>Date & Time:</strong> {{ $userdata->created_at }}</li>
+        <li><strong>Land Mark:</strong> {{ $userdata->land_mark }}</li>
+        <li><strong>Location:</strong> {{ $userdata->address }}</li>
+        <!-- You can add more details here -->
     </ul>
 
     <p>
@@ -42,7 +45,7 @@
 
     <p>
         Best regards, <br>
-        [Your Company Name]
+        Emergency Medical Assistance System
     </p>
 </body>
 </html>

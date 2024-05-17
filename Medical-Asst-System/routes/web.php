@@ -46,6 +46,12 @@ Route::get('/nurse', function () {
 Route::get('/technician', function () {
     return view('hcs_home_technician');
 })->name('technician_home');
+Route::get('/technician', function () {
+    return view('hcs_home_technician');
+})->name('technician_home');
+Route::get('/hmap', function () {
+    return view('index');
+})->name('/hmap');
 Route::get('/rating', function () {
     return view('healthcare_support_emp_rating');
 })->name('rating');
@@ -80,8 +86,8 @@ Route::get('/hcs', function () {
     return view('hcs_employee_registration_form');
 })->name('hcs');
 Route::post('/hcs',[HcsController::class,"emp_register"]);
-Route::get('/hcs_emp_verification',[HcsController::class,"update_nemp_data"])->name('hcs_emp_verification');
-Route::get('/hcs_emp_delete',[HcsController::class,"delete_nemp_data"])->name('hcs_emp_delete');
+Route::get('/hcs_emp_verification/{emp_id}',[HcsController::class,"update_nemp_data"])->name('hcs_emp_verification');
+Route::get('/hcs_emp_delete/{emp_id}',[HcsController::class,"delete_nemp_data"])->name('hcs_emp_delete');
 Route::get('/hcs_user_rating',[HcsController::class,"rating_index"])->name('hcs_add_rating');
 Route::post('/hcs_user_rating',[HcsController::class,"add_rating"]);
 Route::get('/hcs_show_rating',[HcsController::class,"show_rating"])->name('hcs_show_rating');

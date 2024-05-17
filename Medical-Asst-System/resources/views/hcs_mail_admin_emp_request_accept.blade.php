@@ -11,7 +11,7 @@
     </p>
 
     <p>
-        Dear [Employee's Name],
+        Dear {{$empdata->emp_name}},
     </p>
 
     <p>
@@ -23,12 +23,12 @@
     </p>
 
     <ul>
-        <li><strong>Email:</strong> [Your Email Address]</li>
-        <li><strong>Password:</strong> [Your Password]</li>
+        <li><strong>Email:</strong> {{$empdata->emp_email}}</li>
+        <li><strong>Password:</strong> {{$empdata->password}}</li>
     </ul>
 
     <p>
-        You can now access your account using the following link: [Login URL]
+        You can now access your account using the following link:<a href="http://127.0.0.1:8000/login">Login</a> 
     </p>
 
     <p>

@@ -11,7 +11,7 @@
     </p>
 
     <p>
-        Dear [Employee's Name],
+        Dear {{$empdata->emp_name}},
     </p>
 
     <p>
@@ -25,7 +25,6 @@
     <p>
         We appreciate your interest in joining our family, and we hope to hear from you soon.
     </p>
-
     <p>
         Warm regards, <br>
         Emergency Medical Assistance System

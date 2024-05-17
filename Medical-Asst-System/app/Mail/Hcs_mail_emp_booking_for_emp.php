@@ -8,16 +8,21 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-
-class Hcs_mail_emp_bookig_for_emp extends Mailable
+use App\Models\Hcs_order;
+use App\Models\HcsEmployeeTableModel;
+class Hcs_mail_emp_booking_for_emp extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public $userdata;
+    public $empdata;
+    public function __construct(Hcs_Order $userdata,HcsEmployeeTableModel $empdata)
     {
+        $this->userdata=$userdata;
+        $this->empdata=$empdata;
         //
     }
 
@@ -27,7 +32,7 @@ class Hcs_mail_emp_bookig_for_emp extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Hcs Mail Emp Bookig For Emp',
+            subject: 'New Booking Notification for You!',
         );
     }
 
@@ -37,7 +42,7 @@ class Hcs_mail_emp_bookig_for_emp extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'hcs_mail_emp_booking_for_emp',
         );
     }
 

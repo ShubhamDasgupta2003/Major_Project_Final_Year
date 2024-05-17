@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Hcs_order;
+use App\Models\HcsEmployeeTableModel;
 
 class Hcs_emp_booking_mail extends Mailable
 {
@@ -17,10 +18,12 @@ class Hcs_emp_booking_mail extends Mailable
     /**
      * Create a new message instance.
      */
-public $userdata;
-    public function __construct(Hcs_Order $userdata)
+    public $userdata;
+    public $empdata;
+    public function __construct(Hcs_Order $userdata,HcsEmployeeTableModel $empdata)
     {
         $this->userdata=$userdata;
+        $this->empdata=$empdata;
         //
     }
 

@@ -14,7 +14,7 @@
 <body>
     <div class="container">
         <div class="card">
-            <img src="images/employee.png" alt="">
+            <img src="{{ asset('storage/' . request()->input('img'))}}" alt="">
             <div class="column">
                 <div class="patient_info_cont">
     

@@ -13,7 +13,7 @@
     
         
 
-    <link rel="stylesheet" href="{{asset('css/adminb.css')}}">
+    <link rel="stylesheet" href="{{asset('css/hcs_admin.css')}}">
     {{-- <link rel="stylesheet" href="{{asset('css/useravatar.css')}}"> --}}
     <title>HCS Admin</title>
 </head>
@@ -166,8 +166,8 @@
       <td><a href="{{ asset('storage/' . $employee->emp_photo_path) }}" style="text-decoration:none;">Click</a></td>
       <td><a href="{{ asset('storage/' . $employee->emp_govt_id_path)}}"style="text-decoration:none;">Click</a></td>
       <td><a href="{{ asset('storage/' . $employee->emp_bio_data_path)}}"style="text-decoration:none;">Click</a></td>
-      <td> <a href="{{route('hcs_admin',['emp_id' => $employee->emp_id ])}}" id="addBtn"><button type="button" class="btn btn-primary">Add</button></a></td>
-      <td> <a href="{{route('hcs_admin',['emp_id' => $employee->emp_id ])}}" id="deleteBtn"><button type="button" class="btn btn-danger">Delete</button></a><td>
+      <td> <a href="{{route('hcs_emp_verification',['emp_id' => $employee->emp_id ])}}" id="addBtn"><button type="button" class="btn btn-primary">Add</button></a></td>
+      <td> <a href="{{route('hcs_emp_delete',['emp_id' => $employee->emp_id ])}}" id="deleteBtn"><button type="button" class="btn btn-danger">Delete</button></a><td>
     </tr>
     @endforeach
   </tbody>
@@ -179,71 +179,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
-   $(document).ready(function() {
-    $('#addBtn').click(function(event) {
-        // Prevent the default behavior of the anchor tag
-        event.preventDefault();
-
-        // Show alert to the user
-        alert("Are you sure you want to perform this action?");
-
-        // Get emp_id from the href attribute of the anchor tag
-        var emp_id = $(this).attr('href').split('=')[1];
-
-        // Send Ajax request
-        $.ajax({
-            url: "{{ route('hcs_emp_verification') }}",
-            method: 'GET',
-            data: {
-                _token: '{{ csrf_token() }}',
-                emp_id: emp_id
-            },
-            success: function(response) {
-                // Handle success response
-
-                // Redirect user after successful completion of Ajax request
-                window.location.href = "/hcs_emp_verification";
-            },
-            error: function(xhr, status, error) {
-                // Handle error
-                console.error(error);
-                alert("Error occurred while processing your request.");
-            }
-        });
-    });
-     $('#deleteBtn').click(function(event) {
-        // Prevent the default behavior of the anchor tag
-        event.preventDefault();
-
-        // Show alert to the user
-        alert("Are you sure you want to perform this action?");
-
-        // Get emp_id from the href attribute of the anchor tag
-        var emp_id = $(this).attr('href').split('=')[1];
-
-        // Send Ajax request
-        $.ajax({
-            url: "{{ route('hcs_emp_delete') }}",
-            method: 'GET',
-            data: {
-                _token: '{{ csrf_token() }}',
-                emp_id: emp_id
-            },
-            success: function(response) {
-                // Handle success response
-
-                // Redirect user after successful completion of Ajax request
-                window.location.href = "/hcs_emp_delete";
-            },
-            error: function(xhr, status, error) {
-                // Handle error
-                console.error(error);
-                alert("Error occurred while processing your request.");
-            }
-        });
-    });
-});
-
 </script>
 
 </body>

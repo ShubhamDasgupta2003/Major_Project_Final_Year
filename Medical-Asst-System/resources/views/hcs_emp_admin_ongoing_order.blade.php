@@ -15,7 +15,7 @@
 
     <link rel="stylesheet" href="{{asset('css/hcs_admin.css')}}">
     {{-- <link rel="stylesheet" href="{{asset('css/useravatar.css')}}"> --}}
-    <title>HCS Admin</title>
+    <title>Healthcare Support Service Employee Admin</title>
 </head>
 <body>
     <input type="checkbox" id="nav-toggle">
@@ -108,7 +108,7 @@
     </div>
     <br>
     @if (session()->has('emp_admin_name'))
-       <h6>{{ session()->get('emp_admin_name') }}</h6>
+       <h6 style="font-size:13px;">{{ session()->get('emp_admin_name') }}</h6>
     @else
         @php
             return redirect("/login");
@@ -130,7 +130,6 @@
       <th scope="col">User Name</th>
       <th scope="col">Gender</th>
       <th scope="col">Contact Number</th>
-      <th scope="col">Email</th>
       <th scope="col">Land Mark</th>
       <th scope="col">Address</th>
       <th scope="col">District</th>
@@ -147,7 +146,6 @@
       <td>{{$order->name}}</td>
       <td>{{$order->gender}}</td>
       <td>{{$order->contact_num}}</td>
-      <td>{{$order->order_id}}</td>
       <td>{{$order->land_mark}}</td>
       <td>{{$order->address}}</td>
       <td>{{$order->district}}</td>
@@ -167,7 +165,7 @@
 </form>
 
       </td>
-      <td></td>
+      <td class="d-none"></td>
       </tr>
     @endif
     @endforeach

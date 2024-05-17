@@ -20,7 +20,7 @@ class Hcs_mail_admin_emp_request_accept extends Mailable
     public $empdata;
     public function __construct(HcsEmployeeTableModel $empdata)
     {
-        $this->userdata=$empdata;
+        $this->empdata=$empdata;
         //
     }
 
@@ -40,7 +40,7 @@ class Hcs_mail_admin_emp_request_accept extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'Hcs_mail_admin_emp_request_accept',
+            view: 'hcs_mail_admin_emp_request_accept',
         );
     }
 
