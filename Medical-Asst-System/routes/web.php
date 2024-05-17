@@ -274,6 +274,9 @@ Route::get('/pnt_verify',[HospitalController::class,'DisplayPntVerify'])->name('
 Route::get('/pnt_verify',[HospitalController::class,'DeadlineCount'])->name('deadlineCount');
 Route::get('/custom_bed_pntdata/{pnt_id}',[HospitalController::class,'PntdataRelease'])->name('release.pnt.data');
 Route::get('/pnt_discharge',[HospitalController::class,'PntDischarge'])->name('pnt.discharge');
+Route::get('/hos_payment', [PatientController::class,'StoreData'])->name('hos.payment');
+Route::get('/exit',[PatientController::class,'exit'])->name('pnt.exit');
+Route::get('/discharge_pnt',[HospitalController::class,'DisplayDischargePnt'])->name('display.discharge.pnt');
 // ---------------------Bed booking Service Routes end here-----------------------------
 
 // ---------------------Login Routes start here---------------------------

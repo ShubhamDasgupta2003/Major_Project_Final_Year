@@ -168,7 +168,29 @@ class HospitalController extends Controller
             }
             return view('/hospital bed/pnt_verify')->with('hos',$hos_info_all);
         
-    }
+}
+    // public function SearchPnt(Request $request){
+    //     $hos_id = session('hos_id');
+    //     $hos_info_all= Hospital_info::where('hos_id','=',$hos_id)->first();
+    //     $hos_name=$hos_info_all->hos_name;
+    //     $patientId = $request->input('patient_id');
+    //     $pnt_info_1= Patient_booking_info::where('pnt_id',$patientId)
+    //         ->where('hos_name', $hos_name)
+    //         ->first();
+    //     $pnt_booking_status=$pnt_info_1->pnt_booking_status;
+
+    //     if(is_null($pnt_info_1)){
+    //         echo "No Record Found For Id: $patientId";
+    //     }
+    //     if($pnt_booking_status=='Expired'){
+    //         return view('hospital bed/table1');
+        
+    //     }else{
+    //         echo"not";
+           
+    //     }
+
+    // }
     // patient verification functions ends here
 
     
@@ -202,5 +224,18 @@ class HospitalController extends Controller
             // ]); 
         // }
         return view ('hospital bed/discharge_page');
+    }
+    public function DisplayDischargePnt(){
+        $hos_id = session('hos_id');
+        $pnt_id = session('pnt_id');
+        $hos_info_all= Hospital_info::where('hos_id','=',$hos_id)->first();
+        $hos_name=$hos_info_all->hos_name;
+        $pnt_info_all= Patient_booking_info::where('hos_name','=',$hos_name)
+        ->where('pnt_booking_status','=',"Discharged")
+        ->get();
+        return view('hos_discharge_pnt')->with([
+            'hos_info_all' => $hos_info_all,
+            'pnt_info_all' => $pnt_info_all
+        ]);
     }
 }

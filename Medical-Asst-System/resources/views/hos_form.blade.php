@@ -122,7 +122,7 @@
                     <div class="column">
                         <input type="number" name="pnt_pincode" placeholder="Enter postal code" required />
                     </div>
-                            <a href="{{route('store.data', ['id '])}}"><button type="submit" name="submit">Submit</button></a>
+                            <a href="{{route('store.data', ['id'])}}"><button type="submit" name="submit">Submit</button></a>
                         </div>
             </form>
         </div>
