@@ -63,13 +63,13 @@
                     
                         <div class="mb-3">
                             <label for="pat_age" class="form-label">Age<sup class="mandatory">*</sup></label>
-                            <input type="number" class="form-control" id="pat_age" name="pat_age" placeholder="Patient's age" value="{{ old('pat_age') }}">
+                            <input type="number" class="form-control" id="pat_age" name="pat_age" placeholder="Patient's age" value="{{ old('pat_age') }}" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2);">
                             <span class="text-danger">@error('pat_age') {{ $message }} @enderror</span>
                         </div>
                     
                         <div class="mb-3">
                             <label for="cont_num" class="form-label">Mobile No.<sup class="mandatory">*</sup></label>
-                            <input type="tel" class="form-control" id="cont_num" name="cont_num" placeholder="Contact number" value="{{ old('cont_num') }}">
+                            <input type="tel" class="form-control" id="cont_num" name="cont_num" placeholder="Contact number" value="{{ old('cont_num') }}"  maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,10);">
                             <span class="text-danger">@error('cont_num') {{ $message }} @enderror</span>
                         </div>
                         <div class="mb-3">

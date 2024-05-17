@@ -12,14 +12,15 @@
         }
         .container {
             margin-top: 50px;
+            height: 100px;
         }
         .order-card {
             background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 5px;
+            margin-bottom: 7px;
         }
         .order-card h5 {
             margin-bottom: 10px;
@@ -57,9 +58,17 @@
             <div class="col-md-12">
                 <h2 class="text-center mb-4">Order History</h2>
                 <!-- Sample Order Cards -->
+
+                @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
                 @foreach ($bld_orders as $order)
+                {{-- @endif --}}
+
                 <div class="order-card">
-                    <h5>Order #{{ $order->order_id }}</h5>
+                    <h5>ORDER ID: #{{ $order->order_id }}</h5>
                     <div class="order-details">
                         <div>
                             <img src="images/BloodB/Blood_Bank.png" style="width: 50px; height: 50px;" alt="">
@@ -167,3 +176,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<script>
+    // Calculate time difference and update cancel button status
+    $(document).ready(function () {
+        $('.cancel-btn').each(function () {
+            var orderTime = $(this).data('order-time');
+            var thirtyMinutes = 30 * 60 * 1000; // 30 minutes in milliseconds
+            var cancelTime = new Date(orderTime).getTime() + thirtyMinutes;
+            var currentTime = new Date().getTime();
+            var timeDifference = cancelTime - currentTime;
+
+            if (timeDifference > 0) {
+                // If time difference is positive, set remaining time
+                var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+                $(this).prop('disabled', true);
+                $(this).siblings('.cancel-time-remaining').text('Time remaining: ' + minutes + 'm ' + seconds + 's');
+            } else {
+                // If time difference is negative, disable the button
+                $(this).prop('disabled', true);
+                $(this).siblings('.cancel-time-remaining').text('Time expired');
+            }
+        });
+    });

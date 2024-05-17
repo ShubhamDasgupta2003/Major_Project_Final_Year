@@ -126,6 +126,13 @@ Route::post('/confirm_booking', [BloodBankController::class, 'submitOrder'])->na
 Route::get('/logout', [UserLogin::class, 'logout'])->name('logout');
 Route::get('/send-cnfrm-mail', [BloodBankController::class, 'index'])->name('bld_cnfm_mail');
 
+//open update page
+Route::get('/update_user_details', [UserLogin::class, 'update_details'])->name('update_user_details');
+
+//update data
+Route::post('/update_data', [UserregController::class, 'update_data'])->name('update_data');
+
+
 
 
 Route::view ('/booking_form','/Blood_Booking/form')->name('blood_booking_form');
@@ -272,6 +279,8 @@ Route::get('/login',[LoginController::class,'DisplayLogin'])->name('display.logi
 Route::post('/check',[LoginController::class,'FetchServiceData'])->name('login.validate');
 Route::get('/userReg',[UserregController::class,'DisplayForm'])->name('display.user.form');
 Route::post('/user_reg_validate',[UserregController::class,'StoreUserData'])->name('register.user');
+
+
 // ---------------------Login Routes end here-----------------------------
 
 //----------------------- Payment Routes starts here -----------------------
