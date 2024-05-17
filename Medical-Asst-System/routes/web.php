@@ -165,7 +165,7 @@ Route::delete('/order_view/{order}/delete',[MedicalSuppliesController::class,'or
 
 Route::get('/order confirmation',[MedicalSuppliesController::class,'order'])->name('medical_supplies.order_confirmation');
 
-
+Route::get('/exit',[MedicalSuppliesController::class,'toexit'])->name('medical_supplies.exit');
 Route::get('/cart',[MedicalSuppliesController::class,'cart'])->name('medical_supplies.cart');
 Route::put('/cart/{cart}/update',[MedicalSuppliesController::class,'update'])->name('cart.update');
 Route::delete('/cart/{cart}/delete',[MedicalSuppliesController::class,'delete'])->name('cart.delete');
@@ -272,6 +272,8 @@ Route::get('/custom_bed_pntdata',[HospitalController::class,'CustomBedPntDetails
 Route::get('/pnt_verify',[HospitalController::class,'DisplayPntVerify'])->name('display.pnt.verify');
 // Route::get('/hos_form/{id}',[HospitalController::class,'UpdateBedCount'])->name('update.bedCount');
 Route::get('/pnt_verify',[HospitalController::class,'DeadlineCount'])->name('deadlineCount');
+Route::get('/custom_bed_pntdata/{pnt_id}',[HospitalController::class,'PntdataRelease'])->name('release.pnt.data');
+Route::get('/pnt_discharge',[HospitalController::class,'PntDischarge'])->name('pnt.discharge');
 // ---------------------Bed booking Service Routes end here-----------------------------
 
 // ---------------------Login Routes start here---------------------------

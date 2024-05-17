@@ -74,8 +74,7 @@ class PdfController extends Controller
         });
 
   
-
-      
+     
          
          return $pdf->download(session()->get('user_name').'.pdf');
 

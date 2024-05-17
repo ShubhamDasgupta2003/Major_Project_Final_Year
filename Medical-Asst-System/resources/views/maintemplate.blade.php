@@ -50,7 +50,7 @@
             @if (session()->has('user_name'))
                <h3>{{session()->get('user_name')}}</h3>
             @else
-                {{"Gust"}}
+                {{"Guest"}}
             @endif   
     </div>
 <div id="menu-btn" class="fa fa-bars"> </div>
@@ -86,9 +86,13 @@
                     <div class="loc-head">
                         <div class="loc-option-tab">
                             <label for="" id="location-txt">
-                                <h2 id="loc-txt"></h2>
+                                <h2 id="loc-txt">
+                                    @if(session()->has('user_id'))
+                                        {{$user_adds[0]->user_formatted_address}}
+                                    @endif
+                                </h2>
                             </label>
-                        </div>
+                        </div>1
                     </div>
                 </div>
             </div>
@@ -141,12 +145,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="js/slider.js"></script>
     <script src="js/hambargericon"></script>
-    <script>
+<script>
 const locationBtn = document.getElementsByClassName('get-location');
 const locationWin = document.getElementById('loc-win');
 const dismissBtn = document.getElementById('dismiss');
 
 // console.log(locationWin);
+
 
 for(let i=0; i<locationBtn.length; i++)
 {
@@ -157,10 +162,18 @@ dismissBtn.addEventListener('click',closePopup);
 
 function openPopup()
 {
-    locationWin.style.display = 'flex';
-    // document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-    document.body.classList.add("disable-scroll");
+    if(!'{{session()->has('user_id')}}')
+    {
+        alert("Please login to book rides");
+    }
+    else
+    {
+        locationWin.style.display = 'flex';
+        // document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        document.body.classList.add("disable-scroll");
+ 
+    }
 }
 
 function closePopup()
@@ -194,7 +207,7 @@ $(document).ready(function(){
         $.ajax({
             url:"{{route('home')}}",
             type:"GET",
-            data:{'full_address':loc_txt,'lat':latitude,'lng':longitude},
+            data:{'full_address':loc_txt,'lat':latitude,'lng':longitude,'uid':'{{session('user_id')}}'},
             success:function(data){
                 console.log(data);
                 var html = '';
@@ -228,7 +241,7 @@ $(document).ready(function(){
                 $.ajax({
                     url:"{{route('home')}}",
                     type:"GET",
-                    data:{'full_address':loc_txt,'lat':latitude,'lng':longitude},
+                    data:{'full_address':loc_txt,'lat':latitude,'lng':longitude,'uid':'{{session('user_id')}}'},
                     success:function(data){
                         console.log(data);
                         var html = '';
@@ -246,8 +259,8 @@ $(document).ready(function(){
 
     })
 });
- 
-
+</script>
+<!-- 
 // ================== Geocoding using Lat & Lon =========================
 
 const btn_loc = document.getElementById('det-location');
@@ -256,8 +269,6 @@ const btn_loc = document.getElementById('det-location');
 
 btn_loc.addEventListener("click", ()=>{
 
-})
-   
-
+}) -->
 </body>
 </html>

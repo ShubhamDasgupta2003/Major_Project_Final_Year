@@ -14,11 +14,25 @@ use App\Models\medical_supplies_technical;
 use App\Models\medical_supplies_order;
 use App\Models\cart;
 use Exception;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MailNotify;
+use Illuminate\contract\Mailer;
+use App\Models\Payment;
 class AdminController extends Controller
 {
     public function index()
    {
-    return view('admin_panel.index');
+    $user_infos=user_info::all();
+    $pay=payment::all();
+    $count = $user_infos->count();
+    $orders = $pay->count();
+
+    $currentMonthOrders = payment::select('amount')
+    ->whereRaw('MONTH(created_at) = MONTH(NOW())')
+    ->get();
+    $totalProductrate = $currentMonthOrders->sum('amount');
+    return view('admin_panel.index',['pays'=>$pay,'user_infos'=>$user_infos,'count' => $count,'orders' => $orders,'totalProductrate' => $totalProductrate]);
+
    }
    public function admin_supplies()
    {
@@ -42,8 +56,41 @@ class AdminController extends Controller
    }
    public function adminorderdelete(medical_supplies_order $order)
    {
+    $userEmail = $order->user_email;
+    $username = $order->user_name;
     $order->delete();
     $orders=medical_supplies_order::all();
+    
+
+
+
+    $data=[
+      'tittle'=>'Order Cancelled',
+      'date'=>date('m/d/Y'),
+      'username'=>$username,
+      'useremail' => $userEmail,
+   ];
+    $data["email"] = $userEmail ;
+
+    $data["title"] = "From Emergency Medical Assistance System";
+
+    $data["body"] = "Your Order has been cancelled . For further inquiry please contact Emergency Medical Assistance System";
+
+
+
+  
+
+
+
+    Mail::send('emails.cancel_order', $data, function($message)use($data) {
+
+        $message->to($data["email"])
+
+                ->subject($data["title"]);
+
+               
+    });
+
  
     return view('admin_panel.order',['orders'=>$orders]);
     
