@@ -6,6 +6,7 @@ use App\Models\blood_group;
 use App\Models\Payments_records;
 use App\Models\BloodBank;
 use App\Models\BloodOrder; 
+use App\Models\medical_supplies_order; 
 use App\Models\testOrders; 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -358,12 +359,53 @@ class BloodBankController extends Controller
         ->orderBy('date', 'desc')
         ->orderBy('time', 'desc')
         ->get();
+        $medicalorders = medical_supplies_order::where('user_id', session()->get('user_id'))->get();
+ 
 
-
-        return view('Blood_Booking.orderHistory',['bld_orders'=>$bld_orders]);
+        return view('Blood_Booking.orderHistory',['bld_orders'=>$bld_orders,'medicalorders'=>$medicalorders]);
      }
      
+     public function ordermdelete(Request $req){
+        $order_id = $req->order_id;
 
+        // Retrieve the order time from the database
+        DB::table('medical_supplies_orders')
+        ->where('order_id', $order_id)
+        ->delete();
+        // Extract the time attribute from the retrieved order object
+        $userEmail = session()->get('user_email');
+        $username = session()->get('user_name');
+    $data=[
+        'tittle'=>'Order Cancelled',
+        'date'=>date('m/d/Y'),
+        'username'=>$username,
+        'useremail' => $userEmail,
+     ];
+      $data["email"] = $userEmail ;
+  
+      $data["title"] = "From Emergency Medical Assistance System";
+  
+      $data["body"] = "Your Order has been cancelled . For further inquiry please contact Emergency Medical Assistance System";
+  
+  
+  
+    
+  
+  
+  
+      Mail::send('emails.cancel_order', $data, function($message)use($data) {
+  
+          $message->to($data["email"])
+  
+                  ->subject($data["title"]);
+  
+                 
+      });
+        return redirect()->back();
+       
+
+        
+     }
     public function showOrderDetail(Request $req){
         $order_id=$req->order_id;
 

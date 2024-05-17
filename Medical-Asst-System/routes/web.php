@@ -105,7 +105,7 @@ Route::get('/cancel_order}', [BloodBankController::class, 'cancelOrder'])->name(
 Route::get('/proceedToPay', [BloodBankController::class,'proceedToPay'])->name('proceedToPay');
 Route::get('/process_payment', [BloodBankController::class,'process_payment'])->name('process_payment');
 Route::get('/bld_payment_success',[BloodBankController::class,'paymentSuccess'])->name('bld_payment_sucess');
-
+Route::get('/orderHistory/{order_id}/delete',[BloodBankController::class,'ordermdelete'])->name('orderm.deletem');
 
 // .......................For Blood bank Admin Panel........................ 
 
@@ -275,7 +275,7 @@ Route::get('/pnt_verify',[HospitalController::class,'DeadlineCount'])->name('dea
 Route::get('/custom_bed_pntdata/{pnt_id}',[HospitalController::class,'PntdataRelease'])->name('release.pnt.data');
 Route::get('/pnt_discharge',[HospitalController::class,'PntDischarge'])->name('pnt.discharge');
 Route::get('/hos_payment', [PatientController::class,'StoreData'])->name('hos.payment');
-Route::get('/exit',[PatientController::class,'exit'])->name('pnt.exit');
+Route::get('/exitm',[PatientController::class,'exit'])->name('pnt.exit');
 Route::get('/discharge_pnt',[HospitalController::class,'DisplayDischargePnt'])->name('display.discharge.pnt');
 // ---------------------Bed booking Service Routes end here-----------------------------
 
