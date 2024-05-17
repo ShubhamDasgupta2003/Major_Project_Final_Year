@@ -8,6 +8,7 @@ use App\Models\BloodBank;
 use App\Models\BloodOrder; 
 use App\Models\medical_supplies_order; 
 use App\Models\testOrders; 
+use App\Models\Patient_ambulance;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -362,7 +363,13 @@ class BloodBankController extends Controller
         $medicalorders = medical_supplies_order::where('user_id', session()->get('user_id'))->get();
  
 
+<<<<<<< HEAD
         return view('Blood_Booking.orderHistory',['bld_orders'=>$bld_orders,'medicalorders'=>$medicalorders]);
+=======
+        $amb_ptn_join = Payments_records::join('patient_ambulance','payments.order_id','=','patient_ambulance.invoice_no')->where('patient_ambulance.user_id','=',$user_id)->orderBy('booking_date','DESC')->limit(4)->get();
+
+        return view('Blood_Booking.orderHistory',['bld_orders'=>$bld_orders,'amb_orders'=>$amb_ptn_join]);
+>>>>>>> 7d32c0d30263c544bac4b06098f72a738afdec15
      }
      
      public function ordermdelete(Request $req){
