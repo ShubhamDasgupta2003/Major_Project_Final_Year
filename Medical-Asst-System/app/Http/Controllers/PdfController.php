@@ -51,7 +51,7 @@ class PdfController extends Controller
 
 
 
-         $data["email"] = session()->get('user_email');
+        $data["email"] = session()->get('user_email');
 
         $data["title"] = "From Emergency Medical Assistance System";
 

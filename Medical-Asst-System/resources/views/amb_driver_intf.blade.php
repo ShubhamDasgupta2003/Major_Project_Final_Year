@@ -52,6 +52,13 @@
             /* background-color: #217bff; */
             /* color: white; */
         }
+        .logo
+        {
+            color: rgb(68, 68, 68);
+            text-decoration: none;
+            font-size: 1.7rem;
+            margin-left: 7px;
+        }
     </style>
 
 </head>
@@ -68,7 +75,7 @@
       <div class="modal-body">
         <div class="row">
             <div class="col-md-12">
-                <p class="form-text">Once you decline the ride, you will not be able to accept ride for 30 mins and your account will get automatically activated when you login the next time</p>
+                <p class="form-text">Once you decline the ride, you will not be able to accept ride and your account will get automatically deactivated. You will activate your account when you are ready to accept rides</p>
             </div>
             <div class="col-md-12 text-center">
                 <button class="btn btn-success" type="button" id="dcln_rqst">Yes</button>
@@ -84,7 +91,8 @@
 </div>
         <nav class="navbar navbar-light container-fluid bg-light shadow-sm p-1  bg-body rounded">
             
-            <a class="navbar-brand text-primary ms-5">Navbar</a>
+        <a href="#" class="logo"><i class="fa-solid fa-heart-pulse" style="color: #00a896;"></i>Medilities</a>
+
             <div class="row">
                 <div class="col-md-12 mr-5 ml-5 links">
                 <a href="#">Home</a>

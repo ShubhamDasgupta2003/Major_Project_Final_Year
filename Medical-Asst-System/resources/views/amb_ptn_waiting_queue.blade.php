@@ -17,7 +17,14 @@
         }
         .profile
         {
-          color:blue;
+          color:black;
+        }
+        .logo
+        {
+            color: rgb(68, 68, 68);
+            text-decoration: none;
+            font-size: 1.7rem;
+            margin-left: 7px;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -27,7 +34,7 @@
 
 <nav class="navbar navbar-light container-fluid bg-light shadow-sm p-1  bg-body rounded">
             
-            <a class="navbar-brand text-primary ms-5">Navbar</a>
+            <a href="#" class="logo"><i class="fa-solid fa-heart-pulse" style="color: #00a896;"></i>Medilities</a>
 
             <div class="d-flex">
                 <h2 class="me-2 text-light"> 
@@ -36,7 +43,7 @@
                 <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="row">
                         <div class="col-1">
-                        <i class="fa-regular fa-user fa-xl" style="color: #0470ce;"></i>
+                        <i class="fa-solid fa-user fa-xl"></i>
                     </div>
                 </button>
                 <ul class="dropdown-menu">
