@@ -77,7 +77,8 @@ class BloodBankController extends Controller
                         ->from('blood_group')
                         ->where('group_name', $req->search);
                 })->get();
-
+            
+             
             //    $banks = $query->where('id', $req->search)->get();
             Session::put('bloodB_search_result', $banks);
             return response()->json(['success' => true]);
@@ -90,7 +91,7 @@ class BloodBankController extends Controller
     }
 
 
-    // Methods for order and payments 
+    // Methods for order and payments n,fdsnfdsnflsal
 
     // step:1 
    public function submitOrder(request $req){
