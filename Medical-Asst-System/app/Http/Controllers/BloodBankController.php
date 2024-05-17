@@ -37,7 +37,7 @@ class BloodBankController extends Controller
         $banks = new BloodBank();
         $banks->name = $req->name;
         $banks->email = $req->email;
-        $banks->password = hash::make($req->password);
+        $banks->password = Hash::make($req->password);
         $banks->latitude = $req->lat;
         $banks->longitude = $req->lon;
         $banks->state = $req->state;
