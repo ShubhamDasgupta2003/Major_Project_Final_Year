@@ -90,7 +90,7 @@ Aya
                             <strong>Book Amount:<span style='color: blue;'> INR 500</span></strong>
                             <p class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i> <span class="distance">Calculating...</span> Km</p>
                             <br><br>
-                            <a href="{{route('registration', ['emp_id' => $employee->emp_id ,'img' => $employee->emp_photo_path ])}}">
+                            <a href="{{route('registration', ['emp_id' => $employee->emp_id ,'img' => $employee->emp_photo_path ,'emp'=>$employee->emp_type])}}">
                                 <button class='btn btn-secondary-orange' style="width:100%; border-radious:1px; height:30px;">&nbsp;&nbsp;Book&nbsp;&nbsp;</button>
                             </a>
                         </div>

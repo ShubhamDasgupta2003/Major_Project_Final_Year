@@ -33,7 +33,9 @@ class UserLogin extends Controller
 
 
  public function logout(){
-    Session::flush();
-    return view('/welcome');
+    session()->forget('user_name');
+    session()->forget('user_id');
+    session()->forget('user_email');
+    return redirect('');
  }
 }

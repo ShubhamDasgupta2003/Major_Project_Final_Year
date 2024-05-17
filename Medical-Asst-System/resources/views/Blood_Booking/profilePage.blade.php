@@ -63,7 +63,7 @@
         
         <div class="profile">
                   <img src="images/HomePage/profile.avif" alt="">
-      <h3>Welcome Jagannath Sarkar</h3>
+      <h3>{{session()->get('user_name')}}</h3>
       <a href="updateProfile.php" class="p_btn">update profile</a>
       <a href="/orderHistory" class="btn-order">orders history</a>
       <a href="/logout" class="delete-btn">logout</a>

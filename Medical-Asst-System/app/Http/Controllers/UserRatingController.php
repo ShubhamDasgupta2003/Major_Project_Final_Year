@@ -8,7 +8,14 @@ use App\Models\User_info;
 
 class UserRatingController extends Controller
 {   public function index(){
-    return view("add_rating");
+    $existingRating = User_rating::where('user_id', session()->get('user_id'))->first();
+
+    if ($existingRating) {
+        // If the user has already rated, redirect them or show a message
+        return redirect("")->with('message', 'You have already rated this item.');
+    }
+
+    return view('add_rating');
     }
     public function add_rating(Request $request){
         $table = new User_rating;

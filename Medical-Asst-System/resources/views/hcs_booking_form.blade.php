@@ -21,6 +21,7 @@
                     <form method="post">
                         @csrf
                         <input type="hidden" name="emp_id" value="{{ request()->input('emp_id') }}">
+                        <input type="hidden" name="emp_type" value="{{ request()->input('emp') }}">
                         <label for="">Full Name<sup class="mandatory">*</sup></label>
                         <input type="text" name="name" id="" placeholder="Enter full name" value="{{old('name')}}" >
                         @error('name')
@@ -69,7 +70,7 @@
                         @php
                         $emp_id = request('emp_id');
                          @endphp
-                        <a href="{{route('hcs_booking_confirmation',['emp_id' =>$emp_id])}}"><button class="btn"id="btn" name="book_ride">Confirm</button></a>
+                        <button class="btn"id="btn" name="book_ride">Confirm</button>
                      </form>
                     <a href="{{route('home')}}"><button class="btn-danger" name="cancel_ride">Cancel</button></a>
                 </div>

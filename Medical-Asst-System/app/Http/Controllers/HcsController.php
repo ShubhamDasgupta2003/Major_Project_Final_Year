@@ -81,6 +81,76 @@ class HcsController extends Controller
             return view("hcs_home_aya", $data);
         }
     }
+    public function nurse_home(Request $request)
+    {   if($request->ajax())
+        {
+            $adds = $request->full_address;
+            $lat = $request->lat;
+            $lng = $request->lng;
+            $uid = $request->uid;
+            $data = compact('adds','lat','lng','uid');
+            //Update users table with requested address and return
+            User_info::where('user_id',$uid)->update(['user_lat_in_use'=>$lat,'user_long_in_use'=>$lng,'user_formatted_address'=>$adds]);
+            return response()->json(['data'=>$data]);
+        }
+        if (!session()->has('user_name')) {
+            // Set alert message and type
+            $alertMessage = 'Please login to access this page.';
+            $alertType = 'warning';
+    
+            // Redirect to login page with alert message
+            return redirect()->route('user_login')->with(compact('alertMessage', 'alertType'));
+        } else {
+            $employess = HcsEmployeeTableModel::where('emp_verification', 'Done')->where('emp_status', "Free")->get();
+            $userdatas = Hcs_order::where('user_id', session()->get('user_id'))->get();
+            $userinfo = User_info::where('user_id', session()->get('user_id'))->first();
+    
+            // Create an associative array with data from both tables
+            $data = [
+                'employees' => $employess,
+                'userdatas' => $userdatas,
+                'userinfo' =>  $userinfo,
+                'user_adds'
+            ];
+            // Pass the associative array to the view
+            return view("hcs_home_nurse", $data);
+        }
+    }
+    public function technician_home(Request $request)
+    {   if($request->ajax())
+        {
+            $adds = $request->full_address;
+            $lat = $request->lat;
+            $lng = $request->lng;
+            $uid = $request->uid;
+            $data = compact('adds','lat','lng','uid');
+            //Update users table with requested address and return
+            User_info::where('user_id',$uid)->update(['user_lat_in_use'=>$lat,'user_long_in_use'=>$lng,'user_formatted_address'=>$adds]);
+            return response()->json(['data'=>$data]);
+        }
+        if (!session()->has('user_name')) {
+            // Set alert message and type
+            $alertMessage = 'Please login to access this page.';
+            $alertType = 'warning';
+    
+            // Redirect to login page with alert message
+            return redirect()->route('user_login')->with(compact('alertMessage', 'alertType'));
+        } else {
+            $employess = HcsEmployeeTableModel::where('emp_verification', 'Done')->where('emp_status', "Free")->get();
+            $userdatas = Hcs_order::where('user_id', session()->get('user_id'))->get();
+            $userinfo = User_info::where('user_id', session()->get('user_id'))->first();
+    
+            // Create an associative array with data from both tables
+            $data = [
+                'employees' => $employess,
+                'userdatas' => $userdatas,
+                'userinfo' =>  $userinfo,
+                'user_adds'
+            ];
+            // Pass the associative array to the view
+            return view("hcs_home_technician", $data);
+        }
+    }
      //Employee Admin Section
     public function show_emp_admin_intf(){
             if(session()->has('emp_admin_name')){
@@ -134,8 +204,14 @@ class HcsController extends Controller
        }
     }
     //Rating Section
-    public function rating_index(){
-        return view("hcs_add_rating");
+    public function rating_index(Request $request){
+        $existingRating = Hcs_user_rating::where('user_id', session()->get('user_id'))->where('emp_id', $emp_id = $request->query('emp_id'))->first();
+    if ($existingRating) {
+    // If the user has already rated, redirect them or show a message
+    return redirect()->back()->with('message', 'You have already rated this employee.');
+    }
+
+    return view('hcs_add_rating', ['empId' => $emp_id]);
     }
     public function add_rating(Request $request){
         $table = new Hcs_user_rating;
@@ -235,7 +311,7 @@ class HcsController extends Controller
             $order_table->order_id = $order_id;
             $order_table->user_id = session()->get('user_id');
             $order_table->emp_id =$request->input('emp_id');
-            $order_table->order_type = "A";
+            $order_table->order_type = $request->input('emp_type');
             $order_table->name = $request->input('name');
             $order_table->gender = $request->input('gender');
             $order_table->contact_num = $request->input('contact_num');
@@ -379,6 +455,8 @@ class HcsController extends Controller
         public function user_cancel_order(Request $request){
         Hcs_order::where('order_id', $request->input('order_id'))->update(['order_status' => 'Canceled']);
         $userdata= Hcs_order::where('order_id',$request->input('order_id'))->first(); 
+        HcsEmployeeTableModel::where('emp_id', $userdata->emp_id)->update(['emp_status' => 'Free']);
+        
         Mail::to(session()->get("user_email"))->send(new Hcs_user_cancel_order_mail($userdata));     
         return redirect("aya");
         }
