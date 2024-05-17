@@ -10,6 +10,7 @@ use App\Models\medical_supplies_order;
 use App\Models\testOrders; 
 use App\Models\Patient_ambulance;
 use Carbon\Carbon;
+use App\Http\Controllers\AmbulanceDriverPageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -67,6 +68,9 @@ class BloodBankController extends Controller
 
     public function showBloodBanks(request $req)
     {
+        $dist_obj = new AmbulanceDriverPageController;
+        $route_dist = array();
+
         $query = BloodBank::query();
 
         if ($req->ajax()) {
@@ -78,12 +82,23 @@ class BloodBankController extends Controller
                         ->from('blood_group')
                         ->where('group_name', $req->search);
                 })->get();
-            
+
+                foreach($banks as $record)
+                {
+                    // $fetch_route_dist = 500;    //Disable this and enable Line:40 during live test
+        
+                    $fetch_route_dist = $dist_obj->fetchDistance(22.917007138803726,88.43774841554536,$record->latitude,$record->longitude); 
+                    //Calculating the route distance of each ambulance using API
+        
+                    array_push($route_dist,array('name'=>$record->name,'city'=>$record->city,'state'=>$record->state,'group_name'=>$record->group_name,'route_dist'=>$fetch_route_dist,'price'=>$record->price,
+                    'id'=>$record->id));
+                }
              
             //    $banks = $query->where('id', $req->search)->get();
-            Session::put('bloodB_search_result', $banks);
+            Session::put('bloodB_search_result', $route_dist);
             return response()->json(['success' => true]);
-        } else {
+        } 
+        else {
 
             $bloodbanks = $query->where('id', '')->get();
             return view('Blood_Booking/bloodB_home', compact('bloodbanks'));
