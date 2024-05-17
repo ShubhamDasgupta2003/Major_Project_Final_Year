@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User_info;
+use App\Models\district;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class UserLogin extends Controller
 {   public function index(){
@@ -31,9 +33,22 @@ class UserLogin extends Controller
      }
  }
 
+ public function update_details(){
+    $id=session::get('user_id');
 
+    $data=DB::table('user_info')
+          ->select('*')
+          ->where('user_id',$id)
+          ->first();
+
+    $districts = DB::table('districts')->pluck('name');
+
+    return view ('Blood_Booking.update_user',['data'=>$data,'districts'=>$districts]);
+ }
+
+ 
  public function logout(){
     Session::flush();
-    return view('/welcome');
+    return redirect('/');
  }
 }

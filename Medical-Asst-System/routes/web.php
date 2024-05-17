@@ -126,6 +126,13 @@ Route::post('/confirm_booking', [BloodBankController::class, 'submitOrder'])->na
 Route::get('/logout', [UserLogin::class, 'logout'])->name('logout');
 Route::get('/send-cnfrm-mail', [BloodBankController::class, 'index'])->name('bld_cnfm_mail');
 
+//open update page
+Route::get('/update_user_details', [UserLogin::class, 'update_details'])->name('update_user_details');
+
+//update data
+Route::post('/update_data', [UserregController::class, 'update_data'])->name('update_data');
+
+
 
 
 Route::view ('/booking_form','/Blood_Booking/form')->name('blood_booking_form');
@@ -158,7 +165,7 @@ Route::delete('/order_view/{order}/delete',[MedicalSuppliesController::class,'or
 
 Route::get('/order confirmation',[MedicalSuppliesController::class,'order'])->name('medical_supplies.order_confirmation');
 
-
+Route::get('/exit',[MedicalSuppliesController::class,'toexit'])->name('medical_supplies.exit');
 Route::get('/cart',[MedicalSuppliesController::class,'cart'])->name('medical_supplies.cart');
 Route::put('/cart/{cart}/update',[MedicalSuppliesController::class,'update'])->name('cart.update');
 Route::delete('/cart/{cart}/delete',[MedicalSuppliesController::class,'delete'])->name('cart.delete');
@@ -265,6 +272,8 @@ Route::get('/custom_bed_pntdata',[HospitalController::class,'CustomBedPntDetails
 Route::get('/pnt_verify',[HospitalController::class,'DisplayPntVerify'])->name('display.pnt.verify');
 // Route::get('/hos_form/{id}',[HospitalController::class,'UpdateBedCount'])->name('update.bedCount');
 Route::get('/pnt_verify',[HospitalController::class,'DeadlineCount'])->name('deadlineCount');
+Route::get('/custom_bed_pntdata/{pnt_id}',[HospitalController::class,'PntdataRelease'])->name('release.pnt.data');
+Route::get('/pnt_discharge',[HospitalController::class,'PntDischarge'])->name('pnt.discharge');
 // ---------------------Bed booking Service Routes end here-----------------------------
 
 // ---------------------Login Routes start here---------------------------
@@ -272,6 +281,8 @@ Route::get('/login',[LoginController::class,'DisplayLogin'])->name('display.logi
 Route::post('/check',[LoginController::class,'FetchServiceData'])->name('login.validate');
 Route::get('/userReg',[UserregController::class,'DisplayForm'])->name('display.user.form');
 Route::post('/user_reg_validate',[UserregController::class,'StoreUserData'])->name('register.user');
+
+
 // ---------------------Login Routes end here-----------------------------
 
 //----------------------- Payment Routes starts here -----------------------

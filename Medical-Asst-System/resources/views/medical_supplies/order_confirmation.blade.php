@@ -17,11 +17,11 @@
             <div class="column">
                 <h1 id="cnfm-msg"><i class="fa-solid fa-circle-check fa-bounce fa-2xl" style="color: #27b300;"></i> &nbsp;Booking Confirmed!</h1>
                 <div class="amb_info_cont">
-                    <h3>Your Order  is confirmed . Regarding any question about the order contact us with your registered </h3>
+                    <h3>Your Order  is confirmed . Regarding any question about the order contact us with your registered email</h3>
                     <p class="descp" id="card-type"></p>
                     <p class="descp" id="card-address"><i class="fa-solid fa-calendar-days"></i>></i> Estimated Arrival</p>
                     <p class="descp" id="card-type"><?php echo date('Y-m-d', strtotime("+10 days")); ?></p>
-                    <h2 class="descp" id="card-fare">Total Price: &#8377  {{ $price }} </h2>
+                    <h2 class="descp" id="card-fare">  </h2>
                     <div class="bton">
                  
                         <a href="{{route('generatepdf')}}" class='btn'>Receipt</a>

@@ -29,7 +29,7 @@ class Blood_Booking_Confirmation_mail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Indian Cyber Crime Coordination Centre',
+            subject: 'Emergency Medical Assistance Service',
         );
     }
 

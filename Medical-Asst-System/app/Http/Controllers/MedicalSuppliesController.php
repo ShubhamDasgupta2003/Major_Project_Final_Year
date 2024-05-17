@@ -10,6 +10,7 @@ use Illuminate\support\Facades\DB;
 use App\Models\medical_supplies_medical;
 use App\Models\medical_supplies_technical;
 use App\Models\medical_supplies_order;
+use App\Models\Payment;
 use App\Models\cart;
 use App\Mail\DemoMail;
 use Illuminate\Support\Facades\Mail;
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Input;
 use Exception;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
+
 
 class MedicalSuppliesController extends Controller
 {
@@ -223,7 +226,15 @@ public function delete(cart $cart)
     public function orderdelete(medical_supplies_order $order)
     {
       $order->delete();
-      return view('medical_supplies.cart');
+      $user_id = session()->get('user_id');
+      $carts = Cart::where('user_id', $user_id)->get();
+     
+    $joinedData = DB::table('carts')
+    ->join('medical_supplies_medicals', 'carts.product_name', '=', 'medical_supplies_medicals.product_name')
+    ->select('medical_supplies_medicals.quantity')
+    ->get();
+     
+    return view('medical_supplies.cart',['carts'=>$carts,'j'=>$joinedData]);
     }
    
     public function update(cart $cart,Request $request)
@@ -245,8 +256,13 @@ public function delete(cart $cart)
 
    return view('medical_supplies.cart',['carts'=>$carts,'j'=>$joinedData]);
     }
-    public function order()
+    public function order(Request $request)
     {
+      if($request->ajax())
+   {
+   
+    return response()->json(['data'=>$request->order_id]);
+   }
       $user_id = session()->get('user_id');
       $carts = Cart::where('user_id', $user_id)->get();
       $productInfo = $carts->map(function ($item) {
@@ -298,13 +314,31 @@ public function delete(cart $cart)
     ];
     $dataString = implode(", ", $data);
     $p = intval($p);
+    $status="completed";
     //echo $dataString;
-
-    // $newProduct=medical_supplies_order::create($data);
-     return view('medical_supplies.order_confirmation',['price'=>$p]);
+     
+     $currentTime = Carbon::now()->toTimeString();
+     $currentDateIndia = Carbon::now('Asia/Kolkata')->toDateString();
+     $newProduct=medical_supplies_order::create($data);
+     //return view('medical_supplies.order_confirmation');
    //return redirect()->route('generatepdf');
+   $randomNumber = mt_rand(100000000, 999999999);
+   $newProduct = Payment::create([
+    'payment_id'  => $randomNumber,
+    'order_id' => $u,
+    'user_id' => session()->get('user_id'),
+    'service_type' => $t,
+    'payment_time' =>  $currentTime,
+    'payment_date' => $currentDateIndia,
+     'amount'=> $p,
+     'payment_status' =>  $status,
 
+]);
    return view('medical_supplies.proceedtopay',['order_id'=>$u,'amount'=>$p,'service_type'=>$t]);
+    }
+    public function toexit()
+    {
+      return view('medical_supplies.order_confirmation');
     }
     public function generatePdfb()
     {
