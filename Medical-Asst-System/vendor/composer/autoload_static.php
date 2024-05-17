@@ -628,6 +628,7 @@ class ComposerStaticInit9b5903158699aa64ca9f77916b169812
         'App\\Mail\\Hcs_emp_rej_msg_mail' => __DIR__ . '/../..' . '/app/Mail/Hcs_emp_rej_msg_mail.php',
         'App\\Models\\Amb_info' => __DIR__ . '/../..' . '/app/Models/Amb_info.php',
         'App\\Models\\Ambulance_Admin' => __DIR__ . '/../..' . '/app/Models/Ambulance_Admin.php',
+        'App\\Models\\Bed_info' => __DIR__ . '/../..' . '/app/Models/Bed_info.php',
         'App\\Models\\BloodBank' => __DIR__ . '/../..' . '/app/Models/BloodBank.php',
         'App\\Models\\BloodOrder' => __DIR__ . '/../..' . '/app/Models/BloodOrder.php',
         'App\\Models\\City_Table' => __DIR__ . '/../..' . '/app/Models/City_Table.php',

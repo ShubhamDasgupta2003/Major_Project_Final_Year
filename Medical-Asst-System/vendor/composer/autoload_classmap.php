@@ -52,6 +52,7 @@ return array(
     'App\\Mail\\Hcs_emp_rej_msg_mail' => $baseDir . '/app/Mail/Hcs_emp_rej_msg_mail.php',
     'App\\Models\\Amb_info' => $baseDir . '/app/Models/Amb_info.php',
     'App\\Models\\Ambulance_Admin' => $baseDir . '/app/Models/Ambulance_Admin.php',
+    'App\\Models\\Bed_info' => $baseDir . '/app/Models/Bed_info.php',
     'App\\Models\\BloodBank' => $baseDir . '/app/Models/BloodBank.php',
     'App\\Models\\BloodOrder' => $baseDir . '/app/Models/BloodOrder.php',
     'App\\Models\\City_Table' => $baseDir . '/app/Models/City_Table.php',

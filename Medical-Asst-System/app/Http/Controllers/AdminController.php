@@ -17,11 +17,22 @@ use Exception;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MailNotify;
 use Illuminate\contract\Mailer;
+use App\Models\Payment;
 class AdminController extends Controller
 {
     public function index()
    {
-    return view('admin_panel.index');
+    $user_infos=user_info::all();
+    $pay=payment::all();
+    $count = $user_infos->count();
+    $orders = $pay->count();
+
+    $currentMonthOrders = payment::select('amount')
+    ->whereRaw('MONTH(created_at) = MONTH(NOW())')
+    ->get();
+    $totalProductrate = $currentMonthOrders->sum('amount');
+    return view('admin_panel.index',['pays'=>$pay,'user_infos'=>$user_infos,'count' => $count,'orders' => $orders,'totalProductrate' => $totalProductrate]);
+
    }
    public function admin_supplies()
    {
