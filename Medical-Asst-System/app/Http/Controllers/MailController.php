@@ -21,7 +21,7 @@ class MailController extends Controller
 
          ];
 
-         Mail::to('rameshroyprl2019@gmail.com')->send(new DemoMail($mailData)); /*change this mail to send mail  */
+         Mail::to('shubhamdasgupta2003@gmail.com')->send(new DemoMail($mailData)); /*change this mail to send mail  */
          dd('email send successfully');
          
     }

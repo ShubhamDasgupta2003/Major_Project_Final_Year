@@ -43,6 +43,13 @@
             /* background-color: #217bff; */
             /* color: white; */
         }
+        .logo
+        {
+            color: rgb(68, 68, 68);
+            text-decoration: none;
+            font-size: 1.7rem;
+            margin-left: 7px;
+        }
     </style>
 
 </head>
@@ -52,7 +59,7 @@
 
 <nav class="navbar navbar-light container-fluid bg-light shadow-sm p-1  bg-body rounded">
             
-            <a class="navbar-brand text-primary ms-5">Navbar</a>
+            <a href="#" class="logo"><i class="fa-solid fa-heart-pulse" style="color: #00a896;"></i>Medilities</a>
             <div class="row">
                 <div class="col-md-12 mr-5 ml-5 links">
                 <a href="#">Home</a>

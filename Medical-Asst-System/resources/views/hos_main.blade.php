@@ -35,10 +35,10 @@
             <button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
         <nav class="navbar">
-            <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/">Home</a>
-            <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/#services">Services</a>
-            <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/#review">Review</a>
-            <a class="navlink" href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/HomePage/#footer">Contact Us</a>
+            <a class="navlink" href="{{route('home')}}">Home</a>
+            <a class="navlink" href="{{route('home')}}">Services</a>
+            <a class="navlink" href="{{route('home')}}">Review</a>
+            <a class="navlink" href="{{url('/hos_register')}}">New Register</a>
         </nav>
         
         <!-- <a href="#" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a> -->
@@ -88,7 +88,7 @@
                                 <strong class='bed-zero'>{{$hos->hos_female_bed_available}}</strong>
                             </p>
                         <div class='card-row' >
-                            <p class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i>69 Km</p>
+                            <p class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i>{{$hos->hos_city}}</p>
                                  <p class='card-fare'>&#8377 {{$hos->hos_bed_charge}}/-</p>
                             <a href="{{route('display.hos.info', ['id' => $hos->hos_id])}}">
                                 Book Bed

@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User_info;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use App\Models\Amb_info;
 use App\Models\Patient_ambulance;
+
+use App\Mail\Amb_confirm_mail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\contract\Mailer;
+use App\Mail\MailNotify;
+
 use Illuminate\Support\Facades\Http;
 use Session;
 class AmbulanceDriverPageController extends Controller
@@ -63,14 +70,39 @@ class AmbulanceDriverPageController extends Controller
 
         $ride_status_update = Patient_ambulance::where('amb_no',$amb_no_key)->where('ride_status','000')->update(['ride_status'=>'001','otp'=>$otp]);
         
+
+
         if($request->ajax())
         {
             $amb = Amb_info::where('amb_no',$request->amb_id)->update(['amb_loc_lat'=>$request->lat,'amb_loc_lng'=>$request->lng]); //Updating the coordinates of ambulance whenever it changes using ajax
             return response()->json(['data'=>$amb]);
         }
-        
-    
+
+
         $ride_info = Patient_ambulance::where('amb_no',$amb_no_key)->where('ride_status','001')->get();
+
+        $amb_info = Amb_info::where('amb_no',$ride_info[0]->amb_no)->get();
+
+        $patient_email = User_info::where('user_id',$ride_info[0]->user_id)->get('user_email');
+
+        //Sending confirmation email to respective user
+        //Modify emails.amb_confirm_mail file for email body
+        $data["email"] = $patient_email[0]->user_email;
+
+        $data["title"] = "From Emergency Medical Assistance System";
+
+        $data["body"] = "This is Demo";
+
+        $data["ptn_info"]=$ride_info;
+        $data["amb_info"]=$amb_info;
+        Mail::send('emails.amb_confirm_mail', $data, function($message)use($data) {
+
+            $message->to($data["email"])
+
+                    ->subject($data["title"]);
+
+        });
+
         $alert = "";
         return view('amb_driver_ride_accepted_intf',compact('ride_info','inv_id','alert'));
     

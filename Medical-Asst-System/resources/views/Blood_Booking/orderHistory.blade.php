@@ -117,36 +117,36 @@
     </div>
 
     {{---------------------------   order history of your service  ---------------------}}
-    {{-- <div class="container">
+    <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center mb-4">Order History</h2>
+                <h2 class="text-center mb-4">Ambulance order History</h2>
                 <!-- Sample Order Cards -->
-                @foreach ($bld_orders as $order)
+                @foreach ($amb_orders as $order)
                 <div class="order-card">
                     <h5>Order #{{ $order->order_id }}</h5>
                     <div class="order-details">
                         <div>
-                            <img src="images/BloodB/Blood_Bank.png" style="width: 50px; height: 50px;" alt="">
+                            <img src="images\HomePage\ambulance.png" style="width: 50px; height: 50px;" alt="">
                         </div>
                        
                         <div>
-                            <p>Quantity: {{ $order->quantity }}</p>
+                            <p>Quantity: 1</p>
                         </div>
                         <div>
-                            <p>Total Amount: ₹ {{ $order->price }}</p>
+                            <p>Total Amount: ₹ {{ $order->amount }}</p>
                         </div>
                         <div>
-                            <p>Order Date: {{ $order->date }}</p>
+                            <p>Order Date: {{ $order->booking_date }}</p>
                         </div>
                         <div>
-                            <p>Order Time: {{ $order->time }}</p>
+                            <p>Order Time: {{ $order->booking_time }}</p>
                         </div>
                         <div>
                             @php
-                                $status = $order->order_status;
-                                if ($status == 'complete')
-                                    $status = 'Approved';
+                                $status = $order->ride_status;
+                                if ($status == '111')
+                                    $status = 'Completed';
                             @endphp
 
                             <p>Status: {{ $status }}</p>
@@ -170,7 +170,7 @@
                 @endforeach
             </div>
         </div>
-    </div> --}}
+    </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

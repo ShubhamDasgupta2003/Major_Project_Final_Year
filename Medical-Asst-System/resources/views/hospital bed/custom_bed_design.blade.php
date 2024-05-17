@@ -157,7 +157,7 @@
                 </li>
                 <li>
                     <a href="{{url('custom_bed')}}"class="active"><span class="las la-hospital"></span>
-                    <span>Customize Hospital Beds</span></a>
+                    <span>Admitted Patients</span></a>
                 </li>
             </ul>
         </div>
