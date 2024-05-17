@@ -151,7 +151,7 @@
 
                             <p>Status: {{ $status }}</p>
                         </div>
-                        <p><a href="{{ route('order_detail', ['order_id' => $order->order_id]) }}" class="btn btn-success btn-d">Details</a></p>
+                        <p><a href="{{ route('ambOrderDetails', ['order_id' => $order->order_id]) }}" class="btn btn-success btn-d">Details</a></p>
 
                         @php
                         if ($order->order_status == 'complete'):
@@ -162,7 +162,7 @@
                         @endphp
                     
 
-                        <p> <a href=" {{route('showBhome')}} " class="btn btn-success btn-d">Book Again</a> </p>
+                        <p> <a href=" {{route('check-availability')}} " class="btn btn-success btn-d">Book Again</a> </p>
                         <div class="order-actions">
                         </div>
                     </div>

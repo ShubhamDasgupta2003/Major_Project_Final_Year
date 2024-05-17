@@ -245,6 +245,8 @@ Route::get('/driver-ride-started',[AmbulanceDriverPageController::class,'reachDe
 Route::get('/amb-admin-set-pswd',[newAmbulanceRegistrationController::class,'showCreatePassword'])->name("ambAdminPassForm");
 
 Route::post('/amb-admin-set-pswd',[newAmbulanceRegistrationController::class,'createPassword']);
+
+Route::get('/amb-order-details',[AmbulanceRideRequestController::class,'showOrderdetail'])->name("ambOrderDetails");
 // ---------------------Ambulance Service Routes ends here------------------------
 
 // ---------------------Bed booking Service Routes start here---------------------------

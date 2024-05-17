@@ -9,6 +9,7 @@ use App\Models\states;
 use App\Models\district;
 use Illuminate\Http\Request;
 use App\Models\Patient_ambulance;
+use App\Models\Payments_records;
 use App\Http\Controllers\AmbulanceDriverPageController;
 use Illuminate\Support\Facades\Http;
 use DB;
@@ -147,5 +148,12 @@ class AmbulanceRideRequestController extends Controller
         }
 
         return view('amb_check_aval',compact('cities','states','district'));
+    }
+
+    public function showOrderdetail(Request $request)
+    {
+        $order_details = $amb_ptn_join = Payments_records::join('patient_ambulance','payments.order_id','=','patient_ambulance.invoice_no')->where('patient_ambulance.invoice_no','=',$request->order_id)->get();
+
+        return view('amb_order_details',compact('order_details'));
     }
 }

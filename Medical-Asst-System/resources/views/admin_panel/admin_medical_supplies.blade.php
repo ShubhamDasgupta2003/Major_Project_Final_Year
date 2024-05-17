@@ -25,7 +25,7 @@
                     <span>Medical Supplies</span></a>
                 </li>
                 <li>
-                    <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/ambulance Srvc admin/amb_srvc_admin.php" ><span class="las la-ambulance"></span>
+                    <a href="{{route('amb_admin_show_data')}}"><span class="las la-ambulance"></span>
                     <span>Ambulance Service</span></a>
                 </li>
                 <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/Blood_Bank/adminb.php" ><i class="fa-solid fa-building-columns"></i></span>
