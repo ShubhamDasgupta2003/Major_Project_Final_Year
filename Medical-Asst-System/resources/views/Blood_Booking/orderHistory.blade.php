@@ -113,18 +113,6 @@
                     </div>
                 </div>
                 @endforeach
-            </div>
-        </div>
-    </div>
-
-    {{---------------------------  2. order history for medichine service  ---------------------}}
-
-
-     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="text-center mb-4"></h2>
-                <!-- Sample Order Cards -->
                 @foreach ($medicalorders as $orderm)
                 <div class="order-card">
                     <h5>Order #{{ $orderm->order_id }}</h5>
@@ -166,20 +154,6 @@
                     </div>
                 </div>
                 @endforeach
-            </div>
-        </div>
-    </div>
-
-    {{---------------------------  3. order history for ambulance service  ---------------------}}
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-<<<<<<< HEAD
-=======
-                <h2 class="text-center mb-4"> </h2>
->>>>>>> 7a9103f08f8dd8ae979762072a09b6dd4574cf57
-                <!-- Sample Order Cards -->
                 @foreach ($amb_orders as $order)
                 <div class="order-card">
                     <h5>Order #{{ $order->order_id }}</h5>
@@ -226,13 +200,6 @@
                     </div>
                 </div>
                 @endforeach
-            </div>
-        </div>
-    </div>
-        <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <!-- Sample Order Cards -->
                 @foreach ($userdatas as $userdata)
                 <div class="order-card">
                     <h5>Order #{{$userdata->order_id}}</h5>
@@ -256,7 +223,7 @@
                             @endif</p>
                         </div>
                         <div>
-                            <p>Total Amount: ₹ {{ $order->amount }}</p>
+                            <p>Payment Amount₹ 500</p>
                         </div>
                         <div>
                             <p>Order Date and Time: {{$userdata->created_at}}</p>
@@ -281,9 +248,43 @@
                     </div>
                 </div>
                 @endforeach
+                
             </div>
         </div>
     </div>
+
+    {{---------------------------  2. order history for medichine service  ---------------------}}
+
+
+     <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4"></h2>
+                <!-- Sample Order Cards -->
+               
+            </div>
+        </div>
+    </div>
+
+    {{---------------------------  3. order history for ambulance service  ---------------------}}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4"> </h2>
+                <!-- Sample Order Cards -->
+                
+            </div>
+        </div>
+    </div>
+        <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Sample Order Cards -->
+              
+             </div>
+        </div>
+    </div> 
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

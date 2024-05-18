@@ -1,7 +1,7 @@
 @extends("hcs_template")
 
 @section("title")
-Aya
+Nurse
 @endsection
 @section("main")
 <!-- header section end -->        

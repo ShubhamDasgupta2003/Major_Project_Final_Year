@@ -64,10 +64,10 @@
         <div class="profile">
                   <img src="images/HomePage/profile.avif" alt="">
       <h3>{{session()->get('user_name')}}</h3>
-      <a href="updateProfile.php" class="p_btn">update profile</a>
+      <a href="{{route('update_user_details')}}" class="p_btn">update profile</a>
       <a href="/orderHistory" class="btn-order">orders history</a>
       <a href="/logout" class="delete-btn">logout</a>
-      <p>new <a href="{{route('user_login')}}">login</a> or <a href="signup.php?refresh=0">register</a></p>
+      <p>new <a href="{{route('user_login')}}">login</a> or <a href="/userReg">register</a></p>
     </div>
     
     <!-- user profile section end -->

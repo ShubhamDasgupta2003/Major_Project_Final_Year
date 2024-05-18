@@ -35,9 +35,9 @@
         <div>
             <form method="post" class="form">
                 @csrf
-            <div class="input-box">
+            {{-- <div class="input-box">
             <p class="warning">Your appointment at the hospital is automatically cancelled if you do not arrive within <b>four hours</b> of the booking time.</p>
-            </div>
+            </div> --}}
                 <div class="input-box">
                     <label>Patient's First Name</label>
                     <input type="text" name="pnt_first_name" placeholder="Enter first name" required />

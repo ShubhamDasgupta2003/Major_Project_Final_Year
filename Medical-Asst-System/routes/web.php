@@ -114,11 +114,8 @@ Route::get('/showBhome', [BloodBankController::class, 'showBloodBanks'])->name('
 Route::post('/confirm_booking', [BloodBankController::class, 'submitOrder'])->name('submit_order');
 
         //   for users login,logout,orders view
-<<<<<<< HEAD
-=======
 Route::get('/logout', [UserLogin::class, 'logout'])->name('logout');
 Route::get('/Admin_logout', [UserLogin::class, 'Adminlogout'])->name('Adminlogout');
->>>>>>> 7a9103f08f8dd8ae979762072a09b6dd4574cf57
 Route::get('/send-cnfrm-mail', [BloodBankController::class, 'index'])->name('bld_cnfm_mail');
 
 //open update page

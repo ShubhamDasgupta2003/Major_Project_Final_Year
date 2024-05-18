@@ -54,16 +54,6 @@
            Dashboard
         </h3>
         <h3>
-        <div class="container-fluid">
-    <div class="row align-items-center">
-        <div class="col-auto">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
-        </div>
-        <div class="col-auto">
-            <button class="btn btn-outline-success" type="button" onclick="search()">Search</button>
-        </div>
-    </div>
-</div>
         </h3>
    <div class="user-avatar-container">
     <div class="user-avatar-dropdown">

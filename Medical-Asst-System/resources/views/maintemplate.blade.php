@@ -103,7 +103,7 @@
 <footer>
     <section class="" id="footer"style="padding-left: 0px;padding-right: 0px;">
     <div class="footer-top">
-        <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>&lt;EMAS&gt;</a>
+        <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>Medilities</a>
         <div class="footer-txt">
             Emergency Medical Assistance System is provide many sevices and fullfill the user's need || &copy;2024 Emergency Medical Assistance System | All Rights Reserved 
         </div>
