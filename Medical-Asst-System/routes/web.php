@@ -99,6 +99,10 @@ Route::get('/orderHistory/{order_id}/delete',[BloodBankController::class,'orderm
 Route::get('/BBadmin', [BloodBankController::class, 'BloodBank_admin'])->name('Blood_admin_page');
 Route::get('/approve_bld_order/{order_id}', [BloodBankController::class, 'approve_order'])->name('confirmed_bld_order');
 Route::get('/cancel_bld_order/{order_id}', [BloodBankController::class, 'delete_order'])->name('cancel_bld_order');
+Route::post('/update_blood_details', [BloodBankController::class, 'update_blood_details'])->name('update_blood_details');
+Route::get('/open_bldBanks_details', [BloodBankController::class, 'open_bldBanks_details'])->name('open_bldBanks_details');
+
+Route::post('/update_bldBanks_details', [BloodBankController::class, 'update_bldBanks_details'])->name('update_bldBanks_details');
 
 
 Route::view('/bld_payment_ack', '/Blood_Booking/payment_ack');
@@ -110,6 +114,11 @@ Route::get('/showBhome', [BloodBankController::class, 'showBloodBanks'])->name('
 Route::post('/confirm_booking', [BloodBankController::class, 'submitOrder'])->name('submit_order');
 
         //   for users login,logout,orders view
+<<<<<<< HEAD
+=======
+Route::get('/logout', [UserLogin::class, 'logout'])->name('logout');
+Route::get('/Admin_logout', [UserLogin::class, 'Adminlogout'])->name('Adminlogout');
+>>>>>>> 7a9103f08f8dd8ae979762072a09b6dd4574cf57
 Route::get('/send-cnfrm-mail', [BloodBankController::class, 'index'])->name('bld_cnfm_mail');
 
 //open update page

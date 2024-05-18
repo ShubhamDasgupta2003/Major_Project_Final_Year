@@ -53,6 +53,7 @@
 
 
 <body>
+    {{---------------------------  1. order history for Blood booking service  ---------------------}}
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -115,6 +116,10 @@
             </div>
         </div>
     </div>
+
+    {{---------------------------  2. order history for medichine service  ---------------------}}
+
+
      <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -138,7 +143,7 @@
                             <p>Order Date: {{ $orderm->created_at }}</p>
                         </div>
                         <div>
-                            <p>User Email: {{ $orderm->user_email }}</p>
+                            {{-- <p>User Email: {{ $orderm->user_email }}</p> --}}
                         </div>
                         <div>
                             @php
@@ -164,10 +169,16 @@
             </div>
         </div>
     </div>
-    {{---------------------------   order history of your service  ---------------------}}
+
+    {{---------------------------  3. order history for ambulance service  ---------------------}}
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+<<<<<<< HEAD
+=======
+                <h2 class="text-center mb-4"> </h2>
+>>>>>>> 7a9103f08f8dd8ae979762072a09b6dd4574cf57
                 <!-- Sample Order Cards -->
                 @foreach ($amb_orders as $order)
                 <div class="order-card">
