@@ -32,7 +32,7 @@ class Hcs_emp_msg_mail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Messege from Healthcare Support Employee',
+            subject: 'Your order request accepted by our employee and they have sent you a message. Please read it carefully.',
         );
     }
 
@@ -42,7 +42,7 @@ class Hcs_emp_msg_mail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'hcs_emp_msg_mail',
+            view: 'hcs_mail_emp_msg',
         );
     }
 

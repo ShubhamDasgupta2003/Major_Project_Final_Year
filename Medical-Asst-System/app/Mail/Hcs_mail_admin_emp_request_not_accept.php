@@ -8,21 +8,18 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Hcs_order;
 use App\Models\HcsEmployeeTableModel;
 
-class Hcs_emp_booking_mail extends Mailable
+class Hcs_mail_admin_emp_request_not_accept extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public $userdata;
     public $empdata;
-    public function __construct(Hcs_Order $userdata,HcsEmployeeTableModel $empdata)
+    public function __construct(HcsEmployeeTableModel $empdata)
     {
-        $this->userdata=$userdata;
         $this->empdata=$empdata;
         //
     }
@@ -33,7 +30,7 @@ class Hcs_emp_booking_mail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Confirmation of Your Healthcare Service Booking',
+            subject: 'Notice Regarding Your Employee Application',
         );
     }
 
@@ -43,7 +40,7 @@ class Hcs_emp_booking_mail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'hcs_mail_emp_booking',
+            view: 'hcs_mail_admin_emp_request_not_accept',
         );
     }
 

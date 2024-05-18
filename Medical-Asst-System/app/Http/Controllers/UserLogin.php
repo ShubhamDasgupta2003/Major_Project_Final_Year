@@ -50,8 +50,10 @@ class UserLogin extends Controller
 
  
  public function logout(){
-    Session::flush();
-    return redirect('/');
+    session()->forget('user_name');
+    session()->forget('user_id');
+    session()->forget('user_email');
+    return redirect('');
  }
  public function Adminlogout(){
    Session::forget(['bloodBank_id', 'bloodBank_name', 'is_bldadmin_login']);

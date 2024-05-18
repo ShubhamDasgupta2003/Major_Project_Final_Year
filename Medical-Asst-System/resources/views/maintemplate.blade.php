@@ -50,7 +50,7 @@
             @if (session()->has('user_name'))
                <h3>{{session()->get('user_name')}}</h3>
             @else
-                {{"Guest"}}
+                <h3>{{"Guest"}}</h3>
             @endif   
     </div>
 <div id="menu-btn" class="fa fa-bars"> </div>
@@ -88,7 +88,7 @@
                             <label for="" id="location-txt">
                                 <h2 id="loc-txt">
                                     @if(session()->has('user_id'))
-                                        {{$user_adds[0]->user_formatted_address}}
+                                        {{-- {{$data[0]->user_formatted_address}} --}}
                                     @endif
                                 </h2>
                             </label>

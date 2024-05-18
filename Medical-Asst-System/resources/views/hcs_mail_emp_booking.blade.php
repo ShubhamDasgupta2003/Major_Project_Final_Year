@@ -15,7 +15,7 @@
     </p>
 
     <p>
-        Thank you for choosing [Your Company Name] for your healthcare needs. We are delighted to confirm your recent booking for {{ $userdata->order_type === 'A' ? 'Aya' : ($userdata->order_type === 'N' ? 'Nurse' : 'Technician') }}.
+        Thank you for choosing Emergency Medical Assistance Aystem for your healthcare needs. We are delighted to confirm your recent booking for {{ $userdata->order_type === 'A' ? 'Aya' : ($userdata->order_type === 'N' ? 'Nurse' : 'Technician') }}.
     </p>
 
     <p>
@@ -31,11 +31,15 @@
     </ul>
 
     <p>
-        Employee Assigned: [Employee's Name] <br>
-        Contact Number of Employee: [Employee's Contact Number] <br>
+        Employee Assigned: {{ $empdata->emp_name }} <br>
+        Salary of Employee: {{ $empdata->emp_salary }} Per Day<br>
         Total Amount Paid: 500 <br>
         Payment Method: Online <br>
         OTP: {{ $userdata->otp }}
+    </p>
+
+    <p>
+        Your booking is currently pending acceptance by our employee. Once accepted, you will receive a confirmation notification.
     </p>
 
     <p>

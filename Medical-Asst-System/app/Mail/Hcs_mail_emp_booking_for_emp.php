@@ -10,8 +10,7 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Hcs_order;
 use App\Models\HcsEmployeeTableModel;
-
-class Hcs_emp_booking_mail extends Mailable
+class Hcs_mail_emp_booking_for_emp extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -33,7 +32,7 @@ class Hcs_emp_booking_mail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Confirmation of Your Healthcare Service Booking',
+            subject: 'New Booking Notification for You!',
         );
     }
 
@@ -43,7 +42,7 @@ class Hcs_emp_booking_mail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'hcs_mail_emp_booking',
+            view: 'hcs_mail_emp_booking_for_emp',
         );
     }
 

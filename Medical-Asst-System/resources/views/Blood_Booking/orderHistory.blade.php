@@ -175,7 +175,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+<<<<<<< HEAD
+=======
                 <h2 class="text-center mb-4"> </h2>
+>>>>>>> 7a9103f08f8dd8ae979762072a09b6dd4574cf57
                 <!-- Sample Order Cards -->
                 @foreach ($amb_orders as $order)
                 <div class="order-card">
@@ -218,6 +221,61 @@
                     
 
                         <p> <a href=" {{route('check-availability')}} " class="btn btn-success btn-d">Book Again</a> </p>
+                        <div class="order-actions">
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+        <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Sample Order Cards -->
+                @foreach ($userdatas as $userdata)
+                <div class="order-card">
+                    <h5>Order #{{$userdata->order_id}}</h5>
+                    <div class="order-details">
+                        <div>@if($userdata->order_type == "A")
+                                <img src="images\HomePage\babysitter.png" style="width: 50px; height: 50px;" alt="">
+                        @elseif($userdata->order_type == "N")
+                               <img src="images\HomePage\nurse.png" style="width: 50px; height: 50px;" alt="">
+                            @else
+                                <img src="images\employee.png" style="width: 50px; height: 50px;" alt="">
+                            @endif
+                        </div>
+                       
+                        <div>
+                            <p>Order for:@if($userdata->order_type == "A")
+                                {{"Aya"}}
+                            @elseif($userdata->order_type == "N")
+                                {{"Nurse"}}
+                            @else
+                                {{"Technician"}}
+                            @endif</p>
+                        </div>
+                        <div>
+                            <p>Total Amount: ₹ {{ $order->amount }}</p>
+                        </div>
+                        <div>
+                            <p>Order Date and Time: {{$userdata->created_at}}</p>
+                        </div>
+                        <div>
+
+                            <p>{{$userdata->order_status}}</p>
+                        </div>
+                        <div>
+                            <p>@if($userdata->order_status == "Completed")
+                                <a href="{{route('hcs_add_rating', ['emp_id' => $userdata->emp_id ])}}">
+                                    <button type="button" class="btn btn-primary">Add review</button>
+                                </a>
+                            @elseif($userdata->order_status == "Pending")
+                                <a href="{{route('user_cancel_order', ['order_id' => $userdata->order_id ])}}">
+                                    <button type="button" class="btn btn-danger">Cancel</button>
+                                </a>
+                            @endif</p>
+                        </div>
                         <div class="order-actions">
                         </div>
                     </div>

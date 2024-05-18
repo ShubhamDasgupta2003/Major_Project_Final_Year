@@ -15,7 +15,7 @@
 
     <link rel="stylesheet" href="{{asset('css/hcs_admin.css')}}">
     {{-- <link rel="stylesheet" href="{{asset('css/useravatar.css')}}"> --}}
-    <title>HCS Admin</title>
+    <title>Healthcare Support Service Employee Admin</title>
 </head>
 <body>
     <input type="checkbox" id="nav-toggle">
@@ -26,14 +26,23 @@
         <div class="sidebar-menu">
             <ul>
                 <li>
-                <a href="#" class="active"><span class="las la-igloo"></span>
+                <a href="/show_emp_admin_intf"  style="text-decoration:none"><span class="las la-igloo"></span>
                     <span>Dashboard</span></a>
                 </li>
                 <li>
-                {{-- <a href="{{route('admin_panel.admin_medical_supplies')}}"><span class="las la-shopping-bag"></span>
-                    <span>Medical Supplies</span></a>
+                 <a href="/hcs_emp_admin_ongoing_order" class="active" ><span class="las la-shopping-bag"></span>
+                    <span>Ongoing Orders</span></a>
                 </li>
                 <li>
+                 <a href="/hcs_emp_admin_all_orders" ><span class="las la-shopping-bag"></span>
+                    <span>All Orders</span></a>
+                </li>
+                <li>
+                 <a href="/hcs_emp_admin_completed_orders"><span class="las la-shopping-bag"></span>
+                    <span>Completed Orders</span></a>
+                </li>
+                 
+                {{--<li>
                     <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/ambulance Srvc admin/amb_srvc_admin.php" ><span class="las la-ambulance"></span>
                     <span>Ambulance Service</span></a>
                 </li>
@@ -82,104 +91,87 @@
            </label>
            Dashboard
         </h3>
-        <h6>
-    <div class="user-avatar-container">
-    <a href="" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"style='font-size:15px;color:red'>  </i></a>@if (session()->has('hcs_admin_name'))
-               {{session()->get('hcs_admin_name')}}
-            @else
-            @php
-            return redirect("hcs_admin_login");
-            @endphp
-            @endif
-           <a href="/hcs_admin_logout" id="user-avatar"><i class='fas fa-sign-out-alt' style='font-size:15px;color:red'></i></a>
+        <h3>
+        <div class="container-fluid">
+    <form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+        </h3>
+   <div class="user-avatar-container">
+    <div class="user-avatar-dropdown">
+        <a href="#" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar" style='font-size:25px;color:red'></i></a>
+        <div class="dropdown-content">
+            <a href="/hcs_emp_admin_logout"><i class='fas fa-sign-out-alt'></i>Logout</a>
+        </div>
     </div>
-   
-    </h6>
+    <br>
+    @if (session()->has('emp_admin_name'))
+       <h6 style="font-size:13px;">{{ session()->get('emp_admin_name') }}</h6>
+    @else
+        @php
+            return redirect("/login");
+        @endphp
+    @endif
+</div>
      
-    </header>
+</header>
     <main>
-        <div class="cards">
-            <div class="card-single">
-                <div>
-                  
-                    <h1 style="color: #fff;"></h1>
-                    <span>Customers</span>
-                </div>
-                <div>
-                    <span class="las la-users" style="color: #fff;"></span>
-                </div>
-            </div>
-            <div class="card-single">
-                <div>
-                    
-                    <h1 style="color: #fff;"></h1>
-                    <span>orders</span>
-                </div>
-                <div>
-                    <span class="las la-shopping-bag" style="color: #fff;"></span>
-                </div>
-            </div>
-            <div class="card-single">
-                <div>
-                    <h1 style="color: #fff;"> &#8377 </h1>
-                    <span>Income(Current Month)</span>
-                </div>
-                <div>
-                   <span class="lab la-google-wallet" ></span>  
-                </div>
-            </div>
-        </div><br/>
-        <br/>
-
-<h2 class="text-center" >Employee Requests</h2>
-<table class="table">
+<h2 class="text-center" style="color:#009879;" >Completed Orders</h2>
+@if (session()->has('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+<table class="table table-striped-columns ">
   <thead>
-    <tr>
-      <th scope="col">Emp Id</th>
-      <th scope="col">Name</th>
+  <tr  style="background-color:#009879;color:white;">
+      <th scope="col">User Name</th>
       <th scope="col">Gender</th>
-      <th scope="col">Type</th>
-      <th scope="col">Email</th>
-      <th scope="col">Number</th>
-      <th scope="col">Salary</th>
+      <th scope="col">Contact Number</th>
+      <th scope="col">Land Mark</th>
       <th scope="col">Address</th>
-      <th scope="col">Govt Id</th>
-      <th scope="col">Photo</th>
-      <th scope="col">Govt Id</th>
-      <th scope="col">BIO data</th>
-      <th scope="col">Approve</th>
-      <th scope="col">Reject</th>
-    </tr>
+      <th scope="col">District</th>
+      <th scope="col">State</th>
+      <th scope="col">Date & Time</th>
+      <th scope="col">Status</th>
+      <th scope="col">Verify as Completed</th>
+      </tr>
   </thead>
   <tbody>
-  @foreach ( $employess as $employee )
+  @foreach ( $orders as $order )
+  @if(session()->get('emp_admin_id')== $order->emp_id)
     <tr>
-      <td>{{$employee->emp_id}}</td>
-      <td>{{$employee->emp_name}}</td>
-      <td>{{$employee->emp_gender}}</td>
-      <td>{{$employee->emp_type}}</td>
-      <td>{{$employee->emp_email}}</td>
-      <td>{{$employee->emp_contact_num}}</td>
-      <td>{{$employee->emp_salary}}</td>
-      <td>{{$employee->emp_address}}</td>
-      <td>{{$employee->emp_govt_id}}</td>
-      <td><a href="{{ asset('storage/' . $employee->emp_photo_path) }}" style="text-decoration:none;">Click</a></td>
-      <td><a href="{{ asset('storage/' . $employee->emp_govt_id_path)}}"style="text-decoration:none;">Click</a></td>
-      <td><a href="{{ asset('storage/' . $employee->emp_bio_data_path)}}"style="text-decoration:none;">Click</a></td>
-      <td> <a href="{{route('hcs_emp_verification',['emp_id' => $employee->emp_id ])}}" id="addBtn"><button type="button" class="btn btn-primary">Add</button></a></td>
-      <td> <a href="{{route('hcs_emp_delete',['emp_id' => $employee->emp_id ])}}" id="deleteBtn"><button type="button" class="btn btn-danger">Delete</button></a><td>
-    </tr>
+      <td>{{$order->name}}</td>
+      <td>{{$order->gender}}</td>
+      <td>{{$order->contact_num}}</td>
+      <td>{{$order->land_mark}}</td>
+      <td>{{$order->address}}</td>
+      <td>{{$order->district}}</td>
+      <td>{{$order->state}}</td>
+      <td>{{$order->created_at}}</td>
+      <td>{{$order->order_status}}</td>
+      <td>
+      <form action="{{ route('hcs_emp_admin_otp_ongoing_order') }}" method="post">
+    @csrf <!-- CSRF protection -->
+    @if (session()->has('failed'))
+        <div class="alert alert-danger" style="color: red;">
+            {{ session('failed') }}
+        </div>
+    @endif
+    <input type="number" name="otp" placeholder="Enter the OTP"><br><br>
+    <button type="submit" class="btn btn-primary">Verify</button>
+</form>
+
+      </td>
+      <td class="d-none"></td>
+      </tr>
+    @endif
     @endforeach
   </tbody>
 </table>
     </main>
    </div>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<script>
-</script>
-
 </body>
 </html>

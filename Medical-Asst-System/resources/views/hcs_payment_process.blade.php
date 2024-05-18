@@ -29,7 +29,7 @@
                 "key": "rzp_test_vgrShf9dHH7C80", // Enter the Key ID generated from the Dashboard
                 "amount": amount*100,
                 "currency": "INR",
-                "description": "Ambulance Service",
+                "description": "Healthcare Support",
                 "image": "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg",
                 "prefill":
                 {

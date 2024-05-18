@@ -30,6 +30,10 @@
                 </div>
             </div>
             <div class="input_field">
+                <label>Date of Birth:</label>
+                <input type="date" class="input" name="emp_dob">
+            </div>
+            <div class="input_field">
                 <label>Employee Type:</label>
                 <div class="selectbox">
                     <select name="emp_type">
