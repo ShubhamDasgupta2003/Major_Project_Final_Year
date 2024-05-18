@@ -42,7 +42,7 @@
         </nav>
         <!--user avtar-->
         <div class="user-avatar-container">
-            <a href="profile.php" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
+            <a href="/user_login" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
             <h3> @if (session()->has('user_name'))
                 {{session()->get('user_name')}}
                 @else

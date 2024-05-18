@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User_info;
-use App\Models\district;
+// use App\Models\district;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
@@ -25,6 +25,8 @@ class UserLogin extends Controller
          $request->session()->put('user_name',$user->user_first_name);
          $request->session()->put('user_id',$user->user_id);
          $request->session()->put('user_email',$user->user_email);
+         $request->session()->put('lat',$user->user_curr_lat);
+         $request->session()->put('long',$user->user_curr_long);
          return redirect('/');
      }
      else{
@@ -50,5 +52,9 @@ class UserLogin extends Controller
  public function logout(){
     Session::flush();
     return redirect('/');
+ }
+ public function Adminlogout(){
+   Session::forget(['bloodBank_id', 'bloodBank_name', 'is_bldadmin_login']);
+    return redirect('/login');
  }
 }

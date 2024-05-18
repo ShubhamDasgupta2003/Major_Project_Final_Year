@@ -8,6 +8,8 @@
 <head>
     <title>Make Payment</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,6 +55,7 @@
     <div class="container">
         <h1>Order Details</h1>
         <p>Name: {{$detaildorders->pat_name}}</p>
+        <p>Blood Group: {{$detaildorders->blood_gr}}</p>
         {{-- <p>Email: {{ $detaildorders->email }}</p> --}}
         <p>Gender: {{ $detaildorders->pat_gender }}</p>
         <p>Contact Number: {{$detaildorders->phone_no}}</p>
@@ -63,6 +66,7 @@
         <p>PIN Code: {{ $userdata->pincode }}</p> --}}
         <p>Amount: {{$detaildorders->price}}</p>
 
+        <p> <a href="/user_rating" class="btn btn-sm btn-success"> Rate Our Service </a> </p>
        
     </div>
 

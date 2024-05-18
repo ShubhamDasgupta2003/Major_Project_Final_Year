@@ -30,9 +30,9 @@
                     <a href="{{route('amb_admin_show_data')}}" ><span class="las la-ambulance"></span>
                     <span>Ambulance Service</span></a>
                 </li>
-                <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/Blood_Bank/adminb.php" ><i class="fa-solid fa-building-columns"></i></span>
+                {{-- <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/Blood_Bank/adminb.php" ><i class="fa-solid fa-building-columns"></i></span> --}}
                 <li>
-                    <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/Blood_Bank/adminb.php"> <span class="las la-landmark"></span>
+                    <a href="{{route('Blood_admin_page')}}"> <span class="las la-landmark"></span>
                     <span>Blood Bannk Service</span></a>
                 </li>
                 <li>

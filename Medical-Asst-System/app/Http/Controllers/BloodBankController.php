@@ -19,6 +19,8 @@ use Hash;
 use Mail;
 // use Illuminate\Support\Facades\Mail;
 use App\Mail\Blood_Booking_Confirmation_mail;
+use App\Mail\Blood_Booking_notApprove;
+use App\Mail\Blood_Booking_cancel;
 
 class BloodBankController extends Controller
 {
@@ -65,13 +67,24 @@ class BloodBankController extends Controller
 
     }
 
-
+   
     public function showBloodBanks(request $req)
     {
-        $dist_obj = new AmbulanceDriverPageController;
+
+        if (!session()->has('user_name')) {
+            // Set alert message and type
+            $alertMessage = 'Please login to access this page.';
+            $alertType = 'warning';
+    
+            // Redirect to login page with alert message
+            return redirect()->route('user_login')->with(compact('alertMessage', 'alertType'));
+        } else {
+            $dist_obj = new AmbulanceDriverPageController;
         $route_dist = array();
 
         $query = BloodBank::query();
+        $lat=session()->get('lat');
+        $long=session()->get('long');
 
         if ($req->ajax()) {
             $banks = DB::table('blood_bank_blood_group')
@@ -87,7 +100,7 @@ class BloodBankController extends Controller
                 {
                     // $fetch_route_dist = 500;    //Disable this and enable Line:40 during live test
         
-                    $fetch_route_dist = $dist_obj->fetchDistance(22.917007138803726,88.43774841554536,$record->latitude,$record->longitude); 
+                    $fetch_route_dist = $dist_obj->fetchDistance($lat,$long,$record->latitude,$record->longitude); 
                     //Calculating the route distance of each ambulance using API
         
                     array_push($route_dist,array('name'=>$record->name,'city'=>$record->city,'state'=>$record->state,'group_name'=>$record->group_name,'route_dist'=>$fetch_route_dist,'price'=>$record->price,
@@ -103,6 +116,9 @@ class BloodBankController extends Controller
             $bloodbanks = $query->where('id', '')->get();
             return view('Blood_Booking/bloodB_home', compact('bloodbanks'));
         }
+        }
+
+      
 
     }
 
@@ -248,6 +264,10 @@ class BloodBankController extends Controller
 
     //  Methods for admin 
     public function BloodBank_admin(){
+        if (!Session::has('is_bldadmin_login') || Session::get('is_bldadmin_login') != 1) {
+            return redirect()->route('display.login')->with('error', 'You need to be logged in to access this page.');
+        }
+
         $bank_id=session('bloodBank_id');
         $bloodOrders = DB::table('blood_orders')
         ->where('bank_id', $bank_id)
@@ -270,7 +290,7 @@ class BloodBankController extends Controller
         ->where('order_status','complete')
         ->groupBy('bank_id')
         ->get();
-        $count = $totalOrders[0]->comp_orders;
+        $count = $totalOrders->isNotEmpty() ? $totalOrders->first()->comp_orders : 0;
         
  
     
@@ -301,7 +321,16 @@ class BloodBankController extends Controller
                 ->first();
     
         $earnings = $result->earnings;
-    
+        
+
+        //FETCH DATA OF BLOOD COUNT
+        $bloodRecords = DB::table('blood_bank_blood_group')
+        ->join('blood_group', 'blood_bank_blood_group.blood_group_id', '=', 'blood_group.blood_group_id')
+        ->where('blood_bank_blood_group.blood_bank_id', $bank_id)
+        ->select('blood_bank_blood_group.*', 'blood_group.group_name as blood_group')
+        ->get();
+
+    // return view('your_view', compact('bloodRecords'));
     
     
         return view('Blood_Booking/adminPanel')
@@ -309,7 +338,8 @@ class BloodBankController extends Controller
                ->with('bloodOrders_complete', $bloodOrders_complete)
                ->with('totalOrders', $count)
                ->with('totalOrdersIn24hr', $countIn24hr)
-               ->with('totalEarnings', $earnings);
+               ->with('totalEarnings', $earnings)
+               ->with('bloodRecords', $bloodRecords);
     
        }
     
@@ -319,10 +349,31 @@ class BloodBankController extends Controller
             ->where('order_id', $Order_id)
             ->update(['order_status' => 'complete','paymentStatus'=>'complete']);
 
+            $order = DB::table('blood_orders')
+            ->join('blood_group', 'blood_orders.blood_gr', '=', 'blood_group.group_name')
+            ->select('blood_orders.*', 'blood_group.blood_group_id')
+            ->where('blood_orders.order_id', $Order_id)
+            ->first();
+
+        // Update the blood count in the blood_bank_blood_group table
+             $blood_group_id = $order->blood_group_id;
+             $blood_bank_id = $order->bank_id;
+             $quantity = $order->quantity;
+
+        // Update the blood count in the blood_bank_blood_group table
+             DB::table('blood_bank_blood_group')
+                ->where('blood_bank_id', $blood_bank_id)
+                ->where('blood_group_id', $blood_group_id)
+                ->decrement('count', $quantity);
+
+
             $mailData=[
                 'title'=> 'Blood Booking Confirmation',
-                'body' => 'Thank you for your Blood Booking. Your order ID is: ' . $Order_id . 
-                'We will sortly provide your blood at your given location.',
+                // 'body' => 'Thank you for your Blood Booking. Your order ID is: ' . $Order_id . 
+                // 'We will sortly provide your blood at your given location.',
+                // 'body'=>'Dear [Customer Name],
+                'order'=>$order
+                
             ];
     
            
@@ -333,42 +384,46 @@ class BloodBankController extends Controller
         }
         
       
-    public function delete_order(string $Order_id) {
-        // Delete the record where order_id matches
-        DB::table('blood_orders')
-            ->where('order_id', $Order_id)
-            ->update(['order_status' => 'Not approved','paymentStatus'=>'return']);
-
-            $mailData=[
-                'title'=> 'Blood Booking Order',
-                'body' => 'Your Order is not approved. 
-                Your order ID is: ' . $Order_id . 
-                '. Your bank will credit the amount you paid within three business days.',
-            ];
-    
-           
-            Mail::to(Session::get('user_email'))->send(new Blood_Booking_Confirmation_mail($mailData));
+        public function delete_order(string $Order_id) {
+            $order = DB::table('blood_orders')
+                ->join('blood_group', 'blood_orders.blood_gr', '=', 'blood_group.group_name')
+                ->select('blood_orders.*', 'blood_group.blood_group_id')
+                ->where('blood_orders.order_id', $Order_id)
+                ->first();
         
+            DB::table('blood_orders')
+                ->where('order_id', $Order_id)
+                ->update(['order_status' => 'Not approved', 'paymentStatus' => 'return']);
+        
+            $mailData = [
+                'title' => 'Blood Booking Confirmation',
+                'order' => $order
+            ];
+       
+            Mail::to(Session::get('user_email'))->send(new Blood_Booking_notApprove($mailData));
+            
             return redirect()->back();
+        }
+        
+    //update blood details
+    public function update_blood_details(Request $req)
+    {
+        $bank_id=session('bloodBank_id');
+        $blood_id=$req->bg_id;
+        $count=$req->ucount;
+
+        DB::table('blood_bank_blood_group')
+        ->where('blood_bank_id', $bank_id)
+        ->where('blood_group_id', $blood_id)
+        ->update(['count' => $count]);
+
+      
+      return redirect()->back();
     }
-
-
 
     // ......................to show the orer_history ................. 
     public function orderHistory(){
         $user_id = Session::get('user_id');
-        
-        // $orders = DB::table('payments')
-        // ->select('payments.payment_id', 'payments.order_id','payments.service_type',
-        //          'payments.payment_date','payments.amount','payments.payment_status',
-
-        //          'blood_orders.pat_name', 'blood_orders.pat_age',
-        //          'test_orders.pat_name', 'test_orders.pat_age')
-
-        // ->join('test_orders', 'payments.order_id', '=', 'test_orders.order_id')
-        // ->join('blood_orders', 'payments.order_id', '=', 'blood_orders.order_id')
-        // ->where('payments.user_id', $user_id)
-        // ->get();
 
         $bld_orders = DB::table('blood_orders')
         ->select('*')
@@ -470,16 +525,29 @@ class BloodBankController extends Controller
             ->where('order_id', $order_id)
             ->update(['payment_status' => 'return']);
 
+        $ordera = DB::table('blood_orders')
+            ->join('blood_group', 'blood_orders.blood_gr', '=', 'blood_group.group_name')
+            ->select('blood_orders.*', 'blood_group.blood_group_id')
+            ->where('blood_orders.order_id', $order_id)
+            ->first();
+
+            $blood_group_id = $ordera->blood_group_id;
+            $blood_bank_id = $ordera->bank_id;
+            $quantity = $ordera->quantity;
+
+            DB::table('blood_bank_blood_group')
+            ->where('blood_bank_id', $blood_bank_id)
+            ->where('blood_group_id', $blood_group_id)
+            ->increment('count', $quantity);
+
         // Redirect back with a success message
         $mailData=[
-            'title'=> 'Blood Booking Cancelation',
-            'body' => 'Your Order is Canceled. 
-            Your order ID is: ' . $order_id . 
-            '. Your bank will credit the amount you paid within three business days.',
+              'title' => 'Blood Booking Confirmation',
+            'order' => $order
         ];
 
        
-        Mail::to(Session::get('user_email'))->send(new Blood_Booking_Confirmation_mail($mailData));
+        Mail::to(Session::get('user_email'))->send(new Blood_Booking_cancel($mailData));
         return redirect()->back()->with('success', 'Order canceled successfully.');
 
 
@@ -501,4 +569,66 @@ class BloodBankController extends Controller
         dd('Email send successfully.');
     }
 
+
+
+
+
+
+
+
+    ///for admin details (blood banks's) update
+    public function open_bldBanks_details(){
+        $bank_id=session('bloodBank_id');
+        $data = DB::table('blood_banks')
+        ->where('id', $bank_id)
+        ->first(); // Assuming you're expecting only one result, so using first()
+
+        $districts = DB::table('districts')->pluck('name');
+        
+        return view ('Blood_Booking.Edit_admin_details',['data'=>$data,'districts'=>$districts]);
+    }
+ 
+
+    public function update_bldBanks_details(Request $request){
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'lat' => 'required|string',
+            'lon' => 'required|string',
+            'city' => 'required|string',
+            'phone' => 'required|string',
+            'pin' => 'required|string',
+            'dist' => 'required|string',
+        ]);
+    
+        // Fetch the blood bank record based on user ID
+        $bank_id = session('bloodBank_id');
+        $bloodBank = BloodBank::where('id', $bank_id)->first();
+    
+        if ($bloodBank) {
+            // Update the blood bank record with the validated data
+            $bloodBank->name = $validatedData['name'];
+            $bloodBank->latitude = $validatedData['lat'];
+            $bloodBank->longitude = $validatedData['lon'];
+            $bloodBank->city = $validatedData['city'];
+            $bloodBank->phone = $validatedData['phone'];
+            $bloodBank->pin = $validatedData['pin'];
+            $bloodBank->dist = $validatedData['dist'];
+            
+            // Save the updated record
+            $bloodBank->save();
+    
+            return redirect('/BBadmin');
+        } else {
+            return redirect()->back()->with('error', 'Blood Bank not found');
+        }
+    }
+
+
+    // public function open_bld_details(request $req){
+    //     $bloodRecords=$req->bloodRecords;
+
+    //     return view('Blood_Booking.blood_details',['bloodRecords'=>$bloodRecords]);
+
+    // }
 }
