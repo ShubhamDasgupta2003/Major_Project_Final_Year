@@ -8,60 +8,43 @@
 <head>
     <title>Make Payment</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        p {
-            margin-bottom: 10px;
-        }
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            margin: 0 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
+        .logo
+        {
+            color: rgb(68, 68, 68);
+            text-decoration: none;
+            font-size: 1.7rem;
+            margin-left: 7px;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Order Details - #{{$order_details[0]->invoice_no}}</h1>
-        <p>Name: {{$order_details[0]->patient_name}}</p>
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="height:100vh">
+        <div class="card-body mt-3 bg-light pt-3 pb-3 shadow-lg p-3 mb-5 bg-body rounded" style="width: 35rem;">
+        <div class="row">
+            <div class="col-md-12 text-center mb-3">
+                <a href="#" class="logo"><i class="fa-solid fa-heart-pulse" style="color: #00a896;"></i>Medilities</a>
+            </div>
+        </div>
+    
+        <h3 class="text-center bg-success text-light">Order Details - #{{$order_details[0]->invoice_no}}</h3>
+    <div class="card-body">
+    Name: <h5>{{$order_details[0]->patient_name}}</h5>
+    Contact Number:  <h5>{{$order_details[0]->patient_mobile}}</h5>
+    Booked at:<h5>{{$order_details[0]->patient_booking_address }}</h5>
+    Destination: <h5>{{ $order_details[0]->dest_address}}</h5>
+    Booking date:<h5> {{ $order_details[0]->booking_date}}</h5>
+    Booking time:<h5> {{ $order_details[0]->booking_time}}</h5>
+    Amount:<h5> {{$order_details[0]->amount}}/-</h5>
+    Payment-id:<h5> {{$order_details[0]->payment_id}}</h5>
 
-        <p>Contact Number: {{$order_details[0]->patient_mobile}}</p>
-        <p>Booked at: {{$order_details[0]->patient_booking_address }}</p>
-        <p>Destination: {{ $order_details[0]->dest_address}}</p>
-        <p>Booking date: {{ $order_details[0]->booking_date}}</p>
-        <p>Booking time: {{ $order_details[0]->booking_time}}</p>
-        <p>Amount: {{$order_details[0]->amount}}/-</p>
-
-       
+    </div>
+    
     </div>
 
    
