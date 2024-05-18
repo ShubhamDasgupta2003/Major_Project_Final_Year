@@ -27,7 +27,7 @@
                     <span>Medical Supplies</span></a>
                 </li>
                 <li>
-                    <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/ambulance Srvc admin/amb_srvc_admin.php" ><span class="las la-ambulance"></span>
+                    <a href="{{route('amb_admin_show_data')}}" ><span class="las la-ambulance"></span>
                     <span>Ambulance Service</span></a>
                 </li>
                 <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/Blood_Bank/adminb.php" ><i class="fa-solid fa-building-columns"></i></span>
@@ -82,7 +82,7 @@
             <div class="card-single">
                 <div>
                   
-                    <h1 style="color: #fff;"></h1>
+                    <h1 style="color: #fff;">{{$count}}</h1>
                     <span>Customers</span>
                 </div>
                 <div>
@@ -92,7 +92,7 @@
             <div class="card-single">
                 <div>
                     
-                    <h1 style="color: #fff;"></h1>
+                    <h1 style="color: #fff;">{{$orders}}</h1>
                     <span>orders</span>
                 </div>
                 <div>
@@ -101,7 +101,7 @@
             </div>
             <div class="card-single">
                 <div>
-                    <h1 style="color: #fff;"> &#8377 </h1>
+                    <h1 style="color: #fff;"> &#8377 {{$totalProductrate}}</h1>
                     <span>Income(Current Month)</span>
                 </div>
                 <div>
@@ -115,35 +115,32 @@
             <div class="projects">
                   <div class="card">
                      <div class="card-header">
-                          <h2> Orders</h2>
+                          <h2> Payment </h2>
                           
                      </div>
-                     <div class="card-body">
-                           <table width="100%">
-                            <thead>
-                                <tr>
-                                    <td>Payment ID</td>
-                                    <td>Amount</td>
-                                    <td>Service</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                           
-                            </tbody>
-                           </table>
-                     </div>
+                     <div class="card-body" style="height: 300px; overflow: auto;">
+                        <table width="100%">
+                             <thead>
+                                  <tr>
+                                      <td>Service Type</td>
+                                      <td>User ID</td>
+                                      <td>Amount</td>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  @foreach($pays as $pay)
+                                  <tr>
+                                      <td>{{$pay->service_type}}</td>
+                                      <td>{{$pay->user_id}}</td>
+                                      <td>{{$pay->amount}}</td>
+                                  </tr>
+                                  @endforeach
+                              </tbody>
+                          </table>
+                      </div>
                   </div>
             </div>
-            <div class="customers">
-                <div class="card">
-                    <div class="card-header">
-                         <h2> Customers</h2>
-                         <!--<button> See All <span class="las la-arrow-right"></span></button> -->
-                    </div>
-                    <div class="card-body">
-            
-                    
-            </div>
+           
         </div>
     </main>
    </div>

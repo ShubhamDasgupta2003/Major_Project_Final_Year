@@ -22,16 +22,16 @@
                 </li>
                 <li>
                     <a href="{{url('custom_bed')}}"><span class="las la-hospital"></span>
-                    <span>Customize Hospital Beds</span></a>
+                    <span>Admitted Patients</span></a>
                 </li>
-               {{-- <li>
-                    <a href="/Minor Project 5th_Sem/Emergency_Medical_Support_System/admin panel/bed booking admin/display_update_bed.php"><span class="las la-clipboard-list"></span>
-                    <span>Update Beds</span></a>
-                </li> --}}
-                <li>
+               <li>
+                    <a href="{{url('discharge_pnt')}}"><span class="las la-clipboard-list"></span>
+                    <span>Previous Patients</span></a>
+                </li>
+                {{-- <li>
                     <a href={{url('pnt_verify')}}><span class="las la-hospital"></span>
                     <span>Patient Verification</span></a>
-                </li> 
+                </li>  --}}
             </ul>
         </div>
     </div>
@@ -80,40 +80,26 @@
                     <span class="las la-check-circle" style="color: #fff;"></span>
                 </div>
             </div>
-            <div class="card-single">
-                <div>
+            {{-- <div class="card-single"> --}}
+                {{-- <div> --}}
                      
-                        
+{{-- @php
 
-                     {{-- @php
-                       
-                        use Carbon\Carbon;
-
-                        $startTime = Carbon::now()->subHours(24);
-
-                         $count2 = DB::table('Patient_booking_info')
-                        ->where('hos_name', '=', $pnt_info_all->hos_name)
-                        ->where('pnt_booking_date', '>=', $startTime)
-                        ->count();
-                     @endphp --}}
-@php
-
-// use App\Models\Patient_booking_info;
-// use Carbon\Carbon;
+use App\Models\Patient_booking_info;
+use Carbon\Carbon;
 
 $startTime = Carbon::now()->subHours(24);
 $count = Patient_booking_info::where('pnt_booking_date', '<=', $startTime)->count();
-@endphp
+@endphp --}}
 
 
-                    <h1 style="color: #fff;">{{$count}}</h1>
-                    {{-- <h1 style="color: #fff;">0</h1> --}}
+                    {{-- <h1 style="color: #fff;">{{$count}}</h1>
                     <span>Last 24 Hour Successfull Bookings</span>
-                </div>
-                <div>
+                </div> --}}
+                {{-- <div>
                     <span class="las la-clock" style="color: #fff;"></span>
-                </div>
-            </div>
+                </div> --}}
+            {{-- </div> --}}
             <div class="card-single">
                 <div>
                           {{-- $t=0;

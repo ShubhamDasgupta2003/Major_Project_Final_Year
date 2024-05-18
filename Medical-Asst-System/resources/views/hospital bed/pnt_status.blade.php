@@ -81,25 +81,35 @@
             <hr>
         </div>
         <div class="pnt-details">
-        <p><strong>Name: </strong>sourav paul</p>
-        <p><strong>Id: </strong>PNT755194</p>
-          <p><strong>ContactNo: </strong>8697921086</p>
-          <p><strong>e-mail: </strong>sourav97972@gmail.com</p>
-          <p><strong>Age: </strong>21</p>
-          <p><strong>Gender: </strong>male</p>
-          <p><strong>Address: </strong>27,thakur para road. naihati</p>
-          <p><strong>Pincode: </strong>743165</p>
-          <p><strong>Booking Date: </strong>28-march-2024</p>
+        <p><strong>Name: </strong>{{ $patient->pnt_first_name}} {{ $patient->pnt_last_name}}</p>
+        <p><strong>Id: </strong>{{ $patient->pnt_id}}</p>
+          <p><strong>ContactNo: </strong>{{ $patient->pnt_contactno}}</p>
+          <p><strong>e-mail: </strong>{{ $patient->pnt_email}}</p>
+          <p><strong>Age: </strong>{{ $patient->pnt_age}}</p>
+          <p><strong>Date of Birth: </strong>{{ $patient->pnt_dob}}</p>
+          <p><strong>Gender: </strong>{{ $patient->pnt_gender}}</p>
+          <p><strong>Address: </strong>{{ $patient->pnt_address}}</p>
+          <p><strong>Pincode: </strong>{{ $patient->pnt_pincode}}</p>
+          <p><strong>Booking Date: </strong>{{ $patient->pnt_booking_date}}</p>
         </div>
         <div class="release-btn-class">
-            <a href="#"><button class="release-btn" onclick="showAlert()">Release Patient</button></a>
+            <a href="/pnt_discharge"><button class="release-btn">Release Patient</button></a>
         </div>
         <!-- Bed details will be displayed here -->
     </div>
     <script>
-        function showAlert() {
-    alert("Patient Released!!");
-  }
+
+// function confirmDischarge() {
+//     if (confirm("Please confirm your decision to authorize the discharge of this patient.")) {
+//         // If the user confirms, perform the deletion action here
+//         alert("Discharge confirmed!"); // This is just an example, replace with your deletion logic
+//         //  window.location.href = "newpage.html";
+//     } else {
+//         // If the user cancels, do nothing or provide feedback
+//         alert("Discharge canceled.");
+//     }
+// }
+</script>
     </script>
 </body>
 </html>

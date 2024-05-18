@@ -93,11 +93,41 @@ class HospitalController extends Controller
 
     // for displaying customize hospital beds page (hospital admin) 
     public function CustomBedDesign(){
-        return view('/hospital bed/custom_bed_design');
+        $hos_id = session('hos_id');
+        $pnt_id = session('pnt_id');
+        $hos_info_all= Hospital_info::where('hos_id','=',$hos_id)->first();
+        $hos_name=$hos_info_all->hos_name;
+        $pnt_info_all= Patient_booking_info::where('hos_name','=',$hos_name)
+        ->where('pnt_gender', '=', 'Male')
+        ->where('pnt_booking_status', '=', 'Admitted')
+        ->get();
+        $pnt_info_all_female= Patient_booking_info::where('hos_name','=',$hos_name)
+        ->where('pnt_gender', '=', 'Female')
+        ->where('pnt_booking_status', '=', 'Admitted')
+        ->get();
+        return view('/hospital bed/custom_bed_design')->with([
+            'hos_info_all' => $hos_info_all,
+            'pnt_info_all' => $pnt_info_all,
+            'pnt_info_all_female' => $pnt_info_all_female
+        ]);
     }
-
+// after clicking button 
     public function CustomBedPntDetails(){
-        return view('/hospital bed/pnt_status');
+        $hos_id = session('hos_id');
+        $pnt_id = session('pnt_id');
+        $hos_info_all= Hospital_info::where('hos_id','=',$hos_id)->first();
+        $hos_name=$hos_info_all->hos_name;
+        $pnt_info_all= Patient_booking_info::where('hos_name','=',$hos_name)
+        ->where('pnt_gender', '=', 'Male')
+        ->get();
+        $pnt_info_all_female= Patient_booking_info::where('hos_name','=',$hos_name)
+        ->where('pnt_gender', '=', 'Female')
+        ->get();
+        return view('/hospital bed/pnt_status')->with([
+            'hos_info_all' => $hos_info_all,
+            'pnt_info_all' => $pnt_info_all,
+            'pnt_info_all_female' => $pnt_info_all_female
+        ]);
     }
     // for patient verification  
     public function DisplayPntVerify(){
@@ -138,6 +168,74 @@ class HospitalController extends Controller
             }
             return view('/hospital bed/pnt_verify')->with('hos',$hos_info_all);
         
-    }
+}
+    // public function SearchPnt(Request $request){
+    //     $hos_id = session('hos_id');
+    //     $hos_info_all= Hospital_info::where('hos_id','=',$hos_id)->first();
+    //     $hos_name=$hos_info_all->hos_name;
+    //     $patientId = $request->input('patient_id');
+    //     $pnt_info_1= Patient_booking_info::where('pnt_id',$patientId)
+    //         ->where('hos_name', $hos_name)
+    //         ->first();
+    //     $pnt_booking_status=$pnt_info_1->pnt_booking_status;
+
+    //     if(is_null($pnt_info_1)){
+    //         echo "No Record Found For Id: $patientId";
+    //     }
+    //     if($pnt_booking_status=='Expired'){
+    //         return view('hospital bed/table1');
+        
+    //     }else{
+    //         echo"not";
+           
+    //     }
+
+    // }
     // patient verification functions ends here
+
+    
+    public function PntdataRelease(Request $request , $pnt_id){
+        session(['pnt_id' => $pnt_id]);
+        $patient = Patient_booking_info::where('pnt_id', $pnt_id)->firstOrFail();
+        return view('hospital bed/pnt_status', compact('patient'))->with('pnt_id', $pnt_id);
+    }
+    public function PntDischarge(){
+        $pnt_id = session('pnt_id');
+        // return view('hospital bed/discharge_page')->with('pnt_id', $pnt_id);
+        // $pnt_info_one= Patient_booking_info::where('pnt_id','=',$pnt_id)->get();
+        // $pnt_hos_name=$pnt_info_all->hos_name;
+        // $pnt_gender=$pnt_info_all->pnt_gender;
+        // $hos_info_one= Hospital_info::where('hos_name','=',$pnt_hos_name)->first();
+        // $hos_name=$hos_info_one->hos_name;
+        // $hos_male_bed=$hos_info_one->hos_male_bed_available;
+        // $hos_female_bed=$hos_info_one->hos_female_bed_available;
+        Patient_booking_info::where('pnt_id',$pnt_id)->update([
+            'pnt_booking_status' => "Discharged" 
+        ]);
+
+        // if($pnt_gender=='male'){
+            // Hospital_info::where('hos_name',$hos_name)->update([
+                // 'hos_male_bed_available' => $hos_male_bed +1
+            // ]);
+        // }
+        // elseif($pnt_gender=='female'){
+            // Hospital_info::where('hos_name',$hos_name)->update([
+                // 'hos_female_bed_available' => $hos_female_bed +1
+            // ]); 
+        // }
+        return view ('hospital bed/discharge_page');
+    }
+    public function DisplayDischargePnt(){
+        $hos_id = session('hos_id');
+        $pnt_id = session('pnt_id');
+        $hos_info_all= Hospital_info::where('hos_id','=',$hos_id)->first();
+        $hos_name=$hos_info_all->hos_name;
+        $pnt_info_all= Patient_booking_info::where('hos_name','=',$hos_name)
+        ->where('pnt_booking_status','=',"Discharged")
+        ->get();
+        return view('hos_discharge_pnt')->with([
+            'hos_info_all' => $hos_info_all,
+            'pnt_info_all' => $pnt_info_all
+        ]);
+    }
 }

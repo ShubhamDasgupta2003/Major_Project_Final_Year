@@ -37,14 +37,17 @@
                     $deadline_timestamp=$pnt_info_all->pnt_booking_deadline_timestamp;
                      $deadline_dateTime = Carbon::createFromTimestamp($deadline_timestamp)->toDateTimeString();
                  @endphp
-                 <div class='c2'><strong class='attribute6'>Deadline Date & Time:</strong>{{$deadline_dateTime}}</div>
+                 {{-- <div class='c2'><strong class='attribute6'>Deadline Date & Time:</strong>{{$deadline_dateTime}}</div> --}}
     
-                <p class = 'notice'>Note: Your bed reservation will automatically cancelled if you do not arrive at hospital within four hours of Booking time.</p>
+                {{-- <p class = 'notice'>Note: Your bed reservation will automatically cancelled if you do not arrive at hospital within four hours of Booking time.</p> --}}
         </div>
         <div class="btns">
-            <form method="post"><button name="get_route" class="btn">get route</button></form>
+            {{-- <form method="post"><button name="get_route" class="btn">get route</button></form>
             <a href="{{route('home')}}">
                 <button class="btn">go to homepage</button>
+            </a> --}}
+            <a href="{{route('pnt.exit')}}">
+                <button class="btn">Make Payment</button>
             </a>
         </div>
     </div>

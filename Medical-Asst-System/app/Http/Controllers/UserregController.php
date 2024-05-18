@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User_info;
+use Illuminate\Support\Facades\Session;
 
 class UserregController extends Controller
 {
@@ -57,4 +58,32 @@ class UserregController extends Controller
         $user->save();
         return redirect('/');
     }
+    public function update_data(Request $request){
+        $user_first_name = $request['fname'];
+        $user_last_name = $request['lname'];
+        $user_email = $request['email_id'];
+        $user_contactno = $request['contact_num'];
+        $user_dob = $request['dob'];
+        $user_district = $request['districts'];
+        $user_city = $request['city-vill'];
+        $user_state = $request['state'];
+        $pincode = $request['post_code'];
+      
+        $id = session::get('user_id');
+        
+        $update = User_info::where('user_id', $id)->update([
+            'user_first_name' => $user_first_name,
+            'user_last_name' => $user_last_name,
+            'user_email' => $user_email,
+            'user_contactno' => $user_contactno,
+            'user_dob' => $user_dob,
+            'user_district' => $user_district,
+            'user_city' => $user_city,
+            'user_state' => $user_state,
+            'pincode' => $pincode
+        ]);
+        
+        return redirect('/user_login');
+    }
+    
 }

@@ -1,7 +1,7 @@
  <!-- Footer bar -->
  <footer style="@if(Session::has('bloodB_search_result')) bottom: -1rem; @endif">
     <div class="footer-top">
-        <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>medcare</a>
+        <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>Medilities</a>
         <div class="footer-txt">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta facilis maxime eius ad id qui
             quos quod corporis non minus! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro,

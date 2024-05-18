@@ -46,7 +46,7 @@
 <body>
 
     <div class="container">
-        <h1>User Details:</h1>
+        <h1>User Data</h1>
         <p>Name: {{ $userdata->name }}</p>
         <p>Gender: {{ $userdata->gender }}</p>
         <p>Contact Number: {{ $userdata->contact_num }}</p>
@@ -58,6 +58,7 @@
         <p>Amount to Pay: 500</p>
 
         <div class="button-container">
+            <button id="editBtn">Edit</button>
            <a href="{{route('hcs_payment', ['order_id' => $userdata->order_id, 'amount' => 500  ])}}"> <button id="payBtn">Proceed to Pay</button></a>
         </div>
     </div>

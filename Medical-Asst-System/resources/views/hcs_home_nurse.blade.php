@@ -14,54 +14,6 @@ Aya
         </nav>
     </div>
     <br/>
-    <div class="openModalBtn"><button id="openModalBtn">All Orders &nbsp;<i class="fa fa-history"></i></button></div>
-
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <table id="myTable">
-                <thead>
-                    <tr>
-                        <th scope="col">Order Id</th>
-                        <th scope="col">Order For</th>
-                        <th scope="col">Order Date & Time</th>
-                        <th scope="col">Order Status</th>
-                        <th scope="col">Options</th>
-                    </tr>
-                </thead>
-                <tbody>
-                @foreach ($userdatas as $userdata)
-                    <tr>
-                        <td>{{$userdata->order_id}}</td>
-                        <td>
-                            @if($userdata->order_type == "A")
-                                {{"Aya"}}
-                            @elseif($userdata->order_type == "N")
-                                {{"Nurse"}}
-                            @else
-                                {{"Technician"}}
-                            @endif
-                        </td>
-                        <td>{{$userdata->created_at}}</td>
-                        <td>{{$userdata->order_status}}</td>
-                        <td>
-                            @if($userdata->order_status == "Completed")
-                                <a href="{{route('hcs_add_rating', ['emp_id' => $userdata->emp_id ])}}">
-                                    <button type="button" class="btn btn-primary">Add review</button>
-                                </a>
-                            @elseif($userdata->order_status != "Canceled")
-                                <a href="{{route('user_cancel_order', ['order_id' => $userdata->order_id ])}}">
-                                    <button type="button" class="btn btn-danger">Cancel</button>
-                                </a>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-
     <div class="contents">
         <div class="cards" id="employeeCards">
             @foreach ($employees as $employee)

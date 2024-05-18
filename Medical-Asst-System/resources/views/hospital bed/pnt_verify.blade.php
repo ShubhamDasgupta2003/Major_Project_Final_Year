@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{-- <meta http-equiv="refresh" content="10"> --}}
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Patient Verification</title>
 </head>
 <body>
     <!DOCTYPE html>
@@ -200,12 +200,13 @@
                      </div>
                      <div class="card-body">
                         <section class="search">
-	                        <form action="" method="post">		    
+	                        <form action="{{route('search.patient.id')}}" method="post" id="searchForm">	
+                                @csrf	    
 		                        <input class="box" name="patient_id" placeholder="Enter patient id..." required>		    	
 		                        <button name="submit" class="search-butt box">Search</button>
 	                        </form>
                         </section>
-                                   <table class="table1">
+                                   <table class="table1" id="table1">
                                    <thead>
                                     <tr>
                                         <td>Patient Id.</td>
@@ -238,7 +239,7 @@
                                     </table>
                                 
                                 
-                                   <table class="table2">
+                                   <table class="table2" id="table2">
                                    <thead>
                                     <tr>
                                         <td>Patient Id.</td>
@@ -272,5 +273,36 @@
                      </div>
                   </div>
     </main>
+    <script>
+        setTimeout(function(){
+            location.reload();
+        }, 10000); // 20 seconds
+    </script>
+        {{-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('searchForm');
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            fetch('{{ route('search.search') }}', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.table1) {
+                    document.getElementById('table1').innerHTML = data.table1;
+                    document.getElementById('table1').style.display = 'block';
+                    document.getElementById('table2').style.display = 'none';
+                } else if (data.table2) {
+                    document.getElementById('table2').innerHTML = data.table2;
+                    document.getElementById('table2').style.display = 'block';
+                    document.getElementById('table1').style.display = 'none';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+</script> --}}
 </body>
 </html>

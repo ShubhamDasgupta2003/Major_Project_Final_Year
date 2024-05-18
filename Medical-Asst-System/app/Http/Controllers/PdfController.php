@@ -51,7 +51,7 @@ class PdfController extends Controller
 
 
 
-         $data["email"] = session()->get('user_email');
+        $data["email"] = session()->get('user_email');
 
         $data["title"] = "From Emergency Medical Assistance System";
 
@@ -74,8 +74,7 @@ class PdfController extends Controller
         });
 
   
-
-      
+     
          
          return $pdf->download(session()->get('user_name').'.pdf');
 

@@ -31,6 +31,13 @@
             background: rgb(253,250,255);
             background: linear-gradient(180deg, rgba(253,250,255,1) 0%, rgba(247,255,253,1) 100%);
         }
+        .logo
+        {
+            color: rgb(68, 68, 68);
+            text-decoration: none;
+            font-size: 1.7rem;
+            margin-left: 7px;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -39,7 +46,7 @@
 
 <nav class="navbar navbar-light container-fluid bg-light shadow-sm p-1  bg-body rounded">
             
-            <a class="navbar-brand text-primary ms-5">Navbar</a>
+            <a href="#" class="logo"><i class="fa-solid fa-heart-pulse" style="color: #00a896;"></i>Medilities</a>
 
             <div class="d-flex">
                 <h2 class="me-2 text-light"> 

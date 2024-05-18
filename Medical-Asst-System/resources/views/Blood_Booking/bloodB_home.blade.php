@@ -25,7 +25,7 @@
 <body>
     <!-- header section start -->
     <header class="header">
-        <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>Medical a</a>
+        <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>Medilities</a>
         
         <div class="search-bar" id="srchbar-above">
             <button class="get-location btn" id="get-location-btn" style="width:50px;"><i class="fas fa-map-marker-alt"></i></button>
@@ -64,30 +64,30 @@
     {{-- <div class="cards" id="bloodCard"></div> --}}
     @if(Session::has('bloodB_search_result'))
     @php
-        $banks = Session::get('bloodB_search_result');
+        $route_dist = Session::get('bloodB_search_result');
     @endphp
 
-    @if(count($banks) > 0)
+    @if(count($route_dist) > 0)
     <section class="body-container">
             <div class="contents">
                 <div class="cards">
-                    @foreach($banks as $bank)
+                    @foreach($route_dist as $bank)
                     <div class='card'>
                     <img src='images/BloodB/Blood_Bank.png'>
                     <div class='card-details'>
-                    <h1 class='card-name'>{{$bank->name}}</h1>
-                    <h2 class='card-address'><i class='fa-solid fa-location-dot'></i>{{$bank->city}}, {{$bank->state}}</h2>
+                    <h1 class='card-name'>{{$bank['name']}}</h1>
+                    <h2 class='card-address'><i class='fa-solid fa-location-dot'></i>{{$bank['city']}}, {{$bank['state']}}</h2>
                     
                     <div class='distance-gr'>
-                        <p class='card-type'>Blood Group: <span class='blood-gr'>{{$bank->group_name}}</span></p>
-                        <h2 class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i> 27 Km</h2>
+                        <p class='card-type'>Blood Group: <span class='blood-gr'>{{$bank['group_name']}}</span></p>
+                        <h2 class='card-distance'><i class='fa-solid fa-route fa-lg' style='color: #00b37d;'></i> {{$bank['route_dist']}}</h2>
                     </div>
                     <div class='buy-price'>
                       
-                        <a href="{{ route('blood_booking_form', ['id' => $bank->id, 'name' => $bank->name,'city'=>$bank->city,'state'=>$bank->state,'blood_gr'=>$bank->group_name]) }}"><button class='btn buy'>Buy</button></a>
-                        <p class='card-fare'>&#8377 {{$bank->price}}/-</p>
+                        <a href="{{ route('blood_booking_form', ['id' => $bank['id'], 'name' => $bank['name'],'city'=>$bank['city'],'state'=>$bank['state'],'blood_gr'=>$bank['group_name']]) }}"><button class='btn buy'>Buy</button></a>
+                        <p class='card-fare'>&#8377 {{$bank['price']}}/-</p>
                         @php                          
-                            Session::put('blood_price', $bank->price);
+                            Session::put('blood_price', $bank['price']);
                         @endphp
 
                     </div>

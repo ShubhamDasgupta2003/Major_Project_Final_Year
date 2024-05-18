@@ -29,7 +29,8 @@
         .bed-selector {
             display: flex;
             justify-content: center;
-            width: 800px;
+            /* width: 800px; */
+            height: 800px;
             /* max-height: 80vh; */
             overflow-y: auto;
             border-radius: 3px;
@@ -112,24 +113,26 @@
             /* background-color: red; */
             /* margin-right: 30px; */
             background: #fff;
-            display: flex;
+            /* display: flex; */
             align-items: center;
             justify-content: space-between;
             flex-direction: column;
             box-sizing: border-box;
             padding: 20px;
+            overflow-x: auto;
         }
 
         .female-beds {
             /* background-color: blue; */
             /* margin-right: 30px; */
             background: #fff;
-            display: flex;
+            /* display: flex; */
             align-items: center;
             justify-content: space-between;
             flex-direction: column;
             box-sizing: border-box;
             padding: 20px;
+            overflow-x: auto;
         }
 
         .section-title {
@@ -154,7 +157,7 @@
                 </li>
                 <li>
                     <a href="{{url('custom_bed')}}"class="active"><span class="las la-hospital"></span>
-                    <span>Customize Hospital Beds</span></a>
+                    <span>Admitted Patients</span></a>
                 </li>
             </ul>
         </div>
@@ -186,28 +189,105 @@
             <div class="bed-selector">
                 <!-- Male Beds Section -->
                 <div class="male-beds">
-                    <div class="section-title">Male Beds</div>
+                    <div class="section-title">Male Patients</div>
                     <div class="bed-container male-bed-container">
-                        <!-- Male Beds will be dynamically generated here -->
+                        <div class="card-body">
+                            <table width="100%">
+                             <thead>
+                                 <tr>
+                                     <td>Patient Id.</td>
+                                     {{-- <td>Date & Time</td> --}}
+                                     <td>Patient Name</td>
+                                     <td>Contact Number</td>
+                                     <td>Action</td>
+                                     {{-- <td>Gender</td> --}}
+                                     {{-- <td>DOB</td> --}}
+                                     {{-- <td>Email</td> --}}
+                                     {{-- <td>Address</td> --}}
+                                     {{-- <td>Postal Code</td> --}}
+                                 </tr>
+                             </thead>
+                             @foreach($pnt_info_all as $pnt_info_all)
+                                 <tbody>
+                                     <tr>
+                                                <td>{{$pnt_info_all->pnt_id}}</td>
+                                                {{-- <td>{{$pnt_info_all->pnt_booking_date}}</td> --}}
+                                                <td>{{$pnt_info_all->pnt_first_name}} {{$pnt_info_all->pnt_last_name}}</td>
+                                                <td>{{$pnt_info_all->pnt_contactno}}</td>
+                                                {{-- <td><a href="{{url('custom_bed_pntdata')}}"><button class="edit-btn">Edit/Check Details</button></a></td> --}}
+                                                <td><a href="{{route('release.pnt.data', ['pnt_id' => $pnt_info_all->pnt_id])}}"><button class="edit-btn">Edit/Check Details</button></a></td>
+
+                                                {{-- <a href="{{route('display.hos.info', ['id' => $hos->hos_id])}}">
+                                                    Book Bed</a> --}}
+
+
+                                                {{-- <td>{{$pnt_info_all->pnt_age}}</td> --}}
+                                                {{-- <td>{{$pnt_info_all->pnt_gender}}</td> --}}
+                                                {{-- <td>{{$pnt_info_all->pnt_dob}}</td> --}}
+                                                {{-- <td>{{$pnt_info_all->pnt_email}}</td> --}}
+                                                {{-- <td>{{$pnt_info_all->pnt_address}}</td> --}}
+                                                {{-- <td>{{$pnt_info_all->pnt_pincode}}</td>   --}}
+                                     </tr>
+                                 </tbody>
+                             @endforeach
+                            </table>
+                      </div>
                     </div>
                 </div>
     
                 <!-- Female Beds Section -->
                 <div class="female-beds">
-                    <div class="section-title">Female Beds</div>
+                    <div class="section-title">Female Patients</div>
                     <div class="bed-container female-bed-container">
-                        <!-- Female Beds will be dynamically generated here -->
+                        <div class="bed-container male-bed-container">
+                            <div class="card-body">
+                                <table width="100%">
+                                 <thead>
+                                     <tr>
+                                         <td>Patient Id.</td>
+                                         {{-- <td>Date & Time</td> --}}
+                                         <td>Patient Name</td>
+                                         <td>Contact Number</td>
+                                         <td>Action</td>
+                                         {{-- <td>Gender</td> --}}
+                                         {{-- <td>DOB</td> --}}
+                                         {{-- <td>Email</td> --}}
+                                         {{-- <td>Address</td> --}}
+                                         {{-- <td>Postal Code</td> --}}
+                                     </tr>
+                                 </thead>
+                                 @foreach($pnt_info_all_female as $pnt_info_all_female)
+                                     <tbody>
+                                         <tr>
+                                                    <td>{{$pnt_info_all_female->pnt_id}}</td>
+                                                    {{-- <td>{{$pnt_info_all->pnt_booking_date}}</td> --}}
+                                                    <td>{{$pnt_info_all_female->pnt_first_name}} {{$pnt_info_all_female->pnt_last_name}}</td>
+                                                    <td>{{$pnt_info_all_female->pnt_contactno}}</td>
+                                                    {{-- <td><a href="{{url('custom_bed_pntdata')}}"><button class="edit-btn">Edit/Check Details</button></a></td> --}}
+                                                    <td><a href="{{route('release.pnt.data', ['pnt_id' => $pnt_info_all_female->pnt_id])}}"><button class="edit-btn">Edit/Check Details</button></a></td>
+                                                    {{-- <a href="{{route('display.hos.info', ['id' => $hos->hos_id])}}"> --}}
+                                                    {{-- <td>{{$pnt_info_all->pnt_age}}</td> --}}
+                                                    {{-- <td>{{$pnt_info_all->pnt_gender}}</td> --}}
+                                                    {{-- <td>{{$pnt_info_all->pnt_dob}}</td> --}}
+                                                    {{-- <td>{{$pnt_info_all->pnt_email}}</td> --}}
+                                                    {{-- <td>{{$pnt_info_all->pnt_address}}</td> --}}
+                                                    {{-- <td>{{$pnt_info_all->pnt_pincode}}</td>   --}}
+                                         </tr>
+                                     </tbody>
+                                 @endforeach
+                                </table>
+                          </div>
                     </div>
                 </div>
     
                 <!-- Bed Details Section -->
             </div>
-            <div class="bed-details">
+            {{-- <div class="bed-details">
                 <!-- Bed details will be displayed here -->
-            </div>
+            </div> --}}
         </div>
     </main>
-    <script>
+    {{-- <script>
         // JavaScript code for dynamic bed generation and displaying bed details
         document.addEventListener("DOMContentLoaded", function () {
             const maleBedContainer = document.querySelector('.male-bed-container');
@@ -289,6 +369,6 @@
             // Initialize the interface
             createBeds();
         });
-    </script>
+    </script> --}}
 </body>
 </html>

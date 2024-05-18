@@ -48,10 +48,14 @@
             <a class="navlink" href="#footer">contact Us</a>
         </nav>
     
-    <div class="user-avatar-container">
-        <a href="http://localhost/Minor%20Project%205th_Sem/Emergency_Medical_Support_System/HomePage/profile.php" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
-            
-
+        <div class="user-avatar-container">
+            <a href="{{ route('user_login') }}" id="user-avatar"><i class="fa-solid fa-user fa-lg account-avatar"></i></a>
+            <h3> @if (session()->has('user_name'))
+                {{session()->get('user_name')}}
+                @else
+                 Gust
+                @endif   
+            </h3> 
         </div>
         <div id="menu-btn" class="fa fa-bars"> </div>
 

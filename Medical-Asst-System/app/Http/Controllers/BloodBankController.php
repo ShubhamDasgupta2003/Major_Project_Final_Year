@@ -6,8 +6,12 @@ use App\Models\blood_group;
 use App\Models\Payments_records;
 use App\Models\BloodBank;
 use App\Models\BloodOrder; 
+use App\Models\medical_supplies_order; 
 use App\Models\testOrders; 
+use App\Models\Patient_ambulance;
+use App\Models\Hcs_order;
 use Carbon\Carbon;
+use App\Http\Controllers\AmbulanceDriverPageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -37,7 +41,7 @@ class BloodBankController extends Controller
         $banks = new BloodBank();
         $banks->name = $req->name;
         $banks->email = $req->email;
-        $banks->password = hash::make($req->password);
+        $banks->password = Hash::make($req->password);
         $banks->latitude = $req->lat;
         $banks->longitude = $req->lon;
         $banks->state = $req->state;
@@ -65,6 +69,9 @@ class BloodBankController extends Controller
 
     public function showBloodBanks(request $req)
     {
+        $dist_obj = new AmbulanceDriverPageController;
+        $route_dist = array();
+
         $query = BloodBank::query();
 
         if ($req->ajax()) {
@@ -77,10 +84,22 @@ class BloodBankController extends Controller
                         ->where('group_name', $req->search);
                 })->get();
 
+                foreach($banks as $record)
+                {
+                    // $fetch_route_dist = 500;    //Disable this and enable Line:40 during live test
+        
+                    $fetch_route_dist = $dist_obj->fetchDistance(22.917007138803726,88.43774841554536,$record->latitude,$record->longitude); 
+                    //Calculating the route distance of each ambulance using API
+        
+                    array_push($route_dist,array('name'=>$record->name,'city'=>$record->city,'state'=>$record->state,'group_name'=>$record->group_name,'route_dist'=>$fetch_route_dist,'price'=>$record->price,
+                    'id'=>$record->id));
+                }
+             
             //    $banks = $query->where('id', $req->search)->get();
-            Session::put('bloodB_search_result', $banks);
+            Session::put('bloodB_search_result', $route_dist);
             return response()->json(['success' => true]);
-        } else {
+        } 
+        else {
 
             $bloodbanks = $query->where('id', '')->get();
             return view('Blood_Booking/bloodB_home', compact('bloodbanks'));
@@ -89,14 +108,14 @@ class BloodBankController extends Controller
     }
 
 
-    // Methods for order and payments 
+    // Methods for order and payments n,fdsnfdsnflsal
 
     // step:1 
    public function submitOrder(request $req){
     $validate = $req->validate([
         'pat_name' => 'required',
-        'pat_age' => 'required',
-        'cont_num' => 'required',
+        'pat_age' => 'required|integer|between:1,100',
+        'cont_num' => 'required|regex:/^[0-9]{10}$/',
         'prex' => 'required|mimes:png,jpg,pjpeg',
         'gender' => 'required',
         'address' => 'required',
@@ -104,12 +123,17 @@ class BloodBankController extends Controller
     ], [
         'pat_name.required' => 'Patient name is required.',
         'pat_age.required' => 'Patient age is required.',
+        'pat_age.integer' => 'Patient age must be a number.',
+        'pat_age.between' => 'Patient age must be between 17 and 100.',
         'cont_num.required' => 'Contact number is required.',
+        'cont_num.regex' => 'Contact number must be a 10-digit number.',
         'prex.required' => 'Prescription is required.',
+        'prex.mimes' => 'Prescription must be a file of type: png, jpg, pjpeg.',
         'gender.required' => 'Gender is required.',
         'address.required' => 'Address is required.',
         'landmark.required' => 'Please enter a landmark.',
     ]);
+    
     
     if($req->has('prex')){
         $file=$req->file('prex');
@@ -248,6 +272,8 @@ class BloodBankController extends Controller
         ->groupBy('bank_id')
         ->get();
         $count = $totalOrders[0]->comp_orders;
+        
+ 
     
         //find out order in last 24 hour
         $currentTime = Carbon::now();
@@ -265,7 +291,9 @@ class BloodBankController extends Controller
         ->groupBy('bank_id')
         ->get();
     
-        $countIn24hr = $totalOrdersIn24hr[0]->comp_orders;
+        // $countIn24hr = $totalOrdersIn24hr[0]->comp_orders;
+        $countIn24hr = $totalOrdersIn24hr->isEmpty() ? 0 : $totalOrdersIn24hr[0]->comp_orders;
+
     
         //find out total earnings
         $result = DB::table('blood_orders')
@@ -304,18 +332,27 @@ class BloodBankController extends Controller
     
             return redirect()->back();
         }
-    
+        
       
     public function delete_order(string $Order_id) {
         // Delete the record where order_id matches
         DB::table('blood_orders')
             ->where('order_id', $Order_id)
             ->update(['order_status' => 'Not approved','paymentStatus'=>'return']);
+
+            $mailData=[
+                'title'=> 'Blood Booking Order',
+                'body' => 'Your Order is not approved. 
+                Your order ID is: ' . $Order_id . 
+                '. Your bank will credit the amount you paid within three business days.',
+            ];
     
+           
+            Mail::to(Session::get('user_email'))->send(new Blood_Booking_Confirmation_mail($mailData));
         
             return redirect()->back();
     }
-    
+
 
 
     // ......................to show the orer_history ................. 
@@ -337,55 +374,132 @@ class BloodBankController extends Controller
         $bld_orders = DB::table('blood_orders')
         ->select('*')
         ->where('user_id', $user_id)
+        ->orderBy('date', 'desc')
+        ->orderBy('time', 'desc')
         ->get();
 
+        $medicalorders = medical_supplies_order::where('user_id', session()->get('user_id'))->get();
+ 
 
-        return view('Blood_Booking.orderHistory',['bld_orders'=>$bld_orders]);
+        $amb_ptn_join = Payments_records::join('patient_ambulance','payments.order_id','=','patient_ambulance.invoice_no')->where('patient_ambulance.user_id','=',$user_id)->orderBy('booking_date','DESC')->limit(4)->get();
+        $userdatas = Hcs_order::where('user_id', session()->get('user_id'))->get();
+
+        return view('Blood_Booking.orderHistory',['bld_orders'=>$bld_orders,'amb_orders'=>$amb_ptn_join,'medicalorders'=>$medicalorders,'userdatas'=>$userdatas]);
      }
      
+     public function ordermdelete(Request $req){
+        $order_id = $req->order_id;
 
+        // Retrieve the order time from the database
+        DB::table('medical_supplies_orders')
+        ->where('order_id', $order_id)
+        ->delete();
+        // Extract the time attribute from the retrieved order object
+        $userEmail = session()->get('user_email');
+        $username = session()->get('user_name');
+    $data=[
+        'tittle'=>'Order Cancelled',
+        'date'=>date('m/d/Y'),
+        'username'=>$username,
+        'useremail' => $userEmail,
+     ];
+      $data["email"] = $userEmail ;
+  
+      $data["title"] = "From Emergency Medical Assistance System";
+  
+      $data["body"] = "Your Order has been cancelled . For further inquiry please contact Emergency Medical Assistance System";
+  
+  
+  
+    
+  
+  
+  
+      Mail::send('emails.cancel_order', $data, function($message)use($data) {
+  
+          $message->to($data["email"])
+  
+                  ->subject($data["title"]);
+  
+                 
+      });
+        return redirect()->back();
+       
+
+        
+     }
     public function showOrderDetail(Request $req){
         $order_id=$req->order_id;
 
         $orders = DB::table('blood_orders')
         ->select('*')
         ->where('order_id', $order_id)
-        ->first();;
+        ->first();
 
 
         return view('Blood_Booking/order_details',['detaildorders'=>$orders]);
        
     }
     public function cancelOrder(Request $req){
-        $order_id=$req->order_id;
+        $order_id = $req->order_id;
 
+        // Retrieve the order time from the database
+        $order = DB::table('blood_orders')
+            ->select('time')
+            ->where('order_id', $order_id)
+            ->first();
+
+        // Extract the time attribute from the retrieved order object
+        $order_time = $order->time;
+
+        // Parse the order time using Carbon
+        $orderTime = Carbon::parse($order_time);
+        $currentTime = Carbon::now();
+        $timeDifference = $currentTime->diffInMinutes($orderTime);
+
+        // If the time difference exceeds 30 minutes, disable the cancel button functionality
+        if ($timeDifference > 30) {
+            // Redirect back with a message indicating that the order cannot be canceled
+            return redirect()->back()->with('error', 'Sorry, you cannot cancel this order after 30 minutes.');
+        }
+
+        // Update the order status and payment status
         $update_in_orders = DB::table('blood_orders')
-        ->where('order_id', $order_id)
-        ->update(['paymentStatus' => 'return','order_status'=>'Cancelled']);
+            ->where('order_id', $order_id)
+            ->update(['paymentStatus' => 'return', 'order_status' => 'Cancelled']);
 
         $update_in_payment = DB::table('payments')
-        ->where('order_id', $order_id)
-        ->update(['payment_status' => 'return']);
+            ->where('order_id', $order_id)
+            ->update(['payment_status' => 'return']);
 
+        // Redirect back with a success message
+        $mailData=[
+            'title'=> 'Blood Booking Cancelation',
+            'body' => 'Your Order is Canceled. 
+            Your order ID is: ' . $order_id . 
+            '. Your bank will credit the amount you paid within three business days.',
+        ];
 
-
-        return redirect()->back();
        
+        Mail::to(Session::get('user_email'))->send(new Blood_Booking_Confirmation_mail($mailData));
+        return redirect()->back()->with('success', 'Order canceled successfully.');
+
+
     }
-
-    //...................Used for Mail submittion.............//
-
+        
+            //...................Used for Mail submittion.............//
+        
     public function index(){
         $mailData=[
             'title'=> 'We noticed some unethical behebiar from your device!',
             'body' => 'Dont try to over smart we are loking into your phone
                        and sorty notify an date to capture you at your location'
         ];
-
-       
+    
+    
         Mail::to('pujasarkarpujasarkar403@gmail.com')->send(new Blood_Booking_Confirmation_mail($mailData));
         // Mail::to('jagannathsarkar212@gmail.com')->send(new Blood_Booking_Confirmation_mail($mailData));
-
+    
         dd('Email send successfully.');
     }
 

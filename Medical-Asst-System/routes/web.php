@@ -92,7 +92,7 @@ Route::get('/cancel_order}', [BloodBankController::class, 'cancelOrder'])->name(
 Route::get('/proceedToPay', [BloodBankController::class,'proceedToPay'])->name('proceedToPay');
 Route::get('/process_payment', [BloodBankController::class,'process_payment'])->name('process_payment');
 Route::get('/bld_payment_success',[BloodBankController::class,'paymentSuccess'])->name('bld_payment_sucess');
-
+Route::get('/orderHistory/{order_id}/delete',[BloodBankController::class,'ordermdelete'])->name('orderm.deletem');
 
 // .......................For Blood bank Admin Panel........................ 
 
@@ -111,6 +111,13 @@ Route::post('/confirm_booking', [BloodBankController::class, 'submitOrder'])->na
 
         //   for users login,logout,orders view
 Route::get('/send-cnfrm-mail', [BloodBankController::class, 'index'])->name('bld_cnfm_mail');
+
+//open update page
+Route::get('/update_user_details', [UserLogin::class, 'update_details'])->name('update_user_details');
+
+//update data
+Route::post('/update_data', [UserregController::class, 'update_data'])->name('update_data');
+
 
 
 
@@ -144,7 +151,7 @@ Route::delete('/order_view/{order}/delete',[MedicalSuppliesController::class,'or
 
 Route::get('/order confirmation',[MedicalSuppliesController::class,'order'])->name('medical_supplies.order_confirmation');
 
-
+Route::get('/exit',[MedicalSuppliesController::class,'toexit'])->name('medical_supplies.exit');
 Route::get('/cart',[MedicalSuppliesController::class,'cart'])->name('medical_supplies.cart');
 Route::put('/cart/{cart}/update',[MedicalSuppliesController::class,'update'])->name('cart.update');
 Route::delete('/cart/{cart}/delete',[MedicalSuppliesController::class,'delete'])->name('cart.delete');
@@ -224,6 +231,8 @@ Route::get('/driver-ride-started',[AmbulanceDriverPageController::class,'reachDe
 Route::get('/amb-admin-set-pswd',[newAmbulanceRegistrationController::class,'showCreatePassword'])->name("ambAdminPassForm");
 
 Route::post('/amb-admin-set-pswd',[newAmbulanceRegistrationController::class,'createPassword']);
+
+Route::get('/amb-order-details',[AmbulanceRideRequestController::class,'showOrderdetail'])->name("ambOrderDetails");
 // ---------------------Ambulance Service Routes ends here------------------------
 
 // ---------------------Bed booking Service Routes start here---------------------------
@@ -251,6 +260,11 @@ Route::get('/custom_bed_pntdata',[HospitalController::class,'CustomBedPntDetails
 Route::get('/pnt_verify',[HospitalController::class,'DisplayPntVerify'])->name('display.pnt.verify');
 // Route::get('/hos_form/{id}',[HospitalController::class,'UpdateBedCount'])->name('update.bedCount');
 Route::get('/pnt_verify',[HospitalController::class,'DeadlineCount'])->name('deadlineCount');
+Route::get('/custom_bed_pntdata/{pnt_id}',[HospitalController::class,'PntdataRelease'])->name('release.pnt.data');
+Route::get('/pnt_discharge',[HospitalController::class,'PntDischarge'])->name('pnt.discharge');
+Route::get('/hos_payment', [PatientController::class,'StoreData'])->name('hos.payment');
+Route::get('/exitm',[PatientController::class,'exit'])->name('pnt.exit');
+Route::get('/discharge_pnt',[HospitalController::class,'DisplayDischargePnt'])->name('display.discharge.pnt');
 // ---------------------Bed booking Service Routes end here-----------------------------
 
 // ---------------------Login Routes start here---------------------------
@@ -258,6 +272,8 @@ Route::get('/login',[LoginController::class,'DisplayLogin'])->name('display.logi
 Route::post('/check',[LoginController::class,'FetchServiceData'])->name('login.validate');
 Route::get('/userReg',[UserregController::class,'DisplayForm'])->name('display.user.form');
 Route::post('/user_reg_validate',[UserregController::class,'StoreUserData'])->name('register.user');
+
+
 // ---------------------Login Routes end here-----------------------------
 
 //----------------------- Payment Routes starts here -----------------------

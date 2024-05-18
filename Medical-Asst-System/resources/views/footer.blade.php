@@ -4,7 +4,7 @@ padding-left: 0px;
 padding-right: 0px;
 ">
     <div class="footer-top">
-        <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>Medical Assistant</a>
+        <a href="#" class="logo"><i class="fa-solid fa-heart-pulse"></i>Medilities</a>
         <div class="footer-txt">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta facilis maxime eius ad id qui quos quod corporis non minus! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro, voluptates 
         </div>
